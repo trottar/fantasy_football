@@ -80,3 +80,15 @@ Week 1 completion establishes the practical start of 1.X for data-informed work.
 - One narrow hypothesis -> one targeted diagnostic -> fresh evidence -> inspect -> one coherent patch.
 - Every meaningful code/release checkpoint updates durable memory in the same Git commit.
 - Secrets and raw authenticated data remain local.
+
+<!-- FANTASY_OBSERVABILITY_DURABLE_RULE:BEGIN -->
+## First-class observability rule
+
+Diagnostics/observability are a cross-cutting architectural subsystem, not after-the-fact print statements.
+
+Every significant future subsystem should expose, where applicable: structured events; run/action provenance; invariant checks; bounded snapshots/failure bundles; replay/diff support; privacy/redaction; and enough context to reproduce or diagnose a recommendation change.
+
+GUI diagnostics are included from the beginning. GUI lifecycle, action, service, background-task, render/refresh, and stale-client/state-transition failures must be diagnosable through the same correlation/provenance system.
+
+Diagnostics must observe rather than change physics, manager behavior, random draws, recommendation authority, or GUI business logic.
+<!-- FANTASY_OBSERVABILITY_DURABLE_RULE:END -->

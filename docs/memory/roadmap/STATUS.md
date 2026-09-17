@@ -45,3 +45,79 @@
 - Physical kicker opportunity model.
 - Standings/playoff/championship-equity state.
 - Integrated operational GUI.
+
+<!-- FANTASY_ROADMAP_REVISION_2026_09_17_OBSERVABILITY:BEGIN -->
+## Authoritative roadmap revision — 2026-09-17
+
+This block supersedes the earlier coarse v1.0/v1.1 ordering above where they conflict.
+
+### Phase 0 — reconcile/freeze final 0.X — ACTIVE
+- [x] repository and durable-memory foundation
+- [x] v1.4 raw baseline/v0.36 comparison measurements obtained
+- [x] v1.4 classifier marked representation-incomplete; raw evidence retained
+- [ ] inspect sanitized v1.4 evidence bundle
+- [ ] establish final exact 0.X lineage and GUI fixed-release status
+- [ ] freeze exact source/version/hash/test/commissioning state
+- [ ] preserve Week 2 prospective capture while causally possible
+
+### v1.0A — diagnostics/observability substrate — DEVELOPMENT-ONLY UNTIL PHASE 0 FREEZE
+- [x] architecture/contract adopted
+- [ ] static diagnostic-surface audit of current/baseline candidates
+- [ ] immutable run/action context schema
+- [ ] structured event schema and event registry
+- [ ] human + machine-readable sinks
+- [ ] provenance/config/input hashing
+- [ ] invariant registry
+- [ ] local snapshot/replay/diff contract
+- [ ] failure-bundle contract
+- [ ] privacy/redaction contract and tests
+- [ ] subsystem adapters: player / DST / K / lineup / market / closure
+- [ ] CLI/service/background-task correlation
+- [ ] GUI diagnostics: lifecycle, client/session, page mount/unmount, actions, background tasks, services, render/refresh, stale-client protection
+- [ ] diagnostic overhead/non-interference tests
+- [ ] commissioning criteria and documentation
+
+### v1.0B — immutable observation/evidence layer
+- [ ] immutable Week 1 observations
+- [ ] frozen prediction linkage
+- [ ] transaction/event ledger
+- [ ] availability/workload/opportunity observations
+- [ ] DST component observations
+- [ ] kicker opportunity/yield observations
+- [ ] cumulative evidence index
+
+### v1.0C — Data/MC closure
+- [ ] `week-recap`
+- [ ] player opportunity/efficiency/scoring residuals
+- [ ] DST component closure
+- [ ] kicker closure
+- [ ] league residual distributions
+- [ ] anomaly classification/investigation generation
+- [ ] zero automatic calibration
+
+### v1.1 — cumulative evidence / calibration authorization
+- [ ] residual/pull/coverage accumulation
+- [ ] availability Brier tracking
+- [ ] calibration ledger
+- [ ] evidence thresholds/authorization; no calibration without evidence
+
+### v1.2 — waiver/FA resolver
+- [ ] ordered contingent manager claim lists
+- [ ] league-wide priority/claim/drop resolution
+- [ ] direct vs field vs manager-behavior diagnostics
+- [ ] real transaction evidence integration
+
+### v1.3 — trade engine
+- [ ] systematic 1-for-1 / 1-for-2 / 2-for-1 / 2-for-2 search
+- [ ] football / roster / scarcity / behavior / acceptance diagnostics
+- [ ] package-level response/replay evidence
+
+### v1.4+ — evidence-supported expansion
+- player calibration when authorized by evidence
+- specialist closure/calibration
+- physical kicker opportunity model
+- standings/playoff/championship utility
+- integrated operational GUI consuming typed services
+
+The later integrated GUI phase does not defer GUI diagnostics: GUI observability is built in v1.0A and is a commissioning requirement for later UI work.
+<!-- FANTASY_ROADMAP_REVISION_2026_09_17_OBSERVABILITY:END -->

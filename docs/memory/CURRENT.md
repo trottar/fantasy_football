@@ -40,3 +40,27 @@ Week 1 is complete, so any data-informed development belongs in `1.X`.
 ## Current rule
 
 Do not modify football physics while bootstrapping memory/observability. Evidence and structure first.
+
+<!-- FANTASY_CURRENT_2026_09_17_OBSERVABILITY:BEGIN -->
+## Current state — 2026-09-17 observability transition
+
+Phase 0 remains active until final 0.X lineage is proven.
+
+Measured Phase 0 v1.4 facts:
+- exact public `v0.35-fixed1` baseline retrieval/verification succeeded;
+- local `fantasy_season_v0_36` and `fantasy_season_v0_36.zip` were found and compared to the baseline;
+- v0.36 ZIP comparison measured 23 changed, 3 added, and 7 removed public-safe files relative to the retrieved baseline;
+- non-memory Git porcelain remained unchanged;
+- football/model source was not modified;
+- the v1.4 classifier `FIXED1_NAMED_ARTIFACT_FOUND_NEEDS_CONTENT_VALIDATION` is superseded as representation-incomplete because baseline names containing `fixed1` could trigger it. Raw measurements remain valid and outrank the classifier.
+
+Current authority for final 0.X is still `DEFERRED_PENDING_EVIDENCE_REVIEW`.
+
+In parallel, `v1.0A` diagnostics/observability architecture is active as a development-only engineering phase. It may define schemas, diagnostic tools, static audits, provenance, invariants, replay/failure contracts, and GUI diagnostics, but must not alter football physics or assume a final source baseline before Phase 0 closes.
+
+Immediate order:
+1. inspect Phase 0 v1.4 raw evidence and freeze final 0.X;
+2. preserve prospective Week 2 state while causally possible;
+3. commission the v1.0A observability substrate against the frozen baseline;
+4. proceed to immutable observation ingestion and Data/MC closure.
+<!-- FANTASY_CURRENT_2026_09_17_OBSERVABILITY:END -->

@@ -68,3 +68,15 @@ Do not treat the manifest registry as repaired unless the repair package ends
 with `MANIFEST REPAIR: PUSHED SUCCESSFULLY` and the resulting GitHub commit is
 read-back verified.
 <!-- FANTASY_MANIFEST_REGISTRY_REPAIR_HANDOFF:END -->
+
+<!-- FANTASY_HANDOFF_V10A_OBSERVABILITY_START:BEGIN -->
+## 2026-09-17 transition: Phase 0 evidence + v1.0A start
+
+Phase 0 v1.4 produced valid raw measurements but an invalid high-level classifier. The classifier is superseded because generic `fixed1` name matching could classify the known v0.35-fixed1 baseline artifacts as evidence of v0.36-fixed1. Preserve the raw measurements; do not infer final authority from that classifier.
+
+Final 0.X authority remains deferred pending direct inspection of the v1.4 sanitized evidence bundle and exact v0.36/fixed1 provenance.
+
+In parallel, v1.0A observability design is active. Source integration remains development-only until the final 0.X tree is frozen.
+
+The observability substrate must be modular and include GUI diagnostics from the start. Later phases should plug into one shared run/event/provenance/invariant/failure/replay system rather than inventing subsystem-specific debug scripts.
+<!-- FANTASY_HANDOFF_V10A_OBSERVABILITY_START:END -->

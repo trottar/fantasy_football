@@ -133,3 +133,18 @@ A failed installer/probe can have side effects before a production-file write. T
 
 A meaningful patch ZIP is also a communication checkpoint: implementation, validation state, durable-memory updates, and rollback/provenance information travel together. Set `durable_memory_updated: true` in the package manifest.
 <!-- FANTASY_PROBLEM_SOLVING_METHOD:END -->
+
+<!-- FANTASY_DIAGNOSTIC_COMPATIBILITY_RULE:BEGIN -->
+## Diagnostic compatibility requirement
+
+For significant new modules/phases, ask before commissioning:
+- what structured events exist;
+- what provenance/run context is retained;
+- what invariants can be checked;
+- what failure bundle/reproduction evidence exists;
+- whether private data is redacted;
+- whether diagnostics are proven non-interfering;
+- how GUI action/lifecycle/service/background-task failures are correlated when the subsystem is GUI-facing.
+
+Do not bolt logging on after a failure when the integration boundary can expose a reusable diagnostic contract up front.
+<!-- FANTASY_DIAGNOSTIC_COMPATIBILITY_RULE:END -->

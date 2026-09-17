@@ -41,3 +41,17 @@ Manager behavior kernels may use market/perception features, but football value 
 **Status:** ACTIVE
 
 The first 1.X release establishes Week 1 ingestion, weekly recap, immutable evidence, residual diagnostics, transaction ledger, and investigation machinery with zero automatic parameter adjustment.
+
+<!-- FANTASY_D008_FIRST_CLASS_OBSERVABILITY:BEGIN -->
+## D-008 — First-class diagnostics/observability substrate
+
+**Status:** ACTIVE
+
+The first 1.X engineering layer is `v1.0A`: a modular observability substrate shared by football channels, data sources, market behavior, closure, services, background work, CLI, and GUI.
+
+Diagnostics are observers and may not change physics, decision authority, manager behavior, or random draws.
+
+GUI diagnostics are included from the beginning: lifecycle, session/client, page, action, background-task, service-call, render/refresh, correlation, and stale-client/state-transition evidence are part of the same substrate.
+
+A significant subsystem is not fully commissioned until its relevant structured events, provenance, invariant/failure diagnostics, privacy behavior, and debug/replay evidence are adequate.
+<!-- FANTASY_D008_FIRST_CLASS_OBSERVABILITY:END -->

@@ -53,3 +53,13 @@ When a full release is being built:
 - version/provenance agreement
 
 Distinguish code validation from commissioning when local runtime data is required.
+
+<!-- FANTASY_OBSERVABILITY_TOOLS_RULE:BEGIN -->
+## Observability tooling rule
+
+Prefer shared diagnostic contracts and reusable static/runtime audit tools over one-off debug scripts.
+
+Initial v1.0A tooling includes a source-safe static diagnostic-surface audit that inventories existing logs, prints, exception handling, diagnostics modules, GUI modules, async/background-task/lifecycle surfaces, and likely integration boundaries without executing football/model code.
+
+GUI diagnostics are part of the same toolchain and should retain correlation across UI action -> controller/service -> background task -> render/refresh.
+<!-- FANTASY_OBSERVABILITY_TOOLS_RULE:END -->
