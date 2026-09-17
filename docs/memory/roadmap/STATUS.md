@@ -278,3 +278,28 @@ SHA-256: `01dc3ddce16d828ba91f97058e15ce4102592418a2648049135c24d146826380`
 
 v1.0A status: `READY TO BEGIN`.
 <!-- FANTASY_ROADMAP_V10A_READY_20260917:END -->
+
+<!-- FANTASY_ROADMAP_V10A_CONTEXT_EVENTS_20260917:BEGIN -->
+## v1.0A context + event contract checkpoint
+
+- [x] immutable run/action context schema
+- [x] structured event schema
+- [x] event registry
+- [x] architecture GUI event namespace reserved in registry
+- [x] context/event immutability tests
+- [x] RNG non-interference tests
+- [x] full-suite regression validation
+- [ ] human + machine-readable sinks
+- [ ] provenance/config/input hashing helpers
+- [ ] invariant registry
+- [ ] local snapshot/replay/diff contract
+- [ ] failure-bundle contract
+- [ ] privacy/redaction contract and tests
+- [ ] subsystem adapters
+- [ ] CLI/service/background-task correlation
+- [ ] GUI event emission/integration
+- [ ] diagnostic overhead/non-interference benchmarks
+
+Next narrow checkpoint:
+human/machine sinks plus provenance hashing, still with no production call-site integration.
+<!-- FANTASY_ROADMAP_V10A_CONTEXT_EVENTS_20260917:END -->

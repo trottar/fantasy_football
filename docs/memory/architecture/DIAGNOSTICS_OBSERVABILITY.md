@@ -216,3 +216,39 @@ A significant new subsystem is not fully commissioned until, where applicable:
 7. diagnostic output itself is tested for privacy/redaction;
 8. diagnostics do not alter model results.
 <!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_V1:END -->
+
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_1:BEGIN -->
+## v1.0A implementation checkpoint 1
+
+Implemented contract:
+- `src/observability/context.py`
+  - frozen `RunContext`;
+  - run/action correlation;
+  - timezone-aware timestamps normalized to UTC;
+  - release/source/config/input provenance fields;
+  - week / decision-time / data-as-of / scenario / seed / CRN fields;
+  - child-action derivation without mutating the parent context.
+- `src/observability/registry.py`
+  - immutable event registry;
+  - `NORMAL`, `DIAGNOSTIC`, `TRACE`, `AUDIT` levels;
+  - generic run/action events;
+  - GUI lifecycle/action/service/task/state/render/refresh event names reserved exactly at the contract layer.
+- `src/observability/events.py`
+  - schema version 1;
+  - frozen structured event envelope;
+  - recursively immutable JSON-safe payload;
+  - deterministic JSON rendering;
+  - registry, subsystem, and required-payload validation.
+
+No sink, logger, adapter, invariant engine, replay layer, or production call site is introduced by this checkpoint.
+
+Validation:
+- targeted observability tests: PASS (11);
+- full pytest: PASS (364);
+- full repository compileall: PASS;
+- `git diff --check`: PASS;
+- exact staged allowlist: PASS;
+- no existing football/model/application source file modified;
+- context/event construction RNG non-interference tests: PASS;
+- caller payload immutability/deep-freeze tests: PASS.
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_1:END -->
