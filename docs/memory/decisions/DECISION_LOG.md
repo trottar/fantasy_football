@@ -55,3 +55,19 @@ GUI diagnostics are included from the beginning: lifecycle, session/client, page
 
 A significant subsystem is not fully commissioned until its relevant structured events, provenance, invariant/failure diagnostics, privacy behavior, and debug/replay evidence are adequate.
 <!-- FANTASY_D008_FIRST_CLASS_OBSERVABILITY:END -->
+
+<!-- FANTASY_D009_PRIVYHUB_STYLE_CHECKPOINTS:BEGIN -->
+## D-009 — PrivyHub-style checkpoint authorization and push workflow
+
+**Status:** ACTIVE
+
+Fantasy Football adopts the PrivyHub-style checkpoint boundary:
+
+- durable memory is continuously maintained and pushed through the checkpoint ZIP;
+- diagnostic/probe/audit/observability tooling may advance and be pushed with the same standing authorization;
+- production football/model/application/business logic requires explicit user authorization at the end of the checkpoint;
+- repository writes use the ZIP/PowerShell checkpoint workflow with exact staging allowlists and remote verification;
+- direct GitHub connector writes are not used for project checkpoint pushes.
+
+This decision supersedes earlier generic collaboration wording where it conflicts.
+<!-- FANTASY_D009_PRIVYHUB_STYLE_CHECKPOINTS:END -->

@@ -67,3 +67,17 @@ Update, as applicable:
 
 Memory changes belonging to a patch travel in the same ZIP. The patch itself is a continuation checkpoint containing what changed, what was actually validated, what remains unvalidated, and what comes next.
 <!-- FANTASY_COMMUNICATION_CHECKPOINT_METHOD:END -->
+
+<!-- FANTASY_PRIVYHUB_STYLE_DELIVERY:BEGIN -->
+## Checkpoint delivery model
+
+Follow the PrivyHub-style operational pattern:
+
+`work -> memory/diagnostic update -> ZIP -> local install/validation -> exact allowlist -> push -> remote verification`
+
+Memory changes are not left pending for a separate manual push conversation. If they belong to the checkpoint, the ZIP carries and pushes them.
+
+Diagnostic tooling follows the same workflow and may advance continuously as needed to support investigation and observability.
+
+Production football/model/application code is different: it waits for explicit user authorization at the end of the checkpoint before modification/push.
+<!-- FANTASY_PRIVYHUB_STYLE_DELIVERY:END -->

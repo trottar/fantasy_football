@@ -33,3 +33,16 @@ The repository may remain public. Keep secrets and raw authenticated/private dat
 - Treat ChatGPT GitHub access as read-only unless the user explicitly authorizes a write action.
 - Use GitHub for audit/reference; deliver project changes as local ZIP patches by default.
 <!-- FANTASY_PROCEDURAL_COLLABORATION:END -->
+
+<!-- FANTASY_PRIVYHUB_STYLE_AUTHORIZATION:BEGIN -->
+## PrivyHub-style checkpoint authorization
+
+This rule supersedes narrower earlier wording where it conflicts.
+
+- Durable-memory updates under `docs/memory/**` are part of meaningful checkpoints and should be applied, validated, committed, and pushed by the delivered ZIP/PowerShell workflow without requiring a separate user authorization step for the memory push itself.
+- Diagnostic/probe/audit/logging/observability/replay/failure-bundle tooling may be developed, revised, validated, checkpointed, and pushed with the same standing authorization as durable memory.
+- Football/model/application/business-logic code remains gated: do not modify or push it unless the user explicitly authorizes that production-code step at the end of the relevant checkpoint.
+- If a change mixes diagnostics with production behavior and cannot be cleanly separated, treat it as production code and wait for explicit authorization.
+- Repository pushes should use the project ZIP/PowerShell checkpoint workflow, not direct GitHub connector writes.
+- Checkpoints must use an exact staged allowlist, preserve failure lineage, validate generated memory/manifest output, and respect the public/private data boundary.
+<!-- FANTASY_PRIVYHUB_STYLE_AUTHORIZATION:END -->

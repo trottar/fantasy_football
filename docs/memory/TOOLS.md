@@ -63,3 +63,16 @@ Initial v1.0A tooling includes a source-safe static diagnostic-surface audit tha
 
 GUI diagnostics are part of the same toolchain and should retain correlation across UI action -> controller/service -> background task -> render/refresh.
 <!-- FANTASY_OBSERVABILITY_TOOLS_RULE:END -->
+
+<!-- FANTASY_PRIVYHUB_STYLE_TOOLING_RULE:BEGIN -->
+## PrivyHub-style tooling workflow
+
+Diagnostic tools are treated similarly to durable memory:
+- they may be created and iterated proactively;
+- they travel in self-contained ZIPs;
+- they include provenance, failure history, and validation;
+- they may be checkpointed/pushed without separate production-code authorization;
+- they must remain observational/non-interfering.
+
+Production football/model/application logic does not share this standing authorization.
+<!-- FANTASY_PRIVYHUB_STYLE_TOOLING_RULE:END -->

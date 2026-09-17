@@ -148,3 +148,28 @@ For significant new modules/phases, ask before commissioning:
 
 Do not bolt logging on after a failure when the integration boundary can expose a reusable diagnostic contract up front.
 <!-- FANTASY_DIAGNOSTIC_COMPATIBILITY_RULE:END -->
+
+<!-- FANTASY_PRIVYHUB_STYLE_CHECKPOINT_RULE:BEGIN -->
+## PrivyHub-style memory / diagnostics checkpoint rule
+
+Use the repository ZIP/PowerShell checkpoint workflow for writes.
+
+Standing authorization:
+- memory/documentation under `docs/memory/**`;
+- diagnostic/probe/audit/logging/observability tooling that is observational and non-interfering.
+
+Explicit user authorization required:
+- football/model/application/business-logic changes;
+- any change whose diagnostic/production boundary cannot be cleanly separated.
+
+For memory/diagnostic checkpoints:
+1. inspect current local/remote pre-state;
+2. apply through a self-contained ZIP;
+3. validate installed/generated output;
+4. stage only an explicit allowlist;
+5. push only after local validation;
+6. verify the remote checkpoint;
+7. record failures and successor fixes in durable memory.
+
+Do not use direct GitHub connector writes for project checkpoints.
+<!-- FANTASY_PRIVYHUB_STYLE_CHECKPOINT_RULE:END -->

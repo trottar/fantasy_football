@@ -80,3 +80,16 @@ In parallel, v1.0A observability design is active. Source integration remains de
 
 The observability substrate must be modular and include GUI diagnostics from the start. Later phases should plug into one shared run/event/provenance/invariant/failure/replay system rather than inventing subsystem-specific debug scripts.
 <!-- FANTASY_HANDOFF_V10A_OBSERVABILITY_START:END -->
+
+<!-- FANTASY_PRIVYHUB_STYLE_HANDOFF:BEGIN -->
+## Checkpoint authorization / delivery boundary
+
+Use PrivyHub-style ZIP checkpoints.
+
+- Push durable memory as part of the checkpoint ZIP.
+- Diagnostic/probe/observability tools may be developed and pushed with memory.
+- Do not use direct GitHub connector writes for project checkpoints.
+- Do not modify football/model/application/business logic until the user explicitly authorizes it at the end of the checkpoint.
+
+This rule supersedes earlier generic read-only GitHub wording where it conflicts.
+<!-- FANTASY_PRIVYHUB_STYLE_HANDOFF:END -->

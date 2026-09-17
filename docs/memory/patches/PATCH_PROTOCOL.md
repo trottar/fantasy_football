@@ -55,3 +55,24 @@ Required invariants:
 For `docs/memory/manifest.json`, the intended set is every file recursively under
 `docs/memory` except `docs/memory/manifest.json` itself.
 <!-- FANTASY_GENERATED_MANIFEST_VALIDATION_PROTOCOL:END -->
+
+<!-- FANTASY_PRIVYHUB_STYLE_PUSH_PROTOCOL:BEGIN -->
+## ZIP-only checkpoint push protocol
+
+Project repository writes should be performed through the delivered self-contained ZIP/PowerShell workflow.
+
+For memory/diagnostic checkpoints:
+- inspect the current remote head at runtime;
+- clone/stage in isolation;
+- apply only the reviewed memory/diagnostic payload;
+- validate exact generated output;
+- use an explicit staged allowlist;
+- reject out-of-scope files;
+- re-check the remote head immediately before push;
+- push only if the remote has not moved;
+- verify the remote SHA after push.
+
+Do not use direct GitHub connector writes as the project checkpoint mechanism.
+
+Memory/diagnostic tooling has standing authorization; football/model/application/business-logic changes require explicit user authorization.
+<!-- FANTASY_PRIVYHUB_STYLE_PUSH_PROTOCOL:END -->
