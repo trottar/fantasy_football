@@ -1,6 +1,6 @@
 {
     "schema":  1,
-    "generated_at":  "2026-09-17T00:44:58.6225936-04:00",
+    "generated_at":  "2026-09-17T00:59:34.3250171-04:00",
     "durable_memory_updated":  true,
     "files":  [
                   {
@@ -35,8 +35,8 @@
                   },
                   {
                       "path":  "y/architecture/PROBLEM_SOLVING_METHOD.md",
-                      "bytes":  4203,
-                      "sha256":  "ae499e06d7a18cf893650895bf07b6db2f815ff1ff6b8520208508fa07bffad0"
+                      "bytes":  4346,
+                      "sha256":  "183d47d746d6b6ea9629f35949629c80bfbaeecc6d9a8277d9328ee48a3f557f"
                   },
                   {
                       "path":  "y/architecture/SPECIALIST_CHANNELS.md",
@@ -94,6 +94,11 @@
                       "sha256":  "0472f83d54fba4b0dbb7c03478b1261e2a9d10990b75121dd7be796f5974e75e"
                   },
                   {
+                      "path":  "y/manifest.json",
+                      "bytes":  7896,
+                      "sha256":  "fa8266c1fcd4a04f5b2ed5dd8065a1e1cda5474c90f3bceb6c457ebc6dbca644"
+                  },
+                  {
                       "path":  "y/MEMORY.md",
                       "bytes":  2714,
                       "sha256":  "f581ecbbe2a1f4be3fdded5dac1d47423fafcd8bf6bc43a9e580fa0f23f70853"
@@ -105,8 +110,8 @@
                   },
                   {
                       "path":  "y/memory/2026-09-17.md",
-                      "bytes":  1296,
-                      "sha256":  "10aaaf2e6f96532a2c7fdff7ced1e6e9cf241c1989bae813689aaa6be84120a4"
+                      "bytes":  1328,
+                      "sha256":  "9c6f8f73154b7bb24614c897df006baa4c0f3d29ba61422d1589290637656018"
                   },
                   {
                       "path":  "y/patches/PATCH_PROTOCOL.md",
@@ -140,8 +145,8 @@
                   },
                   {
                       "path":  "y/templates/MEMORY_UPDATE.md",
-                      "bytes":  1333,
-                      "sha256":  "ebf4433d7ce661a6265362976dfaaab1f123fa48a9d02b91d3433bedaddb0a51"
+                      "bytes":  1353,
+                      "sha256":  "a5e2a25e26d351dbbaf498109f064ee12b0f3d729bfb46122b16610f62b148ff"
                   },
                   {
                       "path":  "y/templates/RELEASE.md",
