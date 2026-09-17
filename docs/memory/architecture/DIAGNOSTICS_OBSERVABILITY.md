@@ -286,3 +286,37 @@ Validation:
 - Git provenance dirty/untracked behavior: PASS;
 - provenance-content non-disclosure test: PASS.
 <!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_2:END -->
+
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_3:BEGIN -->
+## v1.0A implementation checkpoint 3
+
+Implemented slice:
+- `src/observability/invariants.py`
+  - immutable invariant definitions/results/registry;
+  - explicit `PASS`, `FAIL`, `SKIP`, `ERROR` states;
+  - architecture-level physics, authority, causality, league-state, separation,
+    and GUI lifecycle invariant names;
+  - context correlation without production enforcement;
+  - safe error results record exception type, not raw exception text.
+- `src/observability/redaction.py`
+  - conservative recursive key redaction;
+  - inline Authorization/cookie/ESPN secret pattern redaction;
+  - caller-supplied exact-value replacement;
+  - binary and recursion-depth conservative fallbacks;
+  - event-dictionary redaction without mutating the original event;
+  - caller-keyed HMAC pseudonymization for correlation-safe identifiers.
+
+No existing sink automatically redacts or persists private runtime data. No
+production call site emits observability events. Integration remains deferred.
+
+Validation:
+- targeted observability tests: PASS (38);
+- full pytest: PASS (391);
+- full repository compileall: PASS;
+- strict memory-health check: PASS;
+- `git diff --check`: PASS;
+- exact staged allowlist: PASS;
+- invariant/redaction RNG non-interference: PASS;
+- deep-copy/non-mutation redaction tests: PASS;
+- secret-bearing exception-message non-disclosure: PASS.
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_3:END -->
