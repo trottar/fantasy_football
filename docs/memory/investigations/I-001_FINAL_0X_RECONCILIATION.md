@@ -71,3 +71,55 @@ exact artifact identity and exact v0.36-fixed1 provenance only.
 
 No football/model/application source was modified or executed.
 <!-- FANTASY_I001_V2_AUTHORITATIVE_ARTIFACT_REVIEW:END -->
+
+<!-- FANTASY_I001_GUI_DIAGNOSTIC_FAILURE_20260917:BEGIN -->
+## GUI-lineage diagnostic failure and tooling QA hold
+
+**Status:** `DIAGNOSTIC TOOLING HOLD / FAILURE RECORDED`
+
+The unique package
+`fantasy_phase0_gui_lineage_isolation_20260917_v1.zip`
+failed during diagnostic execution before any project-memory commit/push.
+
+Observed exception:
+
+```text
+NameError: name 'sys' is not defined
+```
+
+The exception occurred in `run_release_checks()` while attempting to call
+`sys.executable`.
+
+### Classification
+
+`FAILED DURING DIAGNOSTIC EXECUTION / BEFORE MEMORY COMMIT-PUSH`
+
+No football/model/application source was modified.
+
+### Root cause
+
+The delivered script referenced the global name `sys` without importing it.
+
+The prior validation was insufficient:
+- `py_compile` checks syntax, not runtime name resolution;
+- the synthetic self-test did not execute `run_release_checks()`;
+- therefore the actual failing path was not covered before delivery.
+
+### Additional audit findings
+
+The full script audit also found:
+- staging-clone cleanup was not protected by an unconditional `finally`;
+- the GUI-only classifier allowed `fantasy.py` launcher divergence to coexist
+  with GUI changes without forcing a broader classification;
+- `ALREADY APPLIED` protected the remote from duplicate push but did not prove
+  local memory synchronization after a hypothetical push/local-sync split.
+
+### Decision
+
+Pause I-001 GUI-lineage execution until the strengthened diagnostic-tool QA gate
+is checkpointed and the successor passes it.
+
+The successful earlier I-001 result remains authoritative:
+`V036_EXACT_RELEASE_PRESENT_FIXED1_NOT_ESTABLISHED` /
+`V036_LATEST_EXACT_ARTIFACT_FIXED1_UNPROVEN`.
+<!-- FANTASY_I001_GUI_DIAGNOSTIC_FAILURE_20260917:END -->

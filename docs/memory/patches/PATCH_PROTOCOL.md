@@ -97,3 +97,31 @@ For memory checkpoint generation:
 
 The manifest continues to exclude itself from its `files` registry.
 <!-- FANTASY_MANIFEST_GIT_BLOB_PROTOCOL:END -->
+
+<!-- FANTASY_DIAGNOSTIC_QA_RELEASE_GATE:BEGIN -->
+## Diagnostic-tool release gate
+
+Diagnostic/probe/observability tooling has standing development authorization,
+but delivery requires its own QA gate.
+
+For Python diagnostics, where applicable:
+- `py_compile`;
+- undefined-global/static symbol audit;
+- helper-path execution tests;
+- both success and controlled-failure branch tests;
+- classifier boundary/regression tests;
+- temporary-resource cleanup tests;
+- schema-2 Git index/HEAD manifest tests;
+- exact-ZIP extraction and full QA rerun.
+
+Every successor package must have a unique ZIP name and recommended extraction
+directory.
+
+A successfully applied package should be safely rerunnable:
+- validate semantic predecessor/result markers;
+- return `ALREADY APPLIED` when appropriate;
+- do not mistake its own successful remote advancement for a wrong-state error.
+
+Runtime remote SHA should be captured at execution and rechecked immediately
+before push. Semantic state, not only a build-time SHA, determines applicability.
+<!-- FANTASY_DIAGNOSTIC_QA_RELEASE_GATE:END -->

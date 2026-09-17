@@ -89,3 +89,20 @@ the authority:
 Do not use Windows worktree byte hashes as a substitute for Git checkpoint blob
 hashes when `core.autocrlf` or attributes may normalize line endings.
 <!-- FANTASY_MANIFEST_INDEX_TOOL_RULE:END -->
+
+<!-- FANTASY_DIAGNOSTIC_QA_TOOLING_RULE:BEGIN -->
+## Diagnostic tooling QA rule
+
+Diagnostic tools may advance continuously, but they must be treated as software
+under test.
+
+Do not release a probe merely because it compiles. Exercise runtime-critical
+helpers and branch behavior before packaging, then repeat QA on the exact
+delivered ZIP.
+
+For lineage/GUI diagnostics specifically:
+- launcher (`fantasy.py`) divergence is not automatically GUI-only;
+- non-GUI `src/**`, config, or unrelated-test changes force a broader-divergence
+  classification unless separately isolated;
+- GUI lifecycle evidence should remain observational.
+<!-- FANTASY_DIAGNOSTIC_QA_TOOLING_RULE:END -->

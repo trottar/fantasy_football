@@ -69,3 +69,27 @@ Keep these concepts explicit:
 
 Do not claim one from validation of another.
 <!-- FANTASY_MANIFEST_GIT_REPRESENTATION_RULE:END -->
+
+<!-- FANTASY_DIAGNOSTIC_RELEASE_GATE_LEARNING:BEGIN -->
+## Diagnostic tools require runtime-path QA, not only syntax QA
+
+`py_compile` plus a narrow synthetic test is not sufficient for checkpoint
+diagnostic tooling.
+
+Before delivery, diagnostic tooling must execute the same important helper paths
+used in runtime, including success and failure branches.
+
+Minimum release gate:
+1. Python compile/syntax validation;
+2. undefined-global / symbol-table audit;
+3. direct helper-function execution tests;
+4. success and expected-failure branch tests;
+5. classifier boundary tests;
+6. cleanup/finally tests;
+7. Git index + committed-HEAD manifest tests where applicable;
+8. exact delivered-ZIP extraction;
+9. rerun the full QA gate against the exact extracted ZIP.
+
+A diagnostic package that does not exercise its runtime-critical path is not
+package-validated.
+<!-- FANTASY_DIAGNOSTIC_RELEASE_GATE_LEARNING:END -->

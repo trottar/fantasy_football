@@ -106,3 +106,21 @@ ephemeral result ZIP is required.
 
 No football/model/application source change occurred.
 <!-- FANTASY_CURRENT_I001_V2:END -->
+
+<!-- FANTASY_CURRENT_DIAGNOSTIC_QA_HOLD:BEGIN -->
+## Diagnostic QA hold before next I-001 probe
+
+The authoritative Phase 0 result remains:
+
+- classification: `V036_EXACT_RELEASE_PRESENT_FIXED1_NOT_ESTABLISHED`;
+- authority: `V036_LATEST_EXACT_ARTIFACT_FIXED1_UNPROVEN`.
+
+The attempted GUI-lineage diagnostic failed from a tooling defect (`sys` not
+imported) before any memory commit/push or production-source modification.
+
+Current action:
+1. checkpoint the strengthened diagnostic QA protocol;
+2. build the GUI-lineage successor only after it passes the full runtime-path
+   gate;
+3. resume I-001 evidence work without changing football physics.
+<!-- FANTASY_CURRENT_DIAGNOSTIC_QA_HOLD:END -->

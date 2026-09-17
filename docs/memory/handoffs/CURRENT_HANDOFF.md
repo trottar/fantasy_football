@@ -139,3 +139,22 @@ was missing. v2 removed that dependency and reconstructed evidence directly.
 
 Proceed only with the narrow successor implied by this classification.
 <!-- FANTASY_I001_V2_HANDOFF:END -->
+
+<!-- FANTASY_HANDOFF_DIAGNOSTIC_QA_HOLD:BEGIN -->
+## Diagnostic QA checkpoint before GUI-lineage successor
+
+Do not rerun `fantasy_phase0_gui_lineage_isolation_20260917_v1`.
+
+It failed because `run_release_checks()` referenced `sys` without importing it.
+The failure occurred before memory commit/push and before any production-source
+modification.
+
+Before the next GUI-lineage diagnostic:
+- enforce the diagnostic QA release gate;
+- use a new unique ZIP/extraction name;
+- execute release-check helper branches in package QA;
+- audit undefined globals;
+- enforce cleanup with `finally`;
+- treat launcher/non-GUI divergence conservatively;
+- support safe `ALREADY APPLIED` behavior.
+<!-- FANTASY_HANDOFF_DIAGNOSTIC_QA_HOLD:END -->

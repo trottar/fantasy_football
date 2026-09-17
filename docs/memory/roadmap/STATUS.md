@@ -156,3 +156,19 @@ Authority: `V036_LATEST_EXACT_ARTIFACT_FIXED1_UNPROVEN`
 
 No football physics change is authorized by this diagnostic.
 <!-- FANTASY_I001_V2_ROADMAP:END -->
+
+<!-- FANTASY_ROADMAP_DIAGNOSTIC_QA_HOLD:BEGIN -->
+## Phase 0 diagnostic QA checkpoint
+
+- [x] exact v0.36 artifact established
+- [x] v0.36-fixed1 exact artifact/provenance not established
+- [x] GUI-lineage diagnostic failure classified
+- [x] validation gap identified
+- [x] diagnostic-tool QA release gate defined
+- [ ] corrected GUI-lineage diagnostic passes exact-package QA
+- [ ] corrected GUI-lineage diagnostic runtime
+- [ ] final 0.X GUI/commissioning decision
+
+This QA hold changes no football physics and does not supersede the successful
+I-001 v2 evidence result.
+<!-- FANTASY_ROADMAP_DIAGNOSTIC_QA_HOLD:END -->
