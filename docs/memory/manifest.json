@@ -1,192 +1,193 @@
 {
-    "schema":  1,
-    "generated_at":  "2026-09-17T02:49:58.8578444-04:00",
-    "durable_memory_updated":  true,
-    "files":  [
-                  {
-                      "path":  "AGENTS.md",
-                      "bytes":  7396,
-                      "sha256":  "d5578c85e69c83ef3f80309d9833876c768d2c176d8432155a26755268d2996f"
-                  },
-                  {
-                      "path":  "architecture/DATA_MC_CLOSURE.md",
-                      "bytes":  1202,
-                      "sha256":  "f6b9a7defcb1f9ccd7bb6bca47fbe61ee625244f57e6c448fffd7aa71128ea38"
-                  },
-                  {
-                      "path":  "architecture/DIAGNOSTICS_OBSERVABILITY.md",
-                      "bytes":  6820,
-                      "sha256":  "377faeae81db65c3dc57844e9a21226ceb3321edd6ecbc3a9cf955499ddd756e"
-                  },
-                  {
-                      "path":  "architecture/INFORMATION_CAUSALITY.md",
-                      "bytes":  637,
-                      "sha256":  "556a8f07a7951201e15552b3388d9d29496626e0e06a8fc7f83aa9804bf787f7"
-                  },
-                  {
-                      "path":  "architecture/MARKET_MODEL.md",
-                      "bytes":  959,
-                      "sha256":  "0a10a5c04d1be2b5e0b81fbc01e12beea72fdce13cd91e6d85c82d876eaec741"
-                  },
-                  {
-                      "path":  "architecture/PHYSICS_MODEL.md",
-                      "bytes":  1198,
-                      "sha256":  "1779443715d90f3a63c539dbabf3264c21e82b9b4151bd2b85bb4f508f66386a"
-                  },
-                  {
-                      "path":  "architecture/PLAYER_CHANNEL.md",
-                      "bytes":  728,
-                      "sha256":  "176285b57168110edb8affaf396f77f39e0da808c5f368d1ca12d49c2c076c79"
-                  },
-                  {
-                      "path":  "architecture/PROBLEM_SOLVING_METHOD.md",
-                      "bytes":  4346,
-                      "sha256":  "183d47d746d6b6ea9629f35949629c80bfbaeecc6d9a8277d9328ee48a3f557f"
-                  },
-                  {
-                      "path":  "architecture/SPECIALIST_CHANNELS.md",
-                      "bytes":  715,
-                      "sha256":  "d5653b9946301ebe39a24c0cc191e66ad1b39c9039170ccd6d311a5fc4815b21"
-                  },
-                  {
-                      "path":  "architecture/STATE_MODEL.md",
-                      "bytes":  700,
-                      "sha256":  "c675ce150c696cd88432f1d09707004d1ee9ff553a08c709398536bab5edc09b"
-                  },
-                  {
-                      "path":  "chats/README.md",
-                      "bytes":  222,
-                      "sha256":  "d702d3564561bed4fa677c5ba7576cd9a1c87db8395b53ca4fab0c9f617b2f57"
-                  },
-                  {
-                      "path":  "COMMUNICATION.md",
-                      "bytes":  3198,
-                      "sha256":  "8bf533e6d901613175e7edc36e6646f54566f5fb41a636b8629474340617e26c"
-                  },
-                  {
-                      "path":  "CURRENT.md",
-                      "bytes":  3624,
-                      "sha256":  "292f9c63941c407fc222d18a299185bcff067d4593a9a676f13288c4592f3382"
-                  },
-                  {
-                      "path":  "decisions/DECISION_LOG.md",
-                      "bytes":  3308,
-                      "sha256":  "a1483dd4e8a16acedcac17e9069f1701b991b255b0d69d00e07dcdf062d8d3dd"
-                  },
-                  {
-                      "path":  "evidence/OBSERVABILITY_SURFACE_AUDIT_2026-09-17.md",
-                      "bytes":  1702,
-                      "sha256":  "e40fcf0fd7d3ce5b39cd2c65f7c4b2235be4653c91a58848d0868e9c713d521a"
-                  },
-                  {
-                      "path":  "evidence/README.md",
-                      "bytes":  504,
-                      "sha256":  "f13f3659b71949f9fcfc847f54eedcbc4febc69cb589654c3013f74ae099d258"
-                  },
-                  {
-                      "path":  "handoffs/CURRENT_HANDOFF.md",
-                      "bytes":  4517,
-                      "sha256":  "1328b7dd0ebcc46ad128552518402deba73ca9f23c642da6256f9217e3853fd9"
-                  },
-                  {
-                      "path":  "history/PHASE0_PROBE_V14_CLASSIFIER_SUPERSESSION.md",
-                      "bytes":  694,
-                      "sha256":  "d9c4d0a8a20341ba071f52a406a02e5cd29d8d1e5d13893da18eeb0648939bce"
-                  },
-                  {
-                      "path":  "history/README.md",
-                      "bytes":  217,
-                      "sha256":  "236214a041fe2160e4f1173b04609a762620f007d1b3ba7496bc0ab7637a52ab"
-                  },
-                  {
-                      "path":  "investigations/ACTIVE.md",
-                      "bytes":  1018,
-                      "sha256":  "a3e6716e9921167638640eebb3005f535697c0a6a3b71d553e003a680128ef5d"
-                  },
-                  {
-                      "path":  "investigations/I-001_FINAL_0X_RECONCILIATION.md",
-                      "bytes":  1263,
-                      "sha256":  "6d1277d0f6da7918c70a40d47a365f39326df7768d870e67c53c635c7a0e582d"
-                  },
-                  {
-                      "path":  "LEARNINGS.md",
-                      "bytes":  2569,
-                      "sha256":  "f9eb50ca7b4ecaacc6d8e45e6ea82768750dd66af2353bfc5b8fb4e373112b59"
-                  },
-                  {
-                      "path":  "MEMORY.md",
-                      "bytes":  3602,
-                      "sha256":  "6e2078df94351be5096f6c0ecdc7e9a80b56a53ea49def80db4a6501922ee49b"
-                  },
-                  {
-                      "path":  "memory/2026-09-16.md",
-                      "bytes":  2666,
-                      "sha256":  "06648d1ed228a2a15d0346329eeffafee8832ea37275c7a92b1dc4a3f915e03d"
-                  },
-                  {
-                      "path":  "memory/2026-09-17.md",
-                      "bytes":  5124,
-                      "sha256":  "2e5027dd44483358eb907ca92330a78de310ab6cf8fb7f60d23470a55bd55b82"
-                  },
-                  {
-                      "path":  "patches/MANIFEST_REGISTRY_REPAIR_2026-09-17.md",
-                      "bytes":  1636,
-                      "sha256":  "b0ddcdd46a77b22b35abf314fd8da48aea660f420af6ffe4c56d76e8f3873862"
-                  },
-                  {
-                      "path":  "patches/PATCH_PROTOCOL.md",
-                      "bytes":  3296,
-                      "sha256":  "115f4483d7381516af0299ccf95fa9ca108b1efd88139144ac22661e70059766"
-                  },
-                  {
-                      "path":  "README.md",
-                      "bytes":  4096,
-                      "sha256":  "5b935c01af1a2c300dc6d46ba4df8884304d9dee4160e26283c797873dc10f0f"
-                  },
-                  {
-                      "path":  "repository/README.md",
-                      "bytes":  255,
-                      "sha256":  "28f3efa0142e5c939ee874d825b144b1e82beb7145c486cd625eaadae30ffed6"
-                  },
-                  {
-                      "path":  "roadmap/STATUS.md",
-                      "bytes":  4952,
-                      "sha256":  "d22571dafed2f4fdda494b47b87bec579d60003f5439901bb7f34bd214664cfc"
-                  },
-                  {
-                      "path":  "templates/DECISION.md",
-                      "bytes":  240,
-                      "sha256":  "a7ed6fa042c5ab53ce399be09bcc1a3fd49bb4297fadc7da68b0b64ab7678343"
-                  },
-                  {
-                      "path":  "templates/INVESTIGATION.md",
-                      "bytes":  776,
-                      "sha256":  "38e1c36da14e55363b3cc02bec38d3abd7e962d598e7a7a7c9ccb59d8d765a74"
-                  },
-                  {
-                      "path":  "templates/MEMORY_UPDATE.md",
-                      "bytes":  1353,
-                      "sha256":  "a5e2a25e26d351dbbaf498109f064ee12b0f3d729bfb46122b16610f62b148ff"
-                  },
-                  {
-                      "path":  "templates/RELEASE.md",
-                      "bytes":  492,
-                      "sha256":  "56174548ca6d7de71992eeb4ed2da13bdd41c1de45aafc8b2d366c5fb614c074"
-                  },
-                  {
-                      "path":  "templates/WEEKLY_RECAP.md",
-                      "bytes":  1570,
-                      "sha256":  "26b57581a3e67d56e84e85a515c24f3355538dcf47340f8eaff828055048e5cb"
-                  },
-                  {
-                      "path":  "TOOLS.md",
-                      "bytes":  2556,
-                      "sha256":  "6632314e86a1dabe16b8286c1311e6a326dc19422c9afb511a19c24a17603899"
-                  },
-                  {
-                      "path":  "USER.md",
-                      "bytes":  3316,
-                      "sha256":  "1f635472a5d95c59a1ef594e8ba989759b2e21f27080f77ed6a9d8289d134546"
-                  }
-              ]
+  "schema": 2,
+  "representation": "git_index_blob_bytes",
+  "generated_at": "2026-09-17T02:54:50.584282-04:00",
+  "durable_memory_updated": true,
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 7221,
+      "sha256": "e0ce6c0bff50545809ce909663b0d76b4d1a5e4dd36974e710854f81cf11a327"
+    },
+    {
+      "path": "COMMUNICATION.md",
+      "bytes": 3115,
+      "sha256": "61028f48da1e0a7faf9e07913e05e983b5bc447ce0fdfa4a27b0ffce9d0b51cd"
+    },
+    {
+      "path": "CURRENT.md",
+      "bytes": 3558,
+      "sha256": "82a57a76f5a10b68272357ec786963291f43c22a274962e7aaa497d12800ef5d"
+    },
+    {
+      "path": "LEARNINGS.md",
+      "bytes": 3278,
+      "sha256": "cef6e7e2232d6b2ea98afb05c033a30809da2a3dbf8cf0e4d3c923b068bda6b0"
+    },
+    {
+      "path": "MEMORY.md",
+      "bytes": 3508,
+      "sha256": "024f0d1edb47919b753f751945bcf1bb7b62d8938b75c09b9579cb86e24f2690"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4008,
+      "sha256": "709a6be38002378da3e7837e2b5fe8ca5d0b09f8197c45f203e9b6d625f779d2"
+    },
+    {
+      "path": "TOOLS.md",
+      "bytes": 2960,
+      "sha256": "97af6a1927ce1c3bdcbd09562aa4ddd5f2aff3d0c346dee1c970d08484ee8edd"
+    },
+    {
+      "path": "USER.md",
+      "bytes": 3268,
+      "sha256": "b4b515a7004fa658cf0d2fa319fc2b2b36110af77220c012587040bda46cc792"
+    },
+    {
+      "path": "architecture/DATA_MC_CLOSURE.md",
+      "bytes": 1149,
+      "sha256": "fa5ec81fa3e6ccfda79810485ce27c6c09c0b9462fbc21cae9e99b2aa0d7a026"
+    },
+    {
+      "path": "architecture/DIAGNOSTICS_OBSERVABILITY.md",
+      "bytes": 6602,
+      "sha256": "70725d889dbfcae28efb9c4f43b16501203bc58555ba54ff15c1c220780a1df2"
+    },
+    {
+      "path": "architecture/INFORMATION_CAUSALITY.md",
+      "bytes": 619,
+      "sha256": "8fd15b9ffb5dc281f546b158ad2f173c23a898d9ee1962b52d99433af9f25c9e"
+    },
+    {
+      "path": "architecture/MARKET_MODEL.md",
+      "bytes": 923,
+      "sha256": "b3c7501f5288e1c6682ad0e599096c4c8b712d2665369958deadc859c1248240"
+    },
+    {
+      "path": "architecture/PHYSICS_MODEL.md",
+      "bytes": 1173,
+      "sha256": "f71e9491795a318d7289101e4b969086540756861a36f3db47100aad7f9a3f9e"
+    },
+    {
+      "path": "architecture/PLAYER_CHANNEL.md",
+      "bytes": 711,
+      "sha256": "dfdf7ce4e8fa894390bf1d0fba4eca1f2391fcca669fb4d0120447bb2eee687c"
+    },
+    {
+      "path": "architecture/PROBLEM_SOLVING_METHOD.md",
+      "bytes": 4203,
+      "sha256": "ae499e06d7a18cf893650895bf07b6db2f815ff1ff6b8520208508fa07bffad0"
+    },
+    {
+      "path": "architecture/SPECIALIST_CHANNELS.md",
+      "bytes": 690,
+      "sha256": "d0ed46d7271d4a615e63d2bdb8fb81c365dd2ee683b5f7da004e242ea194a2f4"
+    },
+    {
+      "path": "architecture/STATE_MODEL.md",
+      "bytes": 675,
+      "sha256": "67e17b1a6a067ca867b8ed382008e349e9b243f662a1e859cd2a6afa1d96beb0"
+    },
+    {
+      "path": "chats/README.md",
+      "bytes": 217,
+      "sha256": "92b9b57e1ba07bf293bc2939eedecbf00be868032e9425f616b1b3f7d191eb28"
+    },
+    {
+      "path": "decisions/DECISION_LOG.md",
+      "bytes": 3235,
+      "sha256": "b4393ede9984db487fea2f8b24342e71ed00d76bc3cfb327cd907355ecea131e"
+    },
+    {
+      "path": "evidence/OBSERVABILITY_SURFACE_AUDIT_2026-09-17.md",
+      "bytes": 1647,
+      "sha256": "e672f61b897fc32d627250fd1bef02665189df4224fc06f796a757474cebeff0"
+    },
+    {
+      "path": "evidence/README.md",
+      "bytes": 492,
+      "sha256": "2a28cca0bb2223b3ffe824e257a77626bc675adbefb8afe782a88fc274953f38"
+    },
+    {
+      "path": "handoffs/CURRENT_HANDOFF.md",
+      "bytes": 5047,
+      "sha256": "c9325c443f8e709c2ea04cc69e117d31b5698ec4c67439de214aab475346bb3e"
+    },
+    {
+      "path": "history/PHASE0_PROBE_V14_CLASSIFIER_SUPERSESSION.md",
+      "bytes": 681,
+      "sha256": "398f7a710c7a31b71302a6e62f1792fde4d9fe8a57d64fb80c7615fe01ce30de"
+    },
+    {
+      "path": "history/README.md",
+      "bytes": 212,
+      "sha256": "b16cfbd53a0e9ac1e2f32a63682d52b396e4cecd8ada2c90c60a056255f6dfcb"
+    },
+    {
+      "path": "investigations/ACTIVE.md",
+      "bytes": 2108,
+      "sha256": "aef28ff62646d4d39cdacf2fcb49908beff0c02e40bbfbc8e017ee968bd5234a"
+    },
+    {
+      "path": "investigations/I-001_FINAL_0X_RECONCILIATION.md",
+      "bytes": 1240,
+      "sha256": "fbc0afde9e74186da9ecf32a2383d7cc62673153f12a994504307c7d60e611c1"
+    },
+    {
+      "path": "memory/2026-09-16.md",
+      "bytes": 2616,
+      "sha256": "d1104238d4c541d8b9b338f774b59ea4043af18914ddc749f4ecb8976d5023e9"
+    },
+    {
+      "path": "memory/2026-09-17.md",
+      "bytes": 6069,
+      "sha256": "c5ef6ae4dcf2874ed753110d50df6c5fb387636e86afc6ee389bca9cc7ae7121"
+    },
+    {
+      "path": "patches/MANIFEST_REGISTRY_REPAIR_2026-09-17.md",
+      "bytes": 1591,
+      "sha256": "7e683a959f109607f88cf5254292b0366b2884b15af0c8060937cc108bbbe1cb"
+    },
+    {
+      "path": "patches/PATCH_PROTOCOL.md",
+      "bytes": 4012,
+      "sha256": "803cb11e0b04913862b326404891b103e3a2e60a8734f4429937e20d6f6e207d"
+    },
+    {
+      "path": "repository/README.md",
+      "bytes": 246,
+      "sha256": "87e480d4b665c1c412d95619f18f97b749d9b09631c38a9312d660fbed5cb109"
+    },
+    {
+      "path": "roadmap/STATUS.md",
+      "bytes": 4829,
+      "sha256": "c06cd0c5cca3cc902a932f75545c135aff6351773a99ca1cdd7f08d615453802"
+    },
+    {
+      "path": "templates/DECISION.md",
+      "bytes": 221,
+      "sha256": "76354a52d5a56be56a6211f11a33bd011af3d46c1eb29b93b6ae362646bca1c8"
+    },
+    {
+      "path": "templates/INVESTIGATION.md",
+      "bytes": 735,
+      "sha256": "b5846e676b35ecb6416da8a11025963d3a9aee2029d146680127d131252e6bba"
+    },
+    {
+      "path": "templates/MEMORY_UPDATE.md",
+      "bytes": 1333,
+      "sha256": "ebf4433d7ce661a6265362976dfaaab1f123fa48a9d02b91d3433bedaddb0a51"
+    },
+    {
+      "path": "templates/RELEASE.md",
+      "bytes": 458,
+      "sha256": "6d1859ead7fcb04bf80814b120fb96d958a8d2312a26d58206cf1dee08ffaada"
+    },
+    {
+      "path": "templates/WEEKLY_RECAP.md",
+      "bytes": 1488,
+      "sha256": "4b3359e777031c7faf6e85e0e9bdc86da52e92c0f8b089943e23ea14480b1bad"
+    }
+  ]
 }

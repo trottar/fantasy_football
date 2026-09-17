@@ -15,3 +15,29 @@ Audit actual ESPN waiver configuration and transaction semantics. Replace candid
 ## I-004 — Week 1 Data/MC closure
 
 Ingest immutable Week 1 observations and compare them to frozen prospective predictions. Open sub-investigations for structural/input/uncertainty/behavior discrepancies. Do not retune automatically.
+
+<!-- FANTASY_I005_MANIFEST_GIT_BLOB_SEMANTICS:BEGIN -->
+## I-005 — Durable-memory manifest Git-blob semantics
+
+**Status:** ACTIVE / NARROW TOOLING REPAIR
+
+A read-only audit of checkpoint `4b979b4c105f60bdf4f3467b9448b370cf9ce6a2`
+found that `docs/memory/manifest.json` records Windows worktree byte counts and
+SHA-256 values, while Git commits line-ending-normalized blob bytes.
+
+Measured examples:
+- `USER.md`: manifest 3316 bytes; committed Git blob 3268 bytes.
+- `AGENTS.md`: manifest 7396 bytes; committed Git blob 7221 bytes.
+
+The content push itself is valid. This is a registry-representation defect:
+the manifest is currently a worktree-byte registry, not an exact durable
+checkpoint-blob registry.
+
+Decision boundary:
+- repair the generator to hash the staged Git index representation;
+- validate every entry against staged index bytes before commit;
+- after commit, validate every entry against `HEAD:<path>` bytes;
+- preserve `manifest.json` self-exclusion;
+- keep scope to `docs/memory/**`;
+- no football/model/application source change.
+<!-- FANTASY_I005_MANIFEST_GIT_BLOB_SEMANTICS:END -->

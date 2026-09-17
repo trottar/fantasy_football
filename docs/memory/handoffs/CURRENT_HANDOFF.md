@@ -93,3 +93,18 @@ Use PrivyHub-style ZIP checkpoints.
 
 This rule supersedes earlier generic read-only GitHub wording where it conflicts.
 <!-- FANTASY_PRIVYHUB_STYLE_HANDOFF:END -->
+
+<!-- FANTASY_I005_MANIFEST_HANDOFF:BEGIN -->
+## I-005 manifest representation repair
+
+The PrivyHub-style memory/diagnostic workflow is successfully checkpointed at
+`4b979b4c105f60bdf4f3467b9448b370cf9ce6a2`.
+
+A follow-up audit found that the memory manifest still describes Windows
+worktree bytes rather than committed Git blob bytes due line-ending
+normalization. Memory content and scope are valid; exact manifest integrity
+semantics need a narrow tooling repair.
+
+The successor generator must hash staged Git index bytes and validate against
+committed `HEAD` bytes before push.
+<!-- FANTASY_I005_MANIFEST_HANDOFF:END -->

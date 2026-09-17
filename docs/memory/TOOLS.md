@@ -76,3 +76,16 @@ Diagnostic tools are treated similarly to durable memory:
 
 Production football/model/application logic does not share this standing authorization.
 <!-- FANTASY_PRIVYHUB_STYLE_TOOLING_RULE:END -->
+
+<!-- FANTASY_MANIFEST_INDEX_TOOL_RULE:BEGIN -->
+## Git-index manifest tooling
+
+When validating durable-memory checkpoint bytes, use Git index/commit objects as
+the authority:
+- pre-commit: staged index bytes;
+- post-commit: `HEAD` blob bytes;
+- post-push: verified remote commit SHA.
+
+Do not use Windows worktree byte hashes as a substitute for Git checkpoint blob
+hashes when `core.autocrlf` or attributes may normalize line endings.
+<!-- FANTASY_MANIFEST_INDEX_TOOL_RULE:END -->

@@ -50,3 +50,22 @@ For delivered PowerShell packages, statically scan for `$name:` patterns inside
 double-quoted strings when practical. A parser-level failure is classified
 `FAILED BEFORE MODIFICATION` because no script body executes.
 <!-- FANTASY_POWERSHELL_VARIABLE_COLON_RULE:END -->
+
+<!-- FANTASY_MANIFEST_GIT_REPRESENTATION_RULE:BEGIN -->
+## Registry representation must match the authority being verified
+
+A manifest generated from Windows worktree bytes can disagree with the committed
+Git blob when line-ending normalization is active even though the logical text
+is unchanged.
+
+If a registry is intended to verify a Git checkpoint, its bytes/hashes must be
+computed from the staged Git index representation (and then checked against the
+committed `HEAD` representation), not from the platform worktree representation.
+
+Keep these concepts explicit:
+- worktree-byte integrity;
+- staged/index-byte integrity;
+- committed Git-blob integrity.
+
+Do not claim one from validation of another.
+<!-- FANTASY_MANIFEST_GIT_REPRESENTATION_RULE:END -->

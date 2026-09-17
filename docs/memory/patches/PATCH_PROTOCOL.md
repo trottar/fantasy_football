@@ -76,3 +76,24 @@ Do not use direct GitHub connector writes as the project checkpoint mechanism.
 
 Memory/diagnostic tooling has standing authorization; football/model/application/business-logic changes require explicit user authorization.
 <!-- FANTASY_PRIVYHUB_STYLE_PUSH_PROTOCOL:END -->
+
+<!-- FANTASY_MANIFEST_GIT_BLOB_PROTOCOL:BEGIN -->
+## Durable-memory manifest checkpoint semantics
+
+`docs/memory/manifest.json` is a registry of the durable Git checkpoint
+representation, not the Windows worktree byte representation.
+
+For memory checkpoint generation:
+1. apply memory changes;
+2. stage all intended non-manifest memory files;
+3. read each staged file from the Git index;
+4. compute registry byte count and SHA-256 from those staged bytes;
+5. write and stage `manifest.json`;
+6. validate every manifest entry against the staged index;
+7. commit;
+8. validate every manifest entry again against `HEAD:<path>`;
+9. only then push;
+10. verify the remote commit SHA.
+
+The manifest continues to exclude itself from its `files` registry.
+<!-- FANTASY_MANIFEST_GIT_BLOB_PROTOCOL:END -->
