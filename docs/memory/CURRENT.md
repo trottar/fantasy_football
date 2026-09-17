@@ -239,3 +239,53 @@ Live browser GUI commissioning is still `PENDING`; v1.0A implementation remains 
 
 State: `SOURCE IMPORTED / RELEASE RUNTIME-VALIDATED / AUTOMATED GUI GATE PASS / LIVE GUI PENDING`.
 <!-- FANTASY_V036_REPACK1_IMPORT_GUI_GATE_20260917_V1:END -->
+
+<!-- FANTASY_V036_REPACK1_LIVE_GUI_COMMISSIONED_20260917_V1:BEGIN -->
+## v0.36-repack1 live commissioning closure
+
+Timestamp: `2026-09-17T12:09:41.522486-04:00`
+
+Pre-commission GitHub main:
+`8d4d95f8a12f1168372280381c75285bf5133647`
+
+Release:
+`v0.36-repack1` artifact revision, internal `VERSION = 0.36`.
+
+Automated validation already completed at the production checkpoint:
+- exact repaired ZIP validated;
+- targeted mock-calibration tests passed;
+- candidate and exact-ZIP compileall passed;
+- candidate and exact-ZIP full pytest passed;
+- automated GUI gate passed across 17 GUI-focused test files;
+- GUI lifecycle invariants passed;
+- GUI safe-module imports passed;
+- `gui` and `draft-gui` CLI/parser smoke passed.
+
+Live GUI commissioning:
+- operator completed the supplied live commissioning workflow;
+- service-layer smoke and live GUI launch completed without reported issue;
+- dashboard interaction/recompute/refresh workflow completed without reported issue;
+- historical deleted-client lifecycle failure was not observed;
+- operator reported: "everything ran with no issues".
+
+Evidence classification:
+`OPERATOR-CONFIRMED LIVE RUNTIME COMMISSIONING`.
+
+This is intentionally distinct from instrumented/automated log evidence. The
+live commissioning conclusion is based on direct operator confirmation; the
+automated release/GUI validation is separately machine-measured and already
+durable.
+
+Result:
+`v0.36-repack1 = COMMISSIONED`.
+
+The pre-v1.0A release gate is closed. v1.0A observability implementation is
+`READY TO BEGIN`.
+
+Current development boundary:
+- Phase 0: COMPLETE
+- v0.36 source import: COMPLETE
+- v0.36-repack1 automated validation: COMPLETE
+- live GUI commissioning: COMPLETE
+- v1.0A observability: READY TO BEGIN / NOT YET IMPLEMENTED
+<!-- FANTASY_V036_REPACK1_LIVE_GUI_COMMISSIONED_20260917_V1:END -->

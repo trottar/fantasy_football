@@ -255,3 +255,26 @@ authorization.
 Release artifact: `fantasy_season_v0_36_repack1.zip`
 SHA-256: `01dc3ddce16d828ba91f97058e15ce4102592418a2648049135c24d146826380`
 <!-- FANTASY_ROADMAP_V036_REPACK1_20260917:END -->
+
+<!-- FANTASY_ROADMAP_V10A_READY_20260917:BEGIN -->
+## Pre-v1.0A release gate
+
+- [x] Phase 0 final lineage resolution
+- [x] durable v0.36 source import
+- [x] packaging-only repack1 repair
+- [x] targeted fixture validation
+- [x] full pytest + compileall
+- [x] automated GUI test/lifecycle/import/CLI gate
+- [x] exact repaired ZIP validation
+- [x] live browser GUI commissioning
+- [x] historical deleted-client failure absent in commissioning run
+- [ ] v1.0A immutable run/action context
+- [ ] v1.0A structured event schema/registry
+- [ ] v1.0A sinks/logging/provenance
+- [ ] v1.0A invariants
+- [ ] v1.0A snapshot/replay/diff/failure bundles
+- [ ] v1.0A privacy/redaction
+- [ ] v1.0A subsystem/GUI adapters
+
+v1.0A status: `READY TO BEGIN`.
+<!-- FANTASY_ROADMAP_V10A_READY_20260917:END -->
