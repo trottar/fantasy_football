@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-17T12:22:31.016074-04:00",
+  "generated_at": "2026-09-17T12:43:20.530053-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 14108,
-      "sha256": "de4c1d4dae4f873075d501ef98a4c2b8213a97a3fa007a0a6efc086de2038c2a"
+      "bytes": 16293,
+      "sha256": "e314a52048d59b75ddab76d6ebcc74f2c4f200cc509cdfa58ed0473330a5affb"
     },
     {
       "path": "LEARNINGS.md",
@@ -26,8 +26,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 9413,
-      "sha256": "a4d5d6ba0c1d32a356805e3dc587b6a0864ef7f10ca1ca8e3878eebed1601c12"
+      "bytes": 11578,
+      "sha256": "c0379aa01100fcefbdda225507aef8b2f23662d57e32b9ce905e486216906174"
     },
     {
       "path": "README.md",
@@ -51,8 +51,8 @@
     },
     {
       "path": "architecture/DIAGNOSTICS_OBSERVABILITY.md",
-      "bytes": 8089,
-      "sha256": "bfb32c6685f6facfdcf13139aca18c558f97793deb31f099bf12b7b1e8ed7082"
+      "bytes": 9507,
+      "sha256": "dcf966e69f0733fab542f8c2028f6c2684d4e5bdf6d6dc5b21d8d7b6e6e2fcec"
     },
     {
       "path": "architecture/INFORMATION_CAUSALITY.md",
@@ -115,6 +115,11 @@
       "sha256": "89f2757ea2e6903475b9a2090ea7c86d88b8a9dea58787cbba72c0f309e08f27"
     },
     {
+      "path": "decisions/D-014_V10A_SINKS_PROVENANCE.md",
+      "bytes": 726,
+      "sha256": "f924708400d29e049c13dbef2324939751aef95b5e4b31ceb85c299dd01bd881"
+    },
+    {
       "path": "decisions/DECISION_LOG.md",
       "bytes": 3235,
       "sha256": "b4393ede9984db487fea2f8b24342e71ed00d76bc3cfb327cd907355ecea131e"
@@ -160,9 +165,14 @@
       "sha256": "378d52435f5316a9bf35b0ed4516a901831e9acd4af65320fa600308e8708778"
     },
     {
+      "path": "evidence/V10A_SINKS_PROVENANCE_2026-09-17.md",
+      "bytes": 2206,
+      "sha256": "993423f72e821c2029ac7a69a604342fd7eef1240d57576e958b21eeedb3be15"
+    },
+    {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 15521,
-      "sha256": "3ea2605ce825e2dcbbfa31f694d155f3cd22525bc2708e3951e1ddca3c545b11"
+      "bytes": 17778,
+      "sha256": "dd327580f1114f922b616a930db056b06e3f0c9797de26924ab76e1cdbd3d5ff"
     },
     {
       "path": "history/PHASE0_PROBE_V14_CLASSIFIER_SUPERSESSION.md",
@@ -191,8 +201,8 @@
     },
     {
       "path": "memory/2026-09-17.md",
-      "bytes": 16451,
-      "sha256": "29f6eedbf905cd36a16f94bb9b5d0ef00b38dee5564cf1898a38b28154ea2ffb"
+      "bytes": 18628,
+      "sha256": "dea3f71034e39cae6a59f079217b2618d232584ad7cf438878f1fa9f04615554"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -216,8 +226,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 11935,
-      "sha256": "c2267a53c08c06ecb45d8dce0d718e8787d7e6fe3152cb853401074efe5f9309"
+      "bytes": 12828,
+      "sha256": "d8c6eaf8af5b87975f2c04580ecc94be1cb9214e0b932aa259463e863eb3b26b"
     },
     {
       "path": "templates/DECISION.md",

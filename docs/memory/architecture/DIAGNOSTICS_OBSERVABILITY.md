@@ -252,3 +252,37 @@ Validation:
 - context/event construction RNG non-interference tests: PASS;
 - caller payload immutability/deep-freeze tests: PASS.
 <!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_1:END -->
+
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_2:BEGIN -->
+## v1.0A implementation checkpoint 2
+
+Implemented slice:
+- `src/observability/sinks.py`
+  - explicit `EventSink` protocol;
+  - thread-safe in-memory sink;
+  - append-only JSONL machine sink;
+  - concise human-text sink with payload omitted by default;
+  - explicit fanout and batch emission helpers.
+- `src/observability/provenance.py`
+  - exact-byte SHA-256;
+  - canonical semantic JSON SHA-256;
+  - file and JSON-file hashing;
+  - release-version reader;
+  - Git HEAD + tracked-dirty provenance with untracked files ignored;
+  - frozen `SourceProvenance` compatible with `RunContext`;
+  - `collect_provenance()` returns hashes/identity only, never file contents.
+
+No production call site emits events yet. No global logger/sink is installed. Persistent sinks are not wired to private/authenticated runtime data before the redaction contract exists.
+
+Validation:
+- targeted observability tests: PASS (22);
+- full pytest: PASS (375);
+- full compileall: PASS;
+- `git diff --check`: PASS;
+- exact staged allowlist: PASS;
+- sink/provenance RNG non-interference: PASS;
+- human sink default payload omission: PASS;
+- canonical JSON order-independence and exact-byte sensitivity: PASS;
+- Git provenance dirty/untracked behavior: PASS;
+- provenance-content non-disclosure test: PASS.
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_2:END -->

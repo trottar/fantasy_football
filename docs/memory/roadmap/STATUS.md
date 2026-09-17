@@ -303,3 +303,26 @@ v1.0A status: `READY TO BEGIN`.
 Next narrow checkpoint:
 human/machine sinks plus provenance hashing, still with no production call-site integration.
 <!-- FANTASY_ROADMAP_V10A_CONTEXT_EVENTS_20260917:END -->
+
+<!-- FANTASY_ROADMAP_V10A_SINKS_PROVENANCE_20260917:BEGIN -->
+## v1.0A sinks + provenance checkpoint
+
+- [x] immutable run/action context schema
+- [x] structured event schema and event registry
+- [x] human-readable sink contract
+- [x] JSONL machine sink contract
+- [x] in-memory/fanout sink contracts
+- [x] provenance/config/input hashing helpers
+- [x] source commit + tracked-dirty provenance
+- [x] sink/provenance non-interference tests
+- [ ] invariant registry
+- [ ] privacy/redaction contract and tests
+- [ ] local snapshot/replay/diff contract
+- [ ] failure-bundle contract
+- [ ] subsystem adapters
+- [ ] CLI/service/background-task correlation
+- [ ] GUI event emission/integration
+- [ ] diagnostic overhead benchmarks
+
+Next narrow checkpoint: invariant registry + privacy/redaction primitives before production event emission.
+<!-- FANTASY_ROADMAP_V10A_SINKS_PROVENANCE_20260917:END -->
