@@ -203,3 +203,16 @@ failure.
 
 Current diagnosis: `V036_SPECIFIC_DETERMINISTIC_TEST_REGRESSION`.
 <!-- FANTASY_V036_PYTEST_DIAGNOSIS_ROADMAP_20260917:END -->
+
+<!-- FANTASY_V036_FIXTURE_RESTORATION_ROADMAP_20260917:BEGIN -->
+## Phase 0 fixture-regression checkpoint
+
+- [x] v0.36 deterministic failures isolated
+- [x] failing tests tied to missing mock-calibration fixtures
+- [x] fixture-only restoration tested in disposable v0.36 extraction
+- [x] targeted failures rerun before/after restoration
+- [x] full v0.36 suite rerun after restoration
+- [ ] final 0.X release-authority / packaging decision
+
+Classification: `V036_RELEASE_PACKAGING_FIXTURE_REGRESSION_CONFIRMED`.
+<!-- FANTASY_V036_FIXTURE_RESTORATION_ROADMAP_20260917:END -->

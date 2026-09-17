@@ -161,3 +161,18 @@ v0.35-fixed1 baseline pytest exit: `0`
 Final 0.X authority should use this diagnosis together with the established fact
 that local extracted v0.36 has no source delta from the exact v0.36 ZIP.
 <!-- FANTASY_CURRENT_V036_PYTEST_DIAGNOSIS_20260917:END -->
+
+<!-- FANTASY_CURRENT_V036_FIXTURE_RESTORATION_20260917:BEGIN -->
+## Current Phase 0 fixture-regression result
+
+Classification:
+`V036_RELEASE_PACKAGING_FIXTURE_REGRESSION_CONFIRMED`
+
+The two deterministic v0.36 failures disappear after restoring only the four missing baseline mock-draft fixtures, and the full v0.36 suite then passes.
+
+This probe changes only disposable test fixtures. It does not modify or tune
+football physics.
+
+The final 0.X decision should distinguish a release-packaging defect from a
+football/model/source defect.
+<!-- FANTASY_CURRENT_V036_FIXTURE_RESTORATION_20260917:END -->

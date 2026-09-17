@@ -196,3 +196,16 @@ Exact v0.35-fixed1 failing nodes:
 Use the captured evidence before making the final 0.X authority/commissioning
 decision. Do not reinterpret `pytest=1` without the recorded node-level result.
 <!-- FANTASY_V036_PYTEST_DIAGNOSIS_HANDOFF_20260917:END -->
+
+<!-- FANTASY_V036_FIXTURE_RESTORATION_HANDOFF_20260917:BEGIN -->
+## Phase 0 fixture-restoration result
+
+Classification: `V036_RELEASE_PACKAGING_FIXTURE_REGRESSION_CONFIRMED`
+
+The two deterministic v0.36 failures disappear after restoring only the four missing baseline mock-draft fixtures, and the full v0.36 suite then passes.
+
+Use this result to decide whether v0.36 requires only a release-packaging repair
+or whether broader source correction remains necessary.
+
+No production source was changed.
+<!-- FANTASY_V036_FIXTURE_RESTORATION_HANDOFF_20260917:END -->
