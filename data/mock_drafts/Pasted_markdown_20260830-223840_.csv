@@ -1,0 +1,193 @@
+overall,round,round_pick,fantasy_team_name,player_name,nfl_team,position
+1,1,1,Beef Curtain,Jahmyr Gibbs,DET,RB
+2,1,2,I'm sorry Wilson!,Christian McCaffrey,SF,RB
+3,1,3,You Make My Poll(e)ard,Puka Nacua,LAR,WR
+4,1,4,Lips is Lips,Bijan Robinson,ATL,RB
+5,1,5,Clam Jammers,Ja'Marr Chase,CIN,WR
+6,1,6,Quin(yon)t,Jonathan Taylor,IND,RB
+7,1,7,Hock N' Roll,Jaxon Smith-Njigba,SEA,WR
+8,1,8,Conner? I barely know her,Amon-Ra St. Brown,DET,WR
+9,1,9,Strictly Business,De'Von Achane,MIA,RB
+10,1,10,Team Rabasco,James Cook III,BUF,RB
+11,1,11,Adrian Peter's Pub,Justin Jefferson,MIN,WR
+12,1,12,Young Money McMillanaire,Saquon Barkley,PHI,RB
+13,2,1,Young Money McMillanaire,CeeDee Lamb,DAL,WR
+14,2,2,Adrian Peter's Pub,Derrick Henry,BAL,RB
+15,2,3,Team Rabasco,Omarion Hampton,LAC,RB
+16,2,4,Strictly Business,Chase Brown,CIN,RB
+17,2,5,Conner? I barely know her,Drake London,ATL,WR
+18,2,6,Hock N' Roll,Ashton Jeanty,LV,RB
+19,2,7,Quin(yon)t,A.J. Brown,NE,WR
+20,2,8,Clam Jammers,Chris Olave,NO,WR
+21,2,9,Lips is Lips,Kenneth Walker III,KC,RB
+22,2,10,You Make My Poll(e)ard,Jeremiyah Love,ARI,RB
+23,2,11,I'm sorry Wilson!,Josh Allen,BUF,QB
+24,2,12,Beef Curtain,Trey McBride,ARI,TE
+25,3,1,Beef Curtain,Nico Collins,HOU,WR
+26,3,2,I'm sorry Wilson!,Breece Hall,NYJ,RB
+27,3,3,You Make My Poll(e)ard,Brock Bowers,LV,TE
+28,3,4,Lips is Lips,Garrett Wilson,NYJ,WR
+29,3,5,Clam Jammers,Rashee Rice,KC,WR
+30,3,6,Quin(yon)t,Malik Nabers,NYG,WR
+31,3,7,Hock N' Roll,George Pickens,DAL,WR
+32,3,8,Conner? I barely know her,Javonte Williams,DAL,RB
+33,3,9,Strictly Business,Tetairoa McMillan,CAR,WR
+34,3,10,Team Rabasco,Kyren Williams,LAR,RB
+35,3,11,Adrian Peter's Pub,DeVonta Smith,PHI,WR
+36,3,12,Young Money McMillanaire,Zay Flowers,BAL,WR
+37,4,1,Young Money McMillanaire,Ladd McConkey,LAC,WR
+38,4,2,Adrian Peter's Pub,Emeka Egbuka,TB,WR
+39,4,3,Team Rabasco,Davante Adams,LAR,WR
+40,4,4,Strictly Business,Travis Etienne Jr.,NO,RB
+41,4,5,Conner? I barely know her,Tee Higgins,CIN,WR
+42,4,6,Hock N' Roll,Quinshon Judkins,CLE,RB
+43,4,7,Quin(yon)t,Colston Loveland,CHI,TE
+44,4,8,Clam Jammers,Bhayshul Tuten,JAX,RB
+45,4,9,Lips is Lips,Bucky Irving,TB,RB
+46,4,10,You Make My Poll(e)ard,Jaylen Waddle,DEN,WR
+47,4,11,I'm sorry Wilson!,Josh Jacobs,GB,RB
+48,4,12,Beef Curtain,Cam Skattebo,NYG,RB
+49,5,1,Beef Curtain,D'Andre Swift,CHI,RB
+50,5,2,I'm sorry Wilson!,Tyler Warren,IND,TE
+51,5,3,You Make My Poll(e)ard,Terry McLaurin,WSH,WR
+52,5,4,Lips is Lips,Jameson Williams,DET,WR
+53,5,5,Clam Jammers,David Montgomery,HOU,RB
+54,5,6,Quin(yon)t,Rome Odunze,CHI,WR
+55,5,7,Hock N' Roll,Jayden Daniels,WSH,QB
+56,5,8,Conner? I barely know her,Jadarian Price,SEA,RB
+57,5,9,Strictly Business,DJ Moore,BUF,WR
+58,5,10,Team Rabasco,Carnell Tate,TEN,WR
+59,5,11,Adrian Peter's Pub,Drake Maye,NE,QB
+60,5,12,Young Money McMillanaire,TreVeyon Henderson,NE,RB
+61,6,1,Young Money McMillanaire,Lamar Jackson,BAL,QB
+62,6,2,Adrian Peter's Pub,Rhamondre Stevenson,NE,RB
+63,6,3,Team Rabasco,Joe Burrow,CIN,QB
+64,6,4,Strictly Business,Jalen Hurts,PHI,QB
+65,6,5,Conner? I barely know her,Harold Fannin Jr.,CLE,TE
+66,6,6,Hock N' Roll,DK Metcalf,PIT,WR
+67,6,7,Quin(yon)t,Dak Prescott,DAL,QB
+68,6,8,Clam Jammers,Kyle Pitts Sr.,ATL,TE
+69,6,9,Lips is Lips,Sam LaPorta,DET,TE
+70,6,10,You Make My Poll(e)ard,Tony Pollard,TEN,RB
+71,6,11,I'm sorry Wilson!,Courtland Sutton,DEN,WR
+72,6,12,Beef Curtain,Michael Pittman Jr.,PIT,WR
+73,7,1,Beef Curtain,Jaxson Dart,NYG,QB
+74,7,2,I'm sorry Wilson!,Luther Burden III,CHI,WR
+75,7,3,You Make My Poll(e)ard,Justin Herbert,LAC,QB
+76,7,4,Lips is Lips,Trevor Lawrence,JAX,QB
+77,7,5,Clam Jammers,Jaylen Warren,PIT,RB
+78,7,6,Quin(yon)t,Kenny Gainwell,TB,RB
+79,7,7,Hock N' Roll,George Kittle,SF,TE
+80,7,8,Conner? I barely know her,Mike Evans,SF,WR
+81,7,9,Strictly Business,Christian Watson,GB,WR
+82,7,10,Team Rabasco,Rico Dowdle,PIT,RB
+83,7,11,Adrian Peter's Pub,Marvin Harrison Jr.,ARI,WR
+84,7,12,Young Money McMillanaire,Parker Washington,JAX,WR
+85,8,1,Young Money McMillanaire,MarShawn Lloyd,GB,RB
+86,8,2,Adrian Peter's Pub,Michael Wilson,ARI,WR
+87,8,3,Team Rabasco,Chuba Hubbard,CAR,RB
+88,8,4,Strictly Business,Tucker Kraft,GB,TE
+89,8,5,Conner? I barely know her,Caleb Williams,CHI,QB
+90,8,6,Hock N' Roll,Wan'Dale Robinson,TEN,WR
+91,8,7,Quin(yon)t,Stefon Diggs,WSH,WR
+92,8,8,Clam Jammers,Brock Purdy,SF,QB
+93,8,9,Lips is Lips,Jonathon Brooks,CAR,RB
+94,8,10,You Make My Poll(e)ard,Travis Hunter,JAX,WR
+95,8,11,I'm sorry Wilson!,Aaron Jones Sr.,MIN,RB
+96,8,12,Beef Curtain,Rachaad White,WSH,RB
+97,9,1,Beef Curtain,Brian Thomas Jr.,JAX,WR
+98,9,2,I'm sorry Wilson!,J.K. Dobbins,DEN,RB
+99,9,3,You Make My Poll(e)ard,Jakobi Meyers,JAX,WR
+100,9,4,Lips is Lips,Matthew Golden,GB,WR
+101,9,5,Clam Jammers,Chris Godwin Jr.,TB,WR
+102,9,6,Quin(yon)t,Brandon Aubrey,DAL,K
+103,9,7,Hock N' Roll,Jordan Addison,MIN,WR
+104,9,8,Conner? I barely know her,RJ Harvey,DEN,RB
+105,9,9,Strictly Business,Josh Downs,IND,WR
+106,9,10,Team Rabasco,Travis Kelce,KC,TE
+107,9,11,Adrian Peter's Pub,Jake Ferguson,DAL,TE
+108,9,12,Young Money McMillanaire,Dallas Goedert,PHI,TE
+109,10,1,Young Money McMillanaire,Kyle Monangai,CHI,RB
+110,10,2,Adrian Peter's Pub,Bo Nix,DEN,QB
+111,10,3,Team Rabasco,Alec Pierce,IND,WR
+112,10,4,Strictly Business,Patrick Mahomes,KC,QB
+113,10,5,Conner? I barely know her,Makai Lemon,PHI,WR
+114,10,6,Hock N' Roll,Blake Corum,LAR,RB
+115,10,7,Quin(yon)t,Quentin Johnston,LAC,WR
+116,10,8,Clam Jammers,Tyjae Spears,TEN,RB
+117,10,9,Lips is Lips,Matthew Stafford,LAR,QB
+118,10,10,You Make My Poll(e)ard,Jacory Croskey-Merritt,WSH,RB
+119,10,11,I'm sorry Wilson!,Xavier Worthy,KC,WR
+120,10,12,Beef Curtain,Isaiah Likely,NYG,TE
+121,11,1,Beef Curtain,Kyler Murray,MIN,QB
+122,11,2,I'm sorry Wilson!,Jayden Reed,GB,WR
+123,11,3,You Make My Poll(e)ard,Mark Andrews,BAL,TE
+124,11,4,Lips is Lips,De'Zhaun Stribling,SF,WR
+125,11,5,Clam Jammers,Texans D/ST,HOU,DST
+126,11,6,Quin(yon)t,Jalen Coker,CAR,WR
+127,11,7,Hock N' Roll,Cameron Dicker,LAC,K
+128,11,8,Conner? I barely know her,Broncos D/ST,DEN,DST
+129,11,9,Strictly Business,Jared Goff,DET,QB
+130,11,10,Team Rabasco,Jason Myers,SEA,K
+131,11,11,Adrian Peter's Pub,Romeo Doubs,NE,WR
+132,11,12,Young Money McMillanaire,Ka'imi Fairbairn,HOU,K
+133,12,1,Young Money McMillanaire,Khalil Shakir,BUF,WR
+134,12,2,Adrian Peter's Pub,Tyler Shough,NO,QB
+135,12,3,Team Rabasco,Dalton Kincaid,BUF,TE
+136,12,4,Strictly Business,Eddy Pineiro,SF,K
+137,12,5,Conner? I barely know her,Deebo Samuel Sr.,SF,WR
+138,12,6,Hock N' Roll,KC Concepcion,CLE,WR
+139,12,7,Quin(yon)t,Zach Charbonnet,SEA,RB
+140,12,8,Clam Jammers,Jordan Mason,MIN,RB
+141,12,9,Lips is Lips,Isiah Pacheco,DET,RB
+142,12,10,You Make My Poll(e)ard,Alvin Kamara,NO,RB
+143,12,11,I'm sorry Wilson!,Brian Robinson Jr.,ATL,RB
+144,12,12,Beef Curtain,Woody Marks,HOU,RB
+145,13,1,Beef Curtain,Jalen McMillan,TB,WR
+146,13,2,I'm sorry Wilson!,Justice Hill,BAL,RB
+147,13,3,You Make My Poll(e)ard,Tank Dell,HOU,WR
+148,13,4,Lips is Lips,Daniel Jones,IND,QB
+149,13,5,Clam Jammers,Chris Rodriguez Jr.,JAX,RB
+150,13,6,Quin(yon)t,Tyler Allgeier,ARI,RB
+151,13,7,Hock N' Roll,Dylan Sampson,CLE,RB
+152,13,8,Conner? I barely know her,Baker Mayfield,TB,QB
+153,13,9,Strictly Business,Juwan Johnson,NO,TE
+154,13,10,Team Rabasco,T.J. Hockenson,MIN,TE
+155,13,11,Adrian Peter's Pub,Kenyon Sadiq,NYJ,TE
+156,13,12,Young Money McMillanaire,Hunter Henry,NE,TE
+157,14,1,Young Money McMillanaire,Jordan Love,GB,QB
+158,14,2,Adrian Peter's Pub,Keenan Allen,IND,WR
+159,14,3,Team Rabasco,Jaylin Noel,HOU,WR
+160,14,4,Strictly Business,Calvin Ridley,TEN,WR
+161,14,5,Conner? I barely know her,Keaton Mitchell,LAC,RB
+162,14,6,Hock N' Roll,Brenton Strange,JAX,TE
+163,14,7,Quin(yon)t,Terrance Ferguson,LAR,TE
+164,14,8,Clam Jammers,Adonai Mitchell,NYJ,WR
+165,14,9,Lips is Lips,Steelers D/ST,PIT,DST
+166,14,10,You Make My Poll(e)ard,Seahawks D/ST,SEA,DST
+167,14,11,I'm sorry Wilson!,Najee Harris,NYG,RB
+168,14,12,Beef Curtain,Rams D/ST,LAR,DST
+169,15,1,Beef Curtain,Rashid Shaheed,SEA,WR
+170,15,2,I'm sorry Wilson!,Harrison Mevis,LAR,K
+171,15,3,You Make My Poll(e)ard,Denzel Boston,CLE,WR
+172,15,4,Lips is Lips,Jerry Jeudy,CLE,WR
+173,15,5,Clam Jammers,Jordyn Tyson,NO,WR
+174,15,6,Quin(yon)t,Ravens D/ST,BAL,DST
+175,15,7,Hock N' Roll,Eagles D/ST,PHI,DST
+176,15,8,Conner? I barely know her,Harrison Butker,KC,K
+177,15,9,Strictly Business,Browns D/ST,CLE,DST
+178,15,10,Team Rabasco,Patriots D/ST,NE,DST
+179,15,11,Adrian Peter's Pub,Lions D/ST,DET,DST
+180,15,12,Young Money McMillanaire,Chiefs D/ST,KC,DST
+181,16,1,Young Money McMillanaire,Jonah Coleman,DEN,RB
+182,16,2,Adrian Peter's Pub,Cam Little,JAX,K
+183,16,3,Team Rabasco,Malik Willis,MIA,QB
+184,16,4,Strictly Business,Caleb Douglas,MIA,WR
+185,16,5,Conner? I barely know her,Mike Washington Jr.,LV,RB
+186,16,6,Hock N' Roll,Jalen Nailor,LV,WR
+187,16,7,Quin(yon)t,Dontayvion Wicks,PHI,WR
+188,16,8,Clam Jammers,Jake Bates,DET,K
+189,16,9,Lips is Lips,Will Reichard,MIN,K
+190,16,10,You Make My Poll(e)ard,Cairo Santos,CHI,K
+191,16,11,I'm sorry Wilson!,Chargers D/ST,LAC,DST
+192,16,12,Beef Curtain,Evan McPherson,CIN,K

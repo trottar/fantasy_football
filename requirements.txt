@@ -1,0 +1,6 @@
+numpy>=1.26
+pandas>=1.5
+requests>=2.31
+pytest>=8.0
+nicegui>=3.16,<4
+lxml>=5.0

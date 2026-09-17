@@ -1,0 +1,164 @@
+{
+  "league_name": "Hail to Pitt",
+  "platform": "ESPN",
+  "season": 2026,
+  "teams": 12,
+  "scoring_type": "PPR",
+  "draft": {
+    "type": "snake",
+    "user_draft_slot": 2,
+    "rounds": 16,
+    "time_per_pick_seconds": 60,
+    "pick_trading": false
+  },
+  "roster": {
+    "QB": 1,
+    "RB": 2,
+    "WR": 2,
+    "TE": 1,
+    "FLEX": 1,
+    "DST": 1,
+    "K": 1,
+    "BENCH": 7,
+    "IR": 1
+  },
+  "position_maximums": {
+    "QB": 4,
+    "RB": 8,
+    "WR": 8,
+    "TE": 3,
+    "DST": 3,
+    "K": 3
+  },
+  "scoring": {
+    "passing": {
+      "yards": 0.04,
+      "td": 4.0,
+      "interception": -2.0,
+      "two_point_conversion": 2.0
+    },
+    "rushing": {
+      "yards": 0.1,
+      "td": 6.0,
+      "two_point_conversion": 2.0
+    },
+    "receiving": {
+      "yards": 0.1,
+      "reception": 1.0,
+      "td": 6.0,
+      "two_point_conversion": 2.0
+    },
+    "misc": {
+      "fumble_lost": -2.0,
+      "kickoff_return_td": 6.0,
+      "punt_return_td": 6.0,
+      "fumble_recovery_td": 6.0
+    },
+    "kicking": {
+      "pat_made": 1.0,
+      "fg_missed": -1.0,
+      "fg_0_39": 3.0,
+      "fg_40_49": 4.0,
+      "fg_50_59": 5.0,
+      "fg_60_plus": 5.0
+    },
+    "dst": {
+      "kickoff_return_td": 6.0,
+      "punt_return_td": 6.0,
+      "interception_return_td": 6.0,
+      "fumble_return_td": 6.0,
+      "blocked_kick_return_td": 6.0,
+      "two_point_return": 2.0,
+      "one_point_safety": 1.0,
+      "sack": 1.0,
+      "blocked_kick": 2.0,
+      "interception": 2.0,
+      "fumble_recovery": 2.0,
+      "safety": 2.0,
+      "points_allowed": {
+        "0": 5.0,
+        "1-6": 4.0,
+        "7-13": 3.0,
+        "14-17": 1.0,
+        "18-27": 0.0,
+        "28-34": -1.0,
+        "35-45": -3.0,
+        "46+": -5.0
+      },
+      "yards_allowed": {
+        "<100": 5.0,
+        "100-199": 3.0,
+        "200-299": 2.0,
+        "300-349": 0.0,
+        "350-399": -1.0,
+        "400-449": -3.0,
+        "450-499": -5.0,
+        "500-549": -6.0,
+        "550+": -7.0
+      }
+    }
+  },
+  "fantasy_season": {
+    "regular_season_weeks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "playoff_week_participation_prior": {
+      "14": 0.5,
+      "15": 0.3333333333333333,
+      "16": 0.16666666666666666,
+      "17": 0.16666666666666666
+    },
+    "notes": [
+      "Regular-season weeks receive full weight.",
+      "Playoff weeks use league-average participation priors before team-specific playoff probability is known.",
+      "Week 14 is playoff Round 1 in this league, so Arizona/Dallas byes are explicitly visible to the model."
+    ]
+  },
+  "bye_weeks_2026": {
+    "CAR": 5,
+    "KC": 5,
+    "CIN": 6,
+    "DET": 6,
+    "MIA": 6,
+    "MIN": 6,
+    "BUF": 7,
+    "JAX": 7,
+    "LAC": 7,
+    "WSH": 7,
+    "HOU": 8,
+    "NO": 8,
+    "NYG": 8,
+    "SF": 8,
+    "PIT": 9,
+    "TEN": 9,
+    "CHI": 10,
+    "DEN": 10,
+    "PHI": 10,
+    "TB": 10,
+    "ATL": 11,
+    "CLE": 11,
+    "GB": 11,
+    "LAR": 11,
+    "NE": 11,
+    "SEA": 11,
+    "BAL": 13,
+    "IND": 13,
+    "LV": 13,
+    "NYJ": 13,
+    "ARI": 14,
+    "DAL": 14
+  },
+  "user_team_name": "I'm sorry Wilson!"
+}

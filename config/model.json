@@ -1,0 +1,731 @@
+{
+  "historical_prior": {
+    "seasons": [
+      2023,
+      2024,
+      2025
+    ],
+    "season_weights": {
+      "2023": 0.15,
+      "2024": 0.3,
+      "2025": 0.55
+    },
+    "shrinkage_games": {
+      "QB": 8.0,
+      "RB": 10.0,
+      "WR": 10.0,
+      "TE": 12.0,
+      "K": 10.0
+    },
+    "minimum_games": 1,
+    "note": "Baseline empirical-Bayes prior only; intended to be replaced/refined as the model develops."
+  },
+  "espn": {
+    "season": 2026,
+    "scoring_default_id": 3,
+    "rank_type": "PPR",
+    "limit": 2000
+  },
+  "latent_value": {
+    "season_games": 17.0,
+    "historical_mean_floor_ppg": {
+      "QB": 1.5,
+      "RB": 1.5,
+      "WR": 1.5,
+      "TE": 1.25
+    },
+    "projection_sigma_floor_ppg": {
+      "QB": 2.0,
+      "RB": 2.0,
+      "WR": 1.75,
+      "TE": 1.5
+    },
+    "weekly_sd_fallback_ppg": {
+      "QB": 8.0,
+      "RB": 7.5,
+      "WR": 8.0,
+      "TE": 6.5
+    },
+    "rookie_epistemic_multiplier": 1.35,
+    "limited_history_games": 10.0,
+    "limited_history_multiplier": 1.15,
+    "minimum_calibration_players": 8,
+    "notes": [
+      "ESPN projected season points are converted to PPG using 17 NFL games.",
+      "ADP/rank are retained as market variables and are not folded into the production posterior.",
+      "Historical weekly SD is treated as predictive/aleatoric variance.",
+      "Historical latent-mean uncertainty includes an empirical year-to-year transition term estimated from nflverse.",
+      "Projection uncertainty is inferred from current ESPN-vs-history residual width after subtracting historical transition uncertainty in quadrature."
+    ],
+    "transition_calibration": {
+      "seasons": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "minimum_games_per_season": 6,
+      "minimum_pairs_per_position": 20,
+      "transition_sigma_floor_ppg": {
+        "QB": 2.5,
+        "RB": 2.5,
+        "WR": 2.25,
+        "TE": 2.0
+      }
+    }
+  },
+  "draft_value": {
+    "expected_rostered_counts": {
+      "QB": 18,
+      "RB": 60,
+      "WR": 60,
+      "TE": 18
+    },
+    "tier_gap_sigma": 0.35,
+    "tier_min_absolute_gap_ppg": 0.75,
+    "scarcity_lookahead_players": 5,
+    "starter_allocation": {
+      "QB_per_team": 1,
+      "RB_per_team": 2,
+      "WR_per_team": 2,
+      "TE_per_team": 1,
+      "FLEX_per_team": 1,
+      "flex_eligible": [
+        "RB",
+        "WR",
+        "TE"
+      ]
+    },
+    "notes": [
+      "Replacement counts are a preseason prior and will become dynamic as actual rosters are drafted.",
+      "FLEX starter allocation is computed globally after mandatory starter slots are filled.",
+      "Draft value is position-relative; raw PPG is retained only as the production observable.",
+      "ADP/rank remain market observables and are not included in VORP."
+    ]
+  },
+  "draft_market": {
+    "adp_sentinel_floor": 169.5,
+    "history_only_max_rank": 250,
+    "general_max_rank": 400,
+    "market_pick_sigma_floor": 4.0,
+    "market_pick_sigma_fraction": 0.1,
+    "market_pick_sigma_cap": 24.0,
+    "adp_bins": [
+      0,
+      24,
+      48,
+      72,
+      96,
+      120,
+      144,
+      169.5
+    ],
+    "notes": [
+      "Players on nfl_team=FA are excluded from the current draftable universe.",
+      "History-only players require a credible current ESPN market rank; stale historical names cannot define replacement levels.",
+      "ESPN ADP is the market-selection center when it is below the apparent ~170 undrafted/sentinel region.",
+      "ESPN rank is used as a fallback market center and as an empirical dispersion diagnostic.",
+      "Pick-survival probabilities are conditioned on the player already being available at the current pick."
+    ]
+  },
+  "live_draft": {
+    "simulations": 4000,
+    "random_seed": 20260830,
+    "candidate_limit": 20,
+    "opponent_need_strength": 0.35,
+    "market_hazard_floor": 1e-08,
+    "replacement_weight": 1.0,
+    "scarcity_weight": 0.25,
+    "survival_option_weight": 0.35,
+    "risk_penalty": 0.1,
+    "notes": [
+      "ESPN ID is the canonical live-draft player key.",
+      "Drafted players are removed from the available universe before recommendations.",
+      "Remaining replacement demand is updated from actual drafted position counts.",
+      "Opponent simulations use conditional market pick hazards, then modestly adjust for team roster need.",
+      "Candidate utility includes immediate dynamic VORP plus option value from what is expected to survive to the next user pick."
+    ]
+  },
+  "fast_engine": {
+    "candidate_limit": 12,
+    "long_simulations": 1500,
+    "short_turn_exact_max_opponent_picks": 2,
+    "notes": [
+      "Fast SHORT TURN uses an analytical sequential contingency engine rather than generic Monte Carlo.",
+      "Fast LONG TURN samples conditional market draft times in vectorized NumPy arrays and freezes dynamic values over the one-turn horizon.",
+      "Deep mode retains the slower team-need-aware sequential Monte Carlo for cross-checking."
+    ]
+  },
+  "roster_utility": {
+    "bench_option_weight": 0.25,
+    "bench_depth_decay": 0.6,
+    "candidate_floor_per_position": 2,
+    "notes": [
+      "Current-pick and forecast values are marginal utility to the user roster, not league-wide positional VORP alone.",
+      "Starter utility is the best legal QB/RB/RB/WR/WR/TE/FLEX assignment measured above dynamic positional replacement.",
+      "Players who do not improve the starting lineup retain discounted bench/option value rather than zero value.",
+      "Bench value decays with same-position depth so repeated RB/WR accumulation has diminishing marginal utility.",
+      "Candidate generation reserves a small cross-position floor before filling remaining slots by roster marginal utility."
+    ]
+  },
+  "specialists": {
+    "positions": [
+      "K",
+      "DST"
+    ],
+    "required_per_roster": {
+      "K": 1,
+      "DST": 1
+    },
+    "backup_default": false,
+    "activation_extra_picks": 0,
+    "replacement_rank": {
+      "K": 13,
+      "DST": 13
+    },
+    "epistemic_sigma_ppg": {
+      "K": 1.5,
+      "DST": 2.0
+    },
+    "market_sigma_pick": 20.0,
+    "draft_only_when_core_filled": true,
+    "notes": [
+      "By default K/DST are not legal recommendations until the 14 QB/RB/WR/TE roster capacity is filled.",
+      "Core capacity is derived from active roster size minus required specialist slots; IR is excluded."
+    ]
+  },
+  "full_rollout": {
+    "fast_simulations": 40,
+    "deep_simulations": 30,
+    "candidate_limit": 10,
+    "policy_candidates_per_position": 3,
+    "policy_urgency_weight": 0.18,
+    "bench_coverage_weight": 0.35,
+    "bench_depth_decay": 0.82,
+    "starter_risk_penalty": 0.04,
+    "objective_sd_penalty": 0.08,
+    "deep_market_queue_lookahead": 12,
+    "deep_queue_temperature": 5.0,
+    "notes": [
+      "Current-pick candidate ranking is expected final 16-player roster utility, not one-turn marginal value.",
+      "FAST uses sampled conditional market orders through the end of round 16.",
+      "DEEP uses the same final-roster objective but applies opponent team needs within a market-order queue.",
+      "Bench coverage weights are derived from how many starting/FLEX slots a position can cover, then decay with same-position depth.",
+      "Short-turn contingency remains an explanation layer in FAST but no longer drives the ranking objective.",
+      "FAST defaults to 40 common-random-number full drafts for draft-clock latency; DEEP defaults to 30 team-aware full drafts.",
+      "Bench depth decay is applied globally across the shared BENCH pool, not reset independently for each position."
+    ],
+    "missing_required_starter_penalty": 25.0
+  },
+  "mock_calibration": {
+    "directory": "data/mock_drafts",
+    "minimum_drafts_for_behavior_weighting": 3,
+    "current_drafts_included": 2,
+    "apply_behavior_weighting": false,
+    "notes": [
+      "Two complete 192-pick Aug 30 mocks are stored for empirical calibration diagnostics.",
+      "Behavior weighting remains disabled until at least three complete mocks are available.",
+      "Future mocks can be imported with the import-mock command."
+    ]
+  },
+  "particle_bank": {
+    "bank_particles": 160,
+    "fast_fresh_fraction": 0.25,
+    "degraded_fast_fresh_fraction": 0.5,
+    "deep_reuse_fraction": 0.5,
+    "degraded_deep_reuse_fraction": 0.25,
+    "conditioning_likelihood_floor": 0.002,
+    "conditioning_temperature": 1.5,
+    "degraded_ess_fraction": 0.25,
+    "notes": [
+      "Every DEEP run persists a reusable bank of latent market-order scenarios.",
+      "Observed opponent picks reweight the bank with the same team-need-aware opponent choice model used by DEEP.",
+      "FAST resamples primarily from the conditioned DEEP posterior and mixes a small fresh market component for robustness.",
+      "Subsequent DEEP refreshes reuse healthy posterior particles and add fresh scenarios rather than forgetting previous observed-draft information.",
+      "ESS = 1/sum(w^2) measures how much of the bank remains supported by actual draft behavior; low ESS increases fresh-scenario mixing."
+    ],
+    "bank_refresh_retain_fraction": 0.5,
+    "degraded_bank_refresh_retain_fraction": 0.25,
+    "conditioned_forecast_simulations": 1200
+  },
+  "season_utility": {
+    "enabled": true,
+    "availability_scenarios": 8,
+    "active_probability_nonbye": {
+      "QB": 0.97,
+      "RB": 0.92,
+      "WR": 0.94,
+      "TE": 0.94,
+      "K": 0.995,
+      "DST": 1.0
+    },
+    "regular_week_weight": 1.0,
+    "use_playoff_participation_prior": true,
+    "policy_bye_awareness_weight": 0.0,
+    "notes": [
+      "Final roster utility is evaluated week by week rather than through a generic bench-depth credit.",
+      "Known NFL byes are deterministic unavailability; other missed-game events are modeled as common-random-number availability shocks.",
+      "A bench player earns value only when he actually enters the best legal weekly lineup above replacement.",
+      "Bye overlap has no arbitrary penalty. It matters only through weekly lineup feasibility and expected scoring.",
+      "The current availability probabilities are conservative model knobs, not claimed player-specific injury forecasts; they can later be calibrated from historical games missed.",
+      "Playoff weeks use league-average participation priors until season-specific playoff probability is modeled.",
+      "The terminal objective is expected weekly H2H win probability versus a generic league-strength lineup, not linear bye-loss PPG.",
+      "This nonlinearity allows either clustered or spread bye weeks to win when the simulated H2H consequences justify it."
+    ],
+    "terminal_objective": "expected_h2h_win_probability",
+    "generic_opponent_matchup_scale_ppg": 10.0,
+    "epistemic_probability_penalty": 0.002
+  },
+  "weekly_manager": {
+    "status_active_probability": {
+      "ACTIVE": 0.995,
+      "NORMAL": 0.995,
+      "QUESTIONABLE": 0.75,
+      "DOUBTFUL": 0.15,
+      "OUT": 0.0,
+      "IR": 0.0,
+      "PUP": 0.0,
+      "SUSPENDED": 0.0,
+      "PROBABLE": 0.95
+    },
+    "notes": [
+      "v0.27 retains the v0.26 OUT/ACTIVE_LIMITED/ACTIVE_FULL state decomposition and lock-aware information policy.",
+      "Current-week status supplies the prior for P(active) and P(full|active); NFL.com practice (preferred) or Sleeper practice updates those priors in Bayesian odds space.",
+      "Only the latest practice state plus one trajectory summary are used so correlated daily practice reports are not multiplied as independent observations.",
+      "The practice likelihood ratios are explicit UNCALIBRATED priors, preserved with provenance for later empirical reliability/Brier/workload calibration.",
+      "Hard-unavailable states and bye weeks remain P(active)=0 regardless of practice evidence.",
+      "FULL versus LIMITED workload remains latent to the realistic pregame policy unless explicitly forced in the lineup laboratory."
+    ],
+    "status_full_given_active": {
+      "ACTIVE": 0.97,
+      "NORMAL": 0.97,
+      "PROBABLE": 0.9,
+      "QUESTIONABLE": 0.65,
+      "DOUBTFUL": 0.4
+    },
+    "limited_workload_fraction": {
+      "QB": 0.8,
+      "RB": 0.65,
+      "WR": 0.65,
+      "TE": 0.65,
+      "K": 0.9,
+      "DST": 0.9,
+      "DEFAULT": 0.65
+    },
+    "inactive_reveal_lead_minutes": 90,
+    "availability_evidence_likelihood_ratios": {
+      "practice": {
+        "NFL_OFFICIAL": {
+          "DNP": {
+            "active": 0.5,
+            "full": 0.35
+          },
+          "LIMITED": {
+            "active": 1.0,
+            "full": 0.65
+          },
+          "FULL": {
+            "active": 2.0,
+            "full": 3.0
+          }
+        },
+        "SLEEPER": {
+          "DNP": {
+            "active": 0.7,
+            "full": 0.55
+          },
+          "LIMITED": {
+            "active": 0.95,
+            "full": 0.75
+          },
+          "FULL": {
+            "active": 1.5,
+            "full": 2.0
+          }
+        }
+      },
+      "practice_trend": {
+        "IMPROVING": {
+          "active": 1.4,
+          "full": 1.5
+        },
+        "WORSENING": {
+          "active": 0.75,
+          "full": 0.65
+        },
+        "STABLE_DNP": {
+          "active": 0.6,
+          "full": 0.6
+        },
+        "STABLE_LIMITED": {
+          "active": 0.95,
+          "full": 0.8
+        },
+        "STABLE_FULL": {
+          "active": 1.1,
+          "full": 1.25
+        },
+        "MIXED": {
+          "active": 1.0,
+          "full": 1.0
+        }
+      }
+    }
+  },
+  "transaction_manager": {
+    "availability_scenarios": 16,
+    "random_seed": 20260831,
+    "candidate_limit": 80,
+    "candidate_floor_per_position": 8,
+    "replacement_available_rank": {
+      "QB": 3,
+      "RB": 6,
+      "WR": 6,
+      "TE": 3,
+      "K": 3,
+      "DST": 3
+    },
+    "h2h_matchup_scale_points": 18.0,
+    "waiver_p_acquire_default": 0.35,
+    "waiver_p_acquire_floor": 0.02,
+    "waiver_claim_logit_intercept": -4.0,
+    "waiver_improvement_logit_per_ppg": 0.15,
+    "waiver_owned_logit_per_pct": 0.015,
+    "waiver_trend_logit_weight": 0.08,
+    "waiver_need_logit_bonus": 0.6,
+    "opponent_roster_target": {
+      "QB": 2,
+      "RB": 4,
+      "WR": 4,
+      "TE": 2,
+      "K": 1,
+      "DST": 1
+    },
+    "notes": [
+      "v0.27 uses 16384 predictive MC universes by default; 1024/4096/16384/65536 remain selectable in the GUI.",
+      "v0.27 evidence-conditions current-week P(active) and P(full|active) while preserving the v0.26 lock-aware policy and common-random-number semantics.",
+      "Current-week policy comparisons expose fixed, realistic lock-aware, idealized-active (all active/inactive known pre-lock, workload latent), and idealized-full (OUT/FULL/LIMITED known pre-lock) win probabilities; the report separates status-timing and workload-information advantages sequentially.",
+      "Lineups are selected from pregame operational means within each resolved availability branch; realized fantasy draws are used only to score the already-selected lineup, preventing look-ahead bias.",
+      "Common random numbers are keyed by player so HOLD and each action share availability, epistemic, game, and opponent universes.",
+      "Final action ranking reports mean paired delta, a paired-resample 68% interval for the mean effect, and strict P(+/0/- | acquired).",
+      "FREEAGENT acquisition probability is 1; WAIVERS acquisition probability remains a separate provisional opponent-behavior layer.",
+      "ESPN projections are explicit yield anchors and their model residuals are retained for later data/MC closure calibration.",
+      "v0.23 uses the nflverse matchup/kinematic acceptance layer.",
+      "v0.30 replaces the higher-priority-manager weakest-position waiver heuristic with a fast modeled best-add/drop roster-improvement signal; acquisition probability remains a separate uncalibrated behavior layer.",
+      "v0.30-fixed2 uses hierarchical paired action MC (1024 -> 4096 -> final configured N) and only escalates the small surviving frontier to full N.",
+      "v0.30-fixed2 adds explicit bench future-role option and replacement-scarcity utility for non-starting QB/RB/WR/TE players; no named-player protection rules are used.",
+      "v0.30-fixed3 replaces additive per-player bench premiums with roster-level portfolio upside and one-starter-out replacement-stress scarcity; auxiliary option value is projection-provenance aware.",
+      "v0.30-fixed3 requires raw paired predictive-MC support for ACTIONABLE_EDGE; auxiliary-only improvements are labeled ROSTER_OPTION_EDGE and do not trigger an immediate-action recommendation.",
+      "v0.30-fixed4 replaces deterministic bench stress tests with a small paired future-roster-state ensemble (common random numbers across HOLD/actions); scarcity is diagnostic-only by default to avoid double counting.",
+      "v0.30-fixed4 adds classification-aware MC futility stopping using a conservative Wilson upper bound on P(better), and exposes whole-league opponent-reference construction in progress output.",
+      "v0.30-fixed6 makes predictive-MC futility raw-only: contingent roster-option probability is reportable at its current SCREEN stage but can never trigger larger 4096/16384 football-MC stages; the broad screen also protects contingent losses without letting positive speculative option value dominate predictive ranking.",
+      "v0.30-fixed6 reframes add/drop valuation as a paired counterfactual league-state response: a released player is propagated through the waiver transition kernel into likely recipient rosters and those roster changes are evaluated with the same commissioned predictive football model at small N.",
+      "v0.30-fixed6 removes the fixed4/fixed5 contingent option/scarcity term from authoritative action utility; that ensemble remains screening/diagnostic-only. Predictive-MC escalation follows the league-state paired response.",
+      "v0.31 restricts the ordinary player market to QB/RB/WR/TE; D/ST and K are evaluated in dedicated same-channel management layers.",
+      "v0.35-fixed1 keeps the deterministic future player-lineup calculation as candidate screening only; a future self-player FREEAGENT swap changes P_w only after paired predictive H2H CRN confirmation reuses the commissioned player MC and existing ACTIONABLE/POSSIBLE thresholds."
+    ],
+    "predictive_mc_scenarios": 16384,
+    "predictive_mc_screen_per_status": 36,
+    "actionable_p_better": 0.9,
+    "lean_p_better": 0.67,
+    "paired_mean_interval_resamples": 1000,
+    "mc_progress_batch_size": 512,
+    "gui_mc_options": [
+      1024,
+      4096,
+      16384,
+      65536
+    ],
+    "waiver_claim_utility_logit_intercept": -2.6,
+    "waiver_claim_season_ppg_weight": 1.1,
+    "waiver_claim_current_week_weight": 0.12,
+    "action_mc_stages": [
+      1024,
+      4096
+    ],
+    "action_mc_stage_keep_per_status": [
+      8,
+      4
+    ],
+    "action_mc_final_keep_per_status": 4,
+    "action_mc_final_min_expected_pp": 0.05,
+    "future_option_utility_weight": 0.35,
+    "replacement_scarcity_utility_weight": 0.0,
+    "portfolio_option_upside_z": 1.0,
+    "market_projection_source_support": {
+      "ESPN_WEEKLY": 0.95,
+      "ESPN_SEASON_DIV17": 0.65,
+      "MODEL_LATENT_PPG_ZERO_FALLBACK": 0.25,
+      "MODEL_LATENT_PPG_FALLBACK": 0.45,
+      "MODEL_LATENT_PPG": 0.75,
+      "WEEKLY_FALLBACK": 0.45
+    },
+    "market_projection_unknown_support": 0.5,
+    "market_projection_agreement_floor": 0.45,
+    "market_projection_support_floor": 0.2,
+    "contingent_roster_screen_scenarios": 256,
+    "contingent_roster_scenarios": 512,
+    "contingent_active_probability": {
+      "QB": 0.92,
+      "RB": 0.84,
+      "WR": 0.87,
+      "TE": 0.87
+    },
+    "contingent_limited_probability": 0.1,
+    "contingent_limited_workload_factor": 0.62,
+    "contingent_role_sd_floor_ppg": {
+      "QB": 0.8,
+      "RB": 1.4,
+      "WR": 1.4,
+      "TE": 1.2
+    },
+    "action_mc_futility_enabled": true,
+    "action_mc_futility_z": 3.09,
+    "action_option_screen_keep_per_status": 4,
+    "league_state_response_scenarios": 256,
+    "league_response_claim_min_season_ppg": 0.02,
+    "league_response_report_destinations": 5,
+    "league_response_claim_logit_intercept": -2.6,
+    "league_response_claim_season_ppg_weight": 1.1,
+    "league_response_claim_current_week_weight": 0.12,
+    "temporal_player_state_scenarios": 256,
+    "temporal_player_state_screen_keep": 4
+  },
+  "weekly_yield": {
+    "espn_week_anchor_weight": 0.35,
+    "espn_season_anchor_weight": 0.15,
+    "minimum_game_sd_ppg": 1.0,
+    "minimum_model_sd_ppg": 0.25,
+    "default_game_sd_ppg": {
+      "QB": 6.0,
+      "RB": 6.5,
+      "WR": 7.0,
+      "TE": 5.5,
+      "K": 3.5,
+      "DST": 5.0
+    },
+    "default_model_sd_ppg": {
+      "QB": 1.8,
+      "RB": 2.4,
+      "WR": 2.5,
+      "TE": 2.2,
+      "K": 1.2,
+      "DST": 1.8
+    },
+    "espn_anchor_sigma_ppg": {
+      "QB": 4.0,
+      "RB": 4.5,
+      "WR": 4.5,
+      "TE": 4.0,
+      "K": 3.0,
+      "DST": 4.0
+    },
+    "notes": [
+      "v0.23 treats ESPN projections as an explicit external predicted-yield anchor rather than ground truth.",
+      "A current-week ESPN anchor is treated as already evaluated at ESPN's implicit acceptance point; our K applies to the internal model branch before the weak ensemble.",
+      "ESPN season/17 is a weaker neutral anchor and receives the weekly K adjustment with the neutral model ensemble.",
+      "latent_mean_sd_ppg is epistemic model uncertainty; matchup/kinematic uncertainty and residual game-to-game variance are retained separately."
+    ]
+  },
+  "matchup_model": {
+    "enabled": true,
+    "prior_season": 2025,
+    "current_season_shrinkage_plays": 400.0,
+    "offense_factor_min": 0.88,
+    "offense_factor_max": 1.12,
+    "home_log_bonus": 0.01,
+    "league_implied_points_baseline": 22.5,
+    "implied_points_log_weight": 0.006,
+    "kinematic_fractional_sd": 0.035,
+    "early_season_extra_fractional_sd": 0.02,
+    "position_log_weights": {
+      "QB": {
+        "plays_per_game": 0.018,
+        "pass_rate": 0.012,
+        "pass_epa_per_play": 0.038,
+        "sack_rate": -0.03,
+        "explosive_pass_rate": 0.022,
+        "redzone_td_rate": 0.015
+      },
+      "RB": {
+        "plays_per_game": 0.018,
+        "rush_rate": 0.014,
+        "rush_epa_per_play": 0.04,
+        "explosive_rush_rate": 0.022,
+        "redzone_td_rate": 0.015,
+        "target_share_rb": 0.012
+      },
+      "WR": {
+        "plays_per_game": 0.014,
+        "pass_rate": 0.01,
+        "pass_epa_per_play": 0.03,
+        "sack_rate": -0.018,
+        "explosive_pass_rate": 0.028,
+        "redzone_td_rate": 0.012,
+        "target_share_wr": 0.02
+      },
+      "TE": {
+        "plays_per_game": 0.012,
+        "pass_epa_per_play": 0.022,
+        "sack_rate": -0.012,
+        "redzone_td_rate": 0.012,
+        "target_share_te": 0.032
+      }
+    },
+    "dst": {
+      "component_anchor_weight": 0.55,
+      "points_allowed_baseline": 22.5,
+      "epa_points_scale": 28.0,
+      "points_allowed_sd": 9.5,
+      "yards_allowed_sd": 75.0,
+      "return_td_per_turnover": 0.1,
+      "blocked_kicks_mean": 0.08,
+      "safeties_mean": 0.05
+    },
+    "notes": [
+      "v0.23 treats matchup as a week-dependent acceptance/kinematic layer, not a permanent player-talent adjustment.",
+      "Opponent defense observables come from nflverse play-by-play and are standardized only after current-season measurements are shrunk toward the prior season with lambda=N_current/(N_current+k).",
+      "Current-week ESPN projections are treated as external predictions already evaluated at an implicit acceptance point, so our K correction is applied to the internal model branch before ESPN anchoring.",
+      "DST is simulated from sacks, turnovers, defensive touchdowns, points allowed, and yards allowed, then passed through the exact ESPN nonlinear bucket scoring response."
+    ]
+  },
+  "interaction_grid": {
+    "enabled": true,
+    "artifact_id": "offense_defense_interaction_v001",
+    "artifact_path": "data/fitted_models/interaction_grids/v001",
+    "commissioned_only": true,
+    "correction_min": 0.75,
+    "correction_max": 1.25,
+    "yield_factor_min": 0.9,
+    "yield_factor_max": 1.1,
+    "max_absolute_delta_ppg": 4.0,
+    "uncommissioned_uncertainty_floor": 0.05,
+    "fit": {
+      "seasons": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "minimum_prior_games": 3,
+      "baseline_shrink_games": 8.0,
+      "defense_shrinkage_plays": 400.0,
+      "baseline_bins": 5,
+      "defense_z_centers": [
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0
+      ],
+      "cell_shrink_n": 30.0,
+      "ratio_min": 0.25,
+      "ratio_max": 1.75,
+      "uncertainty_floor": 0.03,
+      "current_baseline_games": 8
+    },
+    "notes": [
+      "v0.28 treats the learned player x defense interaction as a higher-order Data/MC correction to the commissioned base predictive yield.",
+      "The correction grids are fitted offline from underlying football statistics only; fantasy points are never a fit target.",
+      "Weekly MC evaluates precomputed grids by interpolation and propagates finite-grid uncertainty through a separate deterministic random stream.",
+      "Each component grid is chronologically held out on the latest configured training season; grids that fail to improve closure are neutralized operationally and remain diagnostic-only.",
+      "The existing v0.23 K layer remains part of the base MC and the v0.28 correction is applied on top as a separately auditable higher-order response.",
+      "v0.28-fixed4: when commissioned_only=true, SHADOW grids are diagnostic-only and contribute neither operational mean shift nor operational interaction variance."
+    ]
+  },
+  "closure": {
+    "schema_version": 1,
+    "prediction_dir": "data/season_predictions/closure",
+    "output_dir": "data/season_closure",
+    "raw_stats_dir": "data/raw/nflverse/closure",
+    "notes": [
+      "v0.29 freezes immutable pregame component/yield states and joins them to postgame nflverse weekly observations.",
+      "Fantasy-yield closure uses availability-marginalized pregame moments; opportunity counts are workload-marginalized while efficiency rates remain conditional football quantities.",
+      "Missing nflverse stat rows are not interpreted as inactive. Availability Brier scoring requires explicit active/inactive truth.",
+      "closure-update refreshes current-season weekly stats by default; use --cached only for an intentional offline rebuild.",
+      "Closure diagnostics never refit the predictive model automatically."
+    ]
+  },
+  "market_manager": {
+    "trade_max_players_per_side": 2,
+    "trade_search_mc_scenarios": 4096,
+    "trade_search_screen_limit": 12,
+    "trade_search_give_candidates": 14,
+    "trade_search_target_candidates": 14,
+    "trade_search_min_user_screen_gain": 0.15,
+    "trade_actionable_accept_probability": 0.4,
+    "market_base_ppg_weight": 0.2,
+    "market_surplus_weight": 0.8,
+    "market_owned_weight": 0.012,
+    "market_trend_weight": 0.05,
+    "trade_accept_intercept": -0.35,
+    "trade_accept_season_ppg_weight": 1.15,
+    "trade_accept_pbetter_weight": 1.5,
+    "trade_accept_market_weight": 0.3,
+    "trade_counter_intercept": -0.15,
+    "trade_counter_abs_gain_weight": 0.6,
+    "trade_counter_abs_market_weight": 0.15,
+    "trade_counter_small_deficit_bonus": 0.3,
+    "trade_reject_intercept": 0.0,
+    "trade_reject_negative_gain_weight": 1.1,
+    "trade_reject_negative_market_weight": 0.25,
+    "trade_package_complexity_penalty": 0.15,
+    "notes": [
+      "v0.30 evaluates trade roster value with the same detailed predictive player model used by weekly/waiver decisions; partner response is a separate uncalibrated behavior layer.",
+      "No external generic trade-value chart is used. The independent market-perception channel uses ESPN projected production plus public ownership/trend observables.",
+      "Trade-search screening is only candidate generation; selected offers are reevaluated with paired predictive MC.",
+      "Unequal 1-for-2 or 2-for-1 packages may require one modeled best legal post-trade release, which is always surfaced explicitly.",
+      "Acceptance, counteroffer, and rejection probabilities are provisional until actual league trade behavior provides calibration data.",
+      "v0.31 trade evaluation/search is player-channel only (QB/RB/WR/TE); K/DST are not trade-market assets in this model."
+    ]
+  },
+  "specialist_channels": {
+    "mc_scenarios": 2048,
+    "candidate_limit": 16,
+    "player_slot_insurance_weight": 0.25,
+    "defense": {
+      "allow_second": true,
+      "notes": [
+        "Positive carry synergy is retained as a schedule-complementarity diagnostic; fixed2 does not treat the best-static-DST baseline as a commissioned streaming policy.",
+        "D/ST candidates are compared only with D/ST configurations.",
+        "Two-defense value is pregame weekly rotation synergy; realized MC is never used to choose the weekly starter.",
+        "If a second D/ST requires a roster slot, the slot cost is requested separately from the QB/RB/WR/TE player channel."
+      ]
+    },
+    "kicker": {
+      "allow_second": false,
+      "implied_points_baseline": 22.5,
+      "implied_points_elasticity": 0.65,
+      "matchup_factor_min": 0.82,
+      "matchup_factor_max": 1.18,
+      "notes": [
+        "Team aliases such as WAS->WSH are normalized before schedule/implied-points lookup.",
+        "K candidates are compared only with K configurations.",
+        "Weekly matchup response uses the existing schedule game total/team implied-points coordinate as an uncalibrated prior pending prospective kicker closure.",
+        "A second kicker is disabled by default."
+      ]
+    },
+    "notes": [
+      "v0.32 adds a dynamic same-channel specialist league-state policy and paired complete-state carry2 confirmation without modifying player-channel production physics.",
+      "v0.31-fixed2 normalizes specialist NFL team aliases through the shared nflverse normalization map before bye/schedule lookup.",
+      "v0.31-fixed2 labels same-channel season comparisons as static swaps; it does not claim a dynamic future streaming market policy.",
+      "v0.31-fixed2 demotes positive two-DST carry results to diagnostic screens until a one-slot streaming policy and paired complete-state confirmation are commissioned.",
+      "v0.31 introduces channel separation: player market P={QB,RB,WR,TE}, defense D={DST}, kicker K={K}.",
+      "Channels are compared internally; they are combined only when evaluating a complete roster state.",
+      "Player-market and trade candidate generation exclude K/DST. Specialist management uses dedicated weekly matchup/synergy response functions."
+    ],
+    "dynamic_policy": {
+      "enabled": true,
+      "market_model": "DETERMINISTIC_SAME_CHANNEL_BEST_RESPONSE_V032",
+      "transaction_order_model": "FROZEN_CURRENT_ESPN_WAIVER_PRIORITY_PROXY_UNCALIBRATED_V032",
+      "initial_pool_model": "CURRENT_FREEAGENTS_PLUS_NEXT_WEEK_RELEASES_V032",
+      "notes": [
+        "No new action-value tuning coefficient is introduced; a manager swaps only when the pregame expected same-channel response strictly improves.",
+        "Current FREEAGENT specialists are guaranteed initial market states. Current WAIVERS are excluded from the guaranteed pool rather than assigned a fabricated acquisition probability.",
+        "A dropped specialist re-enters the modeled market in the following week, preventing a same-week recursive claim artifact.",
+        "Future simultaneous specialist demand is ordered by current ESPN waiver priority as an explicit uncalibrated proxy until observed specialist transaction behavior can calibrate a richer kernel.",
+        "Realized Monte Carlo outcomes never select a transaction or starter."
+      ]
+    }
+  }
+}

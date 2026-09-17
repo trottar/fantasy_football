@@ -1,0 +1,2 @@
+player_id,espn_id,name,position,nfl_team,bye_week,rookie,age,years_experience,adp,espn_rank,projection_source,proj_points_mean,proj_points_sd,historical_prior_mean,historical_prior_sd,availability_status,notes
+example_001,,Example Player,WR,PIT,5,false,25,3,24.8,22,example_source,245.0,35.0,238.0,30.0,ACTIVE,Template row only; replace with real data.

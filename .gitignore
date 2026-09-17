@@ -1,0 +1,54 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Secrets and credentials
+config/secrets.json
+**/secrets.json
+.env
+.env.*
+*.pem
+*.key
+
+# Generated release artifacts
+*.zip
+*_source_bundle.txt
+
+# Local scratch / logs
+logs/
+tmp/
+temp/
+
+# Raw/generated fantasy runtime state
+data/chat_reports/
+data/draft_snapshots/
+data/fitted_models/
+data/processed/
+data/raw/
+data/season_closure/
+data/season_decisions/
+data/season_predictions/
+data/season_snapshots/
+
+# Generated top-level reports
+data/chat_report_*.json
+data/chat_report_*.txt
+
+# Python cache under data
+data/**/__pycache__/
