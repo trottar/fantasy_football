@@ -5,6 +5,7 @@ football, market, Monte Carlo, or GUI business logic.
 """
 
 from .context import RunContext, new_correlation_id
+from .diff import DiffEntry, DiffKind, ReplayDiff, diff_replay_bundles, diff_values
 from .events import EVENT_SCHEMA_VERSION, StructuredEvent, make_event
 from .invariants import (
     CORE_INVARIANT_REGISTRY,
@@ -45,6 +46,12 @@ from .registry import (
     EventLevel,
     EventRegistry,
 )
+from .replay import (
+    ReplayBundle,
+    ReplayVerification,
+    load_replay_bundle,
+    verify_replay_bundle,
+)
 from .sinks import (
     EventSink,
     FanoutSink,
@@ -54,14 +61,29 @@ from .sinks import (
     emit_all,
     format_human_event,
 )
+from .snapshots import (
+    BUNDLE_MANIFEST_FILE,
+    BUNDLE_SCHEMA_VERSION,
+    CORE_MEMBER_FILES,
+    BundleManifest,
+    BundleMember,
+    write_snapshot_bundle,
+)
 
 __all__ = [
     "BINARY_REPLACEMENT",
+    "BUNDLE_MANIFEST_FILE",
+    "BUNDLE_SCHEMA_VERSION",
+    "BundleManifest",
+    "BundleMember",
     "CORE_EVENT_REGISTRY",
     "CORE_INVARIANT_REGISTRY",
+    "CORE_MEMBER_FILES",
     "CORE_SUBSYSTEMS",
     "DEFAULT_REPLACEMENT",
     "DEPTH_REPLACEMENT",
+    "DiffEntry",
+    "DiffKind",
     "EVENT_SCHEMA_VERSION",
     "EventDefinition",
     "EventLevel",
@@ -78,15 +100,21 @@ __all__ = [
     "MemorySink",
     "RedactionPolicy",
     "RedactionResult",
+    "ReplayBundle",
+    "ReplayDiff",
+    "ReplayVerification",
     "RunContext",
     "SourceProvenance",
     "StructuredEvent",
     "canonical_json_bytes",
     "collect_provenance",
+    "diff_replay_bundles",
+    "diff_values",
     "emit_all",
     "format_human_event",
     "git_source_state",
     "is_sensitive_key",
+    "load_replay_bundle",
     "make_event",
     "new_correlation_id",
     "pseudonymize_text",
@@ -99,4 +127,6 @@ __all__ = [
     "sha256_file",
     "sha256_json",
     "sha256_json_file",
+    "verify_replay_bundle",
+    "write_snapshot_bundle",
 ]

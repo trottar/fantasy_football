@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-17T13:46:32.728519-04:00",
+  "generated_at": "2026-09-17T14:01:12.616333-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 4049,
-      "sha256": "4f22db2dfee71f355d6d37ea2e829c40e29e280dc5541044cb2f382a61510682"
+      "bytes": 3693,
+      "sha256": "a9940774bf2b847ccfa02d5f7c0f9bee2e7e1a4ce7448416807667bc6e82044e"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 5928,
-      "sha256": "3c246887007e07ca2745e10f05df767d4ebf9867e5690d1552b98eee9da8143a"
+      "bytes": 6360,
+      "sha256": "731c102111876b96cc5c8693c57823cb7ad60095f1ce59e858bfcdfe9bbb79b8"
     },
     {
       "path": "README.md",
@@ -56,8 +56,8 @@
     },
     {
       "path": "architecture/DIAGNOSTICS_OBSERVABILITY.md",
-      "bytes": 11000,
-      "sha256": "5d2aff2894d8c7e999317ca0fe0074182076e01e21a86a119a5ea144e818aa38"
+      "bytes": 11575,
+      "sha256": "d94d3ce82c1a50ae0edf84d587cfc102e91eaa23dbda8b58d0d121bd72c7ed1d"
     },
     {
       "path": "architecture/INFORMATION_CAUSALITY.md",
@@ -135,9 +135,14 @@
       "sha256": "66e958dc52c2f386de1fe8869be64997eff8949ced266fc93fad0907e4685ee7"
     },
     {
+      "path": "decisions/D-017_V10A_SNAPSHOT_REPLAY_DIFF.md",
+      "bytes": 1036,
+      "sha256": "e83b6e48918b652d8586935564ec038f7ab0878cdc3fafbd101e898b578f745c"
+    },
+    {
       "path": "decisions/DECISION_LOG.md",
-      "bytes": 3822,
-      "sha256": "0472e2743dd035c19f60104ac4944e7798df42eec9a5e4026a582f47de386369"
+      "bytes": 4242,
+      "sha256": "d7b075c1e42deccb76be092cd5037c849777eb3f7fc9200bbdb3cc3546e98c3d"
     },
     {
       "path": "evidence/I001_AUTHORITATIVE_ARTIFACT_REVIEW_2026-09-17.md",
@@ -205,9 +210,14 @@
       "sha256": "993423f72e821c2029ac7a69a604342fd7eef1240d57576e958b21eeedb3be15"
     },
     {
+      "path": "evidence/V10A_SNAPSHOT_REPLAY_DIFF_2026-09-17.md",
+      "bytes": 1025,
+      "sha256": "d9c44f06db652b187a5adf388f6814d50daa385d029c058d224bd253cbe59707"
+    },
+    {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 682,
-      "sha256": "675c72fa1446f2a15263045fac7d31ac7570d1dcc4b8590088431442e010aeac"
+      "bytes": 583,
+      "sha256": "dcfa95ab2891bb83e56893dc46404a829898a35ece4e3ca577e8a382daed894c"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -286,8 +296,8 @@
     },
     {
       "path": "memory/2026-09-17.md",
-      "bytes": 20875,
-      "sha256": "654d0719b68e9347b531af8249c3e1d19f1f07eb7ea3c567e2f9a2a06f35413d"
+      "bytes": 21266,
+      "sha256": "b6e66930d131a48dc167bc26a21373caee4ff774d16c4e6306ddd67fc10097c5"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -311,8 +321,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 2392,
-      "sha256": "47c477c75ca3b1b2f50d15e5929b2b2480a1c40359b046a0284d65dc5f6d8946"
+      "bytes": 1047,
+      "sha256": "4a9a2c860a326e54dec3bca83ec89b8c8a36555f5b9273a1bc16124a6267012f"
     },
     {
       "path": "templates/DECISION.md",

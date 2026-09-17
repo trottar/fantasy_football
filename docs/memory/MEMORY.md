@@ -183,3 +183,12 @@ Canonical decision/evidence:
 - Meaningful checkpoints update durable memory in the same repository
   checkpoint.
 - Memory maintenance follows `MAINTENANCE.md`.
+
+<!-- FANTASY_MEMORY_V10A_SNAPSHOT_REPLAY_DIFF_20260917:BEGIN -->
+## v1.0A replay-evidence contract
+
+The observability substrate includes local redacted fixed-member snapshot
+bundles, exact-byte integrity verification, immutable evidence loading, and
+bounded redacted structural diffing. This is not computation replay and is not
+integrated into production call sites.
+<!-- FANTASY_MEMORY_V10A_SNAPSHOT_REPLAY_DIFF_20260917:END -->

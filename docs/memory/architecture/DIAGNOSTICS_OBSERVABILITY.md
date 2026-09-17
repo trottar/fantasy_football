@@ -320,3 +320,16 @@ Validation:
 - deep-copy/non-mutation redaction tests: PASS;
 - secret-bearing exception-message non-disclosure: PASS.
 <!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_3:END -->
+
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_4:BEGIN -->
+## v1.0A implementation checkpoint 4
+
+Implemented:
+- `snapshots.py`: atomic local replay-evidence bundles with redaction before
+  persistence and exact-byte member manifests;
+- `replay.py`: bundle integrity verification and immutable evidence loading;
+- `diff.py`: bounded, redacted-by-default structural diffs.
+
+Replay in this checkpoint is evidence loading, not football/MC execution.
+Production automatic capture remains disabled.
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_4:END -->

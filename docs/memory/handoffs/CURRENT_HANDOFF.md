@@ -5,7 +5,7 @@ must never override it.
 
 ## Last Completed Technical Checkpoint
 
-v1.0A invariant registry + privacy/redaction primitives.
+v1.0A local snapshot/replay/diff contract.
 
 Result:
 `CHECKPOINTED / TEST-VALIDATED / NOT YET INTEGRATED INTO PRODUCTION CALL SITES`
@@ -14,9 +14,6 @@ Result:
 
 1. Read `AGENTS.md`, `CURRENT.md`, `USER.md`.
 2. Read `architecture/DIAGNOSTICS_OBSERVABILITY.md` and decisions D-013, D-014,
-   and D-016.
+   D-016, and D-017.
 3. Inspect exact current `src/observability/` source/tests.
 4. Execute the single next action stated in `CURRENT.md`.
-
-Next slice: local snapshot/replay/diff contract. Production event emission stays
-deferred.

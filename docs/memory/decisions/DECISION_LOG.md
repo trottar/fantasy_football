@@ -86,3 +86,13 @@ must remain small/rewriteable.
 
 See `D-015_MEMORY_MAINTENANCE_POLICY.md` for the full decision.
 <!-- FANTASY_D015_MEMORY_MAINTENANCE_INDEX:END -->
+
+<!-- FANTASY_D017_V10A_SNAPSHOT_REPLAY_DIFF_INDEX:BEGIN -->
+## D-017 — v1.0A Local Snapshot / Replay / Diff
+
+**Status:** ACTIVE
+
+Adopt privacy-aware local replay-evidence bundles, integrity verification, and
+bounded redacted structural diffs. Replay is evidence loading only in this
+slice; production automatic capture and computation replay remain deferred.
+<!-- FANTASY_D017_V10A_SNAPSHOT_REPLAY_DIFF_INDEX:END -->
