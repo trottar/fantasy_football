@@ -369,3 +369,18 @@ calls and after each pair; compares return/exception behavior and state-channel
 outcomes; and applies a hardware-tolerant absolute/relative overhead budget.
 This checkpoint changes no production call site.
 <!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_7:END -->
+
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_8:BEGIN -->
+## v1.0A implementation checkpoint 8
+
+Enabled the first narrow production shadow pilot. `fantasy.py` routes only the
+final command dispatch through a bounded in-memory observer.
+`SeasonGuiService` owns one bounded in-memory recorder and instruments only the
+read-only `source_health()` method. Events retain boundary/correlation,
+duration, and exception type only; they do not retain arguments, return values,
+authenticated payloads, or exception messages.
+
+Observer failures are explicitly non-interfering: the wrapped production call
+still executes and its result/exception wins. No persistent sink is enabled.
+Player/DST/K/market/closure/data-source paths remain untouched.
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_8:END -->

@@ -107,6 +107,13 @@ from .sinks import (
     emit_all,
     format_human_event,
 )
+from .shadow_pilot import (
+    DEFAULT_SHADOW_MAX_EVENTS,
+    ShadowRecorder,
+    dispatch_cli_shadow,
+    last_cli_shadow_events,
+    shadow_service_call,
+)
 from .snapshots import (
     BUNDLE_MANIFEST_FILE,
     BUNDLE_SCHEMA_VERSION,
@@ -211,4 +218,9 @@ __all__ = [
     "evaluate_overhead",
     "python_random_probe",
     "validate_plan_sources",
+    "DEFAULT_SHADOW_MAX_EVENTS",
+    "ShadowRecorder",
+    "dispatch_cli_shadow",
+    "last_cli_shadow_events",
+    "shadow_service_call",
 ]

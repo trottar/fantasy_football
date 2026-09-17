@@ -46,6 +46,14 @@ from ..weekly_manager import (
 )
 from ..weekly_yield import sample_conditional_points
 from ..closure import build_pregame_capture_from_context, load_closure_ledger, load_closure_summary, save_pregame_capture
+try:
+    from ..observability.shadow_pilot import shadow_service_call as _shadow_service_call
+except Exception:
+    def _shadow_service_call(_name: str, *, subsystem: str = "gui"):
+        def decorate(fn):
+            return fn
+        return decorate
+
 from .chat_report import format_chat_report
 
 
@@ -148,6 +156,11 @@ class SeasonGuiService:
         self._baseline_cache: tuple[Any, np.ndarray, np.ndarray] | None = None
         self._idealized_active_baseline_cache: tuple[Any, np.ndarray, np.ndarray] | None = None
         self._idealized_baseline_cache: tuple[Any, np.ndarray, np.ndarray] | None = None
+        try:
+            from ..observability.shadow_pilot import ShadowRecorder
+            self._observability_shadow = ShadowRecorder(root_subsystem="gui")
+        except Exception:
+            self._observability_shadow = None
         self.reload()
 
     @staticmethod
@@ -171,6 +184,16 @@ class SeasonGuiService:
         cfg = (self.model.get("transaction_manager") or {}).get("gui_mc_options") or [1024, 4096, 16384, 65536]
         values = sorted({self._validate_mc_scenarios(int(v)) for v in cfg})
         return [int(v) for v in values if v is not None]
+
+    def observability_events(self) -> tuple:
+        recorder = getattr(self, "_observability_shadow", None)
+        snapshot = getattr(recorder, "snapshot", None)
+        if not callable(snapshot):
+            return ()
+        try:
+            return tuple(snapshot())
+        except Exception:
+            return ()
 
     def set_mc_scenarios(self, value: int) -> int:
         """Change in-memory MC size without reloading static league/player data."""
@@ -312,6 +335,7 @@ class SeasonGuiService:
         espn = self.snapshot.get("espn", self.snapshot)
         return next((t for t in espn.get("teams") or [] if _int(t.get("team_id")) == int(team_id)), None)
 
+    @_shadow_service_call("SeasonGuiService.source_health")
     def source_health(self) -> list[dict[str, str]]:
         statuses = self.snapshot.get("source_status") or {}
         out: list[dict[str, str]] = []

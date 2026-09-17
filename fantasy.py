@@ -1992,6 +1992,15 @@ def build_parser():
     return p
 
 
+def dispatch_command(args):
+    try:
+        from src.observability.shadow_pilot import dispatch_cli_shadow
+    except Exception:
+        return args.func(args)
+
+    return dispatch_cli_shadow(args.func, args)
+
+
 if __name__ == "__main__":
     args = build_parser().parse_args()
-    args.func(args)
+    dispatch_command(args)

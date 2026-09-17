@@ -5,14 +5,15 @@ must never override it.
 
 ## Last Completed Technical Checkpoint
 
-v1.0A production integration design + non-interference/overhead gate.
+v1.0A CLI + read-only SeasonGuiService in-memory shadow pilot.
 
 Result:
-`CHECKPOINTED / TEST-VALIDATED / SHADOW-INTEGRATION NOT YET ENABLED`
+`SHADOW PILOT ENABLED / TEST-VALIDATED / NON-PERSISTENT`
 
 ## Resume Instruction
 
 1. Read `AGENTS.md`, `CURRENT.md`, `USER.md`.
-2. Read `architecture/DIAGNOSTICS_OBSERVABILITY.md`, D-019, and D-020.
-3. Inspect exact current `src/observability/` source/tests.
+2. Read `architecture/DIAGNOSTICS_OBSERVABILITY.md`, D-020, and D-021.
+3. Inspect exact current production shadow call sites and
+   `src/observability/shadow_pilot.py`.
 4. Execute the single next action stated in `CURRENT.md`.

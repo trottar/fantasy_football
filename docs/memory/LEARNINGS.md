@@ -133,3 +133,60 @@ A length mismatch (for example 64-character SHA-256 versus 40-character Git
 blob OID) is itself evidence of a representation error and must fail QA before
 delivery.
 <!-- FANTASY_HASH_ALGORITHM_REPRESENTATION_RULE:END -->
+
+<!-- FANTASY_LEARNING_CONTROL_ROOT_VS_RUNTIME_TREE_20260917:BEGIN -->
+## Separate checkpoint/control root from runnable release tree
+
+`L:\Projects\fantasy_football` is the checkpoint/control root. The commissioned
+v0.36-repack1 application tree is a distinct installed release directory created
+by the release workflow.
+
+An installer that touches application source must not assume
+`ProjectRoot/<repository-path>` is runnable. It must:
+1. use the established release-directory contract when available;
+2. verify `VERSION` plus exact/normalized predecessor source identity;
+3. fail before modification if the runnable tree is missing or ambiguous;
+4. keep control-root synchronization and runtime-tree synchronization separate;
+5. back up and roll back both surfaces independently.
+
+This rule is distinct from Git staging authority and from artifact ZIP identity.
+<!-- FANTASY_LEARNING_CONTROL_ROOT_VS_RUNTIME_TREE_20260917:END -->
+
+<!-- FANTASY_LEARNING_GIT_OBJECT_VS_WORKTREE_PRESTATE_20260917:BEGIN -->
+## Compare checkpoint identity at the Git-object layer
+
+A committed text file and a Windows working-tree checkout can represent the same
+content with different line endings. Fresh-clone worktree bytes are therefore
+not a valid byte-for-byte authority for a previously synchronized control tree.
+
+For pre-state guards on tracked text:
+1. read expected content from the committed object (`git show HEAD:<path>`);
+2. compare local content after normalizing CRLF/CR to LF only;
+3. preserve every other byte distinction;
+4. fail on path-set changes or any non-line-ending content change;
+5. report normalized hashes on failure.
+
+Do not compare independently checked-out working-tree bytes as if they were Git
+object identity.
+<!-- FANTASY_LEARNING_GIT_OBJECT_VS_WORKTREE_PRESTATE_20260917:END -->
+
+<!-- FANTASY_LEARNING_RUNTIME_PROBE_EXECUTION_CONTEXT_20260917:BEGIN -->
+## Runtime probes must reproduce the application import context
+
+Executing `python tools/probe.py` makes the probe directory the leading Python
+import location; it is not equivalent to launching `python fantasy.py` from the
+application root.
+
+For application/runtime probes:
+1. set the working directory to the validated application/repository root;
+2. prepend that root to `PYTHONPATH` explicitly;
+3. preserve any existing `PYTHONPATH` after the validated root;
+4. include a negative regression that reproduces the missing-root import
+   failure;
+5. include a positive regression proving imports work under the corrected
+   environment;
+6. make preflight execute the actual staged patch plus runtime probe before it
+   can report `PASS`.
+
+A file-existing check or successful compile is not runtime-context validation.
+<!-- FANTASY_LEARNING_RUNTIME_PROBE_EXECUTION_CONTEXT_20260917:END -->

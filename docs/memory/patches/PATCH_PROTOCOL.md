@@ -141,3 +141,63 @@ Before committing generated durable memory:
 
 Do not label a diagnostic package `PACKAGE-VALIDATED` unless this gate passes.
 <!-- FANTASY_RENDERED_MEMORY_CLEANLINESS_GATE:END -->
+
+<!-- FANTASY_CONTROL_ROOT_RUNTIME_TREE_PROTOCOL_20260917:BEGIN -->
+## Control root versus runnable release tree
+
+For application-source patches, never infer that the checkpoint/control root is
+also the runnable installed release.
+
+Required procedure:
+1. establish the commissioned release-directory contract from release evidence;
+2. validate the candidate runtime tree using `VERSION` and predecessor source
+   identity before any modification;
+3. treat Git staging, control-root memory/tooling, and runtime-tree files as
+   separate synchronization surfaces;
+4. back up runtime files independently from control-root files;
+5. only synchronize the runtime tree after repository validation, commit/push,
+   and remote verification succeed;
+6. if multiple runtime candidates satisfy the identity check, fail before
+   modification rather than choosing heuristically.
+
+A missing `ProjectRoot/fantasy.py` is not evidence that the application is
+missing; it may indicate the normal split control/runtime layout.
+<!-- FANTASY_CONTROL_ROOT_RUNTIME_TREE_PROTOCOL_20260917:END -->
+
+<!-- FANTASY_GIT_OBJECT_PRESTATE_PROTOCOL_20260917:BEGIN -->
+## Tracked-text pre-state identity
+
+When an installer validates a local/control/runtime copy of a tracked text file,
+the committed Git object is the authority. A fresh checkout's raw bytes are not.
+
+Required procedure:
+1. obtain expected bytes from `HEAD:<path>`;
+2. compare the local file with CRLF/CR normalized to LF on both sides;
+3. do not normalize any other byte/content difference;
+4. validate the complete expected path set where a directory mirror is required;
+5. include diagnostic normalized hashes when a mismatch blocks the patch.
+
+This rule prevents Windows checkout line-ending representation from being
+misclassified as repository drift.
+<!-- FANTASY_GIT_OBJECT_PRESTATE_PROTOCOL_20260917:END -->
+
+<!-- FANTASY_RUNTIME_PROBE_CONTEXT_PROTOCOL_20260917:BEGIN -->
+## Application probe execution context
+
+A runtime/application probe must execute under the same import-root boundary as
+the application it validates.
+
+Required procedure:
+1. use the validated staged/runtime application root as `cwd`;
+2. explicitly prepend that root to `PYTHONPATH`;
+3. preserve pre-existing `PYTHONPATH` entries after the validated root;
+4. run an import-context regression that fails without the root and passes with
+   it;
+5. make non-modifying preflight apply the candidate patch only to an isolated
+   temporary clone and execute the real runtime probe there;
+6. do not allow preflight to report PASS if staged imports, paired behavior,
+   RNG/state equivalence, or overhead gating fail.
+
+Production/local trees remain untouched until the full repository checkpoint is
+validated, committed, pushed, and remotely verified.
+<!-- FANTASY_RUNTIME_PROBE_CONTEXT_PROTOCOL_20260917:END -->

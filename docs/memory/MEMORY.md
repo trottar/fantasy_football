@@ -225,3 +225,15 @@ exception-type equivalence, compares/restores Python RNG and caller-supplied
 state probes, and applies absolute/relative overhead budgets without persisting
 returned values or exception messages.
 <!-- FANTASY_MEMORY_V10A_INTEGRATION_GATE_20260917:END -->
+
+<!-- FANTASY_MEMORY_V10A_CLI_SEASON_SHADOW_20260917:BEGIN -->
+## v1.0A first production shadow pilot
+
+The first production-source observability integration is deliberately narrow:
+the final CLI command dispatch and the read-only
+`SeasonGuiService.source_health()` boundary. Events remain bounded and in
+memory; no persistent sink, argument/result capture, authenticated payload
+capture, or exception-message capture is enabled. Observer-internal failures
+fall back to the wrapped call so diagnostics cannot replace production
+behavior.
+<!-- FANTASY_MEMORY_V10A_CLI_SEASON_SHADOW_20260917:END -->

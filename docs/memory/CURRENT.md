@@ -12,7 +12,7 @@ maintenance_status: healthy
 
 - Final `0.X` runtime baseline: **`v0.36-repack1` — COMMISSIONED**.
 - Phase 0 I-001 is resolved.
-- Latest completed v1.0A slice: **production-integration design + non-interference/overhead gate**.
+- Latest completed v1.0A slice: **CLI + SeasonGuiService in-memory shadow pilot**.
 
 ## Active Objective
 
@@ -22,76 +22,82 @@ random streams.
 
 ## Current Work Item
 
-The observability substrate now includes immutable context/events, sinks,
-provenance, invariants, privacy/redaction, replay/diff evidence, failure bundles,
-subsystem adapters/correlation, a repository-grounded shadow integration plan,
-and a paired non-interference/overhead benchmark gate.
+The first production-source shadow pilot is enabled at two narrow boundaries:
 
-No production football/market/service/controller/GUI call site emits events or
-automatically captures/persists evidence.
+- final CLI command dispatch in `fantasy.py`;
+- read-only `SeasonGuiService.source_health()`.
+
+Both use bounded in-memory events only. No persistent sink, argument/result
+capture, authenticated payload capture, or exception-message capture is enabled.
 
 The exact next implementation slice is:
 
-**narrow shadow-integration pilot: CLI command boundary + SeasonGuiService**
+**GUI background-task/lifecycle shadow pilot**
 
-with no persistent sink and with benchmark/non-interference authorization before
-wider GUI/background/subsystem instrumentation.
+before player/DST/K/market/closure/data-source instrumentation.
 
 ## Verified State
 
 - v0.36-repack1 remains commissioned.
-- Prior v1.0A slices remain test-validated.
-- Integration-gate slice:
-  - targeted observability tests passed: 79;
-  - full repository pytest passed: 432;
+- Prior v1.0A observability contracts remain test-validated.
+- Shadow pilot:
+  - targeted tests passed: 91;
+  - full repository pytest passed: 443;
   - full compileall, strict memory health, and `git diff --check` passed;
-  - proposed integration surfaces name real repository source paths;
-  - all default integration points are shadow-only, non-persistent, and non-auto-emitting;
-  - paired gate compares return/exception behavior from identical captured state;
-  - Python RNG and caller-supplied state probes are compared and restored;
-  - tiny-call overhead uses an absolute budget, while longer calls also require a relative budget;
-  - gate results contain timing/boolean evidence, not returned values or exception messages.
+  - CLI paired gate: PASS; baseline median 12650 ns,
+    observed median 97950 ns,
+    incremental 85300 ns;
+  - SeasonGuiService paired gate: PASS; baseline median
+    3850 ns,
+    observed median 65150 ns,
+    incremental 61300 ns;
+  - output/exception behavior, Python RNG, and caller state probes matched;
+  - service shadow events are inspectable in memory;
+  - no production result or exception message is retained by the recorder.
 
 ## Scientific / Architectural Boundaries Affecting This Work
 
-- Diagnostics observe; they do not change football physics, behavior kernels,
-  recommendation authority, GUI business logic, or random draws.
-- Production behavior changes retain the explicit authorization boundary.
-- P/D/K remain separate specialist channels.
-- Integration begins in shadow mode with no automatic persistence.
-- Broader instrumentation is not authorized by a contract alone; each pilot must
-  pass non-interference/privacy/overhead evidence on the actual call path.
+- Diagnostics remain observers; observer failures fall back to the wrapped
+  production call and cannot replace its result/exception.
+- P/D/K remain separate specialist channels and are not instrumented by this
+  pilot.
+- No automatic persistence is enabled.
+- Wider instrumentation still requires a narrow call-path gate.
 
 ## Current Implementation State
 
 Implemented under `src/observability/`: context, events, registry, sinks,
 provenance, invariants, redaction, snapshots, replay, diff, failure_bundle,
-correlation, adapters, integration_plan, and benchmark_gate.
+correlation, adapters, integration_plan, benchmark_gate, and shadow_pilot.
+
+Production shadow integration currently exists only at:
+- CLI final dispatch;
+- `SeasonGuiService.source_health()`.
 
 Not yet integrated:
-- production CLI/service call sites;
-- GUI/background lifecycle emission;
-- player/DST/K/market/closure/data-source call-site instrumentation;
+- GUI background-task/lifecycle paths;
+- player/DST/K/market/closure/data-source call sites;
 - v1.0A commissioning gate.
 
 ## Current Validation State
 
-`CHECKPOINTED / TEST-VALIDATED / SHADOW-INTEGRATION NOT YET ENABLED`
+`SHADOW PILOT ENABLED / TEST-VALIDATED / NON-PERSISTENT`
 
 ## Exact Next Action
 
-Implement a **narrow shadow-integration pilot at the CLI command boundary and
-SeasonGuiService**, with explicit in-memory/non-persistent diagnostics and paired
-non-interference/overhead evidence before expansion.
+Implement the **GUI background-task/lifecycle shadow pilot** with explicit
+client/session/task correlation and the same non-interference/privacy/overhead
+gate.
 
 ## Success Criterion
 
-The pilot must preserve outputs, exceptions, random/state channels, privacy, and
-model semantics, while meeting the configured engineering overhead gate.
+The next pilot must preserve GUI control flow and stale-client lifecycle
+semantics while producing bounded in-memory evidence and meeting the configured
+engineering gate.
 
 ## Relevant References
 
 - Observability architecture: `architecture/DIAGNOSTICS_OBSERVABILITY.md`
-- Decisions D-013 through D-020 as applicable
+- Decisions D-019 through D-021
 - Current roadmap: `roadmap/STATUS.md`
 - Detailed chronology: `memory/2026-09-17.md`

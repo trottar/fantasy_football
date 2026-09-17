@@ -96,3 +96,13 @@ Adopt privacy-aware local replay-evidence bundles, integrity verification, and
 bounded redacted structural diffs. Replay is evidence loading only in this
 slice; production automatic capture and computation replay remain deferred.
 <!-- FANTASY_D017_V10A_SNAPSHOT_REPLAY_DIFF_INDEX:END -->
+
+<!-- FANTASY_D021_V10A_CLI_SEASON_SHADOW_INDEX:BEGIN -->
+## D-021 — CLI + SeasonGuiService shadow pilot
+
+**Status:** ACTIVE
+
+The first production-source observability pilot is limited to final CLI dispatch
+and read-only `SeasonGuiService.source_health()`, using bounded in-memory events
+with no persistence. See `D-021_V10A_CLI_SEASON_SHADOW_PILOT.md`.
+<!-- FANTASY_D021_V10A_CLI_SEASON_SHADOW_INDEX:END -->
