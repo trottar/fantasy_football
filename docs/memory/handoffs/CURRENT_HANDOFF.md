@@ -50,3 +50,21 @@ Key continuation rules:
 - do not reopen resolved/deferred work without new evidence;
 - preserve stable subsystems during unrelated fixes.
 <!-- FANTASY_PROCEDURE_AUDIT_HANDOFF:END -->
+
+<!-- FANTASY_MANIFEST_REGISTRY_REPAIR_HANDOFF:BEGIN -->
+## Durable-memory manifest repair handoff
+
+The procedure-memory content is preserved and football/model source is unchanged.
+
+A post-push audit found the memory registry generator produced malformed `y/...`
+relative paths and included `manifest.json` in its own inventory. This is a
+tooling/registry defect, not a football-model defect.
+
+The active repair replaces string-sliced relative paths with provider-derived
+relative paths and requires exact registry/tree set equality plus per-file
+byte/SHA-256 verification before any commit/push.
+
+Do not treat the manifest registry as repaired unless the repair package ends
+with `MANIFEST REPAIR: PUSHED SUCCESSFULLY` and the resulting GitHub commit is
+read-back verified.
+<!-- FANTASY_MANIFEST_REGISTRY_REPAIR_HANDOFF:END -->

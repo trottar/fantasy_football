@@ -30,3 +30,23 @@ For Git/native-process wrappers:
 
 This rule was established by the 2026-09-17 memory-checkpoint clone failure.
 <!-- FANTASY_WINDOWS_NATIVE_STDERR_RULE:END -->
+
+<!-- FANTASY_POWERSHELL_VARIABLE_COLON_RULE:BEGIN -->
+## Windows PowerShell variable-colon interpolation rule
+
+In double-quoted PowerShell strings, avoid an unbraced variable immediately
+followed by a colon, for example:
+
+`"$rel: message"`
+
+PowerShell can interpret the colon as part of a scoped/drive-style variable
+reference and fail at parse time.
+
+Use one of these forms instead:
+- `"${rel}: message"`
+- `("{0}: message" -f $rel)`
+
+For delivered PowerShell packages, statically scan for `$name:` patterns inside
+double-quoted strings when practical. A parser-level failure is classified
+`FAILED BEFORE MODIFICATION` because no script body executes.
+<!-- FANTASY_POWERSHELL_VARIABLE_COLON_RULE:END -->

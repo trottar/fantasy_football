@@ -34,3 +34,24 @@ Required wrapper behavior:
 6. fail on nonzero `$LASTEXITCODE`;
 7. do not fail solely because a zero-exit native command wrote progress to stderr.
 <!-- FANTASY_NATIVE_PROCESS_EXITCODE_PROTOCOL:END -->
+
+<!-- FANTASY_GENERATED_MANIFEST_VALIDATION_PROTOCOL:BEGIN -->
+## Generated manifest/registry validation
+
+Any generated file registry must be validated after generation and before
+checkpointing.
+
+Required invariants:
+1. paths are normalized repository-relative paths, never derived by raw
+   absolute-string slicing;
+2. the manifest does not list/hash itself unless the format explicitly uses a
+   non-recursive self-integrity scheme;
+3. registered paths are unique and safe (no absolute or `..` traversal paths);
+4. every registered file exists;
+5. every registered byte count and SHA-256 matches the actual file;
+6. the set of registered paths exactly equals the set of intended actual files;
+7. any invariant failure blocks commit/push.
+
+For `docs/memory/manifest.json`, the intended set is every file recursively under
+`docs/memory` except `docs/memory/manifest.json` itself.
+<!-- FANTASY_GENERATED_MANIFEST_VALIDATION_PROTOCOL:END -->
