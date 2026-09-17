@@ -355,3 +355,17 @@ construct generic action start/complete/error events without owning sinks or
 performing automatic persistence. Direct player/DST/kicker cross-channel
 nesting is rejected at the observability contract boundary.
 <!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_6:END -->
+
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_7:BEGIN -->
+## v1.0A implementation checkpoint 7
+
+Implemented a shadow integration map plus non-interference/overhead gate before
+production call-site instrumentation. The plan names real CLI, season-service,
+GUI background-task, player, DST, kicker, trade, closure, and data-source source
+surfaces. Every default point is shadow-only, non-persistent, and non-auto-emitting.
+
+The paired benchmark restores captured probe state between baseline and observed
+calls and after each pair; compares return/exception behavior and state-channel
+outcomes; and applies a hardware-tolerant absolute/relative overhead budget.
+This checkpoint changes no production call site.
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_7:END -->

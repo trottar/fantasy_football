@@ -213,3 +213,15 @@ CLI/service/background-task correlation boundaries. They reuse immutable
 nothing automatically. Direct P/D/K cross-channel nesting is rejected while a
 root observability context may enter each specialist channel independently.
 <!-- FANTASY_MEMORY_V10A_ADAPTERS_CORRELATION_20260917:END -->
+
+<!-- FANTASY_MEMORY_V10A_INTEGRATION_GATE_20260917:BEGIN -->
+## v1.0A production-integration gate
+
+The observability substrate includes a repository-grounded shadow integration
+plan and a paired non-interference/overhead benchmark gate. Default integration
+points are non-auto-emitting and non-persistent. The benchmark compares baseline
+and observed behavior from the same captured probe state, verifies result or
+exception-type equivalence, compares/restores Python RNG and caller-supplied
+state probes, and applies absolute/relative overhead budgets without persisting
+returned values or exception messages.
+<!-- FANTASY_MEMORY_V10A_INTEGRATION_GATE_20260917:END -->

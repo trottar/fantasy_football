@@ -35,6 +35,24 @@ from .failure_bundle import (
     verify_failure_bundle,
     write_failure_bundle,
 )
+from .benchmark_gate import (
+    BenchmarkGateResult,
+    OverheadBudget,
+    OverheadEvaluation,
+    StateProbe,
+    benchmark_pair,
+    evaluate_overhead,
+    python_random_probe,
+)
+from .integration_plan import (
+    DEFAULT_INTEGRATION_PLAN,
+    IntegrationMode,
+    IntegrationPlan,
+    IntegrationPoint,
+    IntegrationSurface,
+    PlanSourceCheck,
+    validate_plan_sources,
+)
 from .invariants import (
     CORE_INVARIANT_REGISTRY,
     InvariantDefinition,
@@ -179,4 +197,18 @@ __all__ = [
     "verify_replay_bundle",
     "write_failure_bundle",
     "write_snapshot_bundle",
+    "BenchmarkGateResult",
+    "DEFAULT_INTEGRATION_PLAN",
+    "IntegrationMode",
+    "IntegrationPlan",
+    "IntegrationPoint",
+    "IntegrationSurface",
+    "OverheadBudget",
+    "OverheadEvaluation",
+    "PlanSourceCheck",
+    "StateProbe",
+    "benchmark_pair",
+    "evaluate_overhead",
+    "python_random_probe",
+    "validate_plan_sources",
 ]
