@@ -93,3 +93,20 @@ Minimum release gate:
 A diagnostic package that does not exercise its runtime-critical path is not
 package-validated.
 <!-- FANTASY_DIAGNOSTIC_RELEASE_GATE_LEARNING:END -->
+
+<!-- FANTASY_RENDERED_MEMORY_WHITESPACE_LEARNING:BEGIN -->
+## Generated memory must be validated as rendered text
+
+A diagnostic package can pass Python/runtime helper QA and still fail its actual
+checkpoint if generated memory content is not validated.
+
+New rule:
+- normalize generated Markdown line-by-line;
+- remove trailing spaces/tabs from every generated line;
+- validate representative rendered memory before packaging;
+- rerun the same rendered-output validation against the exact delivered ZIP;
+- only then claim `PACKAGE-VALIDATED`.
+
+A package that fails `git diff --check` on its own generated memory was not fully
+package-validated, regardless of prior synthetic QA claims.
+<!-- FANTASY_RENDERED_MEMORY_WHITESPACE_LEARNING:END -->

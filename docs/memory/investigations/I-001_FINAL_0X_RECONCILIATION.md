@@ -123,3 +123,64 @@ The successful earlier I-001 result remains authoritative:
 `V036_EXACT_RELEASE_PRESENT_FIXED1_NOT_ESTABLISHED` /
 `V036_LATEST_EXACT_ARTIFACT_FIXED1_UNPROVEN`.
 <!-- FANTASY_I001_GUI_DIAGNOSTIC_FAILURE_20260917:END -->
+
+<!-- FANTASY_I001_GUI_LINEAGE_V2_INVALID_TOOL_RECORD:BEGIN -->
+## GUI-lineage v2 package — INVALID / SUPERSEDED
+
+**Package:** `fantasy_phase0_gui_lineage_isolation_20260917_v2.zip`
+
+**Tool/package status:** `INVALID / NOT PACKAGE-VALIDATED / SUPERSEDED`
+
+The earlier claim that this package was fully package-validated was **incorrect**.
+The package failed on the real Windows project before commit/push because its
+generated Markdown evidence contained trailing whitespace that was rejected by:
+
+`git diff --cached --check`
+
+Therefore this package must not be described as successfully validated,
+commissioned, or reusable.
+
+### Valid measurements produced before the tooling failure
+
+These measurements completed before the failure and remain valid evidence:
+
+- exact v0.36 ZIP SHA-256:
+  `598c518ad30e2f1c65c452bafca111808f5456eeb818bf04c43994ceb269987c`
+- exact-v0.36 vs local extracted-v0.36 source delta:
+  changed `0`, added `0`, removed `0`
+- lineage classification:
+  `NO_LOCAL_SOURCE_SUCCESSOR_DELTA`
+- exact v0.36 `compileall` exit: `0`
+- exact v0.36 `pytest -q` exit: `1`
+- sanitized evidence ZIP:
+  `phase0_gui_lineage_v2_evidence_20260917_033228.zip`
+- sanitized evidence ZIP SHA-256:
+  `e64094a5b5da9205f65b18176c641b08dec9bf4116dc128e425755fbe77587c0`
+
+### Interpretation boundary
+
+`NO_LOCAL_SOURCE_SUCCESSOR_DELTA` means the local extracted
+`fantasy_season_v0_36` source surface matches the exact v0.36 ZIP on the
+diagnostic's compared source surface. There is no local GUI-only successor
+hidden in that extracted tree.
+
+`pytest = 1` is a measured nonzero test result, but its cause is not yet
+diagnosed. It must remain `UNRESOLVED` until the failing test output is inspected
+or reproduced with captured diagnostics.
+
+### Tooling failure
+
+The generated evidence Markdown contained added blank lines with trailing
+whitespace. The failure occurred after evidence generation and manifest
+generation, but before commit/push.
+
+No football/model/application source was modified.
+
+### Successor requirement
+
+Before another lineage diagnostic is delivered:
+- generated Markdown must be normalized to remove trailing whitespace;
+- package QA must render representative memory output and run an actual
+  whitespace cleanliness check on that rendered output;
+- the exact delivered package must repeat that rendered-output check.
+<!-- FANTASY_I001_GUI_LINEAGE_V2_INVALID_TOOL_RECORD:END -->

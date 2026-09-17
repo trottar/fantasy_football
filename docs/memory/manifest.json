@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-17T03:25:17.974981-04:00",
+  "generated_at": "2026-09-17T03:39:27.993628-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,13 +16,13 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5936,
-      "sha256": "6d6671f7ce3996d9205c3c3a155f91d4dbd7ddd485eba9b1299fbb8403074e71"
+      "bytes": 6833,
+      "sha256": "3d1dd645f5348ea9c67dbcf8784e97217771657ddfacb1029fdfc722db6d6c78"
     },
     {
       "path": "LEARNINGS.md",
-      "bytes": 4189,
-      "sha256": "ee295a389f34e3cd639ca150e0ef26a93420e763d425519f5e06486306574d71"
+      "bytes": 4932,
+      "sha256": "2ac1d8bce65631ab8b1dd559e38cb5e623597cd01dcf6747a92a2d4b1f00fbba"
     },
     {
       "path": "MEMORY.md",
@@ -116,8 +116,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 7074,
-      "sha256": "0de8998753a3f6938539679f201e48bd9dcf9d7dbf64f11392fc745b3d06f2b6"
+      "bytes": 7822,
+      "sha256": "e625108b05d8189431a3044af3560c96eb715f78e4a5ff69f4e662cfeaa855dd"
     },
     {
       "path": "history/PHASE0_PROBE_V14_CLASSIFIER_SUPERSESSION.md",
@@ -136,8 +136,8 @@
     },
     {
       "path": "investigations/I-001_FINAL_0X_RECONCILIATION.md",
-      "bytes": 5012,
-      "sha256": "5d957d8c546cc6faf986ece630fa422f04fca9ace1d33d34e8e7e868291103d9"
+      "bytes": 7411,
+      "sha256": "d129851ed3c550eac9397c22a46949e95e83d8ceae27a5f0cf857db03a8103ad"
     },
     {
       "path": "memory/2026-09-16.md",
@@ -146,13 +146,13 @@
     },
     {
       "path": "memory/2026-09-17.md",
-      "bytes": 8396,
-      "sha256": "e027da524745fcabdda9835ea39674068a475e86b74d0d2e66c03bd061a3f94f"
+      "bytes": 9531,
+      "sha256": "5b6527b693f021238ae105e723ce8f3239d984eaa5640044da1f1d3b037f6edb"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
-      "bytes": 1458,
-      "sha256": "d1359ae37233338764acbae9ac9b96a110a74b4709aaab4d5ddf14c58b92c4f2"
+      "bytes": 2200,
+      "sha256": "ab25686bbef8a8c7860eb55c985e616d64c4cb33c5cd5f2aefb82f9903af8707"
     },
     {
       "path": "patches/MANIFEST_REGISTRY_REPAIR_2026-09-17.md",
@@ -161,8 +161,8 @@
     },
     {
       "path": "patches/PATCH_PROTOCOL.md",
-      "bytes": 5089,
-      "sha256": "99b44885d256d750d4b97e28524b4cc988717cafb19ce421720438d6fa2bbb2e"
+      "bytes": 5738,
+      "sha256": "8c5f2c4b684c73228feba1d0818a80c29f60b288bc30c50cef8e3da9410f79b8"
     },
     {
       "path": "repository/README.md",
@@ -171,8 +171,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 6793,
-      "sha256": "0531e166932f1bb6c556ec9a907601c7d2cae6df762dc2bca50f41804f183365"
+      "bytes": 7487,
+      "sha256": "599e97ea5d39b8e90f45310b5bd806f8dc13f69dd430d06afcb287dd1d6c343a"
     },
     {
       "path": "templates/DECISION.md",

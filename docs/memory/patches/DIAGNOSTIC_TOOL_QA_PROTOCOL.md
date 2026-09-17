@@ -47,3 +47,20 @@ failures.
 
 A tool is not `PACKAGE-VALIDATED` until all applicable layers pass.
 <!-- FANTASY_DIAGNOSTIC_TOOL_QA_PROTOCOL_V1:END -->
+
+<!-- FANTASY_DIAGNOSTIC_QA_RENDERED_OUTPUT_EXTENSION:BEGIN -->
+## Rendered-output extension
+
+The diagnostic QA protocol now explicitly includes generated durable output.
+
+Required:
+- render representative memory/evidence blocks during package QA;
+- strip trailing spaces/tabs on generated Markdown;
+- assert the rendered output is whitespace-clean;
+- repeat the render/cleanliness test after extracting the exact delivery ZIP;
+- where Git staging is part of the tool, `git diff --cached --check` remains the
+  final authority before commit.
+
+This requirement was added after the GUI-lineage v2 package failed on generated
+evidence whitespace despite earlier synthetic QA passing.
+<!-- FANTASY_DIAGNOSTIC_QA_RENDERED_OUTPUT_EXTENSION:END -->

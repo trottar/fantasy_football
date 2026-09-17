@@ -125,3 +125,19 @@ A successfully applied package should be safely rerunnable:
 Runtime remote SHA should be captured at execution and rechecked immediately
 before push. Semantic state, not only a build-time SHA, determines applicability.
 <!-- FANTASY_DIAGNOSTIC_QA_RELEASE_GATE:END -->
+
+<!-- FANTASY_RENDERED_MEMORY_CLEANLINESS_GATE:BEGIN -->
+## Rendered-memory cleanliness gate
+
+Before committing generated durable memory:
+
+1. normalize every generated Markdown line with trailing spaces/tabs removed;
+2. ensure no newly rendered line ends in whitespace;
+3. stage the exact memory output;
+4. run `git diff --cached --check`;
+5. treat any whitespace error as a package/tool validation failure;
+6. run the same rendered-output regression test on the exact extracted delivery
+   package before release.
+
+Do not label a diagnostic package `PACKAGE-VALIDATED` unless this gate passes.
+<!-- FANTASY_RENDERED_MEMORY_CLEANLINESS_GATE:END -->

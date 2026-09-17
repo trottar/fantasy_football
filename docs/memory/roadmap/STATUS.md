@@ -172,3 +172,20 @@ No football physics change is authorized by this diagnostic.
 This QA hold changes no football physics and does not supersede the successful
 I-001 v2 evidence result.
 <!-- FANTASY_ROADMAP_DIAGNOSTIC_QA_HOLD:END -->
+
+<!-- FANTASY_ROADMAP_GUI_LINEAGE_V2_FAILURE:BEGIN -->
+## Phase 0 status after GUI-lineage v2 invalid package
+
+- [x] exact v0.36 artifact established
+- [x] v0.36-fixed1 exact artifact/provenance not established
+- [x] local extracted v0.36 source shown equal to exact v0.36 source on compared
+      surface
+- [x] exact v0.36 compileall succeeded
+- [ ] exact v0.36 pytest failure diagnosed (`exit=1`)
+- [x] GUI-lineage v2 tooling marked `INVALID / SUPERSEDED`
+- [x] rendered-memory whitespace QA added
+- [ ] final 0.X authority / commissioning decision
+
+The invalid tooling status does not erase valid measurements produced before the
+failure.
+<!-- FANTASY_ROADMAP_GUI_LINEAGE_V2_FAILURE:END -->

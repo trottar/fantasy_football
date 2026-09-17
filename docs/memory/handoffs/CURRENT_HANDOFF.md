@@ -158,3 +158,23 @@ Before the next GUI-lineage diagnostic:
 - treat launcher/non-GUI divergence conservatively;
 - support safe `ALREADY APPLIED` behavior.
 <!-- FANTASY_HANDOFF_DIAGNOSTIC_QA_HOLD:END -->
+
+<!-- FANTASY_GUI_LINEAGE_V2_INVALID_HANDOFF:BEGIN -->
+## GUI-lineage v2 status
+
+Do not reuse `fantasy_phase0_gui_lineage_isolation_20260917_v2.zip`.
+
+It is `INVALID / SUPERSEDED` tooling because its generated evidence failed
+`git diff --cached --check`.
+
+Retain only its measured evidence:
+- local extracted v0.36 equals exact v0.36 on compared source surface;
+- `compileall=0`;
+- `pytest=1` with unresolved cause;
+- evidence ZIP SHA:
+  `e64094a5b5da9205f65b18176c641b08dec9bf4116dc128e425755fbe77587c0`.
+
+Next narrow task: inspect/reproduce the exact v0.36 pytest failure and close the
+final Phase 0 authority question. A successor tool must pass rendered-memory
+whitespace QA before delivery.
+<!-- FANTASY_GUI_LINEAGE_V2_INVALID_HANDOFF:END -->

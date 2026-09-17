@@ -124,3 +124,25 @@ Current action:
    gate;
 3. resume I-001 evidence work without changing football physics.
 <!-- FANTASY_CURRENT_DIAGNOSTIC_QA_HOLD:END -->
+
+<!-- FANTASY_CURRENT_GUI_LINEAGE_V2_INVALID_TOOL:BEGIN -->
+## Current Phase 0 lineage state after invalid v2 diagnostic package
+
+The GUI-lineage v2 package is **INVALID / SUPERSEDED** as tooling. The prior
+statement that it was fully package-validated was incorrect.
+
+Valid measured evidence from the failed run:
+- exact v0.36 source equals local extracted v0.36 source on the compared surface:
+  `changed=0`, `added=0`, `removed=0`;
+- classification: `NO_LOCAL_SOURCE_SUCCESSOR_DELTA`;
+- exact v0.36 compileall: `0`;
+- exact v0.36 pytest: `1` (`UNRESOLVED` cause);
+- evidence ZIP SHA-256:
+  `e64094a5b5da9205f65b18176c641b08dec9bf4116dc128e425755fbe77587c0`.
+
+The successful I-001 authority result remains:
+`V036_EXACT_RELEASE_PRESENT_FIXED1_NOT_ESTABLISHED` /
+`V036_LATEST_EXACT_ARTIFACT_FIXED1_UNPROVEN`.
+
+No production source changed.
+<!-- FANTASY_CURRENT_GUI_LINEAGE_V2_INVALID_TOOL:END -->
