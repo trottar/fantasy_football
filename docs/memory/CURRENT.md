@@ -146,3 +146,18 @@ The successful I-001 authority result remains:
 
 No production source changed.
 <!-- FANTASY_CURRENT_GUI_LINEAGE_V2_INVALID_TOOL:END -->
+
+<!-- FANTASY_CURRENT_V036_PYTEST_DIAGNOSIS_20260917:BEGIN -->
+## Current Phase 0 test diagnosis
+
+Exact v0.36 pytest diagnosis:
+`V036_SPECIFIC_DETERMINISTIC_TEST_REGRESSION`
+
+Exact v0.35-fixed1 passes in the same Python environment, while 2 v0.36 failing node(s) remain failing when rerun directly.
+
+v0.36 pytest exit: `1`
+v0.35-fixed1 baseline pytest exit: `0`
+
+Final 0.X authority should use this diagnosis together with the established fact
+that local extracted v0.36 has no source delta from the exact v0.36 ZIP.
+<!-- FANTASY_CURRENT_V036_PYTEST_DIAGNOSIS_20260917:END -->

@@ -189,3 +189,17 @@ I-001 v2 evidence result.
 The invalid tooling status does not erase valid measurements produced before the
 failure.
 <!-- FANTASY_ROADMAP_GUI_LINEAGE_V2_FAILURE:END -->
+
+<!-- FANTASY_V036_PYTEST_DIAGNOSIS_ROADMAP_20260917:BEGIN -->
+## Phase 0 exact-release test diagnosis
+
+- [x] exact v0.36 source identity established
+- [x] local extracted v0.36 source delta = 0/0/0
+- [x] invalid GUI-lineage tooling recorded/superseded
+- [x] exact v0.36 pytest failure captured at node level
+- [x] exact v0.35-fixed1 baseline tested in same environment
+- [x] targeted rerun(s) of v0.36 failing node(s)
+- [ ] final 0.X authority / commissioning decision
+
+Current diagnosis: `V036_SPECIFIC_DETERMINISTIC_TEST_REGRESSION`.
+<!-- FANTASY_V036_PYTEST_DIAGNOSIS_ROADMAP_20260917:END -->

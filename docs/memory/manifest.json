@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-17T03:39:27.993628-04:00",
+  "generated_at": "2026-09-17T03:51:02.132714-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6833,
-      "sha256": "3d1dd645f5348ea9c67dbcf8784e97217771657ddfacb1029fdfc722db6d6c78"
+      "bytes": 7410,
+      "sha256": "3f572c98add1f6c5d17ccd12cc47921d402659af7fc3ddb69d297b69a66fec97"
     },
     {
       "path": "LEARNINGS.md",
@@ -105,6 +105,11 @@
       "sha256": "2dde634f25edee64625caa872b42be4c3db12b3784abbe3b7eb97f853d4c2cd6"
     },
     {
+      "path": "evidence/I001_V036_PYTEST_DIAGNOSIS_2026-09-17.md",
+      "bytes": 748,
+      "sha256": "90259f893df5985040a7dfad977fbac015717aab4062e6d9509b4fc8df0e7400"
+    },
+    {
       "path": "evidence/OBSERVABILITY_SURFACE_AUDIT_2026-09-17.md",
       "bytes": 1647,
       "sha256": "e672f61b897fc32d627250fd1bef02665189df4224fc06f796a757474cebeff0"
@@ -116,8 +121,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 7822,
-      "sha256": "e625108b05d8189431a3044af3560c96eb715f78e4a5ff69f4e662cfeaa855dd"
+      "bytes": 8579,
+      "sha256": "cf7069951a1d451619b18ebff9004bc9aabca433a620b06fc4177d314dc34214"
     },
     {
       "path": "history/PHASE0_PROBE_V14_CLASSIFIER_SUPERSESSION.md",
@@ -136,8 +141,8 @@
     },
     {
       "path": "investigations/I-001_FINAL_0X_RECONCILIATION.md",
-      "bytes": 7411,
-      "sha256": "d129851ed3c550eac9397c22a46949e95e83d8ceae27a5f0cf857db03a8103ad"
+      "bytes": 8680,
+      "sha256": "4fa712ec3e05abc276ccc55250d84f4e60ffd349cee7d4764cbd7a8fade5505d"
     },
     {
       "path": "memory/2026-09-16.md",
@@ -146,8 +151,8 @@
     },
     {
       "path": "memory/2026-09-17.md",
-      "bytes": 9531,
-      "sha256": "5b6527b693f021238ae105e723ce8f3239d984eaa5640044da1f1d3b037f6edb"
+      "bytes": 10035,
+      "sha256": "6030de60f7008bda367b79dca9324c63ca887f452c266efe94d810de1d1e4142"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -171,8 +176,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 7487,
-      "sha256": "599e97ea5d39b8e90f45310b5bd806f8dc13f69dd430d06afcb287dd1d6c343a"
+      "bytes": 8084,
+      "sha256": "6aa579bc36e81e5fc2f781fbb561c7d4b8b07c873df519240eb7637464b9f688"
     },
     {
       "path": "templates/DECISION.md",

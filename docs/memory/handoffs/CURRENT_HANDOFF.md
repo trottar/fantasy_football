@@ -178,3 +178,21 @@ Next narrow task: inspect/reproduce the exact v0.36 pytest failure and close the
 final Phase 0 authority question. A successor tool must pass rendered-memory
 whitespace QA before delivery.
 <!-- FANTASY_GUI_LINEAGE_V2_INVALID_HANDOFF:END -->
+
+<!-- FANTASY_V036_PYTEST_DIAGNOSIS_HANDOFF_20260917:BEGIN -->
+## Phase 0 pytest diagnosis result
+
+Diagnosis: `V036_SPECIFIC_DETERMINISTIC_TEST_REGRESSION`
+
+Exact v0.35-fixed1 passes in the same Python environment, while 2 v0.36 failing node(s) remain failing when rerun directly.
+
+Exact v0.36 failing nodes:
+- `tests/test_mock_calibration.py::test_packaged_full_mock_is_complete_and_has_16_user_picks`
+- `tests/test_mock_calibration.py::test_mock_inventory_sees_first_calibration_sample`
+
+Exact v0.35-fixed1 failing nodes:
+(none parsed)
+
+Use the captured evidence before making the final 0.X authority/commissioning
+decision. Do not reinterpret `pytest=1` without the recorded node-level result.
+<!-- FANTASY_V036_PYTEST_DIAGNOSIS_HANDOFF_20260917:END -->

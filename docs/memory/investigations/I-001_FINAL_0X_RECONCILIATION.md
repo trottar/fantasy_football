@@ -184,3 +184,44 @@ Before another lineage diagnostic is delivered:
   whitespace cleanliness check on that rendered output;
 - the exact delivered package must repeat that rendered-output check.
 <!-- FANTASY_I001_GUI_LINEAGE_V2_INVALID_TOOL_RECORD:END -->
+
+<!-- FANTASY_I001_V036_PYTEST_DIAGNOSIS_20260917_V1:BEGIN -->
+## Exact v0.36 pytest diagnosis
+
+Timestamp: `2026-09-17T03:50:59.301342-04:00`
+
+**Diagnosis:** `V036_SPECIFIC_DETERMINISTIC_TEST_REGRESSION`
+
+Exact v0.35-fixed1 passes in the same Python environment, while 2 v0.36 failing node(s) remain failing when rerun directly.
+
+### Exact v0.36
+
+- ZIP SHA-256: `598c518ad30e2f1c65c452bafca111808f5456eeb818bf04c43994ceb269987c`
+- pytest exit: `1`
+- parsed failing nodes: `2`
+- targeted reruns executed: `2`
+
+Failing nodes:
+- `tests/test_mock_calibration.py::test_packaged_full_mock_is_complete_and_has_16_user_picks`
+- `tests/test_mock_calibration.py::test_mock_inventory_sees_first_calibration_sample`
+
+### Exact v0.35-fixed1 baseline
+
+- commit: `c85434a6be7852310c47fc8d1847c61a0a023209`
+- VERSION: `0.35-fixed1`
+- pytest exit: `0`
+- parsed failing nodes: `0`
+
+Baseline failing nodes:
+(none parsed)
+
+### Evidence
+
+- sanitized evidence ZIP:
+  `phase0_v036_pytest_diagnosis_20260917_035059.zip`
+- SHA-256:
+  `db44cb6ec8929f1818eb0aa786ce77a53d6af8943067171011ab69708ac9d3b7`
+
+No football/model/application source was modified. All tests ran in disposable
+extractions using the same local Python environment.
+<!-- FANTASY_I001_V036_PYTEST_DIAGNOSIS_20260917_V1:END -->
