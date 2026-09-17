@@ -1,39 +1,41 @@
 # Active Investigations
 
-## I-001 — Final 0.X source reconciliation
+There is no currently active unresolved investigation.
 
-Determine exact source/provenance status of v0.36 and any GUI fixed release relative to committed v0.35-fixed1. Do not reconstruct from memory if exact artifacts/source exist.
+The current project frontier is v1.0A observability implementation, not an
+investigation.
 
-## I-002 — Trade search architecture
+## Resolved
 
-Audit latest exact source to confirm whether automated trade candidate generation is still effectively 1-for-1 only and whether larger package evaluation exists without corresponding search coverage.
+### I-001 — Final 0.X Source Reconciliation
 
-## I-003 — Waiver resolver architecture
+**Status:** `RESOLVED`
 
-Audit actual ESPN waiver configuration and transaction semantics. Replace candidate-independent Bernoulli acquisition approximations with ordered contingent claim-list resolution if latest source still has that structural mismatch.
+Canonical record:
+`I-001_FINAL_0X_RECONCILIATION.md`
 
-## I-004 — Week 1 Data/MC closure
+Final authority is captured by
+`../decisions/D-010_PHASE0_FINAL_0X_AUTHORITY.md`.
 
-Ingest immutable Week 1 observations and compare them to frozen prospective predictions. Open sub-investigations for structural/input/uncertainty/behavior discrepancies. Do not retune automatically.
+Reopen only with new source/provenance/runtime evidence.
 
-<!-- FANTASY_I005_MANIFEST_GIT_BLOB_SEMANTICS:BEGIN -->
-## I-005 — Durable-memory manifest Git-blob semantics
+### I-005 — Durable-Memory Manifest Git-Blob Semantics
 
-**Status:** RESOLVED / RUNTIME-VALIDATED
+**Status:** `RESOLVED / RUNTIME-VALIDATED`
 
-Checkpoint `243e4ee4906f42582a5603170e7d7c73095c9dac`
-successfully repaired the durable-memory registry representation.
+Canonical repair/procedure records:
+- `../patches/MANIFEST_REGISTRY_REPAIR_2026-09-17.md`
+- `../patches/PATCH_PROTOCOL.md`
 
-Validated result:
-- manifest schema is `2`;
-- representation is `git_index_blob_bytes`;
-- generation hashes staged Git index bytes;
-- post-commit validation compares entries against committed `HEAD` blob bytes;
-- the manifest excludes itself;
-- the repair commit changed only `docs/memory/**`;
-- remote `main` was verified at the repair checkpoint;
-- no football/model/application source changed.
+Reopen only if staged-index / committed-HEAD / remote verification disagrees.
 
-The previous worktree-vs-Git-byte mismatch is closed. Reopen only if new evidence
-shows index/HEAD/remote checkpoint disagreement.
-<!-- FANTASY_I005_MANIFEST_GIT_BLOB_SEMANTICS:END -->
+## Queued by Roadmap, Not Active
+
+- **I-002 — Trade search architecture:** defer to v1.3 unless new evidence
+  requires earlier investigation.
+- **I-003 — Waiver resolver architecture:** defer to v1.2 unless new evidence
+  requires earlier investigation.
+- **I-004 — Week 1 Data/MC closure:** begins with v1.0B/v1.0C immutable evidence
+  and closure work; no automatic retuning.
+
+Queued items do not override the exact next action in `../CURRENT.md`.

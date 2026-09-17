@@ -71,3 +71,18 @@ Fantasy Football adopts the PrivyHub-style checkpoint boundary:
 
 This decision supersedes earlier generic collaboration wording where it conflicts.
 <!-- FANTASY_D009_PRIVYHUB_STYLE_CHECKPOINTS:END -->
+
+<!-- FANTASY_D015_MEMORY_MAINTENANCE_INDEX:BEGIN -->
+## D-015 — Durable Memory Maintenance Policy
+
+**Status:** ACTIVE
+
+`CURRENT.md` is the sole authoritative active frontier. Normal startup is
+`AGENTS.md -> CURRENT.md -> USER.md`, followed only by task-relevant references.
+
+`MAINTENANCE.md` owns memory-health thresholds, semantic triggers, safe-checkpoint
+behavior, and cleanup procedure. `CURRENT_HANDOFF.md` is non-authoritative and
+must remain small/rewriteable.
+
+See `D-015_MEMORY_MAINTENANCE_POLICY.md` for the full decision.
+<!-- FANTASY_D015_MEMORY_MAINTENANCE_INDEX:END -->
