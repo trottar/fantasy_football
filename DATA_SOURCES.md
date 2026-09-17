@@ -1,14 +1,16 @@
-# Data-source contract — v0.35-fixed1
+# Data-source contract — v0.36
 
-## v0.35-fixed1
+## v0.36
 
-No new external source and no calibration. The correction changes only decision authority inside the pre-data temporal player-state policy: deterministic expected-lineup response is a screen, while paired predictive H2H CRN from the commissioned player MC confirms any future self-player FREEAGENT transaction. Current WAIVERS remain excluded from guaranteed acquisition and the external player market remains first-order/frozen for v0.36. No 2026 game outcome is used for tuning.
+No new external data source and no outcome-informed calibration are introduced. v0.36 changes only the counterfactual league-response architecture. It preserves the commissioned order-1 player response and adds bounded order-2+ propagation of recipient releases through QB/RB/WR/TE only.
+
+Current ESPN waiver priority remains an explicitly uncalibrated ordering proxy. Orders 2+ use the same commissioned predictive football generator under common random numbers after a deterministic screen-only claimant frontier. A downstream release is not eligible until the following modeled week. All cascade limits and pruned probability mass are recorded.
+
+The pre-data contract remains `A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034`; v0.36 stores its response parameters in the prospective capture and uses no 2026 game outcomes for tuning.
 
 ## v0.35 — causal temporal player state
 
-## v0.35 — causal temporal player state
-
-No new external source and no paid API. v0.35 uses only the already-snapshotted player/market coordinates available to v0.34. Our future QB/RB/WR/TE membership is propagated with expected pregame player response and the current guaranteed FREEAGENT pool; current WAIVERS are excluded from guaranteed future acquisition and other managers' future player claims are not fabricated. The resulting external-player-market approximation is explicitly labeled `FROZEN_CURRENT_GUARANTEED_FREEAGENT_POOL_NO_EXTERNAL_CLAIMS_V035` and is scheduled for replacement by the wider league-state treatment in v0.36. Realized fantasy scores never select a future transaction. The v0.34 a-priori prospective measurement contract remains active and now also freezes the v0.35 temporal player-state prediction. No 2026 game outcome is used to tune the model.
+No new external source and no paid API. v0.35 uses only the already-snapshotted player/market coordinates available to v0.34. Our future QB/RB/WR/TE membership is propagated with expected pregame player response and the current guaranteed FREEAGENT pool; current WAIVERS are excluded from guaranteed future acquisition and other managers' future player claims are not fabricated. The resulting external-player-market approximation is explicitly labeled `FROZEN_CURRENT_GUARANTEED_FREEAGENT_POOL_NO_EXTERNAL_CLAIMS_V035` for unrelated future market evolution. v0.36 adds only the causally seeded bounded response cascade around our perturbations; it does not fabricate unrelated manager transactions. Realized fantasy scores never select a future transaction. The v0.34 a-priori prospective measurement contract remains active and now also freezes the v0.35 temporal player-state prediction. No 2026 game outcome is used to tune the model.
 
 
 ## v0.34 — a priori prospective measurement
@@ -85,7 +87,7 @@ The released-player transition kernel uses ESPN league state (other-team rosters
 
 The fixed4/fixed5 contingent option/stress ensemble remains a local diagnostic/screening calculation only. Its additive utility weight is zero in fixed6 and it does not determine action classification. No paid fantasy API, generic trade chart, or player-name-specific release penalty is introduced.
 
-The first-order waiver response explicitly stops after the likely recipient's required release; a recursive second waiver cascade is not yet propagated. Claim probabilities remain uncalibrated manager-behavior priors until league-specific observations accumulate.
+Historical note: prior releases stopped after the first recipient release. v0.36 now propagates a bounded order-2+ player-channel response cascade. Claim probabilities remain uncalibrated manager-behavior priors until league-specific observations accumulate.
 
 
 ## v0.30-fixed4 contingent-roster source rule

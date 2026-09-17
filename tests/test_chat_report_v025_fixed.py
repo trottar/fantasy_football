@@ -11,7 +11,7 @@ def test_chat_report_uses_gui_service_state_and_is_paste_friendly(tmp_path: Path
     text = report["text"]
     payload = report["payload"]
     dashboard = service.dashboard_state()
-    assert "FANTASY CHAT DIAGNOSIS v0.35-fixed1" in text
+    assert "FANTASY CHAT DIAGNOSIS v0.36" in text
     assert "MATCHUP" in text
     assert "LINEUP" in text
     assert "CLOSURE" in text

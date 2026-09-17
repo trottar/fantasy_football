@@ -981,8 +981,10 @@ def _print_action_rows(title, rows, limit, show_negative=False):
                 f'    release response: P(claimed)={float(row.get("release_p_claimed") or 0):5.1%}  '
                 f'E[recipient gain]={float(row.get("release_expected_recipient_gain_ppg") or 0):+5.2f} ppg  '
                 f'field shift={float(row.get("release_field_shift_ppg") or 0):+5.2f} ppg  '
+                f'[order1={float(row.get("release_first_order_field_shift_ppg") or 0):+5.2f}, '
+                f'order2+={float(row.get("release_higher_order_field_shift_ppg") or 0):+5.2f}]  '
                 f'current-opp shift={float(row.get("release_current_opponent_shift_ppg") or 0):+5.2f} ppg  '
-                f'N={int(row.get("release_response_scenarios") or 0)}'
+                f'N1={int(row.get("release_response_scenarios") or 0)} N2+={int(row.get("release_higher_order_scenarios") or 0)}'
             ),
             (
                 f'    contingent diagnostic only: OptionDepthΔ={float(row.get("delta_future_option_ppg") or 0):+5.2f} ppg  '
@@ -1318,10 +1320,20 @@ def _print_specialist_channel(report: dict, *, limit: int = 8) -> None:
                 release = row.get("release_response") or {}
                 lines.append(
                     f"    released-player response: P(claimed)={100*float(release.get('p_claimed') or 0):.1f}% | "
-                    f"field shift={float(release.get('field_shift_ppg') or 0):+.3f} ppg | "
+                    f"field shift={float(release.get('field_shift_ppg') or 0):+.3f} ppg "
+                    f"[order1={float(release.get('first_order_field_shift_ppg') or release.get('field_shift_ppg') or 0):+.3f}, "
+                    f"order2+={float(release.get('higher_order_field_shift_ppg') or 0):+.3f}] | "
                     f"current-opp shift={float(release.get('current_opponent_shift_ppg') or 0):+.3f} ppg | "
                     f"timing={release.get('timing_proxy') or '-'}"
                 )
+                if release.get("cascade_orders") is not None:
+                    lines.append(
+                        f"    cascade: model={release.get('model') or '-'} | "
+                        f"N2+={int(release.get('higher_order_scenarios') or 0)} | "
+                        f"orders={len(release.get('cascade_orders') or [])} | "
+                        f"pruned_mass={float(release.get('cascade_pruned_probability_mass') or 0):.3f} | "
+                        f"stop={','.join(release.get('cascade_stop_reasons') or []) or 'NONE'}"
+                    )
             print("\n".join(lines), flush=True)
 
 def cmd_defense_channel(args):
@@ -1331,7 +1343,7 @@ def cmd_defense_channel(args):
     league = load_league(args.league)
     model = json.loads(Path(args.model).read_text())
     team_name = args.team or _configured_user_team(args.league)
-    print("Evaluating v0.35-fixed1 causal player-state + temporal defense market CRN...", flush=True)
+    print("Evaluating v0.36 bounded league-response cascade + temporal defense market CRN...", flush=True)
     report = evaluate_defense_channel(
         snapshot, league, model, values_path=args.values, team_name=team_name,
         team_id=args.team_id, mc_scenarios=args.mc,
@@ -1348,7 +1360,7 @@ def cmd_kicker_channel(args):
     league = load_league(args.league)
     model = json.loads(Path(args.model).read_text())
     team_name = args.team or _configured_user_team(args.league)
-    print("Evaluating v0.35-fixed1 temporal kicker market + complete-state CRN...", flush=True)
+    print("Evaluating v0.36 temporal kicker market + complete-state CRN...", flush=True)
     report = evaluate_kicker_channel(
         snapshot, league, model, values_path=args.values, team_name=team_name,
         team_id=args.team_id, mc_scenarios=args.mc,
@@ -1509,6 +1521,12 @@ def cmd_closure_capture(args):
         f"market_players={int(measurement.get('market_players') or 0)} snapshot_sha256={digest[:12]}"
     )
     print(f"Temporal player-state predicted swaps: {int(measurement.get('temporal_player_transactions') or 0)}")
+    if measurement.get("cascade_model"):
+        print(
+            f"League-response cascade: {measurement.get('cascade_model')} "
+            f"depth={int(measurement.get('cascade_max_depth') or 0)} "
+            f"N2+={int(measurement.get('cascade_scenarios') or 0)}"
+        )
     print(f"Capture integrity: {'OK' if measurement.get('integrity_ok') else 'FAILED'}")
 
 

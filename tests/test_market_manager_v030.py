@@ -644,7 +644,8 @@ def test_v030_fixed6_strong_release_perturbs_league_more_than_weak_release(tmp_p
     strong_response = released_player_league_state_response(strong, ctx, scenarios=64)
     weak_response = released_player_league_state_response(weak, ctx, scenarios=64)
 
-    assert strong_response["model"].startswith("PAIRED_COUNTERFACTUAL_PLAYER_CHANNEL_V031")
+    assert strong_response["model"] == "PAIRED_COUNTERFACTUAL_PLAYER_CHANNEL_V036_BOUNDED_CASCADE"
+    assert strong_response["first_order_model"].startswith("PAIRED_COUNTERFACTUAL_PLAYER_CHANNEL_V031")
     assert strong_response["p_claimed"] > weak_response["p_claimed"]
     assert strong_response["expected_recipient_gain_ppg"] > weak_response["expected_recipient_gain_ppg"]
     assert strong_response["field_shift_ppg"] > weak_response["field_shift_ppg"]

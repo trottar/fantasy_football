@@ -121,7 +121,7 @@ def test_v034_closure_wrapper_preserves_player_ledger_and_adds_measurements():
 
 def test_v034_existing_player_closure_gui_assertion_advanced():
     source = Path("tests/test_closure_v029.py").read_text(encoding="utf-8")
-    assert 'payload["model_version"] == "0.35-fixed1"' in source
+    assert 'payload["model_version"] == "0.36"' in source
     assert 'payload["measurement_contract"] == "A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034"' in source
 
 
@@ -148,9 +148,9 @@ def test_v034_gui_capture_returns_measurement_counts():
 
 def test_v034_release_metadata_and_a_priori_firewall():
     root = Path(__file__).parents[1]
-    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.35-fixed1"
-    assert (root / "README.md").read_text(encoding="utf-8").startswith("# Fantasy Football Season Manager v0.35-fixed1")
+    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.36"
+    assert (root / "README.md").read_text(encoding="utf-8").startswith("# Fantasy Football Season Manager v0.36")
     data_sources = (root / "DATA_SOURCES.md").read_text(encoding="utf-8")
-    assert data_sources.startswith("# Data-source contract — v0.35-fixed1")
+    assert data_sources.startswith("# Data-source contract — v0.36")
     assert "No 2026 game outcome is consumed by v0.34" in data_sources
     assert "Record now. Calibrate in 1.X." in data_sources

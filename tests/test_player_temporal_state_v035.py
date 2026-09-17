@@ -197,7 +197,7 @@ def test_v035_specialist_complete_state_expands_about_local_player_state():
 def test_v035_external_player_market_is_explicitly_first_order():
     assert v35.EXTERNAL_PLAYER_MARKET_MODEL == "FROZEN_CURRENT_GUARANTEED_FREEAGENT_POOL_NO_EXTERNAL_CLAIMS_V035"
     source = Path(policy.__file__).read_text(encoding="utf-8")
-    assert "full league player-market evolution is reserved for v0.36" in source
+    assert "bounded order-2+ external player-channel release cascade" in source
 
 
 def test_v035_current_release_response_still_preserves_commissioned_fixed6_path():
@@ -209,7 +209,7 @@ def test_v035_current_release_response_still_preserves_commissioned_fixed6_path(
 
 def test_v035_capture_freezes_temporal_player_state_without_changing_v034_measurement_contract():
     source = Path("src/prospective_measurement_v034.py").read_text(encoding="utf-8")
-    assert 'MEASUREMENT_MODEL_VERSION = "0.35-fixed1"' in source
+    assert 'MEASUREMENT_MODEL_VERSION = "0.36"' in source
     assert 'MEASUREMENT_CONTRACT = "A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034"' in source
     assert 'capture["temporal_player_state_prediction"]' in source
     assert '"2026_game_outcomes_used_for_tuning": False' in source
@@ -246,9 +246,9 @@ def test_v035_cli_exposes_player_state_provenance_and_remains_cp1252_safe(capsys
 
 def test_v035_release_metadata():
     root = Path(__file__).parents[1]
-    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.35-fixed1"
-    assert (root / "README.md").read_text(encoding="utf-8").startswith("# Fantasy Football Season Manager v0.35-fixed1")
-    assert (root / "DATA_SOURCES.md").read_text(encoding="utf-8").startswith("# Data-source contract — v0.35-fixed1")
+    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.36"
+    assert (root / "README.md").read_text(encoding="utf-8").startswith("# Fantasy Football Season Manager v0.36")
+    assert (root / "DATA_SOURCES.md").read_text(encoding="utf-8").startswith("# Data-source contract — v0.36")
 
 
 def test_v035_full_release_is_standalone_source_tree_without_bootstrap_dependency():

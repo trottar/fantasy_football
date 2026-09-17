@@ -415,7 +415,7 @@ def temporal_released_player_response(
                 current_opp_shift = float(actual_row["winner_probability"] * actual_row["delta_activation_week"])
                 reference_shift[start_week - 1] = current_opp_shift
     _weeks, weights, norm = _week_weights_from(ctx, start_week)
-    return {
+    first_order = {
         "model": CLAIM_RESPONSE_MODEL,
         "activation_week": start_week,
         "information_model": TEMPORAL_INFORMATION_MODEL,
@@ -430,3 +430,11 @@ def temporal_released_player_response(
         "opponent_reference_shift_ppg_by_week": [float(x) for x in reference_shift],
         "destinations": destinations,
     }
+    from .league_response_v036 import extend_release_response
+    result = extend_release_response(candidate, ctx, first_order, start_week=start_week)
+    result["activation_week"] = start_week
+    result["information_model"] = TEMPORAL_INFORMATION_MODEL
+    result["player_membership_model"] = PLAYER_MEMBERSHIP_MODEL
+    result["opponent_reference_model"] = opponent_model
+    result["waiver_order_model"] = "CURRENT_ESPN_WAIVER_PRIORITY_PROXY_UNCALIBRATED_V033"
+    return result

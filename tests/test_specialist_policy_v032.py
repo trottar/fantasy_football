@@ -137,8 +137,8 @@ def test_v032_field_delta_uses_actual_opponent_current_week_then_field_mean(monk
 
 def test_v032_release_metadata_and_gui_policy_wiring():
     root = Path(__file__).parents[1]
-    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.35-fixed1"
-    assert (root / "README.md").read_text(encoding="utf-8").startswith("# Fantasy Football Season Manager v0.35-fixed1")
+    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.36"
+    assert (root / "README.md").read_text(encoding="utf-8").startswith("# Fantasy Football Season Manager v0.36")
     app = (root / "src" / "gui" / "season_app.py").read_text(encoding="utf-8")
     service = (root / "src" / "gui" / "season_service.py").read_text(encoding="utf-8")
     assert "L2 dynamic one-slot policy" in app

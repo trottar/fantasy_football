@@ -133,9 +133,15 @@ class ActionResult:
     release_p_claimed: float = 0.0
     release_expected_recipient_gain_ppg: float = 0.0
     release_field_shift_ppg: float = 0.0
+    release_first_order_field_shift_ppg: float = 0.0
+    release_higher_order_field_shift_ppg: float = 0.0
     release_current_opponent_shift_ppg: float = 0.0
     release_response_scenarios: int = 0
+    release_higher_order_scenarios: int = 0
     release_response_model: str | None = None
+    release_first_order_model: str | None = None
+    release_cascade_orders: list[dict[str, Any]] | None = None
+    release_cascade_stop_reasons: list[str] | None = None
     release_top_destinations: list[dict[str, Any]] | None = None
     mc_stage: str = "FINAL"
     mc_futility_stop: bool = False
@@ -2169,8 +2175,8 @@ def released_player_league_state_response(
     random numbers.  Claim probabilities are then conditioned on that modeled roster
     response and waiver priority determines the winner distribution.
 
-    The response is first order: the recipient's release is surfaced but not recursively
-    propagated through another waiver cascade.
+    This function computes the commissioned order-1 response exactly, then v0.36
+    augments it with a bounded order-2+ player-channel cascade.
     """
     pid = _finite_int(candidate.get("espn_id"))
     n = max(16, int(scenarios or ctx.cfg.get("league_state_response_scenarios", 32)))
@@ -2287,7 +2293,7 @@ def released_player_league_state_response(
         reference_shift[ctx.week - 1] = float(current_opponent_shift)
         season_field = _season_lineup_from_weekly(reference_shift[None, :], ctx)[0]
         destination_rows.sort(key=lambda r: float(r.get("winner_probability") or 0.0), reverse=True)
-        result = {
+        first_order = {
             "model": "PAIRED_COUNTERFACTUAL_PLAYER_CHANNEL_V031_FIRST_ORDER",
             "scenarios": int(n),
             "p_claimed": float(1.0 - survival),
@@ -2298,6 +2304,8 @@ def released_player_league_state_response(
             "opponent_reference_shift_ppg_by_week": [float(x) for x in reference_shift],
             "destinations": destination_rows[: int(ctx.cfg.get("league_response_report_destinations", 5))],
         }
+        from .league_response_v036 import extend_release_response
+        result = extend_release_response(candidate, ctx, first_order, start_week=int(ctx.week))
         ctx._league_release_response_cache[cache_key] = dict(result)
         return result
     finally:
@@ -3042,9 +3050,15 @@ def evaluate_actions(
             release_p_claimed=float(league_response.get("p_claimed") or 0.0),
             release_expected_recipient_gain_ppg=float(league_response.get("expected_recipient_gain_ppg") or 0.0),
             release_field_shift_ppg=float(league_response.get("field_shift_ppg") or 0.0),
+            release_first_order_field_shift_ppg=float(league_response.get("first_order_field_shift_ppg") or league_response.get("field_shift_ppg") or 0.0),
+            release_higher_order_field_shift_ppg=float(league_response.get("higher_order_field_shift_ppg") or 0.0),
             release_current_opponent_shift_ppg=float(league_response.get("current_opponent_shift_ppg") or 0.0),
             release_response_scenarios=int(league_response.get("scenarios") or 0),
+            release_higher_order_scenarios=int(league_response.get("higher_order_scenarios") or 0),
             release_response_model=str(league_response.get("model") or "") or None,
+            release_first_order_model=str(league_response.get("first_order_model") or "") or None,
+            release_cascade_orders=list(league_response.get("cascade_orders") or []),
+            release_cascade_stop_reasons=list(league_response.get("cascade_stop_reasons") or []),
             release_top_destinations=list(league_response.get("destinations") or []),
             mc_stage=str(row.get("stage_name") or "FINAL"),
             mc_futility_stop=bool(row.get("stage_futility_stop", False)),
@@ -3140,7 +3154,7 @@ def evaluate_actions(
         "predictive_mc_stopped_for_futility": bool(stopped_for_futility),
         "baseline": asdict(baseline),
         "baseline_option_scarcity": contingent_baseline,
-        "counterfactual_league_state_model": "PAIRED_COUNTERFACTUAL_PLAYER_CHANNEL_V031_FIRST_ORDER",
+        "counterfactual_league_state_model": "PAIRED_COUNTERFACTUAL_PLAYER_CHANNEL_V036_BOUNDED_CASCADE",
         "market_channel": "PLAYER_QB_RB_WR_TE_V031",
         "league_state_response_scenarios": int(response_n),
         "screen_baseline": asdict(screen_baseline),
@@ -3157,7 +3171,7 @@ def evaluate_actions(
             "v0.31 player-channel add/drop actions preserve the fixed6 counterfactual release response while excluding K/DST from the player market.",
             "v0.31 keeps the player-channel counterfactual paired distribution—not an additive option/scarcity coefficient—for action classification and predictive-MC escalation.",
             "The fixed4/fixed5 contingent option/stress ensemble remains available only as a screening and diagnostic response probe; its utility contribution is zero in fixed6.",
-            "The release response is first-order: the likely recipient's modeled release is surfaced but is not recursively propagated through another waiver cascade.",
+            "v0.36 preserves the commissioned first-order released-player response and adds bounded order-2+ player-channel cascade corrections with explicit perturbative stopping and next-week release timing.",
             "v0.30-fixed4 exposes the lazy whole-league opponent-reference build as explicit progress and skips starter-only diagnostics in non-final screening stages.",
             "v0.30-fixed4 uses a small paired future-roster-state ensemble for contingent bench value; replacement scarcity is a diagnostic decomposition and is not double-counted by default.",
             "v0.30-fixed4 uses a cheap waiver acquisition estimate only during pruning; final displayed P(acquire) always uses the detailed v0.30 higher-priority-manager best-add/drop model.",

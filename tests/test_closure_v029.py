@@ -202,7 +202,7 @@ def test_gui_service_capture_uses_exact_in_memory_state(tmp_path: Path):
     path = Path(result["path"])
     assert path.exists()
     payload = json.loads(path.read_text(encoding="utf-8"))
-    assert payload["model_version"] == "0.35-fixed1"
+    assert payload["model_version"] == "0.36"
     assert payload["measurement_contract"] == "A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034"
     assert payload["pre_data_firewall"]["2026_game_outcomes_used_for_tuning"] is False
     assert payload["snapshot_utc"] == service.snapshot["snapshot_utc"]

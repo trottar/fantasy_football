@@ -7,4 +7,4 @@ def test_fixed2_bootstrap_materialized_full_inherited_tree():
     assert (root / "tests" / "test_specialist_temporal_v033.py").exists()
     assert (root / "src" / "specialist_policy_v032.py").exists()
     assert (root / "src" / "specialist_temporal_v033.py").exists()
-    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.35-fixed1"
+    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.36"

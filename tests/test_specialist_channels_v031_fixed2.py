@@ -95,6 +95,6 @@ def test_fixed2_specialist_cli_labels_static_swaps_and_preserves_headers(capsys)
 
 def test_fixed2_version_metadata():
     root = Path(__file__).parents[1]
-    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.35-fixed1"
-    assert (root / "README.md").read_text(encoding="utf-8").startswith("# Fantasy Football Season Manager v0.35-fixed1")
-    assert (root / "DATA_SOURCES.md").read_text(encoding="utf-8").startswith("# Data-source contract — v0.35-fixed1")
+    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.36"
+    assert (root / "README.md").read_text(encoding="utf-8").startswith("# Fantasy Football Season Manager v0.36")
+    assert (root / "DATA_SOURCES.md").read_text(encoding="utf-8").startswith("# Data-source contract — v0.36")

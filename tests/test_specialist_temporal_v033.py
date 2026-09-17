@@ -90,7 +90,7 @@ def test_specialist_policy_exposes_temporal_market_and_information_state():
     assert "RECOMPUTED_AT_ACTIVATION_STATE_V033" in source
     assert "COMMISSIONED_CURRENT_STATE_RELEASE_RESPONSE_V031" in source
     assert "FROZEN_CURRENT_PLAYER_CLAIM_RESPONSE_APPLIED_FROM_ACTIVATION_WEEK_V032_FIXED4" not in source
-    assert '"model_version": "0.35-fixed1"' in source
+    assert '"model_version": "0.36"' in source
     assert '"policy_layer": "SPECIALIST_WITH_CAUSAL_PLAYER_STATE_V035"' in source
 
 
@@ -132,9 +132,9 @@ def test_v033_complete_state_supports_scenario_conditioned_externality_under_crn
 
 def test_v033_release_metadata():
     root = Path(__file__).parents[1]
-    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.35-fixed1"
-    assert (root / "README.md").read_text(encoding="utf-8").startswith("# Fantasy Football Season Manager v0.35-fixed1")
-    assert (root / "DATA_SOURCES.md").read_text(encoding="utf-8").startswith("# Data-source contract — v0.35-fixed1")
+    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.36"
+    assert (root / "README.md").read_text(encoding="utf-8").startswith("# Fantasy Football Season Manager v0.36")
+    assert (root / "DATA_SOURCES.md").read_text(encoding="utf-8").startswith("# Data-source contract — v0.36")
 
 
 def test_v033_cli_remains_ascii_cp1252_contract():

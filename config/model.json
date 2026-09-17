@@ -489,7 +489,14 @@
     "league_response_claim_season_ppg_weight": 1.1,
     "league_response_claim_current_week_weight": 0.12,
     "temporal_player_state_scenarios": 256,
-    "temporal_player_state_screen_keep": 4
+    "temporal_player_state_screen_keep": 4,
+    "league_response_cascade_max_depth": 3,
+    "league_response_cascade_branch_probability_floor": 0.02,
+    "league_response_cascade_field_shift_floor_ppg": 0.001,
+    "league_response_cascade_seed_branches": 3,
+    "league_response_cascade_claimant_frontier": 4,
+    "league_response_cascade_max_branches_per_order": 8,
+    "league_response_cascade_scenarios": 64
   },
   "weekly_yield": {
     "espn_week_anchor_weight": 0.35,

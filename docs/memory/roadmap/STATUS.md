@@ -238,3 +238,20 @@ Phase 0 investigation status: `COMPLETE`.
 Next two unchecked items are production/release work and require explicit user
 authorization.
 <!-- FANTASY_ROADMAP_PHASE0_FINAL_AUTHORITY_20260917:END -->
+
+<!-- FANTASY_ROADMAP_V036_REPACK1_20260917:BEGIN -->
+## v0.36-repack1 pre-v1.0A gate
+
+- [x] durable v0.36 source import
+- [x] packaging-only fixture repair
+- [x] targeted fixture tests
+- [x] full pytest + compileall
+- [x] automated GUI-focused test gate
+- [x] GUI lifecycle/static/import/CLI smokes
+- [x] exact repaired ZIP validation
+- [ ] live browser GUI commissioning
+- [ ] begin v1.0A observability implementation
+
+Release artifact: `fantasy_season_v0_36_repack1.zip`
+SHA-256: `01dc3ddce16d828ba91f97058e15ce4102592418a2648049135c24d146826380`
+<!-- FANTASY_ROADMAP_V036_REPACK1_20260917:END -->

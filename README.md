@@ -1,14 +1,34 @@
-# Fantasy Football Season Manager v0.35-fixed1
+# Fantasy Football Season Manager v0.36
 
-## v0.35-fixed1 predictive-confirmation correction
+## v0.36 — bounded higher-order league response
+
+v0.36 extends the commissioned released-player response as a controlled perturbative expansion while preserving the exact order-1 football response from v0.31/fixed6 and the causal self-player state from v0.35-fixed1.
+
+The response architecture is
+
+`R = R^(1) + R^(2) + R^(3) + ...`
+
+with strict causal and computational boundaries:
+
+- order 1 is the commissioned paired counterfactual player-channel response;
+- a recipient's released QB/RB/WR/TE can seed the next response order only in the following modeled week;
+- D/ST and kicker never enter the player-response cascade;
+- our team and the immediate releasing team are excluded from downstream reacquisition;
+- branch probability is propagated multiplicatively;
+- orders 2+ use a dedicated smaller paired predictive MC after a deterministic screen-only claimant frontier;
+- recursion stops by maximum depth, branch-probability floor, incremental field-response floor, branch/frontier limits, cycle guard, and season boundary;
+- all pruned probability mass and stopping reasons are surfaced in the audit;
+- no 2026 game outcome is used for tuning or calibration.
+
+The v0.34 prospective measurement contract remains the experimental protocol. v0.36 captures the cascade architecture and all stopping parameters before outcomes.
+
+## Historical v0.35-fixed1 predictive-confirmation correction
 
 Live commissioning showed that the first v0.35 temporal player-state policy could let a deterministic expected-lineup screen authorize future roster changes, producing aggressive projected swaps such as dropping valuable bench assets for tiny lineup gains. fixed1 restores the mature player-channel hierarchy: the expected-lineup calculation is screening only, and a future QB/RB/WR/TE FREEAGENT swap changes P_w only after paired predictive H2H MC confirmation under common random numbers with the existing ACTIONABLE/POSSIBLE thresholds. The decision week must also be non-worsening. No 2026 game outcome is used for tuning.
 
 ## v0.35 causal temporal player-membership state
 
-## v0.35 causal temporal player-membership state
-
-v0.35 completes the next first-order state transition in the pre-data architecture. Future specialist decisions no longer evaluate the player slot on frozen synchronized membership: our QB/RB/WR/TE membership is propagated week by week under a causal expected player-channel policy using current guaranteed FREEAGENTs, byes/matchups, and expected availability only. Current Week-1 membership and immediate player actions remain the commissioned observed state. At a future specialist activation boundary the model expands locally around the evolved P_w and freezes post-perturbation player-market reaction at first order; full other-manager player-market evolution and higher-order transaction response are reserved for v0.36. No 2026 game outcome is used for tuning.
+v0.35 completes the next first-order state transition in the pre-data architecture. Future specialist decisions no longer evaluate the player slot on frozen synchronized membership: our QB/RB/WR/TE membership is propagated week by week under a causal expected player-channel policy using current guaranteed FREEAGENTs, byes/matchups, and expected availability only. Current Week-1 membership and immediate player actions remain the commissioned observed state. At a future specialist activation boundary the model expands locally around the evolved P_w and freezes post-perturbation player-market reaction at first order; v0.36 now adds the bounded response cascade causally seeded by our perturbation; unrelated endogenous league transactions remain outside this local expansion. No 2026 game outcome is used for tuning.
 
 
 ## v0.34 a priori prospective measurement contract

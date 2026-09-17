@@ -952,7 +952,8 @@ class SeasonGuiService:
         # fixed6 authoritative counterfactual: the dropped player re-enters the
         # league state instead of disappearing.  The released-player transition is
         # evaluated with the same predictive football generator at the configured
-        # small paired N, then applied as a first-order perturbation to the field.
+        # small paired N; v0.36 preserves that order-1 response and adds bounded
+        # higher-order player-channel release propagation to the field.
         release_response = released_player_league_state_response(
             drop, self.ctx,
             scenarios=int(self.ctx.cfg.get("league_state_response_scenarios", 256)),
@@ -1430,7 +1431,7 @@ class SeasonGuiService:
             flags.append("no completed prospective v0.29 fantasy-yield closure observations yet")
 
         return {
-            "version": "v0.35-fixed1",
+            "version": "v0.36",
             "snapshot_utc": dashboard.get("snapshot_utc"),
             "season": dashboard.get("season"),
             "week": dashboard.get("week"),

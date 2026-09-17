@@ -638,8 +638,9 @@ def _evaluate_policy_channel(
         # v0.35 first evolves our ordinary-player membership P_w under a causal
         # expected player-channel policy. Current-week membership is observed and
         # immutable here; future current FREEAGENTs are the guaranteed pool. Other
-        # managers' player transactions remain a frozen first-order background until
-        # v0.36.
+        # Broader endogenous manager transaction policy remains outside this local
+        # v0.36 response cascade; only response branches causally seeded by our perturbation
+        # are propagated.
         player_states = build_temporal_player_states(ctx)
         temporal_player_state_report = summarize_temporal_player_states(player_states)
         player_lookup: dict[int, dict[str, Any]] = {}
@@ -758,24 +759,44 @@ def _evaluate_policy_channel(
                 distribution = (release_summary or {}).get("selection_distribution") or []
                 p_claimed = 0.0
                 field_shift_ppg = 0.0
+                first_order_field_shift_ppg = 0.0
+                higher_order_field_shift_ppg = 0.0
                 current_opponent_shift_ppg = 0.0
+                cascade_pruned_probability_mass = 0.0
+                cascade_stop_reasons = set()
                 for item in distribution:
                     rid = int(item.get("espn_id"))
                     weight = float(item.get("selection_probability") or 0.0)
                     response = response_by_id.get(rid) or {}
                     p_claimed += weight * float(response.get("p_claimed") or 0.0)
                     field_shift_ppg += weight * float(response.get("field_shift_ppg") or 0.0)
+                    first_order_field_shift_ppg += weight * float(response.get("first_order_field_shift_ppg") or response.get("field_shift_ppg") or 0.0)
+                    higher_order_field_shift_ppg += weight * float(response.get("higher_order_field_shift_ppg") or 0.0)
                     current_opponent_shift_ppg += weight * float(response.get("current_opponent_shift_ppg") or 0.0)
+                    cascade_pruned_probability_mass += weight * float(response.get("cascade_pruned_probability_mass") or 0.0)
+                    cascade_stop_reasons.update(response.get("cascade_stop_reasons") or [])
                 response_models = sorted({
                     str(response.get("model"))
                     for response in response_by_id.values()
                     if response.get("model")
                 })
+                dominant_release_id = None
+                if distribution:
+                    dominant_release_id = int(max(distribution, key=lambda item: float(item.get("selection_probability") or 0.0)).get("espn_id"))
+                dominant_response = response_by_id.get(dominant_release_id) or {}
                 response_summary = {
                     "p_claimed": float(p_claimed),
                     "field_shift_ppg": float(field_shift_ppg),
+                    "first_order_field_shift_ppg": float(first_order_field_shift_ppg),
+                    "higher_order_field_shift_ppg": float(higher_order_field_shift_ppg),
                     "current_opponent_shift_ppg": float(current_opponent_shift_ppg),
-                    "model": response_models[0] if len(response_models) == 1 else CLAIM_RESPONSE_MODEL,
+                    "model": response_models[0] if len(response_models) == 1 else "PAIRED_COUNTERFACTUAL_PLAYER_CHANNEL_V036_BOUNDED_CASCADE",
+                    "first_order_model": dominant_response.get("first_order_model"),
+                    "higher_order_scenarios": int(dominant_response.get("higher_order_scenarios") or 0),
+                    "cascade_orders": list(dominant_response.get("cascade_orders") or []),
+                    "cascade_summary_basis": "DOMINANT_RELEASE_STATE_V036",
+                    "cascade_pruned_probability_mass": float(cascade_pruned_probability_mass),
+                    "cascade_stop_reasons": sorted(cascade_stop_reasons),
                     "timing_proxy": (
                         "COMMISSIONED_CURRENT_STATE_RELEASE_RESPONSE_V031"
                         if int(effective_activation_week) == int(ctx.week)
@@ -857,7 +878,7 @@ def _evaluate_policy_channel(
     report = dict(static_report)
     report.update({
         "schema_version": 3,
-        "model_version": "0.35-fixed1",
+        "model_version": "0.36",
         "policy_layer": "SPECIALIST_WITH_CAUSAL_PLAYER_STATE_V035",
         "one_slot_policy": block,
         "dynamic_carry_actions": dynamic_carry,
@@ -872,10 +893,10 @@ def _evaluate_policy_channel(
             "Future simultaneous demand uses current ESPN waiver priority only as an explicit uncalibrated transaction-order proxy.",
             "L3 two-DST policy endogenizes the activation week and lets the evolving same-channel market choose the acquired second defense; candidate names are outputs of the state transition, not independent placeholder actions.",
             "v0.35-fixed1 evolves our ordinary-player membership causally before each future specialist decision using expected player-channel best responses; current Week-1 membership remains the observed commissioned state.",
-            "The v0.35-fixed1 external ordinary-player market is deliberately first order: current guaranteed FREEAGENTs are propagated without fabricated other-manager claims; full league player-market evolution is reserved for v0.36.",
+            "v0.36 preserves the v0.35-fixed1 causal self-player state and adds a bounded order-2+ external player-channel release cascade around specialist perturbations; broader endogenous league transaction policy remains outside this response expansion.",
             "L4 carry2 confirmation expands around the evolved activation-week player state, freezes that local P_w after the perturbation, recomputes released-player claimant/recipient response, and compares complete H2H states under common random numbers.",
             "Future active/inactive information uses an explicitly uncalibrated week-boundary reveal proxy; no future realized fantasy score or workload realization selects an action.",
-            "Post-activation player-market reaction is intentionally held fixed at first order; v0.36 will propagate the wider league player market and higher-order transaction response.",
+            "Post-activation response is expanded through the bounded v0.36 order-2+ player-channel cascade; unrelated league transactions remain outside the local perturbation.",
         ],
     })
     return report

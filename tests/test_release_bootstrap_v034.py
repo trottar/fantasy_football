@@ -8,4 +8,4 @@ def test_v034_bootstrap_materialized_commissioned_v033_fixed2_tree():
     assert (root / "tests" / "test_prospective_measurement_v034.py").exists()
     assert (root / "src" / "specialist_temporal_v033.py").exists()
     assert (root / "src" / "prospective_measurement_v034.py").exists()
-    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.35-fixed1"
+    assert (root / "VERSION").read_text(encoding="utf-8").strip() == "0.36"

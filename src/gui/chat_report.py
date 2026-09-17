@@ -55,7 +55,7 @@ def format_chat_report(payload: dict[str, Any]) -> str:
     recomputes fantasy-model quantities independently of the GUI service.
     """
     lines: list[str] = []
-    lines.append(f"FANTASY CHAT DIAGNOSIS {payload.get('version', 'v0.35-fixed1')}")
+    lines.append(f"FANTASY CHAT DIAGNOSIS {payload.get('version', 'v0.36')}")
     lines.append(
         " ".join(
             [

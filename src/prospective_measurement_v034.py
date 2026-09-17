@@ -10,7 +10,7 @@ from typing import Any
 import numpy as np
 
 MEASUREMENT_SCHEMA_VERSION = 2
-MEASUREMENT_MODEL_VERSION = "0.35-fixed1"
+MEASUREMENT_MODEL_VERSION = "0.36"
 MEASUREMENT_CONTRACT = "A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034"
 SPECIALIST_CAPTURE_SCOPE = "OWNED_PLUS_ACTIONABLE_MARKET_SPECIALISTS_V034"
 BEHAVIOR_STATE_MODEL = "SNAPSHOT_ANCHORED_UNCALIBRATED_BEHAVIOR_STATE_V034"
@@ -329,6 +329,23 @@ def enrich_pregame_capture(base_capture: dict[str, Any], snapshot: dict[str, Any
     capture["temporal_player_state_prediction"] = summarize_temporal_player_states(
         build_temporal_player_states(ctx)
     )
+    cascade_keys = [
+        "league_response_cascade_max_depth",
+        "league_response_cascade_branch_probability_floor",
+        "league_response_cascade_field_shift_floor_ppg",
+        "league_response_cascade_seed_branches",
+        "league_response_cascade_claimant_frontier",
+        "league_response_cascade_max_branches_per_order",
+        "league_response_cascade_scenarios",
+    ]
+    capture["league_response_cascade_v036"] = {
+        "model": "PAIRED_COUNTERFACTUAL_PLAYER_CHANNEL_V036_BOUNDED_CASCADE",
+        "order1_contract": "COMMISSIONED_ORDER1_PRESERVED_EXACTLY_V036",
+        "timing_model": "RECIPIENT_RELEASE_AVAILABLE_NEXT_MODELED_WEEK_V036",
+        "channel_model": "PLAYER_QB_RB_WR_TE_ONLY_V036",
+        "parameters": {key: copy.deepcopy(getattr(ctx, "cfg", {}).get(key)) for key in cascade_keys},
+        "2026_game_outcomes_used_for_tuning": False,
+    }
     capture["pre_data_firewall"] = {
         "2026_game_outcomes_used_for_tuning": False,
         "automatic_refit": False,
@@ -339,7 +356,7 @@ def enrich_pregame_capture(base_capture: dict[str, Any], snapshot: dict[str, Any
     }
     notes = list(capture.get("notes") or [])
     notes.extend([
-        "v0.34 established the a priori measurement contract; v0.35-fixed1 additionally freezes the causal temporal player-membership prediction before 2026 outcomes and still performs no outcome-informed tuning.",
+        "v0.34 established the a priori measurement contract; v0.36 additionally freezes the bounded higher-order league-response architecture and stopping parameters before 2026 outcomes while preserving the v0.35-fixed1 causal temporal player state.",
         "The inherited v0.29 player closure ledger continues to consume only the players block; the all-league player, specialist, behavioral and temporal player-state blocks are frozen now for later 1.X Data/MC analysis.",
     ])
     capture["notes"] = notes
@@ -364,6 +381,9 @@ def capture_summary(capture: dict[str, Any]) -> dict[str, Any]:
         "behavior_teams": len(behavior.get("teams") or []),
         "market_players": len(behavior.get("market_players") or []),
         "temporal_player_transactions": int((capture.get("temporal_player_state_prediction") or {}).get("transaction_count") or 0),
+        "cascade_model": (capture.get("league_response_cascade_v036") or {}).get("model"),
+        "cascade_max_depth": int(((capture.get("league_response_cascade_v036") or {}).get("parameters") or {}).get("league_response_cascade_max_depth") or 0),
+        "cascade_scenarios": int(((capture.get("league_response_cascade_v036") or {}).get("parameters") or {}).get("league_response_cascade_scenarios") or 0),
         "snapshot_sha256": behavior.get("snapshot_sha256"),
         "integrity_ok": verify_capture_integrity(capture),
     }
