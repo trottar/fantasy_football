@@ -333,3 +333,15 @@ Implemented:
 Replay in this checkpoint is evidence loading, not football/MC execution.
 Production automatic capture remains disabled.
 <!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_4:END -->
+
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_5:BEGIN -->
+## v1.0A implementation checkpoint 5
+
+Implemented `failure_bundle.py`: atomic local bounded failure bundles,
+privacy-conservative exception summaries, redacted structured
+state/reproduction/effects, bounded event/invariant tails, exact-byte integrity
+verification, and immutable loading.
+
+Failure bundles are explicit caller-owned evidence. No automatic capture,
+exception recovery policy, or production control-flow integration is enabled.
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_5:END -->

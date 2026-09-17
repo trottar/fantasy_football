@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-17T14:01:12.616333-04:00",
+  "generated_at": "2026-09-17T15:17:07.022090-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,13 +16,13 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 3693,
-      "sha256": "a9940774bf2b847ccfa02d5f7c0f9bee2e7e1a4ce7448416807667bc6e82044e"
+      "bytes": 3359,
+      "sha256": "940676478b0b58db9ca6801bf9c91d05db8af0b5ae0d410121ac3cf271e6051d"
     },
     {
       "path": "LEARNINGS.md",
-      "bytes": 4932,
-      "sha256": "2ac1d8bce65631ab8b1dd559e38cb5e623597cd01dcf6747a92a2d4b1f00fbba"
+      "bytes": 6005,
+      "sha256": "ca270828729fbcc400322d8962598d61ef60e0f82df6f272f64541e3e5de6611"
     },
     {
       "path": "MAINTENANCE.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 6360,
-      "sha256": "731c102111876b96cc5c8693c57823cb7ad60095f1ce59e858bfcdfe9bbb79b8"
+      "bytes": 6955,
+      "sha256": "34ef32d138185cd08c0e37aa97c1d3b458acc40d31423cbba5b6e7882da23cae"
     },
     {
       "path": "README.md",
@@ -56,8 +56,8 @@
     },
     {
       "path": "architecture/DIAGNOSTICS_OBSERVABILITY.md",
-      "bytes": 11575,
-      "sha256": "d94d3ce82c1a50ae0edf84d587cfc102e91eaa23dbda8b58d0d121bd72c7ed1d"
+      "bytes": 12157,
+      "sha256": "af0892946b33398cf5944cba2400c5e2656213e66f19ebc943a80c9cebe665e8"
     },
     {
       "path": "architecture/INFORMATION_CAUSALITY.md",
@@ -140,6 +140,11 @@
       "sha256": "e83b6e48918b652d8586935564ec038f7ab0878cdc3fafbd101e898b578f745c"
     },
     {
+      "path": "decisions/D-018_V10A_FAILURE_BUNDLE_CONTRACT.md",
+      "bytes": 791,
+      "sha256": "8b180256bc19c76c24bea9cf38c31aeacc23df58cc29a301672412911df869ff"
+    },
+    {
       "path": "decisions/DECISION_LOG.md",
       "bytes": 4242,
       "sha256": "d7b075c1e42deccb76be092cd5037c849777eb3f7fc9200bbdb3cc3546e98c3d"
@@ -195,6 +200,16 @@
       "sha256": "378d52435f5316a9bf35b0ed4516a901831e9acd4af65320fa600308e8708778"
     },
     {
+      "path": "evidence/V10A_FAILURE_BUNDLE_2026-09-17.md",
+      "bytes": 913,
+      "sha256": "a5082eb9a5671c5f6a48553e9c17a9ddf0c5532fd2a6b66b826a6ce809fe2696"
+    },
+    {
+      "path": "evidence/V10A_FAILURE_BUNDLE_BUILD_FAILURES_2026-09-17.md",
+      "bytes": 2565,
+      "sha256": "10dd829d1ce3dbb19f0c8c413dc6a6ed38bb586415788fe4c1d5993e03fd9c1f"
+    },
+    {
       "path": "evidence/V10A_INVARIANTS_REDACTION_2026-09-17.md",
       "bytes": 1169,
       "sha256": "c403a79b9a71de2df5d570fcd4ec0c8d0a12634947027500699ea2ac909b3f63"
@@ -216,8 +231,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 583,
-      "sha256": "dcfa95ab2891bb83e56893dc46404a829898a35ece4e3ca577e8a382daed894c"
+      "bytes": 595,
+      "sha256": "36a47528a59f98b585020a82a007e4be570cb53a1c59adea8ae96a23efc7e1b2"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -296,8 +311,8 @@
     },
     {
       "path": "memory/2026-09-17.md",
-      "bytes": 21266,
-      "sha256": "b6e66930d131a48dc167bc26a21373caee4ff774d16c4e6306ddd67fc10097c5"
+      "bytes": 22275,
+      "sha256": "ea8e85ed5980b8a493f8e76995ae34334281d87a2d6bd821cd3832bf659adb04"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -321,8 +336,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 1047,
-      "sha256": "4a9a2c860a326e54dec3bca83ec89b8c8a36555f5b9273a1bc16124a6267012f"
+      "bytes": 1713,
+      "sha256": "4b385ff1079d8ce800f69f9c9f52f4a39d441e16a880f7e039c9a4ae6e6ac87a"
     },
     {
       "path": "templates/DECISION.md",

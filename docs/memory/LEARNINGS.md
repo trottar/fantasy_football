@@ -110,3 +110,26 @@ New rule:
 A package that fails `git diff --check` on its own generated memory was not fully
 package-validated, regardless of prior synthetic QA claims.
 <!-- FANTASY_RENDERED_MEMORY_WHITESPACE_LEARNING:END -->
+
+<!-- FANTASY_HASH_ALGORITHM_REPRESENTATION_RULE:BEGIN -->
+## Hash algorithm and representation must match
+
+A Git blob object ID and a SHA-256 checksum of file bytes are different
+representations and must never be compared as if they were the same value.
+
+For every hash guard, state all three explicitly:
+1. authority layer (`worktree`, staged index, committed `HEAD`, remote object);
+2. byte/object representation being hashed;
+3. hash/object-ID algorithm and expected length.
+
+Examples:
+- Git blob predecessor guard: compare `git rev-parse HEAD:<path>` to an expected
+  Git blob object ID from the same Git repository/object model;
+- file-byte integrity guard: compare SHA-256 to SHA-256 over the same bytes;
+- schema-2 memory manifest: compare SHA-256 over staged/committed Git blob bytes,
+  not a Git object ID and not normalized worktree bytes.
+
+A length mismatch (for example 64-character SHA-256 versus 40-character Git
+blob OID) is itself evidence of a representation error and must fail QA before
+delivery.
+<!-- FANTASY_HASH_ALGORITHM_REPRESENTATION_RULE:END -->

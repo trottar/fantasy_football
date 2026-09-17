@@ -33,3 +33,20 @@ Then:
 - [ ] v1.0A commissioning criteria
 
 Production call-site event emission remains deferred.
+
+<!-- FANTASY_ROADMAP_V10A_FAILURE_BUNDLE_20260917:BEGIN -->
+## v1.0A failure-bundle checkpoint
+
+- [x] bounded privacy-safe failure-bundle contract
+- [x] project-file modification state separated from runtime side effects
+- [x] exact-byte integrity verification
+- [ ] subsystem adapter contracts
+- [ ] CLI/service/background-task correlation
+- [ ] GUI event emission/integration
+- [ ] diagnostic overhead/non-interference benchmarks
+- [ ] v1.0A commissioning gate
+
+Next narrow checkpoint: subsystem adapter contracts +
+CLI/service/background-task correlation. Automatic production emission remains
+disabled.
+<!-- FANTASY_ROADMAP_V10A_FAILURE_BUNDLE_20260917:END -->

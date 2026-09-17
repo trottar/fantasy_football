@@ -192,3 +192,14 @@ bundles, exact-byte integrity verification, immutable evidence loading, and
 bounded redacted structural diffing. This is not computation replay and is not
 integrated into production call sites.
 <!-- FANTASY_MEMORY_V10A_SNAPSHOT_REPLAY_DIFF_20260917:END -->
+
+<!-- FANTASY_MEMORY_V10A_FAILURE_BUNDLE_20260917:BEGIN -->
+## v1.0A failure-bundle contract
+
+The observability substrate includes bounded, privacy-safe local failure
+bundles. Exception messages are omitted by default; stack frames retain only
+file basenames/function/line; events/invariants are bounded; structured
+state/reproduction/effects are redacted; exact-byte integrity is verified
+before load. Project-file modification state remains distinct from runtime side
+effects. Automatic capture and production emission remain disabled.
+<!-- FANTASY_MEMORY_V10A_FAILURE_BUNDLE_20260917:END -->

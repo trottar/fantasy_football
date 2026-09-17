@@ -11,9 +11,8 @@ maintenance_status: healthy
 ## Authority Metadata
 
 - Final `0.X` runtime baseline: **`v0.36-repack1` — COMMISSIONED**.
-- Internal `VERSION` remains `0.36`; `repack1` is an artifact revision.
 - Phase 0 I-001 is resolved.
-- Latest completed v1.0A slice: **local snapshot/replay/diff contract**.
+- Latest completed v1.0A slice: **privacy-safe bounded failure-bundle contract**.
 
 ## Active Objective
 
@@ -23,40 +22,32 @@ random streams.
 
 ## Current Work Item
 
-Completed observability foundation:
-- immutable run/action context;
-- structured events and event registry;
-- explicit sinks;
-- provenance/config/input hashing;
-- invariant registry/results;
-- conservative privacy/redaction primitives;
-- local redacted snapshot bundle writer;
-- exact-byte replay-bundle verification/loading;
-- bounded structural replay/value diffing.
+Completed observability foundation includes immutable context/events, explicit
+sinks, provenance hashing, invariant results, privacy/redaction, local
+snapshot/replay/diff evidence, and bounded privacy-safe failure bundles.
 
-No production football/market/service/controller/GUI call site emits events yet.
-No automatic snapshot capture or private/authenticated persistent logging is
-enabled.
+No production football/market/service/controller/GUI call site emits events or
+automatically captures evidence.
 
 The exact next implementation slice is:
 
-**failure-bundle contract**
+**subsystem adapter contracts + CLI/service/background-task correlation**
 
 ## Verified State
 
 - v0.36-repack1 remains commissioned.
 - Prior v1.0A slices remain test-validated.
-- Snapshot/replay/diff slice:
-  - targeted observability tests passed: 48;
-  - full repository pytest passed: 401;
-  - full compileall and `git diff --check` passed;
-  - strict memory health passed;
-  - persisted structured values are redacted before local write;
-  - bundle member byte lengths/SHA-256 are verified before replay loading;
-  - tampering is detected;
-  - structural diffs are bounded and redacted by default;
-  - replay does not execute football/model logic;
-  - RNG non-interference tests passed.
+- Failure-bundle slice:
+  - targeted observability tests passed: 58;
+  - full repository pytest passed: 411;
+  - full compileall, strict memory health, and `git diff --check` passed;
+  - exception messages are omitted by default;
+  - stack evidence omits absolute paths/source lines;
+  - events/invariants are bounded to caller-selected tails;
+  - state/reproduction/effects are redacted before persistence;
+  - project-file modification state is distinct from runtime side effects;
+  - exact-byte bundle integrity verification detects tampering;
+  - automatic capture and production event emission remain disabled.
 
 ## Scientific / Architectural Boundaries Affecting This Work
 
@@ -65,51 +56,37 @@ The exact next implementation slice is:
 - Production behavior changes retain the explicit authorization boundary.
 - Persistent private/authenticated event emission remains blocked until an
   integration layer explicitly applies redaction and is tested.
-- Replay currently means verified evidence loading only, not computation
-  execution.
+- Failure bundles are caller-triggered evidence contracts, not exception
+  handling policy or production control flow.
 
 ## Current Implementation State
 
-Implemented under `src/observability/`:
-- `context.py`, `events.py`, `registry.py`;
-- `sinks.py`, `provenance.py`;
-- `invariants.py`, `redaction.py`;
-- `snapshots.py`, `replay.py`, `diff.py`.
+Implemented under `src/observability/`: context, events, registry, sinks,
+provenance, invariants, redaction, snapshots, replay, diff, and failure_bundle.
 
 Not yet implemented:
-- failure bundles;
 - subsystem adapters;
 - CLI/service/background-task correlation;
-- GUI event emission/integration.
+- GUI event emission/integration;
+- diagnostic overhead/non-interference benchmarks and v1.0A commissioning gate.
 
 ## Current Validation State
 
 `CHECKPOINTED / TEST-VALIDATED / NOT YET INTEGRATED INTO PRODUCTION CALL SITES`
 
-No blocker exists for the next observational slice.
-
 ## Exact Next Action
 
-Implement the **v1.0A failure-bundle contract** while keeping production event
-emission disabled.
+Implement **subsystem adapter contracts + CLI/service/background-task
+correlation** without enabling automatic production emission.
 
 ## Success Criterion
 
-The next checkpoint must produce privacy-safe, bounded, actionable failure
-evidence without changing model results or requiring reconstruction from chat
-history.
-
-## Do Not Reopen Without New Evidence
-
-- I-001 final 0.X lineage reconciliation;
-- historical v0.36-fixed1 artifact search;
-- v0.36 packaging diagnosis;
-- v0.36-repack1 GUI commissioning;
-- resolved memory/manifest/diagnostic-tool QA defects.
+The next checkpoint must expose consistent correlation boundaries for later
+integration while preserving results, privacy, and random streams.
 
 ## Relevant References
 
 - Observability architecture: `architecture/DIAGNOSTICS_OBSERVABILITY.md`
-- Decisions D-013, D-014, D-016, D-017
+- Decisions D-013, D-014, D-016, D-017, D-018
 - Current roadmap: `roadmap/STATUS.md`
 - Detailed chronology: `memory/2026-09-17.md`

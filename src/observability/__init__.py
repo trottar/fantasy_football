@@ -7,6 +7,20 @@ football, market, Monte Carlo, or GUI business logic.
 from .context import RunContext, new_correlation_id
 from .diff import DiffEntry, DiffKind, ReplayDiff, diff_replay_bundles, diff_values
 from .events import EVENT_SCHEMA_VERSION, StructuredEvent, make_event
+from .failure_bundle import (
+    FAILURE_BUNDLE_MANIFEST_FILE,
+    FAILURE_BUNDLE_SCHEMA_VERSION,
+    FAILURE_MEMBER_FILES,
+    OMITTED_EXCEPTION_MESSAGE,
+    FailureBundle,
+    FailureBundleManifest,
+    FailureBundleMember,
+    FailureBundleVerification,
+    load_failure_bundle,
+    summarize_exception,
+    verify_failure_bundle,
+    write_failure_bundle,
+)
 from .invariants import (
     CORE_INVARIANT_REGISTRY,
     InvariantDefinition,
@@ -89,6 +103,13 @@ __all__ = [
     "EventLevel",
     "EventRegistry",
     "EventSink",
+    "FAILURE_BUNDLE_MANIFEST_FILE",
+    "FAILURE_BUNDLE_SCHEMA_VERSION",
+    "FAILURE_MEMBER_FILES",
+    "FailureBundle",
+    "FailureBundleManifest",
+    "FailureBundleMember",
+    "FailureBundleVerification",
     "FanoutSink",
     "HumanTextSink",
     "InvariantDefinition",
@@ -98,6 +119,7 @@ __all__ = [
     "InvariantStatus",
     "JsonlSink",
     "MemorySink",
+    "OMITTED_EXCEPTION_MESSAGE",
     "RedactionPolicy",
     "RedactionResult",
     "ReplayBundle",
@@ -114,6 +136,7 @@ __all__ = [
     "format_human_event",
     "git_source_state",
     "is_sensitive_key",
+    "load_failure_bundle",
     "load_replay_bundle",
     "make_event",
     "new_correlation_id",
@@ -127,6 +150,9 @@ __all__ = [
     "sha256_file",
     "sha256_json",
     "sha256_json_file",
+    "summarize_exception",
+    "verify_failure_bundle",
     "verify_replay_bundle",
+    "write_failure_bundle",
     "write_snapshot_bundle",
 ]
