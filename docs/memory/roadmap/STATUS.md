@@ -50,3 +50,18 @@ Next narrow checkpoint: subsystem adapter contracts +
 CLI/service/background-task correlation. Automatic production emission remains
 disabled.
 <!-- FANTASY_ROADMAP_V10A_FAILURE_BUNDLE_20260917:END -->
+
+<!-- FANTASY_ROADMAP_V10A_ADAPTERS_CORRELATION_20260917:BEGIN -->
+## v1.0A adapters/correlation checkpoint
+
+- [x] subsystem adapter contracts
+- [x] CLI/service/background-task correlation contracts
+- [x] P/D/K observability channel separation guard
+- [ ] production integration design
+- [ ] diagnostic overhead/non-interference benchmark gate
+- [ ] GUI event emission/integration
+- [ ] v1.0A commissioning gate
+
+Next narrow checkpoint: production integration design + overhead/non-interference
+benchmark gate before broad instrumentation.
+<!-- FANTASY_ROADMAP_V10A_ADAPTERS_CORRELATION_20260917:END -->

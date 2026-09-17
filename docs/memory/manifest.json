@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-17T15:17:07.022090-04:00",
+  "generated_at": "2026-09-17T15:28:54.786025-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 3359,
-      "sha256": "940676478b0b58db9ca6801bf9c91d05db8af0b5ae0d410121ac3cf271e6051d"
+      "bytes": 3404,
+      "sha256": "8dbe6e75c5187e3182bd2b5ae282d5f6729b866fd5ce1b6bbb515e3dd90469cb"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 6955,
-      "sha256": "34ef32d138185cd08c0e37aa97c1d3b458acc40d31423cbba5b6e7882da23cae"
+      "bytes": 7508,
+      "sha256": "3d031068fc5cf8d5620b19586a85a040c1a30b8f7d6fd15f7bda5c8a5ac76631"
     },
     {
       "path": "README.md",
@@ -56,8 +56,8 @@
     },
     {
       "path": "architecture/DIAGNOSTICS_OBSERVABILITY.md",
-      "bytes": 12157,
-      "sha256": "af0892946b33398cf5944cba2400c5e2656213e66f19ebc943a80c9cebe665e8"
+      "bytes": 12702,
+      "sha256": "c6a55b4da6eb43cad83653f735b5d8383bdb5362dec6aa5d655ce3742f0815b2"
     },
     {
       "path": "architecture/INFORMATION_CAUSALITY.md",
@@ -145,6 +145,11 @@
       "sha256": "8b180256bc19c76c24bea9cf38c31aeacc23df58cc29a301672412911df869ff"
     },
     {
+      "path": "decisions/D-019_V10A_ADAPTER_CORRELATION_CONTRACT.md",
+      "bytes": 767,
+      "sha256": "2139a65a55b19ea12516bf1367dcc1642fd0b189843e381a3517dd1eed7083ca"
+    },
+    {
       "path": "decisions/DECISION_LOG.md",
       "bytes": 4242,
       "sha256": "d7b075c1e42deccb76be092cd5037c849777eb3f7fc9200bbdb3cc3546e98c3d"
@@ -195,6 +200,16 @@
       "sha256": "ad2e244a58e3e65a6b3161eb5e7efeab6912c1ecfa5948b787ddcd34e8209bab"
     },
     {
+      "path": "evidence/V10A_ADAPTERS_CORRELATION_2026-09-17.md",
+      "bytes": 926,
+      "sha256": "be97b099fbdc50c5e4186ab4537c2c05699d044ce01a53f82c5e909f580a3c10"
+    },
+    {
+      "path": "evidence/V10A_ADAPTERS_CORRELATION_BUILD_FAILURES_2026-09-17.md",
+      "bytes": 1577,
+      "sha256": "8946b343e9b4100c0e3bc454dae89f0f34efb58da2e462aa86d708a1eaeb787f"
+    },
+    {
       "path": "evidence/V10A_CONTEXT_EVENTS_2026-09-17.md",
       "bytes": 1821,
       "sha256": "378d52435f5316a9bf35b0ed4516a901831e9acd4af65320fa600308e8708778"
@@ -231,8 +246,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 595,
-      "sha256": "36a47528a59f98b585020a82a007e4be570cb53a1c59adea8ae96a23efc7e1b2"
+      "bytes": 578,
+      "sha256": "558aebe897d9e1398a5fc7efe33262d27d06efb499f5f8c227816914253dbac2"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -311,8 +326,8 @@
     },
     {
       "path": "memory/2026-09-17.md",
-      "bytes": 22275,
-      "sha256": "ea8e85ed5980b8a493f8e76995ae34334281d87a2d6bd821cd3832bf659adb04"
+      "bytes": 22782,
+      "sha256": "dfadd6f17e9b14a4a7c337626346c15da3b331662dd38f5cf830a7d5968a1c9d"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -336,8 +351,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 1713,
-      "sha256": "4b385ff1079d8ce800f69f9c9f52f4a39d441e16a880f7e039c9a4ae6e6ac87a"
+      "bytes": 2317,
+      "sha256": "e7cf7378c852ce5e061c6af29a264f3ca273f9e670b1f6f71580210922438a13"
     },
     {
       "path": "templates/DECISION.md",

@@ -5,7 +5,7 @@ must never override it.
 
 ## Last Completed Technical Checkpoint
 
-v1.0A privacy-safe bounded failure-bundle contract.
+v1.0A subsystem adapter + CLI/service/background-task correlation contract.
 
 Result:
 `CHECKPOINTED / TEST-VALIDATED / NOT YET INTEGRATED INTO PRODUCTION CALL SITES`
@@ -13,7 +13,6 @@ Result:
 ## Resume Instruction
 
 1. Read `AGENTS.md`, `CURRENT.md`, `USER.md`.
-2. Read `architecture/DIAGNOSTICS_OBSERVABILITY.md` and decisions D-013,
-   D-014, D-016, D-017, D-018.
+2. Read `architecture/DIAGNOSTICS_OBSERVABILITY.md` and D-019.
 3. Inspect exact current `src/observability/` source/tests.
 4. Execute the single next action stated in `CURRENT.md`.

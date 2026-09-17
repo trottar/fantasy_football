@@ -203,3 +203,13 @@ state/reproduction/effects are redacted; exact-byte integrity is verified
 before load. Project-file modification state remains distinct from runtime side
 effects. Automatic capture and production emission remain disabled.
 <!-- FANTASY_MEMORY_V10A_FAILURE_BUNDLE_20260917:END -->
+
+<!-- FANTASY_MEMORY_V10A_ADAPTERS_CORRELATION_20260917:BEGIN -->
+## v1.0A subsystem adapters and correlation
+
+The observability substrate includes opt-in subsystem adapters and typed
+CLI/service/background-task correlation boundaries. They reuse immutable
+`RunContext` action parentage and generic action events, own no sink, and emit
+nothing automatically. Direct P/D/K cross-channel nesting is rejected while a
+root observability context may enter each specialist channel independently.
+<!-- FANTASY_MEMORY_V10A_ADAPTERS_CORRELATION_20260917:END -->

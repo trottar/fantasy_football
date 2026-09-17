@@ -345,3 +345,13 @@ verification, and immutable loading.
 Failure bundles are explicit caller-owned evidence. No automatic capture,
 exception recovery policy, or production control-flow integration is enabled.
 <!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_5:END -->
+
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_6:BEGIN -->
+## v1.0A implementation checkpoint 6
+
+Implemented typed subsystem adapter and correlation contracts. CLI, service,
+background-task, and subsystem boundaries derive child `RunContext` values and
+construct generic action start/complete/error events without owning sinks or
+performing automatic persistence. Direct player/DST/kicker cross-channel
+nesting is rejected at the observability contract boundary.
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_6:END -->

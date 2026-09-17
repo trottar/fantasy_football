@@ -12,7 +12,7 @@ maintenance_status: healthy
 
 - Final `0.X` runtime baseline: **`v0.36-repack1` — COMMISSIONED**.
 - Phase 0 I-001 is resolved.
-- Latest completed v1.0A slice: **privacy-safe bounded failure-bundle contract**.
+- Latest completed v1.0A slice: **subsystem adapters + correlation contracts**.
 
 ## Active Objective
 
@@ -24,51 +24,54 @@ random streams.
 
 Completed observability foundation includes immutable context/events, explicit
 sinks, provenance hashing, invariant results, privacy/redaction, local
-snapshot/replay/diff evidence, and bounded privacy-safe failure bundles.
+snapshot/replay/diff evidence, bounded failure bundles, and opt-in subsystem
+adapter/correlation contracts.
 
 No production football/market/service/controller/GUI call site emits events or
 automatically captures evidence.
 
 The exact next implementation slice is:
 
-**subsystem adapter contracts + CLI/service/background-task correlation**
+**production integration design + non-interference/overhead benchmark gate**
+
+before any broad GUI/CLI/service instrumentation is enabled.
 
 ## Verified State
 
 - v0.36-repack1 remains commissioned.
 - Prior v1.0A slices remain test-validated.
-- Failure-bundle slice:
-  - targeted observability tests passed: 58;
-  - full repository pytest passed: 411;
+- Adapter/correlation slice:
+  - targeted observability tests passed: 67;
+  - full repository pytest passed: 420;
   - full compileall, strict memory health, and `git diff --check` passed;
-  - exception messages are omitted by default;
-  - stack evidence omits absolute paths/source lines;
-  - events/invariants are bounded to caller-selected tails;
-  - state/reproduction/effects are redacted before persistence;
-  - project-file modification state is distinct from runtime side effects;
-  - exact-byte bundle integrity verification detects tampering;
-  - automatic capture and production event emission remain disabled.
+  - CLI -> service -> background-task parent correlation is explicit;
+  - subsystem identity is typed and validated;
+  - direct P/D/K cross-channel nesting is rejected;
+  - boundary attributes are immutable copies;
+  - error events retain exception type but not exception message;
+  - adapters own no sink and emit nothing automatically;
+  - Python RNG state is unchanged by correlation construction.
 
 ## Scientific / Architectural Boundaries Affecting This Work
 
 - Diagnostics observe; they do not change football physics, behavior kernels,
   recommendation authority, GUI business logic, or random draws.
 - Production behavior changes retain the explicit authorization boundary.
-- Persistent private/authenticated event emission remains blocked until an
-  integration layer explicitly applies redaction and is tested.
-- Failure bundles are caller-triggered evidence contracts, not exception
-  handling policy or production control flow.
+- P/D/K remain separate specialist channels.
+- Correlation contracts construct evidence only; persistence requires explicit
+  caller action.
 
 ## Current Implementation State
 
 Implemented under `src/observability/`: context, events, registry, sinks,
-provenance, invariants, redaction, snapshots, replay, diff, and failure_bundle.
+provenance, invariants, redaction, snapshots, replay, diff, failure_bundle,
+correlation, and adapters.
 
-Not yet implemented:
-- subsystem adapters;
-- CLI/service/background-task correlation;
+Not yet implemented/integrated:
+- production CLI/service/background-task call-site instrumentation;
 - GUI event emission/integration;
-- diagnostic overhead/non-interference benchmarks and v1.0A commissioning gate.
+- overhead/non-interference benchmark gate;
+- v1.0A commissioning gate.
 
 ## Current Validation State
 
@@ -76,17 +79,18 @@ Not yet implemented:
 
 ## Exact Next Action
 
-Implement **subsystem adapter contracts + CLI/service/background-task
-correlation** without enabling automatic production emission.
+Design and validate the **production integration + overhead/non-interference
+gate** before enabling broad call-site instrumentation.
 
 ## Success Criterion
 
-The next checkpoint must expose consistent correlation boundaries for later
-integration while preserving results, privacy, and random streams.
+The next checkpoint must demonstrate that proposed instrumentation preserves
+results, causal state, random streams, privacy boundaries, and acceptable
+runtime overhead before integration is commissioned.
 
 ## Relevant References
 
 - Observability architecture: `architecture/DIAGNOSTICS_OBSERVABILITY.md`
-- Decisions D-013, D-014, D-016, D-017, D-018
+- Decisions D-013 through D-019 as applicable
 - Current roadmap: `roadmap/STATUS.md`
 - Detailed chronology: `memory/2026-09-17.md`

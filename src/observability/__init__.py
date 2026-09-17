@@ -4,7 +4,21 @@ This package is intentionally observational.  It does not import or call
 football, market, Monte Carlo, or GUI business logic.
 """
 
+from .adapters import (
+    CORE_ADAPTER_REGISTRY,
+    SPECIALIST_CHANNELS,
+    AdapterRegistry,
+    SubsystemAdapter,
+)
 from .context import RunContext, new_correlation_id
+from .correlation import (
+    BoundaryKind,
+    CorrelationBoundary,
+    begin_background_task,
+    begin_boundary,
+    begin_cli_action,
+    begin_service_action,
+)
 from .diff import DiffEntry, DiffKind, ReplayDiff, diff_replay_bundles, diff_values
 from .events import EVENT_SCHEMA_VERSION, StructuredEvent, make_event
 from .failure_bundle import (
@@ -85,15 +99,19 @@ from .snapshots import (
 )
 
 __all__ = [
+    "AdapterRegistry",
     "BINARY_REPLACEMENT",
     "BUNDLE_MANIFEST_FILE",
     "BUNDLE_SCHEMA_VERSION",
+    "BoundaryKind",
     "BundleManifest",
     "BundleMember",
+    "CORE_ADAPTER_REGISTRY",
     "CORE_EVENT_REGISTRY",
     "CORE_INVARIANT_REGISTRY",
     "CORE_MEMBER_FILES",
     "CORE_SUBSYSTEMS",
+    "CorrelationBoundary",
     "DEFAULT_REPLACEMENT",
     "DEPTH_REPLACEMENT",
     "DiffEntry",
@@ -126,8 +144,14 @@ __all__ = [
     "ReplayDiff",
     "ReplayVerification",
     "RunContext",
+    "SPECIALIST_CHANNELS",
     "SourceProvenance",
     "StructuredEvent",
+    "SubsystemAdapter",
+    "begin_background_task",
+    "begin_boundary",
+    "begin_cli_action",
+    "begin_service_action",
     "canonical_json_bytes",
     "collect_provenance",
     "diff_replay_bundles",
