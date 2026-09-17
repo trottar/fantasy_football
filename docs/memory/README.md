@@ -52,3 +52,37 @@ baseline_release: 0.35-fixed1
 baseline_commit: c85434a6be7852310c47fc8d1847c61a0a023209
 next_data_informed_major_version: 1.X
 ```
+
+<!-- FANTASY_MEMORY_AUTHORITY_MODEL:BEGIN -->
+## Memory authority and type discipline
+
+Durable memory is typed, not monolithic.
+
+- `CURRENT.md` — exactly where development is now, blockers, and next action.
+- `MEMORY.md` — curated cross-session facts/rules only.
+- `memory/YYYY-MM-DD.md` — detailed dated work history.
+- `handoffs/CURRENT_HANDOFF.md` — compact new-chat continuation state.
+- `decisions/` — decisions with active/accepted/deferred/superseded status.
+- `investigations/` — question/probe/evidence/result/next-step records.
+- `evidence/` — validation and measured runtime evidence.
+- `patches/` — patch/install history and protocol.
+- `architecture/` — stable subsystem contracts and problem-solving method.
+- `roadmap/` — authoritative development position.
+- `history/` — superseded deep memory; never current authority.
+- `templates/` — repeatable update formats.
+
+Do not grow `MEMORY.md` as an append-only transcript. Promote only evidence-supported facts likely to matter across future phases. Preserve detailed or superseded state in dated, decision, evidence, investigation, patch, or history files.
+
+### Freshness rule
+
+When durable sources conflict:
+
+1. validated local working tree + fresh direct evidence;
+2. successful exact installer/runtime receipts;
+3. current state/memory/handoff updated for the same checkpoint;
+4. subsystem/decision/evidence/investigation records;
+5. Git/GitHub checkpoint history;
+6. older summaries and chat history.
+
+Contradictions must be recorded and resolved explicitly. Never silently blend incompatible states.
+<!-- FANTASY_MEMORY_AUTHORITY_MODEL:END -->

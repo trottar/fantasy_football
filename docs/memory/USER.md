@@ -22,3 +22,14 @@
 ## Publication boundary
 
 The repository may remain public. Keep secrets and raw authenticated/private data local. Public Git may contain source, tests, architecture, sanitized evidence, durable memory, and non-sensitive fixtures.
+
+<!-- FANTASY_PROCEDURAL_COLLABORATION:BEGIN -->
+## Procedural collaboration preferences
+
+- Prefer self-contained ZIP + Windows PowerShell 5.1-compatible `.ps1` + a short root-level run block.
+- Put complexity, safety checks, backup/rollback, and validation logic inside the ZIP/script rather than in long interactive command sequences.
+- Long-running scripts should print plentiful timestamped debug/progress messages.
+- Log every meaningful update, patch, fix, diagnostic result, probe revision, validation/commissioning result, and roadmap/state change in durable project memory.
+- Treat ChatGPT GitHub access as read-only unless the user explicitly authorizes a write action.
+- Use GitHub for audit/reference; deliver project changes as local ZIP patches by default.
+<!-- FANTASY_PROCEDURAL_COLLABORATION:END -->

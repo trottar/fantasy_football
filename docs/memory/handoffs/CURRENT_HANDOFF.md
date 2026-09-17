@@ -31,3 +31,22 @@ Then build v1.0 as an observability/evidence release: Week 1 ingestion, weekly r
 - `screen != authority`.
 - Behavior kernels remain separate from football physics.
 - Use decision-time information only.
+
+<!-- FANTASY_PROCEDURE_AUDIT_HANDOFF:BEGIN -->
+## Problem-solving procedure adopted from repository audit
+
+The development method has been normalized around evidence-led, typed durable memory:
+
+`authority check -> narrow question -> targeted probe -> fresh evidence -> inspect raw result -> classify -> coherent patch/defer/close`
+
+Key continuation rules:
+- local validated tree + fresh evidence outrank historical summaries;
+- define decision boundaries before probes;
+- preserve raw measurements when interpretations are later superseded;
+- separate current state, durable facts, dated history, decisions, investigations, evidence, patches, and handoffs;
+- validate exact generated/installed output;
+- use explicit failure/rollback/install states;
+- keep meaningful memory updates in the same ZIP/checkpoint as the work;
+- do not reopen resolved/deferred work without new evidence;
+- preserve stable subsystems during unrelated fixes.
+<!-- FANTASY_PROCEDURE_AUDIT_HANDOFF:END -->

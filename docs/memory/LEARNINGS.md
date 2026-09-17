@@ -12,3 +12,21 @@
 10. Manager behavior is not football physics.
 11. `screen != authority` is durable.
 12. Local/private evidence can remain outside Git while sanitized durable conclusions are committed.
+
+<!-- FANTASY_WINDOWS_NATIVE_STDERR_RULE:BEGIN -->
+## Windows PowerShell native-process stderr rule
+
+On Windows PowerShell 5.1, native tools can write legitimate progress text to
+stderr. Under `$ErrorActionPreference = 'Stop'`, that stderr can surface as a
+terminating `NativeCommandError` before the script evaluates `$LASTEXITCODE`.
+
+For Git/native-process wrappers:
+- temporarily use non-terminating PowerShell error handling during the native call;
+- capture stdout/stderr for diagnostics;
+- capture `$LASTEXITCODE` immediately after the native call;
+- restore the caller's PowerShell error preference in `finally`;
+- treat nonzero native exit code as failure;
+- never treat zero-exit stderr/progress text alone as failure.
+
+This rule was established by the 2026-09-17 memory-checkpoint clone failure.
+<!-- FANTASY_WINDOWS_NATIVE_STDERR_RULE:END -->
