@@ -125,3 +125,17 @@ Continue with:
 4. no football/model/application implementation until explicit user
    authorization at the checkpoint boundary.
 <!-- FANTASY_MEMORY_INFRA_READY_HANDOFF:END -->
+
+<!-- FANTASY_I001_V2_HANDOFF:BEGIN -->
+## I-001 v2 authoritative-artifact review
+
+Result: `V036_EXACT_RELEASE_PRESENT_FIXED1_NOT_ESTABLISHED`
+Authority: `V036_LATEST_EXACT_ARTIFACT_FIXED1_UNPROVEN`
+
+The exact local v0.36 ZIP identifies as VERSION 0.36; no exact v0.36-fixed1 artifact or specific v0.36-fixed1 provenance was established.
+
+Predecessor v1 failed before modification because its required prior result ZIP
+was missing. v2 removed that dependency and reconstructed evidence directly.
+
+Proceed only with the narrow successor implied by this classification.
+<!-- FANTASY_I001_V2_HANDOFF:END -->

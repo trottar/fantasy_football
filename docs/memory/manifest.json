@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-17T02:57:21.567795-04:00",
+  "generated_at": "2026-09-17T03:06:31.216209-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 4710,
-      "sha256": "d8bd4019524f8c2820ef146805d84e3a0b5764f428ca507594f0259055d55999"
+      "bytes": 5240,
+      "sha256": "5429fd4f8be07ab5b59b5236c2fbd6e238551157774624b43e688dec26997364"
     },
     {
       "path": "LEARNINGS.md",
@@ -100,6 +100,11 @@
       "sha256": "b4393ede9984db487fea2f8b24342e71ed00d76bc3cfb327cd907355ecea131e"
     },
     {
+      "path": "evidence/I001_AUTHORITATIVE_ARTIFACT_REVIEW_2026-09-17.md",
+      "bytes": 2644,
+      "sha256": "2dde634f25edee64625caa872b42be4c3db12b3784abbe3b7eb97f853d4c2cd6"
+    },
+    {
       "path": "evidence/OBSERVABILITY_SURFACE_AUDIT_2026-09-17.md",
       "bytes": 1647,
       "sha256": "e672f61b897fc32d627250fd1bef02665189df4224fc06f796a757474cebeff0"
@@ -111,8 +116,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 5738,
-      "sha256": "e9e5d3178379d4a7bb6fa984f1c46ab07ac3ed03dc98d31d2b5ca379e2a04450"
+      "bytes": 6343,
+      "sha256": "cc966a409b95b869a4cb92b6bf05f3ae7be768f792397a9dc3b4659c54d3c359"
     },
     {
       "path": "history/PHASE0_PROBE_V14_CLASSIFIER_SUPERSESSION.md",
@@ -131,8 +136,8 @@
     },
     {
       "path": "investigations/I-001_FINAL_0X_RECONCILIATION.md",
-      "bytes": 1240,
-      "sha256": "fbc0afde9e74186da9ecf32a2383d7cc62673153f12a994504307c7d60e611c1"
+      "bytes": 3270,
+      "sha256": "7f776aa3164049ce06a25e7dab0d25e1452f60e2cabf201c22f2f4c829ea4d67"
     },
     {
       "path": "memory/2026-09-16.md",
@@ -141,8 +146,8 @@
     },
     {
       "path": "memory/2026-09-17.md",
-      "bytes": 6954,
-      "sha256": "9b2b08c8b22a89be6e3105cdc490c5ef1ab4d1e12d4639f479190197a8807866"
+      "bytes": 7561,
+      "sha256": "2d1af0c22efe49cf99ad88839ea5ad4f6c871041dd1bfb06827543cdf27fd341"
     },
     {
       "path": "patches/MANIFEST_REGISTRY_REPAIR_2026-09-17.md",
@@ -161,8 +166,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 5616,
-      "sha256": "522f0eca121bd74a4cd753ed0846df2255e5845dd7ab1e00fb62c9a3bb264659"
+      "bytes": 6172,
+      "sha256": "391e7578b5a8bf167acd3766aa2093b3ab259e18962aab316b390cb33811d982"
     },
     {
       "path": "templates/DECISION.md",

@@ -92,3 +92,17 @@ Phase 0 source-lineage reconciliation remains the next football-development
 question; v1.0A diagnostics/observability can continue in parallel without
 changing football physics.
 <!-- FANTASY_MEMORY_INFRA_READY_2026_09_17:END -->
+
+<!-- FANTASY_CURRENT_I001_V2:BEGIN -->
+## I-001 current result
+
+Classification: `V036_EXACT_RELEASE_PRESENT_FIXED1_NOT_ESTABLISHED`
+Authority: `V036_LATEST_EXACT_ARTIFACT_FIXED1_UNPROVEN`
+
+The exact local v0.36 ZIP identifies as VERSION 0.36; no exact v0.36-fixed1 artifact or specific v0.36-fixed1 provenance was established.
+
+The diagnostic evidence was rebuilt from authoritative artifacts; no prior
+ephemeral result ZIP is required.
+
+No football/model/application source change occurred.
+<!-- FANTASY_CURRENT_I001_V2:END -->

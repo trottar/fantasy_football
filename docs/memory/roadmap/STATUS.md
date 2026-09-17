@@ -141,3 +141,18 @@ Next active technical work remains:
 - preserve prospective Week 2 evidence;
 - continue v1.0A diagnostic/observability substrate.
 <!-- FANTASY_MEMORY_INFRA_READY_ROADMAP:END -->
+
+<!-- FANTASY_I001_V2_ROADMAP:BEGIN -->
+## Phase 0 I-001 v2 checkpoint
+
+- [x] v1.4 raw measurement history preserved
+- [x] v1.4 name-only classifier superseded
+- [x] v1 review failure recorded: missing ephemeral evidence ZIP
+- [x] v2 evidence reconstructed from authoritative artifacts
+- [ ] final 0.X freeze/commissioning decision
+
+Current result: `V036_EXACT_RELEASE_PRESENT_FIXED1_NOT_ESTABLISHED`
+Authority: `V036_LATEST_EXACT_ARTIFACT_FIXED1_UNPROVEN`
+
+No football physics change is authorized by this diagnostic.
+<!-- FANTASY_I001_V2_ROADMAP:END -->
