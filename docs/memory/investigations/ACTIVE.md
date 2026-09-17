@@ -19,25 +19,21 @@ Ingest immutable Week 1 observations and compare them to frozen prospective pred
 <!-- FANTASY_I005_MANIFEST_GIT_BLOB_SEMANTICS:BEGIN -->
 ## I-005 — Durable-memory manifest Git-blob semantics
 
-**Status:** ACTIVE / NARROW TOOLING REPAIR
+**Status:** RESOLVED / RUNTIME-VALIDATED
 
-A read-only audit of checkpoint `4b979b4c105f60bdf4f3467b9448b370cf9ce6a2`
-found that `docs/memory/manifest.json` records Windows worktree byte counts and
-SHA-256 values, while Git commits line-ending-normalized blob bytes.
+Checkpoint `243e4ee4906f42582a5603170e7d7c73095c9dac`
+successfully repaired the durable-memory registry representation.
 
-Measured examples:
-- `USER.md`: manifest 3316 bytes; committed Git blob 3268 bytes.
-- `AGENTS.md`: manifest 7396 bytes; committed Git blob 7221 bytes.
+Validated result:
+- manifest schema is `2`;
+- representation is `git_index_blob_bytes`;
+- generation hashes staged Git index bytes;
+- post-commit validation compares entries against committed `HEAD` blob bytes;
+- the manifest excludes itself;
+- the repair commit changed only `docs/memory/**`;
+- remote `main` was verified at the repair checkpoint;
+- no football/model/application source changed.
 
-The content push itself is valid. This is a registry-representation defect:
-the manifest is currently a worktree-byte registry, not an exact durable
-checkpoint-blob registry.
-
-Decision boundary:
-- repair the generator to hash the staged Git index representation;
-- validate every entry against staged index bytes before commit;
-- after commit, validate every entry against `HEAD:<path>` bytes;
-- preserve `manifest.json` self-exclusion;
-- keep scope to `docs/memory/**`;
-- no football/model/application source change.
+The previous worktree-vs-Git-byte mismatch is closed. Reopen only if new evidence
+shows index/HEAD/remote checkpoint disagreement.
 <!-- FANTASY_I005_MANIFEST_GIT_BLOB_SEMANTICS:END -->

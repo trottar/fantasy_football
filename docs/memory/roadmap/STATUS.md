@@ -121,3 +121,23 @@ This block supersedes the earlier coarse v1.0/v1.1 ordering above where they con
 
 The later integrated GUI phase does not defer GUI diagnostics: GUI observability is built in v1.0A and is a commissioning requirement for later UI work.
 <!-- FANTASY_ROADMAP_REVISION_2026_09_17_OBSERVABILITY:END -->
+
+<!-- FANTASY_MEMORY_INFRA_READY_ROADMAP:BEGIN -->
+## Infrastructure readiness checkpoint
+
+- [x] PrivyHub-style memory checkpoint delivery/push workflow
+- [x] standing authorization boundary for memory + diagnostics
+- [x] explicit production-code authorization boundary
+- [x] exact memory staging allowlist
+- [x] remote-moved and post-push verification
+- [x] manifest self-exclusion / relative-path semantics
+- [x] Git-index / committed-blob manifest semantics
+- [x] GUI diagnostics included in v1.0A architecture
+
+Memory/diagnostic infrastructure: `READY`.
+
+Next active technical work remains:
+- finish Phase 0 final 0.X lineage reconciliation;
+- preserve prospective Week 2 evidence;
+- continue v1.0A diagnostic/observability substrate.
+<!-- FANTASY_MEMORY_INFRA_READY_ROADMAP:END -->

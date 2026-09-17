@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-17T02:54:50.584282-04:00",
+  "generated_at": "2026-09-17T02:57:21.567795-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 3558,
-      "sha256": "82a57a76f5a10b68272357ec786963291f43c22a274962e7aaa497d12800ef5d"
+      "bytes": 4710,
+      "sha256": "d8bd4019524f8c2820ef146805d84e3a0b5764f428ca507594f0259055d55999"
     },
     {
       "path": "LEARNINGS.md",
@@ -111,8 +111,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 5047,
-      "sha256": "c9325c443f8e709c2ea04cc69e117d31b5698ec4c67439de214aab475346bb3e"
+      "bytes": 5738,
+      "sha256": "e9e5d3178379d4a7bb6fa984f1c46ab07ac3ed03dc98d31d2b5ca379e2a04450"
     },
     {
       "path": "history/PHASE0_PROBE_V14_CLASSIFIER_SUPERSESSION.md",
@@ -126,8 +126,8 @@
     },
     {
       "path": "investigations/ACTIVE.md",
-      "bytes": 2108,
-      "sha256": "aef28ff62646d4d39cdacf2fcb49908beff0c02e40bbfbc8e017ee968bd5234a"
+      "bytes": 1861,
+      "sha256": "1b03a08c6034ed384de32043cc8fa0c3f9282a888024887f89d95d9ee4d4e266"
     },
     {
       "path": "investigations/I-001_FINAL_0X_RECONCILIATION.md",
@@ -141,8 +141,8 @@
     },
     {
       "path": "memory/2026-09-17.md",
-      "bytes": 6069,
-      "sha256": "c5ef6ae4dcf2874ed753110d50df6c5fb387636e86afc6ee389bca9cc7ae7121"
+      "bytes": 6954,
+      "sha256": "9b2b08c8b22a89be6e3105cdc490c5ef1ab4d1e12d4639f479190197a8807866"
     },
     {
       "path": "patches/MANIFEST_REGISTRY_REPAIR_2026-09-17.md",
@@ -161,8 +161,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 4829,
-      "sha256": "c06cd0c5cca3cc902a932f75545c135aff6351773a99ca1cdd7f08d615453802"
+      "bytes": 5616,
+      "sha256": "522f0eca121bd74a4cd753ed0846df2255e5845dd7ab1e00fb62c9a3bb264659"
     },
     {
       "path": "templates/DECISION.md",

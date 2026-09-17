@@ -64,3 +64,31 @@ Immediate order:
 3. commission the v1.0A observability substrate against the frozen baseline;
 4. proceed to immutable observation ingestion and Data/MC closure.
 <!-- FANTASY_CURRENT_2026_09_17_OBSERVABILITY:END -->
+
+<!-- FANTASY_MEMORY_INFRA_READY_2026_09_17:BEGIN -->
+## Memory / diagnostic checkpoint infrastructure — READY
+
+The PrivyHub-style checkpoint workflow is now established and validated.
+
+Current durable checkpoint:
+`243e4ee4906f42582a5603170e7d7c73095c9dac`
+
+Validated infrastructure:
+- memory updates travel in ZIP/PowerShell checkpoints and are pushed as part of
+  the checkpoint;
+- diagnostic/probe/audit/observability tooling has standing authorization to
+  advance through the same workflow;
+- football/model/application/business-logic code remains gated behind explicit
+  user authorization;
+- exact staged allowlists are required;
+- remote-moved guards and post-push SHA verification are required;
+- memory manifest paths exclude self-reference and use committed Git-blob
+  semantics (`schema: 2`, `git_index_blob_bytes`);
+- failures and successor fixes remain in durable history.
+
+Infrastructure status: `READY`.
+
+Phase 0 source-lineage reconciliation remains the next football-development
+question; v1.0A diagnostics/observability can continue in parallel without
+changing football physics.
+<!-- FANTASY_MEMORY_INFRA_READY_2026_09_17:END -->

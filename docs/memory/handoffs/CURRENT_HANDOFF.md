@@ -108,3 +108,20 @@ semantics need a narrow tooling repair.
 The successor generator must hash staged Git index bytes and validate against
 committed `HEAD` bytes before push.
 <!-- FANTASY_I005_MANIFEST_HANDOFF:END -->
+
+<!-- FANTASY_MEMORY_INFRA_READY_HANDOFF:BEGIN -->
+## Memory / diagnostics infrastructure ready
+
+As of checkpoint `243e4ee4906f42582a5603170e7d7c73095c9dac`,
+the PrivyHub-style memory/diagnostic checkpoint machinery is validated and ready.
+
+I-005 is resolved. The manifest now describes staged/committed Git blob bytes,
+not Windows worktree bytes.
+
+Continue with:
+1. Phase 0 raw evidence review and final 0.X lineage freeze;
+2. prospective Week 2 state capture while causally valid;
+3. v1.0A observability tooling/substrate work;
+4. no football/model/application implementation until explicit user
+   authorization at the checkpoint boundary.
+<!-- FANTASY_MEMORY_INFRA_READY_HANDOFF:END -->
