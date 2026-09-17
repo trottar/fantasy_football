@@ -209,3 +209,27 @@ or whether broader source correction remains necessary.
 
 No production source was changed.
 <!-- FANTASY_V036_FIXTURE_RESTORATION_HANDOFF_20260917:END -->
+
+<!-- FANTASY_HANDOFF_PHASE0_FINAL_AUTHORITY_20260917:BEGIN -->
+## Phase 0 complete — production boundary reached
+
+I-001 final 0.X reconciliation is resolved.
+
+Use this authority split:
+- v0.36 source: `SOURCE-VALIDATED / NOT YET DURABLY IMPORTED`;
+- existing v0.36 ZIP: `INVALID AS COMMISSIONED RELEASE ARTIFACT`;
+- historical v0.36-fixed1: `NOT ESTABLISHED`.
+
+Do not continue probing the same lineage issue without new evidence.
+
+Next production task, only after explicit authorization:
+1. construct a packaging-only repaired v0.36-derived release;
+2. include the four required public mock-calibration fixtures;
+3. make no football/model/config behavior changes;
+4. run targeted tests, full pytest, compileall, and exact-ZIP validation;
+5. import the validated v0.36 source/release into durable Git history using the
+   established checkpoint workflow;
+6. commission the repaired artifact separately from source validation.
+
+After that, proceed to the v1.0A observability substrate.
+<!-- FANTASY_HANDOFF_PHASE0_FINAL_AUTHORITY_20260917:END -->

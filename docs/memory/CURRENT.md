@@ -176,3 +176,23 @@ football physics.
 The final 0.X decision should distinguish a release-packaging defect from a
 football/model/source defect.
 <!-- FANTASY_CURRENT_V036_FIXTURE_RESTORATION_20260917:END -->
+
+<!-- FANTASY_CURRENT_PHASE0_FINAL_AUTHORITY_20260917:BEGIN -->
+## Phase 0 final 0.X authority
+
+I-001 is `RESOLVED`.
+
+Current authority split:
+
+- **v0.36 source:** `SOURCE-VALIDATED / NOT YET DURABLY IMPORTED`
+- **existing v0.36 ZIP:** `INVALID AS COMMISSIONED RELEASE ARTIFACT`
+- **historical v0.36-fixed1:** `NOT ESTABLISHED`
+- **production/release repair/import:** `PENDING EXPLICIT AUTHORIZATION`
+
+The v0.36 test failures were caused solely by four omitted mock-draft fixtures.
+Fixture-only restoration closed both targeted failures and the complete suite
+without modifying football/model/application source.
+
+Phase 0 investigation is complete. The next production action is a narrow
+packaging/import checkpoint, not additional diagnosis.
+<!-- FANTASY_CURRENT_PHASE0_FINAL_AUTHORITY_20260917:END -->

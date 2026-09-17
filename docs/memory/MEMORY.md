@@ -92,3 +92,24 @@ GUI diagnostics are included from the beginning. GUI lifecycle, action, service,
 
 Diagnostics must observe rather than change physics, manager behavior, random draws, recommendation authority, or GUI business logic.
 <!-- FANTASY_OBSERVABILITY_DURABLE_RULE:END -->
+
+<!-- FANTASY_MEMORY_PHASE0_FINAL_AUTHORITY_20260917:BEGIN -->
+## Final 0.X authority split
+
+Phase 0 I-001 is resolved.
+
+Durable facts:
+- exact v0.36 ZIP SHA:
+  `598c518ad30e2f1c65c452bafca111808f5456eeb818bf04c43994ceb269987c`;
+- local extracted v0.36 source matched the exact ZIP source surface `0/0/0`;
+- two deterministic packaged-test failures were caused by four omitted
+  mock-draft fixtures;
+- fixture-only restoration changed targeted exits `[1,1] -> [0,0]`;
+- the full v0.36 suite then passed;
+- no source/config/model/physics change was required;
+- therefore v0.36 is `SOURCE-VALIDATED`;
+- the existing v0.36 ZIP is not a valid commissioned release artifact;
+- no historical v0.36-fixed1 artifact/provenance was established;
+- durable source import and repaired release creation require explicit
+  production/release authorization.
+<!-- FANTASY_MEMORY_PHASE0_FINAL_AUTHORITY_20260917:END -->

@@ -271,3 +271,69 @@ Evidence SHA-256:
 
 No football/model/application source was modified.
 <!-- FANTASY_I001_V036_FIXTURE_RESTORATION_20260917_V1:END -->
+
+<!-- FANTASY_I001_FINAL_AUTHORITY_20260917_V1:BEGIN -->
+## I-001 final authority decision
+
+**Status:** `RESOLVED`
+
+### Final Phase 0 conclusion
+
+The investigation distinguishes **source validity** from **release-artifact
+validity**.
+
+#### v0.36 source
+
+**Status:** `SOURCE-VALIDATED / NOT YET DURABLY IMPORTED`
+
+Evidence:
+- exact `fantasy_season_v0_36.zip` identified as VERSION `0.36`;
+- local extracted `fantasy_season_v0_36` has `0 changed / 0 added / 0 removed`
+  on the compared source surface relative to the exact ZIP;
+- exact v0.36 initially had two deterministic pytest failures;
+- both failures were traced to four omitted mock-draft calibration fixtures;
+- restoring only those four baseline fixtures in a disposable v0.36 extraction
+  changed the targeted failures from `[1, 1]` to `[0, 0]`;
+- the full v0.36 suite then passed with exit code `0`;
+- no Python source, config, model parameter, or football physics was changed to
+  obtain closure.
+
+Therefore the measured defect is not a v0.36 football/model/source regression.
+
+#### Existing v0.36 ZIP
+
+**Status:** `INVALID AS COMMISSIONED RELEASE ARTIFACT / SUPERSEDED FOR DELIVERY`
+
+The existing ZIP SHA-256 is:
+
+`598c518ad30e2f1c65c452bafca111808f5456eeb818bf04c43994ceb269987c`
+
+It omits four test-required mock-calibration fixtures and fails its own packaged
+test suite. It must not be described as a clean commissioned final release.
+
+#### v0.36-fixed1
+
+**Status:** `NOT ESTABLISHED`
+
+No exact artifact or specific provenance for a pre-existing v0.36-fixed1 release
+was found.
+
+### Authority boundary
+
+For future technical reasoning, v0.36 is the latest **source-validated 0.X
+candidate**.
+
+The durable/public repository still does not contain a validated import of that
+v0.36 source, and no repaired release artifact has been commissioned.
+
+Creating/importing a repaired v0.36-derived release is a production/release
+change and remains behind explicit user authorization.
+
+### Reopen rule
+
+Reopen I-001 only if new evidence appears that:
+- the exact v0.36 source differs from the measured local source;
+- fixture-only restoration does not reproduce the full-suite closure;
+- a genuine historical v0.36-fixed1 artifact/provenance is recovered; or
+- a new deterministic source-level regression is demonstrated.
+<!-- FANTASY_I001_FINAL_AUTHORITY_20260917_V1:END -->

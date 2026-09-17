@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-17T04:04:50.928943-04:00",
+  "generated_at": "2026-09-17T04:09:09.115344-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 8012,
-      "sha256": "e8e22dc89b91601f19785df9d6d1dc2426741380e7ecb1257ec43d9ddd39065e"
+      "bytes": 8816,
+      "sha256": "5d73939110d0b99b582f792ddb12ed6ab0200169d7e24bf2d073ff94a3f0dfcc"
     },
     {
       "path": "LEARNINGS.md",
@@ -26,8 +26,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 3508,
-      "sha256": "024f0d1edb47919b753f751945bcf1bb7b62d8938b75c09b9579cb86e24f2690"
+      "bytes": 4411,
+      "sha256": "893705a78f90dde5e47295fb50d0dd020d1ee63fec3c208c0c28d8a3f484e71e"
     },
     {
       "path": "README.md",
@@ -95,6 +95,11 @@
       "sha256": "92b9b57e1ba07bf293bc2939eedecbf00be868032e9425f616b1b3f7d191eb28"
     },
     {
+      "path": "decisions/D-010_PHASE0_FINAL_0X_AUTHORITY.md",
+      "bytes": 1147,
+      "sha256": "31242513669c01fb5a3ed05a4bcb9a77f68fe21c94a1cf88970c80c9355ef641"
+    },
+    {
       "path": "decisions/DECISION_LOG.md",
       "bytes": 3235,
       "sha256": "b4393ede9984db487fea2f8b24342e71ed00d76bc3cfb327cd907355ecea131e"
@@ -126,8 +131,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 9144,
-      "sha256": "a0ecebffe513504c2bb494ea5c2ab342a2cd35bc77bf44bb44a3bb718a7cf919"
+      "bytes": 10192,
+      "sha256": "6c3d5065e1a1ed785f302aa1ed97bbb96668176f16f2e60554d598127941d88d"
     },
     {
       "path": "history/PHASE0_PROBE_V14_CLASSIFIER_SUPERSESSION.md",
@@ -146,8 +151,8 @@
     },
     {
       "path": "investigations/I-001_FINAL_0X_RECONCILIATION.md",
-      "bytes": 10571,
-      "sha256": "49d6bb09c4bac9f4317d7280763fb22cc000a087cac17f449e20822ab1ede7c0"
+      "bytes": 12902,
+      "sha256": "ace98c4a116a856d87654333402412ca7e3d85c55282699f9b586f80e41c5d88"
     },
     {
       "path": "memory/2026-09-16.md",
@@ -156,8 +161,8 @@
     },
     {
       "path": "memory/2026-09-17.md",
-      "bytes": 10553,
-      "sha256": "a76c447b9591c192b32a72c8a51261cba2e57ca9f0fb89a9d9774b071fcca6db"
+      "bytes": 11522,
+      "sha256": "02a035969a94ce28da194657d247c18598ad8492e95de17284181ab69dbfd902"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -181,8 +186,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 8659,
-      "sha256": "20eb0b9ca83f2ccf397f510ebf3fcdefefad5de84da848db9bb53b5d91ef7d29"
+      "bytes": 9615,
+      "sha256": "4a4ad56c8a1bc95da178432ae1241f9640a37b6e46f8e7a4c2160bd01cdabde1"
     },
     {
       "path": "templates/DECISION.md",

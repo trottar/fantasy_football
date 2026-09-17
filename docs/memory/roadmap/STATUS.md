@@ -216,3 +216,25 @@ Current diagnosis: `V036_SPECIFIC_DETERMINISTIC_TEST_REGRESSION`.
 
 Classification: `V036_RELEASE_PACKAGING_FIXTURE_REGRESSION_CONFIRMED`.
 <!-- FANTASY_V036_FIXTURE_RESTORATION_ROADMAP_20260917:END -->
+
+<!-- FANTASY_ROADMAP_PHASE0_FINAL_AUTHORITY_20260917:BEGIN -->
+## Phase 0 final 0.X freeze
+
+- [x] reconcile v0.36 lineage
+- [x] establish exact v0.36 source identity
+- [x] prove local extracted source equals exact ZIP source surface
+- [x] diagnose deterministic packaged-test failures
+- [x] prove failures are caused by omitted mock-calibration fixtures
+- [x] prove fixture-only restoration closes targeted failures
+- [x] prove full v0.36 suite passes after fixture-only restoration
+- [x] distinguish source validation from release-artifact validation
+- [x] close I-001
+- [ ] import validated v0.36 source into durable Git history
+- [ ] build/validate/commission packaging-only repaired v0.36-derived release
+- [ ] begin v1.0A observability implementation
+
+Phase 0 investigation status: `COMPLETE`.
+
+Next two unchecked items are production/release work and require explicit user
+authorization.
+<!-- FANTASY_ROADMAP_PHASE0_FINAL_AUTHORITY_20260917:END -->
