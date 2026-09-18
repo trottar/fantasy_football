@@ -5,6 +5,11 @@ import time
 from pathlib import Path
 from typing import Any
 
+try:
+    from ..observability.gui_shadow import create_gui_shadow_recorder
+except Exception:
+    create_gui_shadow_recorder = None
+
 from .season_service import CANONICAL_SLOTS, AVAILABILITY_MODES, SeasonGuiError, SeasonGuiService
 from .season_visualizations import (
     action_delta_options,
@@ -64,8 +69,43 @@ def run_season_gui(
     except SeasonGuiError as exc:
         raise RuntimeError(str(exc)) from None
 
+    gui_shadow = None
+    if create_gui_shadow_recorder is not None:
+        try:
+            gui_shadow = create_gui_shadow_recorder()
+        except Exception:
+            gui_shadow = None
+
     @ui.page("/")
     async def season_page(client: Client) -> None:
+        page_shadow = None
+        if gui_shadow is not None:
+            try:
+                shadow_page = gui_shadow.open_page()
+                client.on_connect(
+                    lambda _client=None, shadow=shadow_page:
+                    shadow.client_connect()
+                )
+                client.on_disconnect(
+                    lambda _client=None, shadow=shadow_page:
+                    shadow.client_disconnect()
+                )
+                client.on_delete(
+                    lambda _client=None, shadow=shadow_page:
+                    shadow.page_unmount()
+                )
+                page_shadow = shadow_page
+            except Exception:
+                page_shadow = None
+
+        def observe_task(name: str, awaitable):
+            if page_shadow is None:
+                return awaitable
+            try:
+                return page_shadow.observe_background_task(name, awaitable)
+            except Exception:
+                return awaitable
+
         ui.colors(primary="#3b82f6", secondary="#64748b", accent="#22c55e")
         ui.dark_mode().enable()
         ui.add_css('''
@@ -391,10 +431,12 @@ def run_season_gui(
                 mc_state['phase'] = str(phase)
 
             async def progress_pump() -> None:
-                while mc_state.get('running'):
-                    update_mc_status()
-                    await asyncio.sleep(0.15)
+                async def _progress_pump_observed_body():
+                    while mc_state.get('running'):
+                        update_mc_status()
+                        await asyncio.sleep(0.15)
 
+                return await observe_task('season.mc_progress_pump', _progress_pump_observed_body())
             pump_task = asyncio.create_task(progress_pump())
             busy_jobs += 1
             try:
@@ -1206,46 +1248,48 @@ def run_season_gui(
             mc_select.update()
 
         async def apply_mc_size(new_n: int) -> None:
-            """Execute an already-accepted MC resize request.
+            async def _apply_mc_size_observed_body():
+                """Execute an already-accepted MC resize request.
 
-            The browser click itself is handled synchronously by request_selected_mc so the
-            user gets immediate visible acknowledgement before any context rebuild begins.
-            """
-            try:
-                mc_state['request_pending'] = True
-                mc_run_spinner.visible = True
-                mc_status_label.set_text(f'MC REQUEST RECEIVED — preparing N={int(new_n):,}')
-                mc_phase_label.set_text('Resetting predictive MC streams and clearing predictive caches…')
-                mc_elapsed_label.set_text('request accepted')
-                mc_progress.set_value(0.0)
-                mc_select.disable()
-                run_mc_button.disable()
-                # Give NiceGUI one event-loop turn to flush the acknowledgement to Firefox
-                # before context construction starts in the worker thread.
-                await asyncio.sleep(0)
+                The browser click itself is handled synchronously by request_selected_mc so the
+                user gets immediate visible acknowledgement before any context rebuild begins.
+                """
+                try:
+                    mc_state['request_pending'] = True
+                    mc_run_spinner.visible = True
+                    mc_status_label.set_text(f'MC REQUEST RECEIVED — preparing N={int(new_n):,}')
+                    mc_phase_label.set_text('Resetting predictive MC streams and clearing predictive caches…')
+                    mc_elapsed_label.set_text('request accepted')
+                    mc_progress.set_value(0.0)
+                    mc_select.disable()
+                    run_mc_button.disable()
+                    # Give NiceGUI one event-loop turn to flush the acknowledgement to Firefox
+                    # before context construction starts in the worker thread.
+                    await asyncio.sleep(0)
 
-                # v0.27 resizes only predictive streams/caches. Static league/player
-                # data are retained, and the expensive opponent-reference MC is deferred
-                # into the visible dashboard progress job.
-                reset_started = time.monotonic()
-                await io_call(service.set_mc_scenarios, int(new_n))
-                reset_elapsed = time.monotonic() - reset_started
-                sync_mc_select_to_service()
-                mc_status_label.set_text(f'MC CONTEXT READY — starting N={service.mc_scenarios:,}')
-                mc_elapsed_label.set_text(f'context reset {reset_elapsed:.2f}s')
-                mc_phase_label.set_text('Starting dashboard / policy Monte Carlo…')
-                await asyncio.sleep(0)
-                await refresh_dashboard(False)
-            except Exception as exc:
-                mc_state['error'] = f'Could not start selected MC size: {exc}'
-                sync_mc_select_to_service()
-                update_mc_status()
-                ui.notify(str(mc_state['error']), color='negative', timeout=12000)
-            finally:
-                mc_state['request_pending'] = False
-                mc_select.enable()
-                run_mc_button.enable()
+                    # v0.27 resizes only predictive streams/caches. Static league/player
+                    # data are retained, and the expensive opponent-reference MC is deferred
+                    # into the visible dashboard progress job.
+                    reset_started = time.monotonic()
+                    await io_call(service.set_mc_scenarios, int(new_n))
+                    reset_elapsed = time.monotonic() - reset_started
+                    sync_mc_select_to_service()
+                    mc_status_label.set_text(f'MC CONTEXT READY — starting N={service.mc_scenarios:,}')
+                    mc_elapsed_label.set_text(f'context reset {reset_elapsed:.2f}s')
+                    mc_phase_label.set_text('Starting dashboard / policy Monte Carlo…')
+                    await asyncio.sleep(0)
+                    await refresh_dashboard(False)
+                except Exception as exc:
+                    mc_state['error'] = f'Could not start selected MC size: {exc}'
+                    sync_mc_select_to_service()
+                    update_mc_status()
+                    ui.notify(str(mc_state['error']), color='negative', timeout=12000)
+                finally:
+                    mc_state['request_pending'] = False
+                    mc_select.enable()
+                    run_mc_button.enable()
 
+            return await observe_task('season.apply_mc_size', _apply_mc_size_observed_body())
         def request_selected_mc() -> None:
             """Synchronous browser-click handler which visibly acknowledges the click."""
             if mc_state.get('running') or mc_state.get('request_pending'):

@@ -98,3 +98,19 @@ No persistent sink or broad automatic emission is enabled.
 Next narrow checkpoint: GUI background-task/lifecycle shadow pilot. Broad
 football-subsystem instrumentation remains deferred.
 <!-- FANTASY_ROADMAP_V10A_CLI_SEASON_SHADOW_20260917:END -->
+
+<!-- FANTASY_ROADMAP_V10A_GUI_LIFECYCLE_SHADOW_20260917:BEGIN -->
+## v1.0A GUI background-task/lifecycle shadow pilot
+
+- [x] CLI + SeasonGuiService shadow pilot
+- [x] selected-MC background-task lifecycle
+- [x] MC progress-pump cancellation lifecycle
+- [x] page/connect/disconnect/delete correlation
+- [x] bounded in-memory / non-persistent evidence
+- [x] paired result/RNG/cancellation/stale-page/overhead gate
+- [ ] player/DST/K/market/closure/data-source instrumentation
+- [ ] v1.0A commissioning gate
+
+Next narrow checkpoint: data-source season-sync shadow pilot. Football-channel
+instrumentation remains separately gated.
+<!-- FANTASY_ROADMAP_V10A_GUI_LIFECYCLE_SHADOW_20260917:END -->

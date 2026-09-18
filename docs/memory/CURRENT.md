@@ -12,7 +12,7 @@ maintenance_status: healthy
 
 - Final `0.X` runtime baseline: **`v0.36-repack1` — COMMISSIONED**.
 - Phase 0 I-001 is resolved.
-- Latest completed v1.0A slice: **CLI + SeasonGuiService in-memory shadow pilot**.
+- Latest completed v1.0A slice: **GUI background-task/lifecycle in-memory shadow pilot**.
 
 ## Active Objective
 
@@ -22,82 +22,67 @@ random streams.
 
 ## Current Work Item
 
-The first production-source shadow pilot is enabled at two narrow boundaries:
+Production shadow integration remains deliberately narrow:
+- final CLI command dispatch;
+- read-only `SeasonGuiService.source_health()`;
+- selected-MC NiceGUI background task lifecycle;
+- MC progress-pump task lifecycle;
+- page mount/connect/disconnect/delete correlation.
 
-- final CLI command dispatch in `fantasy.py`;
-- read-only `SeasonGuiService.source_health()`.
-
-Both use bounded in-memory events only. No persistent sink, argument/result
-capture, authenticated payload capture, or exception-message capture is enabled.
-
-The exact next implementation slice is:
-
-**GUI background-task/lifecycle shadow pilot**
-
-before player/DST/K/market/closure/data-source instrumentation.
+GUI lifecycle evidence uses generated session/page/task IDs only. No persistent
+sink, raw NiceGUI client ID, task arguments/results, authenticated payloads, or
+exception messages are retained.
 
 ## Verified State
 
 - v0.36-repack1 remains commissioned.
-- Prior v1.0A observability contracts remain test-validated.
-- Shadow pilot:
-  - targeted tests passed: 91;
-  - full repository pytest passed: 443;
-  - full compileall, strict memory health, and `git diff --check` passed;
-  - CLI paired gate: PASS; baseline median 12650 ns,
-    observed median 97950 ns,
-    incremental 85300 ns;
-  - SeasonGuiService paired gate: PASS; baseline median
-    3850 ns,
-    observed median 65150 ns,
-    incremental 61300 ns;
-  - output/exception behavior, Python RNG, and caller state probes matched;
-  - service shadow events are inspectable in memory;
-  - no production result or exception message is retained by the recorder.
+- targeted tests passed: 107;
+- full repository pytest passed: 452;
+- full compileall, strict memory health, and `git diff --check` passed;
+- prior CLI and SeasonGuiService paired gates remain PASS;
+- GUI background-task gate: PASS; baseline median
+  690700 ns, observed median
+  810650 ns, incremental
+  119950 ns;
+- task result/error/cancellation behavior and Python RNG matched;
+- stale-page task termination emits evidence only and does not alter the task result;
+- persistent sink remains disabled.
 
 ## Scientific / Architectural Boundaries Affecting This Work
 
-- Diagnostics remain observers; observer failures fall back to the wrapped
-  production call and cannot replace its result/exception.
-- P/D/K remain separate specialist channels and are not instrumented by this
-  pilot.
-- No automatic persistence is enabled.
-- Wider instrumentation still requires a narrow call-path gate.
+- Diagnostics remain observers and cannot become GUI control logic.
+- Page deletion is observed; this pilot does not cancel or rewrite production work.
+- P/D/K remain separate specialist channels and are untouched.
+- Wider subsystem instrumentation remains separately gated.
 
 ## Current Implementation State
 
-Implemented under `src/observability/`: context, events, registry, sinks,
-provenance, invariants, redaction, snapshots, replay, diff, failure_bundle,
-correlation, adapters, integration_plan, benchmark_gate, and shadow_pilot.
-
-Production shadow integration currently exists only at:
-- CLI final dispatch;
-- `SeasonGuiService.source_health()`.
+Implemented under `src/observability/`: prior v1.0A contracts plus
+`gui_shadow.py` for bounded page/session/background-task lifecycle evidence.
 
 Not yet integrated:
-- GUI background-task/lifecycle paths;
 - player/DST/K/market/closure/data-source call sites;
+- persistent runtime sinks;
 - v1.0A commissioning gate.
 
 ## Current Validation State
 
-`SHADOW PILOT ENABLED / TEST-VALIDATED / NON-PERSISTENT`
+`GUI LIFECYCLE SHADOW ENABLED / TEST-VALIDATED / NON-PERSISTENT`
 
 ## Exact Next Action
 
-Implement the **GUI background-task/lifecycle shadow pilot** with explicit
-client/session/task correlation and the same non-interference/privacy/overhead
-gate.
+Prepare a **data-source season-sync shadow pilot** as the next single integration
+surface, with the same non-interference/privacy/overhead authorization gate.
 
 ## Success Criterion
 
-The next pilot must preserve GUI control flow and stale-client lifecycle
-semantics while producing bounded in-memory evidence and meeting the configured
-engineering gate.
+The next pilot must preserve data-source behavior and authenticated-data privacy
+while producing bounded diagnostic evidence without changing football/model
+semantics.
 
 ## Relevant References
 
 - Observability architecture: `architecture/DIAGNOSTICS_OBSERVABILITY.md`
-- Decisions D-019 through D-021
+- Decisions D-020 through D-022
 - Current roadmap: `roadmap/STATUS.md`
 - Detailed chronology: `memory/2026-09-17.md`

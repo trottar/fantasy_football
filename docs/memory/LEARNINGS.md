@@ -190,3 +190,30 @@ For application/runtime probes:
 
 A file-existing check or successful compile is not runtime-context validation.
 <!-- FANTASY_LEARNING_RUNTIME_PROBE_EXECUTION_CONTEXT_20260917:END -->
+
+<!-- FANTASY_LEARNING_GUI_SHADOW_LIFECYCLE_20260917:BEGIN -->
+## Observe GUI lifecycle without becoming lifecycle policy
+
+Background-task diagnostics must preserve the framework's existing scheduling,
+cancellation, and exception behavior. Page/client lifecycle events are evidence,
+not permission for the observer to cancel, retry, mutate, or suppress work.
+
+Use generated correlation IDs rather than raw framework client identifiers.
+A task terminal event after page deletion should be classified with explicit
+lifecycle-violation evidence while returning/raising exactly as the production
+task would have done.
+<!-- FANTASY_LEARNING_GUI_SHADOW_LIFECYCLE_20260917:END -->
+
+<!-- FANTASY_LEARNING_PRESERVE_GUI_SCHEDULING_CONTRACTS_20260917:BEGIN -->
+## Preserve established GUI scheduling contracts during observation
+
+Source-shape regression tests can encode real concurrency/lifecycle contracts.
+When an existing test freezes a scheduling expression such as
+`background_tasks.create(apply_mc_size(new_n))` or
+`asyncio.create_task(progress_pump())`, observability must not rewrite that
+scheduler boundary merely because an equivalent awaitable wrapper seems
+semantically harmless.
+
+Keep the scheduler expression intact and move observation inside the scheduled
+coroutine. Include the frozen source-contract tests in preflight before apply.
+<!-- FANTASY_LEARNING_PRESERVE_GUI_SCHEDULING_CONTRACTS_20260917:END -->

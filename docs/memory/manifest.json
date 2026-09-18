@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-17T17:47:39.207539-04:00",
+  "generated_at": "2026-09-17T23:18:40.540272-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,13 +16,13 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 3389,
-      "sha256": "409e7b0af6d85093f7997394647b0e1c0dbca5e3ad040192292e7ad1cc5b3650"
+      "bytes": 2969,
+      "sha256": "4809f14fd59b72f28763ccef5e74d3aa25d435c221cae63a3c724e27b16cf5df"
     },
     {
       "path": "LEARNINGS.md",
-      "bytes": 8767,
-      "sha256": "6bd07cccacfdec19aa0146281fc5458fc2a81f1eb4f5bcdfc1abe33abe0b63d5"
+      "bytes": 10181,
+      "sha256": "8fd0cdf10fcd87b1794d7574ef00a444f62d1c405b69fb601c33000b71712ca6"
     },
     {
       "path": "MAINTENANCE.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 8776,
-      "sha256": "533d4083661d906048e7ae3f1080df0d3988e2b404e4d59b7b01e97a09d46830"
+      "bytes": 9491,
+      "sha256": "a0328b559fbfc6e5dae630c85f4ad557c2a90d827f80c2d5efd3e92b56edbdd4"
     },
     {
       "path": "README.md",
@@ -56,8 +56,8 @@
     },
     {
       "path": "architecture/DIAGNOSTICS_OBSERVABILITY.md",
-      "bytes": 14312,
-      "sha256": "3174b45cf38b770f84dbba7cd9b9f9d4e21c4d204b60d7be3c06143a8e94c850"
+      "bytes": 15118,
+      "sha256": "48d79a4d0ddde714bc1617973c54db1e37ff093e37541c569db642e7f18b63d7"
     },
     {
       "path": "architecture/INFORMATION_CAUSALITY.md",
@@ -160,9 +160,14 @@
       "sha256": "edba847d6bfa18242fe1fbfba3f01741233959cbf378cc40a3ac0bd7c69b012a"
     },
     {
+      "path": "decisions/D-022_V10A_GUI_LIFECYCLE_SHADOW_PILOT.md",
+      "bytes": 763,
+      "sha256": "7db1edb422bbc6cf3256f94556d9cb3d1d438309be0afd074353f3783a2c6d58"
+    },
+    {
       "path": "decisions/DECISION_LOG.md",
-      "bytes": 4653,
-      "sha256": "80a8d6fd268cfc129d9fbb1d4eab42e8a77b04b4aa8010d9309c299cec9d85d9"
+      "bytes": 5048,
+      "sha256": "4a4ab10eb7ca51ec53c54e37e45e0e27aaa166224f4686dbb54cc9568e804424"
     },
     {
       "path": "evidence/I001_AUTHORITATIVE_ARTIFACT_REVIEW_2026-09-17.md",
@@ -245,6 +250,16 @@
       "sha256": "10dd829d1ce3dbb19f0c8c413dc6a6ed38bb586415788fe4c1d5993e03fd9c1f"
     },
     {
+      "path": "evidence/V10A_GUI_LIFECYCLE_SHADOW_PILOT_2026-09-17.md",
+      "bytes": 1261,
+      "sha256": "b8987fe406d41291857587dd915532d46a5cd90b235843c3433c3d1ec95ed19f"
+    },
+    {
+      "path": "evidence/V10A_GUI_LIFECYCLE_SHADOW_PILOT_BUILD_FAILURES_2026-09-17.md",
+      "bytes": 6252,
+      "sha256": "c5068e2b70cb795569c57e92fa6651324a66842dc3c28ce9752eaf262721a9b6"
+    },
+    {
       "path": "evidence/V10A_INTEGRATION_GATE_2026-09-17.md",
       "bytes": 1029,
       "sha256": "d222217c4921740baa643bc6f8dd32d18aff12581697e7da6724b85cd3042700"
@@ -276,8 +291,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 588,
-      "sha256": "99c51e80c012c0a9e16214ab31933cde533a47096713c017c0bc187f8e0b7006"
+      "bytes": 616,
+      "sha256": "d82cd82d45a8ff7be895049770cb2b05cb11fd884e2c8e79437a18f2ba43d86c"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -356,8 +371,8 @@
     },
     {
       "path": "memory/2026-09-17.md",
-      "bytes": 25556,
-      "sha256": "e14b952162875765a3cb72efae52c2c71fe11b81ba9dbfe2dea59f1b67f82e13"
+      "bytes": 26357,
+      "sha256": "67d0edb9b1a2104e4d7684eda4e185fb3e1e7dfd557e2fa506f5d54b225ee3cc"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -371,8 +386,8 @@
     },
     {
       "path": "patches/PATCH_PROTOCOL.md",
-      "bytes": 8556,
-      "sha256": "fbaadf5c1ad26031763fd5cc0700fb4f4c8a3131e1bacc6bea455db26bfd1074"
+      "bytes": 9553,
+      "sha256": "04f4cf02ba112aafd30885d914ab5fc7e340bad2332804151e55e88679f0ef66"
     },
     {
       "path": "repository/README.md",
@@ -381,8 +396,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3727,
-      "sha256": "4fd7ba028835373953ad428bb6f68fc4946dab6269095594dc4ce40012f19482"
+      "bytes": 4419,
+      "sha256": "4a0bafdf0ff2748d6aa1ac7b75b9f7b34e3a1cb7e614e78a9511b21d6943a99f"
     },
     {
       "path": "templates/DECISION.md",

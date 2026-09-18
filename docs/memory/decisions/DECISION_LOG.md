@@ -106,3 +106,13 @@ The first production-source observability pilot is limited to final CLI dispatch
 and read-only `SeasonGuiService.source_health()`, using bounded in-memory events
 with no persistence. See `D-021_V10A_CLI_SEASON_SHADOW_PILOT.md`.
 <!-- FANTASY_D021_V10A_CLI_SEASON_SHADOW_INDEX:END -->
+
+<!-- FANTASY_D022_V10A_GUI_LIFECYCLE_SHADOW_INDEX:BEGIN -->
+## D-022 — GUI background-task/lifecycle shadow pilot
+
+**Status:** ACTIVE
+
+The GUI pilot is limited to selected-MC/progress-pump task lifecycle plus
+page/connect/disconnect/delete correlation using bounded in-memory evidence.
+See `D-022_V10A_GUI_LIFECYCLE_SHADOW_PILOT.md`.
+<!-- FANTASY_D022_V10A_GUI_LIFECYCLE_SHADOW_INDEX:END -->

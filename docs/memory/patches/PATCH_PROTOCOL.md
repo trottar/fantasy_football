@@ -201,3 +201,21 @@ Required procedure:
 Production/local trees remain untouched until the full repository checkpoint is
 validated, committed, pushed, and remotely verified.
 <!-- FANTASY_RUNTIME_PROBE_CONTEXT_PROTOCOL_20260917:END -->
+
+<!-- FANTASY_GUI_ASYNC_SHADOW_PROTOCOL_20260917:BEGIN -->
+## GUI/background-task shadow integration
+
+For a GUI async instrumentation checkpoint:
+1. preserve the existing task-creation primitive and any frozen scheduling
+   expression required by regression tests;
+2. when a scheduling expression is frozen, move observation inside the scheduled
+   coroutine body instead of wrapping the scheduler argument;
+3. preserve result identity, exception behavior, and cancellation propagation;
+4. do not capture raw client IDs, arguments, returned values, or exception text;
+5. treat page deletion/disconnect as observable lifecycle state, not automatic
+   cancellation authority;
+6. include paired RNG/state/overhead evidence and a stale-page terminal probe;
+7. compile the fully patched staging tree before runtime probes/tests;
+8. run established GUI source-contract tests in preflight;
+9. keep persistence disabled until separately authorized.
+<!-- FANTASY_GUI_ASYNC_SHADOW_PROTOCOL_20260917:END -->

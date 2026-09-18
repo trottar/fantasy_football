@@ -237,3 +237,16 @@ capture, or exception-message capture is enabled. Observer-internal failures
 fall back to the wrapped call so diagnostics cannot replace production
 behavior.
 <!-- FANTASY_MEMORY_V10A_CLI_SEASON_SHADOW_20260917:END -->
+
+<!-- FANTASY_MEMORY_V10A_GUI_LIFECYCLE_SHADOW_20260917:BEGIN -->
+## v1.0A GUI background-task/lifecycle shadow pilot
+
+The second production observability slice instruments only the selected-MC
+NiceGUI background task, the MC progress-pump task, and page
+mount/connect/disconnect/delete lifecycle correlation. Evidence is bounded and
+in-memory. Generated session/page/task IDs are retained; raw NiceGUI client IDs,
+arguments, results, authenticated payloads, and exception messages are not.
+
+A task that terminates after page deletion produces lifecycle-violation evidence
+but the observer does not cancel, suppress, retry, or replace production work.
+<!-- FANTASY_MEMORY_V10A_GUI_LIFECYCLE_SHADOW_20260917:END -->

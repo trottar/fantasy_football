@@ -384,3 +384,21 @@ Observer failures are explicitly non-interfering: the wrapped production call
 still executes and its result/exception wins. No persistent sink is enabled.
 Player/DST/K/market/closure/data-source paths remain untouched.
 <!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_8:END -->
+
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_9:BEGIN -->
+## v1.0A implementation checkpoint 9
+
+Enabled the narrow GUI background-task/lifecycle shadow pilot in
+`src/gui/season_app.py`. A dedicated `gui_shadow.py` module records bounded
+in-memory page/session/task correlation.
+
+Instrumented call paths are limited to:
+- selected-MC `background_tasks.create(...)`;
+- the MC progress-pump coroutine while preserving its existing create/cancel/await
+  semantics;
+- page mount, initial client connection, disconnect, and final client deletion.
+
+Task completion after page deletion emits `gui.lifecycle.violation` evidence but
+does not alter control flow. No persistent sink or football/data-source
+instrumentation is enabled.
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_9:END -->
