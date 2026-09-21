@@ -423,3 +423,20 @@ pytest, the paired probe, full pytest, compileall, and candidate-local diff /
 allowlist inspection. Local source validation remains separate from control-root
 memory and runtime synchronization remains a later gate.
 <!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_10:END -->
+
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_10_COMMISSIONED:BEGIN -->
+## v1.0A implementation checkpoint 10 commissioned
+
+The data-source season-sync outer shadow boundary is commissioned in the
+`v0.36-repack1` runtime from repository checkpoint
+`24a7e57794b0325510349ae163cd36b2f6c19070`.
+
+The commissioned runtime passed exact source-identity guards, dedicated runtime
+tests, deterministic paired behavior/privacy/RNG/filesystem/overhead probing,
+full pytest, compileall, and final runtime/rollback identity verification. The
+observer remains bounded in memory, fail-open, argument/return/message-free,
+provider-internal-free, and non-persistent.
+
+Checkpoint 10 does not authorize closure, P/D/K, market/behavior, or persistence
+expansion. Phase 1B closure instrumentation is the next separately gated surface.
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_10_COMMISSIONED:END -->

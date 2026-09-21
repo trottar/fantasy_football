@@ -78,3 +78,12 @@ authorization.
 
 Repository writes follow `patches/PATCH_PROTOCOL.md` and the human-in-the-loop
 checkpoint sequence above.
+
+<!-- FANTASY_USER_OUTPUT_SUMMARY_PREFERENCE_20260921:BEGIN -->
+## Local-Step Output Preference
+
+For successful local PowerShell/checkpoint steps, ask for the concise final
+summary block rather than the entire console transcript. Request the full log
+only when a step fails, a summary omits evidence needed for classification, or a
+specific diagnostic line must be inspected.
+<!-- FANTASY_USER_OUTPUT_SUMMARY_PREFERENCE_20260921:END -->

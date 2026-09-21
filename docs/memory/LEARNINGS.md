@@ -366,3 +366,20 @@ This rule was established when `fantasy_memory_season_roadmap_v1` correctly
 rolled back after its proposed `MEMORY.md` reached 387 lines against the 350-line
 soft threshold.
 <!-- FANTASY_LEARNING_MEMORY_THRESHOLD_PACKAGE_QA_20260920:END -->
+
+<!-- FANTASY_LEARNING_INTERACTIVE_POWERSHELL_CONTROL_FLOW_20260921:BEGIN -->
+## Interactive PowerShell control flow must survive paste boundaries
+
+When giving a micro-step intended for direct interactive pasting, do not rely on
+`elseif`/`else` clauses being submitted in the same parser unit as a preceding
+`if`. A console/editor can split the submission and make the later clause execute
+as an invalid command.
+
+Prefer either:
+- one complete `.ps1` file for multi-branch control flow; or
+- independent `if` blocks when the step is intentionally pasted interactively.
+
+For successful micro-steps, print one concise final summary block so the operator
+can return only that block. Full logs remain appropriate on failure or when an
+omitted measurement is required.
+<!-- FANTASY_LEARNING_INTERACTIVE_POWERSHELL_CONTROL_FLOW_20260921:END -->

@@ -292,3 +292,24 @@ diff/allowlist inspection. The commissioned runtime tree remains unchanged.
 Canonical decision and evidence: D-024 and
 `evidence/V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT_PREFLIGHT_2026-09-21.md`.
 <!-- FANTASY_MEMORY_V10A_DATA_SOURCE_SHADOW_20260921:END -->
+
+<!-- FANTASY_MEMORY_V10A_DATA_SOURCE_RUNTIME_COMMISSIONED_20260921:BEGIN -->
+## v1.0A data-source season-sync shadow commissioned
+
+The outer `sync_season_snapshot` shadow pilot is now commissioned in the
+`v0.36-repack1` runtime from remote-verified repository checkpoint
+`24a7e57794b0325510349ae163cd36b2f6c19070`. The runtime retained internal
+`VERSION = 0.36` and passed exact predecessor/target identity guards, dedicated
+runtime tests, the deterministic privacy/non-interference paired probe, full
+runtime pytest, compileall, and a final runtime/rollback identity gate.
+
+The runtime paired probe measured 2,028,200 ns baseline median, 2,201,600 ns
+observed median, 173,400 ns incremental overhead, and 0.08549452716694605
+relative overhead. No arguments, return values, or exception messages were
+captured; persistent evidence remains disabled. The deterministic probe used
+private-data-free stubs and did not perform a live authenticated ESPN request.
+
+Phase 1A is complete. The next separately gated v1.0A surface is Phase 1B closure
+instrumentation. P/D/K, market/behavior, and persistent-sink expansion remain
+separate later gates.
+<!-- FANTASY_MEMORY_V10A_DATA_SOURCE_RUNTIME_COMMISSIONED_20260921:END -->

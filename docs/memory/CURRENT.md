@@ -5,7 +5,7 @@ state_updated: 2026-09-21
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: data_source_season_sync_shadow_pilot
+active_workstream: data_source_runtime_commissioning_closure
 nfl_week: 2
 fantasy_stage: regular_season
 maintenance_status: healthy
@@ -13,121 +13,108 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Complete the v1.0A data-source season-sync shadow pilot through repository
-checkpoint and separate runtime synchronization while preserving authenticated-
-data privacy, production behavior, random state, and the commissioned
-`v0.36-repack1` runtime.
+Close the commissioned v1.0A data-source season-sync shadow pilot in durable
+memory and repository history, then advance to the separately gated Phase 1B
+closure-instrumentation surface without changing football/model semantics.
 
 ## Verified State
 
-- `v0.36-repack1` remains **COMMISSIONED** and runtime-unchanged.
-- Last remote-verified repository checkpoint:
-  `8592989b78b6e94cd08d8618694b8168c62cf715`.
-- Active integration point:
-  `src/season_snapshot.py::sync_season_snapshot` /
-  `subsystem.data_source.season_sync`.
-- Persistent runtime sink remains disabled.
+- `v0.36-repack1` remains the authoritative commissioned 0.X runtime baseline.
+- Repository source checkpoint
+  `24a7e57794b0325510349ae163cd36b2f6c19070` is **PUSHED / REMOTE VERIFIED**.
+- That checkpoint adds only the v1.0A outer season-sync shadow pilot plus its
+  tests/probe/durable-memory preflight records.
+- The commissioned runtime tree is
+  `L:\Projects\fantasy_football\fantasy_season_v0_36_repack1`.
+- Runtime `VERSION` remains `0.36`.
+- Runtime source for `src/observability/shadow_pilot.py` and
+  `src/season_snapshot.py` matches the exact target identities from commit
+  `24a7e57794b0325510349ae163cd36b2f6c19070`.
+- Persistent runtime sink remains **DISABLED**.
 - Provider internals remain uninstrumented.
 
-## Candidate Validation
+## Phase 1A Runtime Commissioning Evidence
 
-The retained source candidate has passed:
+The commissioned runtime passed the distinct runtime gates after two-file source
+synchronization:
 
-- exact predecessor/source patch guards;
-- targeted observability pytest: **39 passed in 7.37 s**;
-- corrected deterministic paired probe: **PASS**;
-- outputs, exception behavior/type, Python RNG, and snapshot-tree state equal;
-- privacy checks: PASS; no arguments, return values, returned paths, or exception
-  messages captured; no persistent sink;
-- probe baseline median **1,123,700 ns**, observed **1,296,200 ns**,
-  incremental **172,500 ns**, relative fraction **0.15351072350271425**;
-- full repository pytest: **459 passed in 52.73 s**;
-- full repository compileall: **PASS**;
-- candidate `git diff --check`: PASS;
-- exact 14-path candidate allowlist after removal of temporary probe JSON.
+- unique commissioned-runtime discovery: PASS;
+- exact predecessor identities before modification: PASS;
+- rollback backup of both predecessor files: PASS and identity-verified;
+- exact target identities after synchronization: PASS;
+- dedicated season-sync runtime test gate: PASS;
+- deterministic paired privacy/non-interference probe: PASS;
+- full runtime pytest: PASS;
+- runtime compileall: PASS;
+- final runtime target-identity gate: PASS.
 
-## Staging / Manifest Preflight
+Runtime paired-probe measurements:
 
-A fresh isolated staging clone was created at the same remote checkpoint and
-validated incrementally:
+- baseline median: **2,028,200 ns**;
+- observed median: **2,201,600 ns**;
+- incremental overhead: **173,400 ns**;
+- relative overhead fraction: **0.08549452716694605**;
+- exception behavior equal: true;
+- state probes equal: true;
+- privacy success/error checks: true;
+- arguments captured: false;
+- return values captured: false;
+- exception messages captured: false;
+- persistent sink: false.
 
-- staging-clone `HEAD` exactly
-  `8592989b78b6e94cd08d8618694b8168c62cf715`;
-- four technical files copied from the retained candidate and confirmed
-  byte-identical;
-- current control-root memory delta measured as exactly 10 paths, then copied;
-- all 10 memory files confirmed byte-identical to the control root;
-- combined working tree: exact 14-path allowlist;
-- strict memory health: **HEALTHY**;
-- combined `git diff --check`: PASS;
-- exact 14 paths staged with no unstaged/untracked residue;
-- schema-2 `docs/memory/manifest.json` regenerated from staged Git blob bytes;
-- manifest entries: **100**;
-- staged path count including manifest: **15**;
-- exact 15-path staged allowlist: PASS;
-- no unstaged/untracked residue: PASS;
-- cached diff check: PASS.
+The full-runtime pytest result is recorded as PASS without inventing a test count,
+because the returned operator summary omitted the pytest count line.
 
-This manifest result is a **preflight**, not yet the commit-ready final manifest,
-because this v4 memory checkpoint advances control-root memory after that
-measurement. Before commit, refresh these updated memory files into the staging
-clone and regenerate/validate the manifest once more from the resulting staged
-Git blobs. Do not create another recursive pre-commit memory bookkeeping update.
+The deterministic commissioning probe used private-data-free stubs. It did not
+perform a live authenticated ESPN request; D-024 does not require provider-level
+or live-authenticated instrumentation for this outer-boundary shadow gate.
 
-## Failure Lineage
-
-- package v1: **FAILED BEFORE MODIFICATION** because it confused control root
-  with application source;
-- package v2: **FAILED BEFORE CONTROL-ROOT MODIFICATION** because its probe
-  launcher omitted the repository root from `PYTHONPATH`;
-- manual probe retry under the correct import context passed.
-
-Canonical detail:
-`evidence/V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT_PREFLIGHT_2026-09-21.md`.
+Canonical commissioning evidence:
+`evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`.
 
 ## Scientific / Architectural Boundaries
 
-- Preserve `P ⊕ D ⊕ K`; this slice touches none of those channels.
-- Manager behavior and closure remain separately gated.
-- No observed 2026 outcome tunes a v0.X model.
-- Diagnostics remain observers; no provider/return/filesystem/RNG semantics may
-  change.
-- No authenticated/provider payload, secret, returned snapshot/path, or exception
-  message may enter observability evidence.
+- Preserve `P ⊕ D ⊕ K`.
+- No football/model semantics changed in Phase 1A.
+- Observability remains fail-open and non-authoritative.
+- No arguments, authenticated payloads, returned snapshot/path data, or exception
+  messages enter shadow evidence.
+- No provider-level instrumentation is authorized by this commissioning.
+- Persistent evidence remains separately gated.
 - Week 3 remains the first future hard prospective-capture gate.
 
 ## Current Validation State
 
-`STAGING PREFLIGHT VALIDATED / SCHEMA-2 MANIFEST PREFLIGHT PASS / 15 PATHS STAGED / NOT COMMITTED / RUNTIME UNCHANGED`
+`PHASE 1A DATA-SOURCE SEASON-SYNC SHADOW = COMMISSIONED / REPOSITORY SOURCE REMOTE VERIFIED / RUNTIME VALIDATED / PERSISTENCE DISABLED`
 
 ## Exact Next Action
 
-Apply this memory-only v4 checkpoint to the control root. Then refresh only the
-v4-updated memory files into the existing staging clone, re-stage those paths,
-regenerate `docs/memory/manifest.json` from staged Git blob bytes, and rerun the
-exact staged-allowlist/residue/cached-diff checks. Do **not** commit or push in
-that refresh step.
+Complete this **memory-only runtime-commissioning closure checkpoint** through
+staging, schema-2 manifest regeneration, commit, push, and read-only remote
+verification. The local memory-apply step must not stage, commit, push, or modify
+the commissioned runtime.
+
+After that checkpoint is remote-verified, begin **Phase 1B — closure
+instrumentation** with one narrow hypothesis and targeted preflight. Do not fold
+P/D/K, market/behavior, or persistent-sink work into that slice.
 
 ## Repository / Handoff Boundary
 
 Repository writes remain:
 
-`assistant package -> user local run -> returned log -> assistant verification -> separate push commands -> user push -> read-only remote verification`
+`assistant package -> user local run -> returned summary -> assistant verification -> separate staging/commit/push -> user push -> read-only remote verification`
 
-No direct GitHub connector writes are used for checkpoints.
-
-## Success Criterion
-
-The pilot is complete only after repository commit/push/read-only remote
-verification and a later, separate synchronization/validation against the
-commissioned runtime tree.
+Successful local steps may return concise final summary blocks. Full console logs
+are needed only on failure or when a specific omitted measurement is required.
 
 ## Relevant References
 
+- `../../ROADMAP.md`
 - `decisions/D-020_V10A_INTEGRATION_GATE.md`
 - `decisions/D-024_V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT.md`
 - `architecture/DIAGNOSTICS_OBSERVABILITY.md`
 - `roadmap/STATUS.md`
 - `patches/PATCH_PROTOCOL.md`
 - `evidence/V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT_PREFLIGHT_2026-09-21.md`
+- `evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`
 - `memory/2026-09-21.md`

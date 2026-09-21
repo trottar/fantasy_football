@@ -5,52 +5,46 @@ surface and cannot override it.
 
 ## Last Remote-Verified Checkpoint
 
-`8592989b78b6e94cd08d8618694b8168c62cf715`
+`24a7e57794b0325510349ae163cd36b2f6c19070`
+
+Commit: **Add v1.0A data-source season-sync shadow pilot**.
 
 ## Active Technical Checkpoint
 
-**v1.0A data-source season-sync shadow pilot**
+**Phase 1A data-source season-sync shadow pilot — RUNTIME COMMISSIONED**
 
 Current classification:
 
-`STAGING PREFLIGHT VALIDATED / SCHEMA-2 MANIFEST PREFLIGHT PASS / 15 PATHS STAGED / NOT COMMITTED / RUNTIME UNCHANGED`
+`SOURCE PUSHED / REMOTE VERIFIED / RUNTIME SYNCHRONIZED / TARGETED TEST PASS / PAIRED PROBE PASS / FULL PYTEST PASS / COMPILEALL PASS / FINAL IDENTITY PASS / PERSISTENCE DISABLED`
 
-The retained source candidate passed 39 targeted tests, the paired privacy /
-non-interference probe, full pytest (**459 passed in 52.73 s**), compileall, and
-candidate diff/allowlist inspection.
+The commissioned runtime remains `v0.36-repack1`, internal `VERSION = 0.36`.
+Only `src/observability/shadow_pilot.py` and `src/season_snapshot.py` were
+synchronized for this runtime step. Their final identities match repository
+commit `24a7e57794b0325510349ae163cd36b2f6c19070`.
 
-A fresh staging clone at the exact remote checkpoint then passed: four technical
-file byte identity, exact 10-path current-memory inventory/copy/byte identity,
-strict memory health, combined diff-check, exact 14-path staging, schema-2
-manifest regeneration from staged Git blobs (**100 entries**), exact 15-path
-staged allowlist, no residue, and cached diff-check.
-
-Because this v4 memory checkpoint advances control-root memory after that
-manifest measurement, the current staged manifest is preflight evidence only.
-Refresh the v4-updated memory files into the same staging clone and regenerate
-the manifest once more before commit. Do not create another recursive memory
-bookkeeping checkpoint before commit.
+The runtime paired probe measured 2,028,200 ns baseline median, 2,201,600 ns
+observed median, 173,400 ns incremental overhead, and 0.08549452716694605
+relative overhead. Behavior/state/privacy gates passed; no arguments, returned
+values, exception messages, or persistent sink were captured.
 
 ## Resume Instruction
 
 1. Read the complete bootstrap set.
-2. Read D-020, D-024, and the preflight evidence record.
-3. Preserve the Week 3 prospective-capture deadline.
-4. Resume from the last validated gate; do not rerun passed gates without new
-   evidence.
-5. Apply memory v4 if not already applied.
-6. Refresh only the v4-updated memory files into the existing staging clone,
-   re-stage them, regenerate the schema-2 manifest from staged Git blob bytes,
-   and validate the staged allowlist/residue/cached diff.
-7. Do not commit/push/runtime-sync during that refresh step.
+2. Treat Phase 1A runtime commissioning as complete.
+3. Finish the memory-only commissioning-closure checkpoint through staged
+   schema-2 manifest, commit, push, and remote verification.
+4. Do not rerun Phase 1A tests without new evidence.
+5. After closure is remote-verified, begin Phase 1B closure instrumentation only.
+6. Preserve the Week 3 prospective-capture deadline.
 
 ## Critical Boundaries
 
-- control root != source candidate != staging clone != commissioned runtime;
+- control root != staging clone != commissioned runtime;
 - no provider-level instrumentation;
 - no arguments, returned payloads/paths, authenticated data, or exception
   messages in observability events;
-- no persistent sink;
+- persistent sink remains disabled;
 - no football/model semantic change;
 - no direct GitHub connector writes for checkpoints;
-- small validation steps are preferred after tooling/package failures.
+- successful operator steps may return concise summary blocks; request full logs
+  only for failures or missing evidence.

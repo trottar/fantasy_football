@@ -1,61 +1,69 @@
 # Roadmap Status
 
+<!-- FANTASY_ROADMAP_STATUS_V10A_DATA_SOURCE_RUNTIME_COMMISSIONED_20260921 -->
 ## Current Frontier
 
 - Authoritative runtime baseline: `v0.36-repack1` — **COMMISSIONED**
 - Internal version: `0.36`
 - Phase 0 final lineage: **COMPLETE**
-- 2026 season-roadmap memory checkpoint: **PUSHED / REMOTE VERIFIED** at
-  `8592989b78b6e94cd08d8618694b8168c62cf715`
+- 2026 season-roadmap memory checkpoint: **PUSHED / REMOTE VERIFIED**
 - Active development series: **v1.0A observability**
-- Active technical checkpoint: **data-source season-sync shadow pilot**
-- Current pilot state: **staging preflight validated; schema-2 manifest preflight
-  passed; not committed**
-- Commissioned runtime tree: **UNCHANGED**
+- Phase 1A data-source season-sync shadow pilot: **COMPLETE / RUNTIME COMMISSIONED**
+- Phase 1A source checkpoint: `24a7e57794b0325510349ae163cd36b2f6c19070`
+  — **PUSHED / REMOTE VERIFIED**
+- Phase 1B closure instrumentation: **NEXT / NOT STARTED**
+- Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
+- Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
+- Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
 - Persistent runtime sink: **DISABLED**
-- Broad football-channel instrumentation: **DEFERRED / SEPARATELY GATED**
 
-## Active Data-Source Pilot
+## Phase 1A — Commissioned Result
 
-The candidate observes only the outer
-`src/season_snapshot.py::sync_season_snapshot` boundary.
+Observed boundary:
+`src/season_snapshot.py::sync_season_snapshot` /
+`subsystem.data_source.season_sync`.
 
-Candidate validation:
+Source/candidate validation before runtime synchronization:
 
-- targeted pytest: **39 passed in 7.37 s**;
-- deterministic paired privacy/non-interference probe: PASS;
-- full pytest: **459 passed in 52.73 s**;
-- compileall: PASS;
-- candidate diff-check: PASS;
-- exact candidate 14-path allowlist: PASS.
+- targeted observability pytest: **39 passed in 7.37 s**;
+- deterministic paired probe: PASS;
+- full repository pytest: **459 passed in 52.73 s**;
+- full repository compileall: PASS;
+- diff/allowlist and schema-2 staging checks: PASS;
+- source checkpoint pushed and independently remote-verified: PASS.
 
-Staging preflight:
+Commissioned-runtime validation:
 
-- fresh staging clone at exact remote predecessor: PASS;
-- four technical files byte-identical to validated candidate: PASS;
-- exact 10-path latest control-root memory inventory/copy/byte identity: PASS;
-- combined exact 14-path working-tree allowlist: PASS;
-- strict memory health: HEALTHY;
-- combined diff-check: PASS;
-- exact 14-path staging with no residue: PASS;
-- schema-2 manifest regenerated from staged Git blob bytes: PASS;
-- manifest entry count: **100**;
-- exact staged path count including manifest: **15**;
-- exact 15-path staged allowlist / no residue / cached diff-check: PASS.
+- unique runtime/predecessor discovery: PASS;
+- two-file synchronization with rollback backup: PASS;
+- target identities: PASS;
+- dedicated runtime test gate: PASS;
+- runtime paired privacy/non-interference probe: PASS;
+- runtime full pytest: PASS;
+- runtime compileall: PASS;
+- final target and rollback-predecessor identity gate: PASS;
+- persistent sink: DISABLED.
 
-The manifest is still a **preflight** because the v4 memory checkpoint itself
-advances control-root memory. Final pre-commit staging must refresh those v4
-memory files and regenerate/validate the manifest again. No further recursive
-memory bookkeeping update is required before commit.
+The runtime paired probe measured:
 
-## Remaining v1.0A Work
+- baseline median **2,028,200 ns**;
+- observed median **2,201,600 ns**;
+- incremental **173,400 ns**;
+- relative fraction **0.08549452716694605**.
 
-After this checkpoint:
+The full-runtime pytest count is intentionally not stated because the returned
+operator summary established PASS but omitted the count line.
 
-1. final refresh + schema-2 manifest regeneration in staging clone;
-2. repository commit/push/read-only remote verification;
-3. separate commissioned-runtime synchronization/validation;
-4. later separately gated closure / P / D / K / market / persistence work.
+## Phase 1B — Next Surface
+
+Closure instrumentation is next. Per the accepted roadmap, provenance should be
+added around release/commit/config/input identity, NFL week, prediction time,
+`data_as_of`, channel, RNG/CRN identity where applicable, recommendation/action
+identity, and later outcome linkage.
+
+Phase 1B must begin with one narrow hypothesis and a targeted non-interference /
+causality probe. It does not authorize P/D/K instrumentation, manager-behavior
+instrumentation, or persistent evidence.
 
 ## 2026 Season Milestones
 
@@ -73,14 +81,17 @@ After this checkpoint:
 - Preserve `P ⊕ D ⊕ K`.
 - No observed 2026 outcome may retroactively tune a v0.X model.
 - Diagnostics remain observers, not decision/control logic.
-- Data-source instrumentation must preserve authenticated-data privacy.
+- Data-source instrumentation preserves authenticated-data privacy.
 - Missed prospective captures are recorded as missing, never backfilled.
+- Persistent evidence requires a separate authorization gate.
 
 ## Canonical References
 
 - Long-range roadmap: `../../ROADMAP.md`
 - 2026 weekly map: `SEASON_2026.md`
 - D-024: `../decisions/D-024_V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT.md`
-- Current evidence:
+- Preflight evidence:
   `../evidence/V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT_PREFLIGHT_2026-09-21.md`
+- Runtime commissioning evidence:
+  `../evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`
 - Detailed chronology: `../memory/2026-09-21.md`
