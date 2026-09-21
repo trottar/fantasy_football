@@ -1,15 +1,16 @@
 # Durable Memory Maintenance Policy
 
-This file is the authoritative policy for keeping `docs/memory/` small,
-typed, authoritative, and sustainable.
+This file is the authoritative policy for keeping `docs/memory/` small, typed,
+authoritative, and sustainable.
 
 It is project-state maintenance. It is model-agnostic and platform-agnostic and
 does not depend on any chat/model runtime.
 
 ## Central Invariant
 
-A fresh contributor should be able to determine the current project state and
-begin the next narrow task after reading a small stable bootstrap set.
+A fresh contributor/session should be able to determine the current project
+state, the critical operational boundaries, and the next narrow task after
+reading a small stable bootstrap set.
 
 Historical chronology, evidence, investigations, release receipts, and
 superseded states remain available but are not required to determine what is
@@ -17,18 +18,25 @@ current.
 
 ## Bootstrap Set
 
-Read first:
+Read first, in full:
 
 1. `AGENTS.md`
 2. `CURRENT.md`
-3. `USER.md`
+3. `MEMORY.md`
+4. `handoffs/CURRENT_HANDOFF.md`
+5. `USER.md`
 
-Then load only task-relevant referenced material and exact source/tests.
+Then load task-relevant referenced material and exact source/tests.
 
 `CURRENT.md` is authoritative active state.
 
-`handoffs/CURRENT_HANDOFF.md` is optional resume metadata and cannot override
-`CURRENT.md`.
+`MEMORY.md` is curated durable cross-phase knowledge.
+
+`handoffs/CURRENT_HANDOFF.md` is compact resume/operational metadata and cannot
+override `CURRENT.md`.
+
+For any repository-write/package task, `patches/PATCH_PROTOCOL.md` becomes
+mandatory reading before action.
 
 ## Information Roles
 
@@ -57,6 +65,18 @@ Primary homes:
 Keep scientific invariants, stable architecture, enduring workflow rules, and
 reusable lessons. Do not keep detailed checkpoint chronology here.
 
+### Long-Range Roadmap / Known Issues
+
+- `../ROADMAP.md` owns accepted long-range phases, dependencies, and phase
+  acceptance gates.
+- `../KNOWN_ISSUES.md` owns open/deferred issues, debt, blocker classification,
+  and explicit reopen/resolve conditions.
+- `roadmap/STATUS.md` owns only the current roadmap position.
+- `roadmap/SEASON_2026.md` owns 2026 week-by-week calendar gates and planned
+  evidence-review points.
+
+These documents may point to active state, but none overrides `CURRENT.md`.
+
 ### Collaboration / Environment
 
 `USER.md` owns collaboration and environment preferences.
@@ -66,10 +86,12 @@ reusable lessons. Do not keep detailed checkpoint chronology here.
 - `AGENTS.md` — startup, authority, scientific/authorization guardrails
 - `COMMUNICATION.md` — work-session/checkpoint communication lifecycle
 - `TOOLS.md` — environment/tooling procedures
-- `patches/PATCH_PROTOCOL.md` — patch/release mechanics
+- `patches/PATCH_PROTOCOL.md` — patch/release/checkpoint mechanics
 - `MAINTENANCE.md` — memory health and cleanup
 
-One document owns each detailed policy; other files should link to it.
+One document owns each detailed policy; other files should link to it. Critical
+checkpoint actor boundaries may be repeated briefly in bootstrap/handoff files
+when needed to prevent an invalid transition.
 
 ### Dated Operational History
 
@@ -98,9 +120,7 @@ receipts, lineage, and packaging defects.
 ### Superseded History
 
 `history/` stores records worth retaining that are explicitly no longer current
-authority.
-
-Nothing in `history/` overrides current state.
+authority. Nothing in `history/` overrides current state.
 
 ## Size Triggers
 
@@ -112,13 +132,11 @@ Thresholds are guidance plus semantic checks; size alone does not define health.
 - hard: 16 KiB or 300 lines
 - desired steady state: 3–8 KiB
 
-Soft violation:
-perform maintenance at the next safe checkpoint before another substantial
-work item.
+Soft violation: perform maintenance at the next safe checkpoint before another
+substantial work item.
 
-Hard violation:
-maintenance becomes the next project-maintenance task once the repository is in
-a safe checkpoint state.
+Hard violation: maintenance becomes the next project-maintenance task once the
+repository is in a safe checkpoint state.
 
 ### `handoffs/CURRENT_HANDOFF.md`
 
@@ -152,11 +170,13 @@ Maintenance is required when any of these is true:
 - a release becomes commissioned;
 - an investigation becomes resolved;
 - a new authoritative baseline supersedes an old one;
-- procedural rules are copied into multiple bootstrap files.
+- procedural rules are copied inconsistently across bootstrap files;
+- bootstrap documents disagree about which files must be read;
+- the handoff does not make repository actor boundaries unambiguous.
 
-Also review procedural duplication when substantially identical instructions
-appear in three or more of `AGENTS.md`, `COMMUNICATION.md`, `TOOLS.md`,
-`MEMORY.md`, `USER.md`, or repository README material.
+Also review procedural duplication when substantially identical detailed
+instructions appear in three or more policy files. Brief safety reminders may
+repeat; one canonical owner must still exist.
 
 ## Safe-Checkpoint Rule
 
@@ -183,7 +203,8 @@ Determine:
 - active work item;
 - validation/commissioning state;
 - blockers;
-- exact next action.
+- exact next action;
+- package/apply/commit/push state where relevant.
 
 Do not infer current state by selecting the last paragraph of a large file.
 
@@ -202,8 +223,9 @@ history.
 
 ### 4. Preserve Failure Lineage
 
-Keep diagnostic/tooling failures, but after classification and promotion of any
-reusable lesson, move detailed chronology out of active bootstrap files.
+Keep diagnostic/tooling/workflow failures, but after classification and
+promotion of any reusable lesson, move detailed chronology out of active
+bootstrap files.
 
 ### 5. Promote Durable Lessons
 
@@ -224,24 +246,37 @@ Create one if necessary.
 Rewrite `CURRENT.md` coherently from today's frontier. Do not merely trim old
 sections.
 
+### 9. Reconcile Bootstrap and Handoff
+
+Verify that `AGENTS.md`, `CURRENT.md`, `MEMORY.md`,
+`handoffs/CURRENT_HANDOFF.md`, and `USER.md` agree on authority and that a fresh
+session can recover the checkpoint workflow without chat history.
+
 ## Handoff Policy
 
 Preferred model:
 
 - `CURRENT.md` = complete authoritative resumable project state.
-- `CURRENT_HANDOFF.md` = compact transition metadata only.
+- `CURRENT_HANDOFF.md` = compact transition metadata plus critical actor/safety
+  boundaries.
 
 A handoff may contain:
 - last completed checkpoint;
 - temporary local-vs-remote condition;
 - unusual uncommitted state;
-- exact resume instruction.
+- exact resume instruction;
+- checkpoint package/apply/commit/push state;
+- the mandatory actor sequence when needed for continuity.
 
 Rewrite it at meaningful checkpoints. Do not append indefinitely.
 
 ## Prevent Recursive Summarization
 
 Do not preserve knowledge only through summaries of summaries.
+
+Before restating a decision, gate, classification, deadline, or architecture
+constraint, open the canonical source record that defines it. Active summaries
+should point to source records rather than becoming a new source.
 
 Prefer:
 
@@ -262,12 +297,16 @@ Keep distinctions such as:
 - `RUNTIME-VALIDATED`
 - `OPERATOR-CONFIRMED`
 - `COMMISSIONED`
+- `LOCAL APPLY VALIDATED / NOT COMMITTED`
+- `COMMITTED / NOT PUSHED`
+- `PUSHED / REMOTE VERIFIED`
 - `DEFERRED`
 - `SUPERSEDED`
 - `FAILED BEFORE MODIFICATION`
+- `FAILED BEFORE COMMIT/PUSH`
 
-Do not convert operator-confirmed evidence into automated evidence or vice
-versa.
+Do not convert operator-confirmed evidence into automated evidence or vice versa.
+Do not convert package/local-apply state into commit/push state.
 
 ## Health Tool
 
@@ -284,15 +323,25 @@ It never rewrites memory.
 
 ## Checkpoint Integration
 
-Memory maintenance uses the normal repository checkpoint process:
-- inspect exact pre-state;
-- preserve superseded material;
-- validate generated Markdown;
-- run `git diff --check`;
-- stage an exact allowlist;
-- maintain schema-2 Git-blob manifest semantics;
-- verify commit/push state;
-- preserve public/private boundaries.
+Memory maintenance uses the normal repository checkpoint process. Local apply
+validates package targets against the package predecessor contract; the
+synchronized control root's local Git `HEAD` is not the apply authority.
+
+
+1. inspect exact pre-state;
+2. preserve superseded material;
+3. validate generated Markdown;
+4. run `git diff --check`;
+5. user applies the delivered update locally;
+6. user returns the complete validation output;
+7. assistant verifies that evidence;
+8. only then supply separate staging/manifest/commit/push commands;
+9. stage an exact allowlist;
+10. maintain schema-2 Git-blob manifest semantics;
+11. verify remote state after the user pushes;
+12. preserve public/private boundaries.
+
+Direct GitHub connector writes do not satisfy this process.
 
 ## Memory Health Check
 
@@ -322,6 +371,8 @@ Memory maintenance uses the normal repository checkpoint process:
 - [ ] Handoff purpose is distinct from `CURRENT.md`.
 - [ ] Handoff is rewritten, not append-only.
 - [ ] Handoff cannot override `CURRENT.md`.
+- [ ] Handoff makes package/apply/commit/push state explicit.
+- [ ] Handoff makes the default actor sequence explicit.
 
 ### Procedures
 
@@ -329,11 +380,12 @@ Memory maintenance uses the normal repository checkpoint process:
   have distinct responsibilities.
 - [ ] Detailed policies have one canonical owner.
 - [ ] Startup instructions agree.
+- [ ] `PATCH_PROTOCOL.md` is read before repository-write/package work.
 
 ### Bootstrap
 
-- [ ] A fresh session can understand current work from `AGENTS.md`,
-  `CURRENT.md`, and `USER.md`.
+- [ ] A fresh session can understand current work from the complete mandatory
+  bootstrap set.
 - [ ] Historical logs are not needed during normal startup.
 - [ ] Evidence is loaded only when relevant.
 - [ ] Bootstrap files remain below thresholds.
@@ -343,5 +395,10 @@ Memory maintenance uses the normal repository checkpoint process:
 - [ ] No unique scientific knowledge was lost.
 - [ ] No football/model/application behavior changed during maintenance.
 - [ ] Public/private boundaries remain intact.
+- [ ] No package/local state is mislabeled as pushed/remote state.
+- [ ] Calendar gates are not represented as evidence/calibration authorization.
+- [ ] Missed prospective captures are recorded as missing rather than backfilled.
+- [ ] Root roadmap, known-issues state, roadmap status, and season calendar do not
+  contradict `CURRENT.md`.
 
-<!-- FANTASY_MEMORY_MAINTENANCE_20260917_V2 -->
+<!-- FANTASY_MEMORY_MAINTENANCE_20260918_V3 -->

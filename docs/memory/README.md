@@ -3,20 +3,24 @@
 `docs/memory/` is the repository-backed continuity layer for the fantasy-football
 project. Development must not depend on chat history alone.
 
-## Minimal Startup Contract
+## Mandatory Startup Contract
 
-A fresh substantial work session should read:
+A fresh substantial work session must read:
 
 1. `AGENTS.md`
 2. `CURRENT.md`
-3. `USER.md`
+3. `MEMORY.md`
+4. `handoffs/CURRENT_HANDOFF.md`
+5. `USER.md`
 
-Then read only task-relevant references named by `CURRENT.md` or required by the
+Then read the task-relevant references named by those files or required by the
 affected subsystem.
 
-`MEMORY.md` is durable cross-phase knowledge, not mandatory cover-to-cover
-startup material. `handoffs/CURRENT_HANDOFF.md` is a small resume aid and cannot
-override `CURRENT.md`.
+`CURRENT.md` is authoritative active state. `MEMORY.md` supplies durable
+cross-phase scientific/project knowledge. `CURRENT_HANDOFF.md` is a compact
+resume and operational-warning surface; it cannot override `CURRENT.md`.
+
+Do not shorten this startup set from memory.
 
 ## Authority
 
@@ -28,7 +32,11 @@ When sources conflict, prefer:
 5. Git/checkpoint history;
 6. older summaries/history.
 
-Never silently merge contradictions.
+Newer validated state supersedes older active summaries unless the user
+explicitly says otherwise. Never silently merge contradictions.
+
+The validated local tree is authoritative between checkpoints. GitHub is the
+durable source/history layer and should match validated checkpoints.
 
 ## Core File Ownership
 
@@ -40,6 +48,19 @@ Never silently merge contradictions.
 - `COMMUNICATION.md` — work-session/checkpoint communication lifecycle.
 - `TOOLS.md` — environment/tooling and proven operational procedures.
 - `MAINTENANCE.md` — memory-health, cleanup, threshold, and rewrite policy.
+- `patches/PATCH_PROTOCOL.md` — canonical repository checkpoint mechanics.
+- `handoffs/CURRENT_HANDOFF.md` — compact resume pointer and critical
+  handoff/actor boundary.
+
+## Planning Documents Outside `docs/memory/`
+
+- `../ROADMAP.md` — accepted long-range project phases and phase acceptance gates.
+- `../KNOWN_ISSUES.md` — open/deferred issues, blockers, debt, and explicit reopen
+  conditions.
+
+These planning documents do not override `CURRENT.md`. `roadmap/STATUS.md`
+remains the compact current phase position, while `roadmap/SEASON_2026.md`
+owns the 2026 week-by-week calendar gates.
 
 ## Typed Subdirectories
 
@@ -55,14 +76,23 @@ Never silently merge contradictions.
 - `history/` — explicitly superseded snapshots; never current authority.
 - `templates/` — repeatable update formats.
 
-## Memory Contract
+## Checkpoint Contract
 
 Meaningful code/release/diagnostic checkpoints update durable memory in the same
 Git checkpoint.
+
+The default human-in-the-loop repository flow is:
+
+`assistant package -> user local run -> returned log -> assistant verification -> separate push commands -> user push -> read-only remote verification`
+
+Direct GitHub connector writes are not used for project checkpoint writes.
 
 Raw/private evidence stays local unless deliberately sanitized.
 
 Active documents point to canonical evidence rather than copying complete
 validation histories.
 
-Memory health and cleanup rules are defined in `MAINTENANCE.md`.
+Memory health and cleanup rules are defined in `MAINTENANCE.md`. Checkpoint
+surface/authority mechanics are defined in `patches/PATCH_PROTOCOL.md`; do not
+infer local-apply predecessor authority from the synchronized control root's own
+Git `HEAD`.

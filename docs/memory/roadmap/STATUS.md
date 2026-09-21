@@ -6,11 +6,31 @@
 - Internal version: `0.36`
 - Phase 0 final lineage: **COMPLETE**
 - Active development series: **v1.0A observability**
-- Exact next slice: **failure-bundle contract**
+- Current repository gate: **2026 season-roadmap durable-memory checkpoint**
+- Latest completed technical slice: **GUI background-task/lifecycle shadow pilot**
+- Exact next technical slice after the repository gate:
+  **data-source season-sync shadow pilot**
+- Persistent runtime sink: **DISABLED**
+- Broad football-channel instrumentation: **DEFERRED / SEPARATELY GATED**
 
-## v1.0A — Diagnostics / Observability Substrate
+## Accepted Long-Range Plan
+
+`docs/ROADMAP.md` owns the accepted multi-phase project plan.
+
+`roadmap/SEASON_2026.md` owns the week-by-week 2026 calendar/deadline map.
+
+The roadmap now separates:
+
+- **calendar gates** — irreversible prospective capture / operational deadlines;
+- **evidence gates** — scientific review/calibration gates that pass only when
+  prospective closure supports them.
+
+A date never forces an evidence gate to pass.
+
+## v1.0A — Evidence / Diagnostics / Observability Substrate
 
 Completed:
+
 - [x] architecture/contract adopted
 - [x] immutable run/action context
 - [x] structured event schema/registry
@@ -21,96 +41,86 @@ Completed:
 - [x] local snapshot bundle contract
 - [x] exact-byte replay verification/loading
 - [x] bounded structural diff contract
-
-Next:
-- [ ] failure-bundle contract
-
-Then:
-- [ ] subsystem adapters: player / DST / K / lineup / market / closure
-- [ ] CLI/service/background-task correlation
-- [ ] GUI event emission/integration
-- [ ] diagnostic overhead/non-interference benchmarks
-- [ ] v1.0A commissioning criteria
-
-Production call-site event emission remains deferred.
-
-<!-- FANTASY_ROADMAP_V10A_FAILURE_BUNDLE_20260917:BEGIN -->
-## v1.0A failure-bundle checkpoint
-
 - [x] bounded privacy-safe failure-bundle contract
-- [x] project-file modification state separated from runtime side effects
-- [x] exact-byte integrity verification
-- [ ] subsystem adapter contracts
-- [ ] CLI/service/background-task correlation
-- [ ] GUI event emission/integration
-- [ ] diagnostic overhead/non-interference benchmarks
-- [ ] v1.0A commissioning gate
-
-Next narrow checkpoint: subsystem adapter contracts +
-CLI/service/background-task correlation. Automatic production emission remains
-disabled.
-<!-- FANTASY_ROADMAP_V10A_FAILURE_BUNDLE_20260917:END -->
-
-<!-- FANTASY_ROADMAP_V10A_ADAPTERS_CORRELATION_20260917:BEGIN -->
-## v1.0A adapters/correlation checkpoint
-
 - [x] subsystem adapter contracts
 - [x] CLI/service/background-task correlation contracts
 - [x] P/D/K observability channel separation guard
-- [ ] production integration design
-- [ ] diagnostic overhead/non-interference benchmark gate
-- [ ] GUI event emission/integration
-- [ ] v1.0A commissioning gate
-
-Next narrow checkpoint: production integration design + overhead/non-interference
-benchmark gate before broad instrumentation.
-<!-- FANTASY_ROADMAP_V10A_ADAPTERS_CORRELATION_20260917:END -->
-
-<!-- FANTASY_ROADMAP_V10A_INTEGRATION_GATE_20260917:BEGIN -->
-## v1.0A integration-gate checkpoint
-
 - [x] production integration surface map
-- [x] observer-only shadow defaults
-- [x] paired result/exception non-interference gate
-- [x] Python RNG/custom state-probe comparison and restoration
+- [x] paired result/exception/RNG/state non-interference gate
 - [x] absolute/relative overhead budget contract
-- [ ] narrow CLI + SeasonGuiService shadow-integration pilot
-- [ ] GUI/background lifecycle integration
-- [ ] player/DST/K/market/closure/data-source integration
-- [ ] v1.0A commissioning gate
-
-Next narrow checkpoint: CLI command boundary + SeasonGuiService shadow pilot.
-No persistent sink or broad automatic emission is enabled.
-<!-- FANTASY_ROADMAP_V10A_INTEGRATION_GATE_20260917:END -->
-
-<!-- FANTASY_ROADMAP_V10A_CLI_SEASON_SHADOW_20260917:BEGIN -->
-## v1.0A first production shadow pilot
-
-- [x] integration design + non-interference/overhead gate
 - [x] final CLI dispatch shadow pilot
-- [x] read-only SeasonGuiService `source_health()` shadow pilot
-- [x] bounded in-memory evidence only
-- [x] paired output/RNG/state/overhead gate
-- [ ] GUI background-task/lifecycle shadow pilot
-- [ ] player/DST/K/market/closure/data-source instrumentation
-- [ ] v1.0A commissioning gate
-
-Next narrow checkpoint: GUI background-task/lifecycle shadow pilot. Broad
-football-subsystem instrumentation remains deferred.
-<!-- FANTASY_ROADMAP_V10A_CLI_SEASON_SHADOW_20260917:END -->
-
-<!-- FANTASY_ROADMAP_V10A_GUI_LIFECYCLE_SHADOW_20260917:BEGIN -->
-## v1.0A GUI background-task/lifecycle shadow pilot
-
-- [x] CLI + SeasonGuiService shadow pilot
-- [x] selected-MC background-task lifecycle
-- [x] MC progress-pump cancellation lifecycle
+- [x] read-only `SeasonGuiService.source_health()` shadow pilot
+- [x] GUI selected-MC/progress-pump lifecycle shadow pilot
 - [x] page/connect/disconnect/delete correlation
 - [x] bounded in-memory / non-persistent evidence
-- [x] paired result/RNG/cancellation/stale-page/overhead gate
-- [ ] player/DST/K/market/closure/data-source instrumentation
+
+Repository checkpoint gate:
+
+- The **2026 season-roadmap durable-memory checkpoint** is satisfied when this
+  roadmap content is committed on `main`, the push succeeds without remote
+  movement, and the resulting remote SHA is verified read-only.
+- Until that condition is established, technical implementation remains gated.
+
+Exact next technical checkpoint after that gate:
+
+- [ ] **data-source season-sync shadow pilot**
+
+Later v1.0A work, separately gated:
+
+- [ ] closure instrumentation
+- [ ] player channel instrumentation
+- [ ] DST channel instrumentation
+- [ ] kicker channel instrumentation
+- [ ] market/manager-behavior instrumentation
+- [ ] persistent runtime sink authorization/commissioning
 - [ ] v1.0A commissioning gate
 
-Next narrow checkpoint: data-source season-sync shadow pilot. Football-channel
-instrumentation remains separately gated.
-<!-- FANTASY_ROADMAP_V10A_GUI_LIFECYCLE_SHADOW_20260917:END -->
+## 2026 Season Milestones
+
+- Week 3: first future hard prospective-capture gate under the new roadmap.
+- Week 5: preferred v1.0 observability commissioning target / first bye-week
+  operational stress.
+- After Week 5: first formal three-clean-week closure review.
+- Before Week 9: commission only evidence-supported early calibration; otherwise
+  explicitly defer.
+- Weeks 12-13: playoff-readiness and model-freeze preparation.
+- Before Week 14: playoff production baseline commissioned.
+- Weeks 14-17: production-first; major empirical calibration frozen by default.
+- Week 18 / postseason: complete full-season closure and open broader v2 research.
+
+Exact dates, byes, artifacts, and deadline classes are in `SEASON_2026.md`.
+
+## Scientific Sequence
+
+Use:
+
+`observe -> measure -> diagnose -> calibrate -> expand`
+
+and:
+
+`MC -> Data -> closure -> diagnosis -> calibration`
+
+Observability is the experimental measurement apparatus supporting prospective
+model evolution.
+
+## Boundary Conditions
+
+- Preserve `P ⊕ D ⊕ K`.
+- No observed 2026 outcome may retroactively tune a v0.X prospective model.
+- Diagnostics remain observers, not decision/control logic.
+- Data-source instrumentation must preserve authenticated-data privacy.
+- Broad football/model instrumentation remains separately authorized.
+- Historical evidence enters as contextual prior information, not direct truth.
+- Missed prospective captures are recorded as missing, never backfilled.
+- Calendar gates protect capture/operations; evidence gates authorize calibration.
+- Playoff production is frozen by default against broad empirical retuning.
+
+## Canonical References
+
+- Long-range roadmap: `../../ROADMAP.md`
+- 2026 weekly map: `SEASON_2026.md`
+- Open/deferred issues: `../../KNOWN_ISSUES.md`
+- v1.X context: `../architecture/PHASE_V1_CONTEXT.md`
+- D-023: `../decisions/D-023_2026_SEASON_GATED_ROADMAP.md`
+- Canonical evidence/decisions: `../evidence/`, `../decisions/`
+- Detailed chronology: `../memory/2026-09-20.md`

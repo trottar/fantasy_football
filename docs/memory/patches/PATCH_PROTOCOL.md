@@ -14,12 +14,48 @@ Every meaningful patch/release must:
 10. Include rollback/recovery for risky local procedures.
 11. Update durable memory in the same Git checkpoint.
 12. Never include secrets/private raw data/caches.
+13. Preserve the human-in-the-loop repository actor boundary.
 
 Release notes should explicitly state:
 
 `durable_memory_updated: true`
 
-<!-- FANTASY_NATIVE_PROCESS_EXITCODE_PROTOCOL:BEGIN -->
+## Human-in-the-loop checkpoint boundary
+
+This section is the canonical project repository-write workflow.
+
+Default sequence:
+
+1. assistant performs read-only audit/reconciliation;
+2. assistant constructs and validates the self-contained ZIP / PowerShell
+   package;
+3. assistant delivers the package with exact scope, hashes, and validation claims;
+4. user runs the `.ps1` locally;
+5. user returns the complete output/log;
+6. assistant verifies the returned local evidence;
+7. assistant supplies separate staging/manifest/commit/push commands;
+8. user executes those commands;
+9. assistant may verify remote state read-only afterward.
+
+Default delivered installers must stop before staging, commit, and push.
+
+Direct GitHub connector writes are not permitted as project checkpoint writes.
+
+Do not collapse these states:
+- package built;
+- package validated;
+- local preflight passed;
+- local apply passed;
+- staged;
+- committed;
+- pushed;
+- remote verified;
+- runtime synchronized;
+- commissioned.
+
+A different actor sequence requires explicit user authorization for that specific
+checkpoint.
+
 ## Native-process execution on Windows PowerShell 5.1
 
 Patch/install/push scripts invoking native tools such as Git must distinguish
@@ -33,9 +69,7 @@ Required wrapper behavior:
 5. restore `$ErrorActionPreference` in `finally`;
 6. fail on nonzero `$LASTEXITCODE`;
 7. do not fail solely because a zero-exit native command wrote progress to stderr.
-<!-- FANTASY_NATIVE_PROCESS_EXITCODE_PROTOCOL:END -->
 
-<!-- FANTASY_GENERATED_MANIFEST_VALIDATION_PROTOCOL:BEGIN -->
 ## Generated manifest/registry validation
 
 Any generated file registry must be validated after generation and before
@@ -54,30 +88,29 @@ Required invariants:
 
 For `docs/memory/manifest.json`, the intended set is every file recursively under
 `docs/memory` except `docs/memory/manifest.json` itself.
-<!-- FANTASY_GENERATED_MANIFEST_VALIDATION_PROTOCOL:END -->
 
-<!-- FANTASY_PRIVYHUB_STYLE_PUSH_PROTOCOL:BEGIN -->
-## ZIP-only checkpoint push protocol
-
-Project repository writes should be performed through the delivered self-contained ZIP/PowerShell workflow.
+## Memory / diagnostic checkpoint protocol
 
 For memory/diagnostic checkpoints:
-- inspect the current remote head at runtime;
-- clone/stage in isolation;
+- inspect the current reference/remote head read-only;
+- verify the authoritative local pre-state before modification;
 - apply only the reviewed memory/diagnostic payload;
 - validate exact generated output;
-- use an explicit staged allowlist;
-- reject out-of-scope files;
+- validate a strict changed-file allowlist;
+- stop before staging/commit/push;
+- return the complete local output to the assistant;
+- after assistant verification, stage only the reviewed allowlist;
+- regenerate/validate the manifest from staged Git blob bytes;
+- commit locally;
 - re-check the remote head immediately before push;
 - push only if the remote has not moved;
 - verify the remote SHA after push.
 
 Do not use direct GitHub connector writes as the project checkpoint mechanism.
 
-Memory/diagnostic tooling has standing authorization; football/model/application/business-logic changes require explicit user authorization.
-<!-- FANTASY_PRIVYHUB_STYLE_PUSH_PROTOCOL:END -->
+Memory/diagnostic tooling has standing authorization; football/model/application/
+business-logic changes require explicit user authorization.
 
-<!-- FANTASY_MANIFEST_GIT_BLOB_PROTOCOL:BEGIN -->
 ## Durable-memory manifest checkpoint semantics
 
 `docs/memory/manifest.json` is a registry of the durable Git checkpoint
@@ -85,7 +118,8 @@ representation, not the Windows worktree byte representation.
 
 For memory checkpoint generation:
 1. apply memory changes;
-2. stage all intended non-manifest memory files;
+2. after local apply validation and assistant review, stage all intended
+   non-manifest memory files;
 3. read each staged file from the Git index;
 4. compute registry byte count and SHA-256 from those staged bytes;
 5. write and stage `manifest.json`;
@@ -96,9 +130,7 @@ For memory checkpoint generation:
 10. verify the remote commit SHA.
 
 The manifest continues to exclude itself from its `files` registry.
-<!-- FANTASY_MANIFEST_GIT_BLOB_PROTOCOL:END -->
 
-<!-- FANTASY_DIAGNOSTIC_QA_RELEASE_GATE:BEGIN -->
 ## Diagnostic-tool release gate
 
 Diagnostic/probe/observability tooling has standing development authorization,
@@ -120,29 +152,28 @@ directory.
 A successfully applied package should be safely rerunnable:
 - validate semantic predecessor/result markers;
 - return `ALREADY APPLIED` when appropriate;
-- do not mistake its own successful remote advancement for a wrong-state error.
+- do not mistake a completed prior local apply for a wrong-state error.
 
-Runtime remote SHA should be captured at execution and rechecked immediately
-before push. Semantic state, not only a build-time SHA, determines applicability.
-<!-- FANTASY_DIAGNOSTIC_QA_RELEASE_GATE:END -->
+Runtime reference SHA should be captured at execution and rechecked before the
+later push step. Semantic state, not only a build-time SHA, determines
+applicability.
 
-<!-- FANTASY_RENDERED_MEMORY_CLEANLINESS_GATE:BEGIN -->
 ## Rendered-memory cleanliness gate
 
 Before committing generated durable memory:
 
 1. normalize every generated Markdown line with trailing spaces/tabs removed;
 2. ensure no newly rendered line ends in whitespace;
-3. stage the exact memory output;
+3. after user/local apply validation and assistant review, stage the exact memory
+   output;
 4. run `git diff --cached --check`;
 5. treat any whitespace error as a package/tool validation failure;
 6. run the same rendered-output regression test on the exact extracted delivery
    package before release.
 
-Do not label a diagnostic package `PACKAGE-VALIDATED` unless this gate passes.
-<!-- FANTASY_RENDERED_MEMORY_CLEANLINESS_GATE:END -->
+Do not label a diagnostic package `PACKAGE-VALIDATED` unless the package-level
+gate actually passed.
 
-<!-- FANTASY_CONTROL_ROOT_RUNTIME_TREE_PROTOCOL_20260917:BEGIN -->
 ## Control root versus runnable release tree
 
 For application-source patches, never infer that the checkpoint/control root is
@@ -155,33 +186,24 @@ Required procedure:
 3. treat Git staging, control-root memory/tooling, and runtime-tree files as
    separate synchronization surfaces;
 4. back up runtime files independently from control-root files;
-5. only synchronize the runtime tree after repository validation, commit/push,
-   and remote verification succeed;
+5. synchronize the runtime tree only when the checkpoint procedure explicitly
+   reaches that authorized step;
 6. if multiple runtime candidates satisfy the identity check, fail before
    modification rather than choosing heuristically.
 
 A missing `ProjectRoot/fantasy.py` is not evidence that the application is
 missing; it may indicate the normal split control/runtime layout.
-<!-- FANTASY_CONTROL_ROOT_RUNTIME_TREE_PROTOCOL_20260917:END -->
 
-<!-- FANTASY_GIT_OBJECT_PRESTATE_PROTOCOL_20260917:BEGIN -->
-## Tracked-text pre-state identity
+## Git-checkout worktree identity (staging-clone scope only)
 
-When an installer validates a local/control/runtime copy of a tracked text file,
-the committed Git object is the authority. A fresh checkout's raw bytes are not.
+`git rev-parse HEAD:<path>` versus clean-filtered worktree identity is valid only
+when the checkout's own `HEAD`/index is the authority for those files, such as a
+fresh isolated staging clone. It is **not** the control-root local-apply rule.
 
-Required procedure:
-1. obtain expected bytes from `HEAD:<path>`;
-2. compare the local file with CRLF/CR normalized to LF on both sides;
-3. do not normalize any other byte/content difference;
-4. validate the complete expected path set where a directory mirror is required;
-5. include diagnostic normalized hashes when a mismatch blocks the patch.
+For the synchronized control root, use the package's known predecessor target
+identities as defined below in `Control-root pre-state authority versus
+staging-clone Git authority`.
 
-This rule prevents Windows checkout line-ending representation from being
-misclassified as repository drift.
-<!-- FANTASY_GIT_OBJECT_PRESTATE_PROTOCOL_20260917:END -->
-
-<!-- FANTASY_RUNTIME_PROBE_CONTEXT_PROTOCOL_20260917:BEGIN -->
 ## Application probe execution context
 
 A runtime/application probe must execute under the same import-root boundary as
@@ -194,15 +216,10 @@ Required procedure:
 4. run an import-context regression that fails without the root and passes with
    it;
 5. make non-modifying preflight apply the candidate patch only to an isolated
-   temporary clone and execute the real runtime probe there;
+   temporary tree and execute the real runtime probe there;
 6. do not allow preflight to report PASS if staged imports, paired behavior,
    RNG/state equivalence, or overhead gating fail.
 
-Production/local trees remain untouched until the full repository checkpoint is
-validated, committed, pushed, and remotely verified.
-<!-- FANTASY_RUNTIME_PROBE_CONTEXT_PROTOCOL_20260917:END -->
-
-<!-- FANTASY_GUI_ASYNC_SHADOW_PROTOCOL_20260917:BEGIN -->
 ## GUI/background-task shadow integration
 
 For a GUI async instrumentation checkpoint:
@@ -218,4 +235,83 @@ For a GUI async instrumentation checkpoint:
 7. compile the fully patched staging tree before runtime probes/tests;
 8. run established GUI source-contract tests in preflight;
 9. keep persistence disabled until separately authorized.
-<!-- FANTASY_GUI_ASYNC_SHADOW_PROTOCOL_20260917:END -->
+
+<!-- FANTASY_LOCAL_APPLY_SEMANTIC_PRESTATE_PROTOCOL_20260920:BEGIN -->
+## Local memory/diagnostic apply pre-state
+
+For the normal human-in-the-loop sequence
+`assistant package -> user local apply -> returned log -> assistant verification -> separate push commands`,
+the local apply script must not use a read-only remote SHA as its sole local
+pre-state authority.
+
+Required local apply gate:
+1. verify the expected repository/control root;
+2. inspect only the intended memory/tooling scope for pre-existing changes;
+3. validate explicit semantic or exact predecessor markers for the affected
+   files;
+4. validate package hashes/allowlist;
+5. apply with backups and rollback;
+6. run local validation;
+7. leave staging/commit/push untouched.
+
+The local `HEAD` may be reported as evidence. Remote-head comparison becomes
+mandatory when the later commit/push block is prepared/executed; re-check the
+remote immediately before push.
+<!-- FANTASY_LOCAL_APPLY_SEMANTIC_PRESTATE_PROTOCOL_20260920:END -->
+
+<!-- FANTASY_RENDERED_POWERSHELL_FORMAT_QA_20260920:BEGIN -->
+## Rendered PowerShell format-string QA
+
+When `.ps1` text is generated by Python or another templating language, validate
+the final rendered script for PowerShell formatting semantics. In particular,
+literal `-f` placeholders (`{0}`, `{1}`, ...) must not be consumed by the outer
+generator. A self-test must exercise at least one representative formatted
+diagnostic and verify that supplied values appear in the output.
+<!-- FANTASY_RENDERED_POWERSHELL_FORMAT_QA_20260920:END -->
+
+<!-- FANTASY_CONTROL_ROOT_PRESTATE_AUTHORITY_20260920:BEGIN -->
+## Control-root pre-state authority versus staging-clone Git authority
+
+The project control root is a synchronization surface, not automatically the Git
+checkout whose local `HEAD`/index identifies the latest synchronized file state.
+A successful checkpoint may commit/push from an isolated staging clone and then
+copy validated files back to the control root without advancing the control
+root's Git metadata.
+
+Therefore a local-apply installer must:
+1. limit pre-state validation to files it will overwrite plus paths it expects to
+   create;
+2. compare overwrite targets with the package's known predecessor checkpoint
+   identities, not with control-root `HEAD:<path>`;
+3. for tracked UTF-8 text, tolerate only representation-equivalent UTF-8 BOM and
+   CRLF/CR differences when deriving the expected Git blob identity;
+4. require new payload paths to be absent unless an exact already-applied package
+   is detected;
+5. back up only affected existing files and roll back on post-write failure;
+6. never stage, commit, or push during the local-apply phase by default.
+
+The later push stage must use an isolated staging clone. In that clone, `HEAD`,
+the index, staged Git-blob bytes, remote-movement checks, and remote verification
+are authoritative.
+
+Whole-control-root status scans may be diagnostic, but they must not block a
+local memory apply solely because the control root's Git metadata lags a prior
+file synchronization.
+<!-- FANTASY_CONTROL_ROOT_PRESTATE_AUTHORITY_20260920:END -->
+
+<!-- FANTASY_POWERSHELL_WRAPPER_ARGUMENT_BINDING_20260920:BEGIN -->
+## PowerShell native/Git wrapper argument binding
+
+Delivered PowerShell must not use `Args` as a formal parameter name because
+`$args` is an automatic variable and PowerShell names are case-insensitive.
+
+Required QA for native/Git wrappers:
+1. use a specific formal name such as `CommandArgs` or `GitArgs`;
+2. statically reject formal parameters named `Args`;
+3. update every named invocation to the same formal name;
+4. before staging/commit/push, run a non-modifying wrapper self-test such as
+   `git -C <repo> rev-parse HEAD`;
+5. verify the returned value has the expected shape, proving the subcommand and
+   arguments survived binding;
+6. continue to evaluate native success using `$LASTEXITCODE`.
+<!-- FANTASY_POWERSHELL_WRAPPER_ARGUMENT_BINDING_20260920:END -->

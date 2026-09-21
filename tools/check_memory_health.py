@@ -38,7 +38,13 @@ RULES = {
     ),
 }
 
-BOOTSTRAP = ("AGENTS.md", "CURRENT.md", "USER.md")
+BOOTSTRAP = (
+    "AGENTS.md",
+    "CURRENT.md",
+    "MEMORY.md",
+    "handoffs/CURRENT_HANDOFF.md",
+    "USER.md",
+)
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)\s*$", re.MULTILINE)
 MARKER_RE = re.compile(r"<!--\s*FANTASY_[A-Z0-9_:-]+")
 
@@ -143,15 +149,18 @@ def analyze(root: Path) -> dict[str, object]:
     agents = memory / "AGENTS.md"
     if agents.is_file():
         text = read_text(agents)
-        positions = [
-            text.find("1. `AGENTS.md`"),
-            text.find("2. `CURRENT.md`"),
-            text.find("3. `USER.md`"),
+        required = [
+            "1. `AGENTS.md`",
+            "2. `CURRENT.md`",
+            "3. `MEMORY.md`",
+            "4. `handoffs/CURRENT_HANDOFF.md`",
+            "5. `USER.md`",
         ]
+        positions = [text.find(item) for item in required]
         if any(pos < 0 for pos in positions) or positions != sorted(positions):
             issues.append(
                 "AGENTS.md does not expose canonical startup order "
-                "AGENTS -> CURRENT -> USER"
+                "AGENTS -> CURRENT -> MEMORY -> CURRENT_HANDOFF -> USER"
             )
 
     bootstrap = {}
@@ -171,7 +180,7 @@ def analyze(root: Path) -> dict[str, object]:
         total_lines += int(metrics["lines"])
 
     return {
-        "schema": 1,
+        "schema": 2,
         "root": str(root),
         "files": files,
         "bootstrap": {
@@ -247,7 +256,9 @@ def self_test() -> None:
             "# Agent Operating Rules\n\n"
             "1. `AGENTS.md`\n"
             "2. `CURRENT.md`\n"
-            "3. `USER.md`\n",
+            "3. `MEMORY.md`\n"
+            "4. `handoffs/CURRENT_HANDOFF.md`\n"
+            "5. `USER.md`\n",
             encoding="utf-8",
         )
         (memory / "CURRENT.md").write_text(
@@ -273,6 +284,8 @@ def self_test() -> None:
         assert report["healthy"], report
         text = render(report)
         assert "Status: HEALTHY" in text
+        assert "MEMORY.md" in text
+        assert "handoffs/CURRENT_HANDOFF.md" in text
 
     print("SELF-TEST PASS")
 

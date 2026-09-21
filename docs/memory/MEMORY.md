@@ -16,6 +16,10 @@ NFL process
   -> knowledge
 ```
 
+The target is not a permanently finished predictor. It is a validated adaptive
+system that learns where its assumptions, uncertainty, metadata, or subsystem
+representations are incomplete.
+
 ## Physics analogy
 
 Fantasy production is modeled as a response problem:
@@ -28,6 +32,11 @@ Fantasy production is modeled as a response problem:
 - `epsilon` = fantasy scoring response
 
 Fantasy points are downstream observables.
+
+The physics analogy is strongest for state representation, uncertainty
+propagation, measurement, residual analysis, perturbation analysis, and coupled
+subsystems. It is not a claim that football obeys deterministic universal laws,
+fixed constants, or equilibrium assumptions.
 
 ## Channel architecture
 
@@ -73,6 +82,75 @@ Only decision-time information may influence prospective actions.
 
 Raw observations are immutable evidence. Derived/calibrated state remains
 separate.
+
+The MC is a microscope, not the theory. More samples cannot repair a wrong state
+representation, response mechanism, or uncertainty model.
+
+Priority:
+1. correct state representation;
+2. correct response mechanisms;
+3. correct uncertainty;
+4. computational sampling.
+
+## Observability as experimental infrastructure
+
+Observability is not merely debugging or logging. It is the experimental
+measurement apparatus for the project.
+
+Pipeline:
+
+`raw observations -> structured evidence -> metadata assessment -> diagnostics -> model improvement -> better decisions`
+
+It exists to support:
+- measurement;
+- reproducibility;
+- hypothesis testing;
+- closure;
+- failure localization;
+- evidence-supported calibration and model evolution.
+
+Every major model addition should identify:
+- claim: what stochastic process is represented;
+- evidence: what observations support it;
+- assumption: what uncertainty or approximation exists;
+- failure mode: how the representation would be shown wrong.
+
+## Constructive disagreement
+
+Collaboration should optimize for scientific validity, not agreement.
+
+Architectural proposals are hypotheses. Challenge:
+- assumptions;
+- implementation choices;
+- analogies;
+- data requirements;
+- causal boundaries;
+- feasibility.
+
+Agreement is not validation.
+
+## Historical evidence and non-stationarity
+
+Historical football data is useful but dangerous because football is
+non-stationary: schemes, coaching, rules, player roles, strategy, and data
+quality change.
+
+Do not assume:
+
+`P(Y|X)_past ~= P(Y|X)_current`
+
+Historical data should contribute:
+
+`historical evidence -> contextual prior -> current evidence update`
+
+not:
+
+`historical data -> direct prediction`
+
+Historical comparability should account for era, scheme, coaching, role,
+opportunity profile, efficiency profile, injury context, opponent environment,
+and data quality. A smaller comparable sample can be more useful than a larger
+incompatible sample.
 
 ## Behavioral separation
 
@@ -129,124 +207,71 @@ GUI diagnostics are part of the same system from the beginning.
 Diagnostics must observe rather than alter physics, manager behavior, random
 draws, recommendation authority, or GUI business logic.
 
-## v1.0A durable contract
+## v1.0A durable observability state
 
-Checkpoint `fd829ac829e9ffddd38c14e9bca9cd3eaa6a96e3` established:
-- frozen `RunContext`;
-- run/action correlation;
-- release/source/config/input provenance fields;
-- schema-versioned immutable structured events;
-- immutable event registry;
-- `NORMAL`, `DIAGNOSTIC`, `TRACE`, `AUDIT` levels;
-- generic run/action events;
-- reserved GUI lifecycle/action/service/task/state/render/refresh event names.
+The v1.0A substrate has immutable run/action context, typed events, explicit
+sinks/provenance, privacy/redaction, local replay evidence, bounded structural
+diffs/failure bundles, subsystem adapters, correlation boundaries, and paired
+non-interference/overhead gating. Direct P/D/K cross-channel nesting is
+rejected; a root context may enter specialist channels independently. Default
+production integration remains shadow, non-auto-emitting, and non-persistent.
+Canonical detail lives in `architecture/DIAGNOSTICS_OBSERVABILITY.md`, D-013
+through D-022, and their evidence records.
 
-The contract is test-validated but is not yet integrated into production call
-sites.
-
-Canonical decision/evidence:
-- `decisions/D-013_V10A_CONTEXT_EVENT_CONTRACT.md`
-- `evidence/V10A_CONTEXT_EVENTS_2026-09-17.md`
-- `architecture/DIAGNOSTICS_OBSERVABILITY.md`
-
-
-## v1.0A sinks/provenance durable contract
-
-Checkpoint `a4e84ed5c1433e29292b53b4e7d62bbb3b255386` established:
-- explicit thread-safe memory, JSONL, human-text, and fanout sink contracts;
-- human-text payload omission by default;
-- no hidden global logger or automatic production emission;
-- exact-byte SHA-256 and canonical semantic JSON hashing;
-- release version + Git HEAD/tracked-dirty source provenance;
-- frozen `SourceProvenance` compatible with `RunContext`;
-- persistent private/authenticated runtime logging remains blocked until the
-  redaction contract is implemented and tested.
-
-The slice passed 22 targeted observability tests, 375 full repository tests,
-full compileall, `git diff --check`, and non-interference/privacy-oriented unit
-tests.
-
-Canonical decision/evidence:
-- `decisions/D-014_V10A_SINKS_PROVENANCE.md`
-- `evidence/V10A_SINKS_PROVENANCE_2026-09-17.md`
+The commissioned production-source pilots remain deliberately narrow: final CLI
+dispatch, read-only `SeasonGuiService.source_health()`, selected-MC/progress-pump
+GUI task lifecycle, and page/connect/disconnect/delete correlation. They capture
+no arguments, returned values, authenticated payloads, raw client IDs, or
+exception messages. Observer failures/lifecycle evidence never authorize
+production cancellation, retry, suppression, or result replacement.
 
 ## Durable development rules
 
-- Current source plus fresh evidence outranks summaries.
-- Raw measurements outrank classifiers when they conflict.
-- Never reconstruct a release from memory when exact source exists.
-- Never claim testing or commissioning that did not occur.
-- Preserve validated subsystem boundaries.
-- Use one narrow hypothesis/probe/patch loop.
-- Preserve causal information boundaries.
-- Keep secrets and authenticated raw data local.
-- Meaningful checkpoints update durable memory in the same repository
-  checkpoint.
-- Memory maintenance follows `MAINTENANCE.md`.
+- Current source plus fresh evidence outranks summaries; raw measurements
+  outrank classifiers when they conflict.
+- Never reconstruct a release from memory or claim validation that did not run.
+- Preserve validated subsystem, causal, privacy, and information boundaries.
+- Use one narrow hypothesis/probe/patch-or-defer loop.
+- Keep secrets/authenticated raw data local.
+- Meaningful checkpoints update typed durable memory in the same Git checkpoint.
+- Read the complete `AGENTS.md` bootstrap; canonical decisions/evidence are
+  sources, not summaries to be recursively paraphrased.
+- Memory maintenance follows `MAINTENANCE.md`; detailed chronology belongs in
+  dated history/evidence/investigations rather than this file.
 
-<!-- FANTASY_MEMORY_V10A_SNAPSHOT_REPLAY_DIFF_20260917:BEGIN -->
-## v1.0A replay-evidence contract
+## Human-in-the-loop repository checkpoint rule
 
-The observability substrate includes local redacted fixed-member snapshot
-bundles, exact-byte integrity verification, immutable evidence loading, and
-bounded redacted structural diffing. This is not computation replay and is not
-integrated into production call sites.
-<!-- FANTASY_MEMORY_V10A_SNAPSHOT_REPLAY_DIFF_20260917:END -->
+Default actor sequence:
 
-<!-- FANTASY_MEMORY_V10A_FAILURE_BUNDLE_20260917:BEGIN -->
-## v1.0A failure-bundle contract
+`assistant package -> user local run -> returned log -> assistant verification -> separate push commands -> user push -> read-only remote verification`
 
-The observability substrate includes bounded, privacy-safe local failure
-bundles. Exception messages are omitted by default; stack frames retain only
-file basenames/function/line; events/invariants are bounded; structured
-state/reproduction/effects are redacted; exact-byte integrity is verified
-before load. Project-file modification state remains distinct from runtime side
-effects. Automatic capture and production emission remain disabled.
-<!-- FANTASY_MEMORY_V10A_FAILURE_BUNDLE_20260917:END -->
+Prepared, local-apply, committed, pushed, remote-verified, and runtime-commissioned
+states are distinct. Control-root local apply uses target predecessor contracts;
+Git `HEAD`/index authority belongs to the isolated staging clone for commit/push.
+Direct GitHub connector writes are not project checkpoint writes.
 
-<!-- FANTASY_MEMORY_V10A_ADAPTERS_CORRELATION_20260917:BEGIN -->
-## v1.0A subsystem adapters and correlation
+## Memory / handoff reconciliation
 
-The observability substrate includes opt-in subsystem adapters and typed
-CLI/service/background-task correlation boundaries. They reuse immutable
-`RunContext` action parentage and generic action events, own no sink, and emit
-nothing automatically. Direct P/D/K cross-channel nesting is rejected while a
-root observability context may enter each specialist channel independently.
-<!-- FANTASY_MEMORY_V10A_ADAPTERS_CORRELATION_20260917:END -->
+The mandatory substantial-session bootstrap is:
+`AGENTS -> CURRENT -> MEMORY -> CURRENT_HANDOFF -> USER`.
+`CURRENT.md` is sole active-state authority; `MEMORY.md` is curated cross-phase
+knowledge; the handoff is compact transition metadata and cannot override
+`CURRENT.md`. Canonical audit: `evidence/MEMORY_WORKFLOW_AUDIT_2026-09-18.md`.
 
-<!-- FANTASY_MEMORY_V10A_INTEGRATION_GATE_20260917:BEGIN -->
-## v1.0A production-integration gate
+## 2026 season-gated development contract
 
-The observability substrate includes a repository-grounded shadow integration
-plan and a paired non-interference/overhead benchmark gate. Default integration
-points are non-auto-emitting and non-persistent. The benchmark compares baseline
-and observed behavior from the same captured probe state, verifies result or
-exception-type equivalence, compares/restores Python RNG and caller-supplied
-state probes, and applies absolute/relative overhead budgets without persisting
-returned values or exception messages.
-<!-- FANTASY_MEMORY_V10A_INTEGRATION_GATE_20260917:END -->
+The season uses two independent clocks. **Calendar gates** protect irreversible
+prospective captures/operational opportunities. **Evidence gates** authorize
+diagnosis or calibration only when accumulated prospective closure supports it;
+`DEFER / COLLECT MORE DATA` is a valid result. Never backfill a missed capture.
 
-<!-- FANTASY_MEMORY_V10A_CLI_SEASON_SHADOW_20260917:BEGIN -->
-## v1.0A first production shadow pilot
+For the configured 2026 league, Weeks 1-13 are the fantasy regular season and
+Weeks 14-17 are the playoff window; Week 14 is Round 1 and includes Arizona and
+Dallas byes. Commission the playoff production baseline before Week 14 and freeze
+major empirical calibration by default through the playoff window.
 
-The first production-source observability integration is deliberately narrow:
-the final CLI command dispatch and the read-only
-`SeasonGuiService.source_health()` boundary. Events remain bounded and in
-memory; no persistent sink, argument/result capture, authenticated payload
-capture, or exception-message capture is enabled. Observer-internal failures
-fall back to the wrapped call so diagnostics cannot replace production
-behavior.
-<!-- FANTASY_MEMORY_V10A_CLI_SEASON_SHADOW_20260917:END -->
-
-<!-- FANTASY_MEMORY_V10A_GUI_LIFECYCLE_SHADOW_20260917:BEGIN -->
-## v1.0A GUI background-task/lifecycle shadow pilot
-
-The second production observability slice instruments only the selected-MC
-NiceGUI background task, the MC progress-pump task, and page
-mount/connect/disconnect/delete lifecycle correlation. Evidence is bounded and
-in-memory. Generated session/page/task IDs are retained; raw NiceGUI client IDs,
-arguments, results, authenticated payloads, and exception messages are not.
-
-A task that terminates after page deletion produces lifecycle-violation evidence
-but the observer does not cancel, suppress, retry, or replace production work.
-<!-- FANTASY_MEMORY_V10A_GUI_LIFECYCLE_SHADOW_20260917:END -->
+Preserve both a week-open reference capture and decision-time captures for
+consequential lineup/waiver/trade/specialist actions. Detailed phase intent lives
+in `docs/ROADMAP.md`, weekly dates/gates in `roadmap/SEASON_2026.md`, active
+position in `roadmap/STATUS.md`, and stable v1.X rules in
+`architecture/PHASE_V1_CONTEXT.md`.

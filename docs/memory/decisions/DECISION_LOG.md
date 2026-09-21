@@ -77,14 +77,19 @@ This decision supersedes earlier generic collaboration wording where it conflict
 
 **Status:** ACTIVE
 
-`CURRENT.md` is the sole authoritative active frontier. Normal startup is
-`AGENTS.md -> CURRENT.md -> USER.md`, followed only by task-relevant references.
+`CURRENT.md` is the sole authoritative active frontier. Substantial-work startup
+is:
 
-`MAINTENANCE.md` owns memory-health thresholds, semantic triggers, safe-checkpoint
-behavior, and cleanup procedure. `CURRENT_HANDOFF.md` is non-authoritative and
-must remain small/rewriteable.
+`AGENTS.md -> CURRENT.md -> MEMORY.md -> CURRENT_HANDOFF.md -> USER.md`
 
-See `D-015_MEMORY_MAINTENANCE_POLICY.md` for the full decision.
+`MAINTENANCE.md` owns memory-health thresholds, semantic triggers,
+safe-checkpoint behavior, and cleanup procedure. `CURRENT_HANDOFF.md` is
+non-authoritative and remains small/rewriteable.
+
+Before restating a decision/gate/classification/deadline, read the canonical
+record that defines it.
+
+See `D-015_MEMORY_MAINTENANCE_POLICY.md`.
 <!-- FANTASY_D015_MEMORY_MAINTENANCE_INDEX:END -->
 
 <!-- FANTASY_D017_V10A_SNAPSHOT_REPLAY_DIFF_INDEX:BEGIN -->
@@ -116,3 +121,16 @@ The GUI pilot is limited to selected-MC/progress-pump task lifecycle plus
 page/connect/disconnect/delete correlation using bounded in-memory evidence.
 See `D-022_V10A_GUI_LIFECYCLE_SHADOW_PILOT.md`.
 <!-- FANTASY_D022_V10A_GUI_LIFECYCLE_SHADOW_INDEX:END -->
+
+<!-- FANTASY_D023_SEASON_GATED_ROADMAP_INDEX:BEGIN -->
+## D-023 — 2026 Season-Gated Development Roadmap
+
+**Status:** ACTIVE
+
+Separate calendar gates from evidence gates. Prospective capture deadlines are
+irreversible; calibration gates pass only when prospective Data/MC closure
+supports them. Week 14 begins the configured fantasy playoff window, so the
+playoff production baseline must be commissioned before it.
+
+See `D-023_2026_SEASON_GATED_ROADMAP.md`.
+<!-- FANTASY_D023_SEASON_GATED_ROADMAP_INDEX:END -->

@@ -153,21 +153,30 @@ This rule is distinct from Git staging authority and from artifact ZIP identity.
 <!-- FANTASY_LEARNING_CONTROL_ROOT_VS_RUNTIME_TREE_20260917:END -->
 
 <!-- FANTASY_LEARNING_GIT_OBJECT_VS_WORKTREE_PRESTATE_20260917:BEGIN -->
-## Compare checkpoint identity at the Git-object layer
+## Pre-state authority depends on the synchronization surface
 
-A committed text file and a Windows working-tree checkout can represent the same
-content with different line endings. Fresh-clone worktree bytes are therefore
-not a valid byte-for-byte authority for a previously synchronized control tree.
+A Git object comparison is valid only when the Git metadata being compared is
+the authority for that working surface.
 
-For pre-state guards on tracked text:
-1. read expected content from the committed object (`git show HEAD:<path>`);
-2. compare local content after normalizing CRLF/CR to LF only;
-3. preserve every other byte distinction;
-4. fail on path-set changes or any non-line-ending content change;
-5. report normalized hashes on failure.
+The project control root can be synchronized from an isolated staging clone
+after remote verification without advancing the control root's own local
+`HEAD`/index. In that state, comparing every control-root file to local
+`HEAD:<path>` creates systematic false drift even when the synchronized files are
+correct.
 
-Do not compare independently checked-out working-tree bytes as if they were Git
-object identity.
+Required separation:
+1. **local apply:** validate only package overwrite targets against the package's
+   known predecessor checkpoint identities; for tracked UTF-8 text, canonicalize
+   UTF-8 BOM and CRLF/CR representation before comparing the expected Git blob;
+2. **local unrelated files:** do not scan/authorize them merely because the
+   control root's Git metadata is stale;
+3. **push staging clone:** the fresh isolated clone's `HEAD`, index, and staged
+   blobs are authoritative for allowlist, manifest, commit, and push;
+4. **remote:** re-check remote movement immediately before push and verify the
+   pushed SHA afterward.
+
+This supersedes the earlier over-general rule that local control-root text should
+always be compared with its own `HEAD:<path>`.
 <!-- FANTASY_LEARNING_GIT_OBJECT_VS_WORKTREE_PRESTATE_20260917:END -->
 
 <!-- FANTASY_LEARNING_RUNTIME_PROBE_EXECUTION_CONTEXT_20260917:BEGIN -->
@@ -217,3 +226,143 @@ semantically harmless.
 Keep the scheduler expression intact and move observation inside the scheduled
 coroutine. Include the frozen source-contract tests in preflight before apply.
 <!-- FANTASY_LEARNING_PRESERVE_GUI_SCHEDULING_CONTRACTS_20260917:END -->
+
+<!-- FANTASY_LEARNING_BOOTSTRAP_AND_ACTOR_BOUNDARY_20260918:BEGIN -->
+## Continuity rules must be executable, not merely present somewhere
+
+A project can contain the correct procedure and still fail operationally if a
+fresh session is not required to read it.
+
+For substantial work:
+- read the complete bootstrap set in `AGENTS.md`;
+- read the current handoff before acting;
+- if repository changes are possible, read `patches/PATCH_PROTOCOL.md`;
+- do not infer the workflow from previous chat recollection.
+
+Repository actor separation is itself a safety invariant:
+assistant constructs the package; the user executes it locally; the assistant
+verifies returned output; only then does the assistant provide separate push
+commands for the user to execute.
+
+Direct repository mutation through a connector bypasses this evidence boundary
+and must not be used.
+<!-- FANTASY_LEARNING_BOOTSTRAP_AND_ACTOR_BOUNDARY_20260918:END -->
+
+<!-- FANTASY_LOCAL_APPLY_HEAD_AUTHORITY_20260920:BEGIN -->
+## Local apply pre-state is not remote-head equality
+
+A read-only GitHub SHA is history/reference state. It is not automatically the
+required `HEAD` of the authoritative local control tree. For a package whose
+job is only to update local memory/tooling before a later human-reviewed push,
+do not block solely because local `git rev-parse HEAD` differs from the remote
+reference observed when the package was built.
+
+Local apply authorization should instead establish:
+1. the expected repository/control root;
+2. no pre-existing changes on the exact affected scope;
+3. semantic/exact predecessor identity for the affected files;
+4. package integrity and allowlist;
+5. post-write validation with rollback on failure.
+
+Remote movement/equality belongs to the later commit/push stage, after the user
+returns the local apply output and the assistant verifies it.
+<!-- FANTASY_LOCAL_APPLY_HEAD_AUTHORITY_20260920:END -->
+
+<!-- FANTASY_GENERATED_POWERSHELL_FORMAT_PLACEHOLDER_20260920:BEGIN -->
+## Preserve PowerShell format placeholders through code generation
+
+When another language generates PowerShell containing the `-f` operator, literal
+PowerShell placeholders such as `{0}` and `{1}` must survive generation. Python
+f-strings, `.format`, templating engines, or replacement layers can consume the
+braces and silently render broken diagnostics such as `expected HEAD=0 actual
+HEAD=1`.
+
+Package QA must inspect the rendered `.ps1`, not only the generator, and execute
+a self-test that proves representative formatted messages contain the supplied
+values. Prefer template substitution that does not interpret PowerShell braces.
+<!-- FANTASY_GENERATED_POWERSHELL_FORMAT_PLACEHOLDER_20260920:END -->
+
+<!-- FANTASY_LEARNING_CONTROL_ROOT_TARGET_AUTHORITY_20260920:BEGIN -->
+## Control-root local apply uses package predecessor authority, not local Git metadata
+
+The synchronized control root can contain checkpoint files newer than its local
+Git `HEAD`/index. Therefore neither raw porcelain nor a cleaned worktree blob
+compared with local `HEAD:<path>` is sufficient local-apply authority there.
+
+For control-root memory/diagnostic apply:
+1. validate only package overwrite/create targets;
+2. compare overwrite targets with identities from the known predecessor
+   checkpoint embedded in the package;
+3. require expected-new paths to be absent unless the exact package is already
+   applied;
+4. keep the control-root Git metadata informational;
+5. use a fresh isolated staging clone for `HEAD`/index/manifest/commit/push
+   authority.
+
+This supersedes the earlier v3-v5 whole-control-root `HEAD` drift classifiers.
+<!-- FANTASY_LEARNING_CONTROL_ROOT_TARGET_AUTHORITY_20260920:END -->
+
+<!-- FANTASY_LEARNING_POWERSHELL_ARGS_COLLISION_20260920:BEGIN -->
+## Never name a PowerShell formal parameter `Args`
+
+PowerShell defines `$args` as an automatic variable and names are
+case-insensitive. A helper declared with a formal parameter such as
+`[string[]]$Args` can therefore lose the caller's intended argument array.
+
+For native/Git wrappers:
+- use `GitArgs` or `CommandArgs`, never `Args`;
+- update all named call sites consistently;
+- statically reject formal parameters named `Args`;
+- execute a real non-modifying wrapper command before any modifying Git action
+  and assert that the expected subcommand/output is present.
+
+This rule was established by the 2026-09-20 memory-reconciliation push-v1
+failure, where `rev-parse HEAD` became bare `git -C <repo>`.
+<!-- FANTASY_LEARNING_POWERSHELL_ARGS_COLLISION_20260920:END -->
+
+
+<!-- FANTASY_LEARNING_CANONICAL_SOURCE_BEFORE_SUMMARY_20260920:BEGIN -->
+## A decision record is a source, not a summary
+
+Before restating what a decision, gate, classification, deadline, or stable
+constraint says, read the canonical record that defines it. Repeating a previous
+summary can silently propagate missing qualifiers or superseded wording.
+
+Use active memory as an index into canonical decisions/evidence/architecture,
+not as a substitute for them.
+<!-- FANTASY_LEARNING_CANONICAL_SOURCE_BEFORE_SUMMARY_20260920:END -->
+
+<!-- FANTASY_LEARNING_IRREVERSIBLE_PROSPECTIVE_WINDOWS_20260920:BEGIN -->
+## Prospective capture windows are irreversible
+
+Code can be written later; a missed pregame information state cannot be
+recreated causally after outcomes are known.
+
+During the NFL season:
+- protect week-open and consequential decision-time captures before relevant
+  games/outcomes;
+- if a capture is missed, record the missing measurement;
+- do not backfill and label it prospective;
+- let nonessential development slip before sacrificing an irreversible evidence
+  window;
+- do not confuse a calendar deadline with evidence that a calibration gate has
+  passed.
+<!-- FANTASY_LEARNING_IRREVERSIBLE_PROSPECTIVE_WINDOWS_20260920:END -->
+
+<!-- FANTASY_LEARNING_MEMORY_THRESHOLD_PACKAGE_QA_20260920:BEGIN -->
+## Package QA must exercise real memory-health semantics
+
+A documentation package can be syntactically correct and still be invalid if
+its rendered bootstrap files cross active maintenance thresholds. Synthetic QA
+that replaces the production memory-health semantics with a permissive stub is
+not sufficient.
+
+For memory packages, validate rendered target bytes/line counts before delivery
+and execute the repository's real strict memory-health checker in the local
+apply path. A soft-threshold failure is a maintenance signal: relocate detail to
+typed roadmap/evidence/context records rather than weakening the checker.
+
+This rule was established when `fantasy_memory_season_roadmap_v1` correctly
+rolled back after its proposed `MEMORY.md` reached 387 lines against the 350-line
+soft threshold.
+<!-- FANTASY_LEARNING_MEMORY_THRESHOLD_PACKAGE_QA_20260920:END -->
