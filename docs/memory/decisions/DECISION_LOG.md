@@ -134,3 +134,17 @@ playoff production baseline must be commissioned before it.
 
 See `D-023_2026_SEASON_GATED_ROADMAP.md`.
 <!-- FANTASY_D023_SEASON_GATED_ROADMAP_INDEX:END -->
+
+<!-- FANTASY_D024_V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_INDEX:BEGIN -->
+## D-024 — v1.0A Data-Source Season-Sync Shadow Pilot
+
+**Status:** ACTIVE
+
+Authorize one privacy-conservative outer shadow boundary around
+`sync_season_snapshot`. The observer may retain generated correlation, boundary
+identity, duration, and exception type only. Provider internals, arguments,
+returned snapshot/path data, authenticated payloads, exception messages, and
+persistent sinks remain outside this slice.
+
+See `D-024_V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT.md`.
+<!-- FANTASY_D024_V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_INDEX:END -->

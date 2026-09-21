@@ -402,3 +402,24 @@ Task completion after page deletion emits `gui.lifecycle.violation` evidence but
 does not alter control flow. No persistent sink or football/data-source
 instrumentation is enabled.
 <!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_9:END -->
+
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_10:BEGIN -->
+## v1.0A implementation checkpoint 10 candidate
+
+The next narrow candidate adds an outer shadow boundary at
+`src/season_snapshot.py::sync_season_snapshot` using the existing subsystem
+adapter/correlation contracts and a bounded in-memory recorder.
+
+Only outer boundary identity/correlation, duration, and exception type are
+retained. Function arguments, authenticated/provider payloads, returned snapshot
+contents/paths, and exception messages are not recorded. Provider internals,
+persistent sinks, football channels, market behavior, and closure remain
+separately gated.
+
+A deterministic no-network paired probe compares successful outputs, exception
+types, filesystem side effects, Python RNG state, privacy markers, and bounded
+overhead from identical captured state. The retained candidate passed targeted
+pytest, the paired probe, full pytest, compileall, and candidate-local diff /
+allowlist inspection. Local source validation remains separate from control-root
+memory and runtime synchronization remains a later gate.
+<!-- FANTASY_DIAGNOSTICS_OBSERVABILITY_IMPLEMENTATION_V10A_10:END -->

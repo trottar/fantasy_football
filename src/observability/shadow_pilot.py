@@ -7,6 +7,7 @@ import threading
 import time
 from typing import Any, Callable
 
+from .adapters import CORE_ADAPTER_REGISTRY
 from .context import RunContext
 from .correlation import begin_cli_action, begin_service_action
 from .events import StructuredEvent
@@ -166,6 +167,87 @@ class ShadowRecorder:
             args,
             kwargs,
         )
+
+    def call_subsystem(
+        self,
+        name: str,
+        fn: Callable[..., Any],
+        *args: Any,
+        subsystem: str,
+        **kwargs: Any,
+    ) -> Any:
+        if not callable(fn):
+            raise TypeError("fn must be callable")
+        return self._run_boundary(
+            lambda: CORE_ADAPTER_REGISTRY.require(subsystem).begin(
+                self._parent(),
+                name,
+            ),
+            fn,
+            args,
+            kwargs,
+        )
+
+
+_DATA_SOURCE_LOCK = threading.Lock()
+_DATA_SOURCE_RECORDER: ShadowRecorder | None = None
+
+
+def _data_source_shadow_recorder() -> ShadowRecorder | None:
+    global _DATA_SOURCE_RECORDER
+    with _DATA_SOURCE_LOCK:
+        if _DATA_SOURCE_RECORDER is None:
+            try:
+                _DATA_SOURCE_RECORDER = ShadowRecorder(
+                    root_subsystem="observability",
+                )
+            except Exception:
+                return None
+        return _DATA_SOURCE_RECORDER
+
+
+def last_data_source_shadow_events() -> tuple[StructuredEvent, ...]:
+    with _DATA_SOURCE_LOCK:
+        recorder = _DATA_SOURCE_RECORDER
+    if recorder is None:
+        return ()
+    return recorder.snapshot()
+
+
+def clear_data_source_shadow_events() -> None:
+    with _DATA_SOURCE_LOCK:
+        recorder = _DATA_SOURCE_RECORDER
+    if recorder is not None:
+        recorder.clear()
+
+
+def shadow_data_source_call(
+    name: str,
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    """Observe one data-source subsystem boundary without retaining payloads."""
+    if not isinstance(name, str) or not name.strip():
+        raise ValueError("name must be a non-empty string")
+
+    def decorate(fn: Callable[..., Any]) -> Callable[..., Any]:
+        if not callable(fn):
+            raise TypeError("decorated value must be callable")
+
+        @wraps(fn)
+        def wrapped(*args: Any, **kwargs: Any) -> Any:
+            recorder = _data_source_shadow_recorder()
+            if recorder is None:
+                return fn(*args, **kwargs)
+            return recorder.call_subsystem(
+                name,
+                fn,
+                *args,
+                subsystem="data_source",
+                **kwargs,
+            )
+
+        return wrapped
+
+    return decorate
 
 
 _LAST_CLI_LOCK = threading.Lock()

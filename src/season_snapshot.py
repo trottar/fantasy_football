@@ -14,6 +14,7 @@ from .data_sources.nfl_official import sync_nfl_official
 from .data_sources.nfl_team_rosters import sync_nfl_team_rosters
 from .data_sources.nflverse_rosters import sync_nflverse_rosters
 from .data_sources.nflverse_matchups import sync_nflverse_matchups
+from .observability.shadow_pilot import shadow_data_source_call
 
 
 def _compact_timestamp() -> str:
@@ -230,6 +231,7 @@ def _annotate_nflverse_rosters(players: list[dict[str, Any]], roster_by_espn: di
             p["nflverse_availability_status"] = hard_map[status]
     return matched
 
+@shadow_data_source_call("subsystem.data_source.season_sync")
 def sync_season_snapshot(
     secrets_path: str | Path | None = None,
     out_root: str | Path = "data/season_snapshots",

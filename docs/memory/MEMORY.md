@@ -275,3 +275,20 @@ consequential lineup/waiver/trade/specialist actions. Detailed phase intent live
 in `docs/ROADMAP.md`, weekly dates/gates in `roadmap/SEASON_2026.md`, active
 position in `roadmap/STATUS.md`, and stable v1.X rules in
 `architecture/PHASE_V1_CONTEXT.md`.
+
+<!-- FANTASY_MEMORY_V10A_DATA_SOURCE_SHADOW_20260921:BEGIN -->
+## v1.0A data-source season-sync shadow candidate
+
+The active production-source observability candidate is limited to the outer
+`sync_season_snapshot` subsystem boundary. It retains only generated correlation,
+boundary identity, duration, and exception type in bounded memory. Arguments,
+credentials/authenticated payloads, returned snapshot/path data, and exception
+messages are excluded; provider internals and persistent sinks remain untouched.
+
+The source candidate was validated in an isolated exact-remote clone and is not
+copied into the memory/control root. It passed targeted tests, paired behavior /
+privacy / RNG / filesystem probing, full pytest, compileall, and candidate-local
+diff/allowlist inspection. The commissioned runtime tree remains unchanged.
+Canonical decision and evidence: D-024 and
+`evidence/V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT_PREFLIGHT_2026-09-21.md`.
+<!-- FANTASY_MEMORY_V10A_DATA_SOURCE_SHADOW_20260921:END -->

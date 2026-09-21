@@ -20,6 +20,9 @@
   agreement is not validation.
 - Do not claim source/test/runtime validation unless it actually occurred.
 - Prefer incremental, evidence-led work over reconstruction from memory.
+- After a tooling/package failure, resume from the last validated gate and prefer
+  small, auditable continuation steps over another large all-in-one rerun. Do not
+  rerun already-passed gates unless new evidence invalidates them.
 - Do not ask for information already available from source, logs, durable
   memory, evidence, or project chat context.
 - For longer work, provide concise progress updates when findings materially
