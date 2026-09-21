@@ -102,19 +102,26 @@ be cleanly separated, treat it as production.
 
 ## Repository checkpoint boundary
 
-Repository checkpoint writes use the human-in-the-loop ZIP/PowerShell workflow
-defined in `patches/PATCH_PROTOCOL.md`.
+Repository checkpoint writes use the reusable human-in-the-loop `.ffpkg`
+delivery workflow defined in `patches/PATCH_PROTOCOL.md`.
 
 Default actor sequence:
 
 1. assistant audits current state read-only;
-2. assistant builds and validates a self-contained update package and `.ps1`;
-3. user runs the `.ps1` locally;
-4. user returns the complete local output;
+2. assistant builds and validates a deterministic text `.ffpkg` carrier with the
+   generic delivery infrastructure;
+3. user runs the carrier through `tools\delivery\run_package.cmd` locally;
+4. user returns the concise success summary, or the full log on failure;
 5. assistant verifies the returned evidence;
-6. assistant supplies separate commit/push commands;
+6. assistant supplies separate staging/manifest/commit/push commands;
 7. user performs the push;
 8. assistant may then verify the remote state read-only.
+
+Transport, integrity, extraction, subprocess execution, and exit propagation are
+owned by `tools/delivery/`. Package-specific predecessor checks, rollback,
+idempotence, and domain validation remain inside each package entrypoint. Do not
+create phase-specific launch wrappers when the generic runner can execute the
+package contract.
 
 Do not use direct GitHub connector writes for this project. Do not commit or push
 from a delivered installer unless the user explicitly overrides this rule for

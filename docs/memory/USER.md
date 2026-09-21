@@ -41,19 +41,26 @@ chat.
 
 ## Windows Delivery Preference
 
-For multi-step local procedures, prefer:
-- one self-contained ZIP;
-- one PowerShell 5.1-compatible `.ps1` launcher/entry point;
-- one root-level execution block;
-- safety checks, backup/rollback, validation, and progress output inside the
-  package rather than reconstructed from multiple snippets.
+For multi-step local procedures, prefer the permanent generic delivery path:
+- one deterministic **text** `.ffpkg` carrier;
+- the repository-owned `tools\delivery\run_package.cmd` entry point;
+- package-specific behavior declared in `package.json` and implemented in the
+  package entrypoint, not in a new phase-specific wrapper;
+- safety checks, backup/rollback, idempotence, validation, and progress output
+  inside the package/runner boundary rather than reconstructed from chat snippets.
+
+Binary ZIP attachment transport has produced zero-byte files in practice, while
+text transfer was verified independently. Do not fall back to manual Base64 chunk
+assembly or long interactive PowerShell pastes when the generic `.ffpkg` path is
+available. A bootstrap is appropriate only when the generic runner itself is
+absent or must be repaired.
 
 Default checkpoint actor sequence:
-1. assistant provides the update/package;
-2. user runs the `.ps1` locally;
-3. user returns the complete output;
+1. assistant provides the validated `.ffpkg` update;
+2. user runs `tools\delivery\run_package.cmd <package.ffpkg>` locally;
+3. user returns the concise success summary, or full failure output;
 4. assistant verifies the result;
-5. assistant then provides separate commit/push commands;
+5. assistant then provides separate staging/manifest/commit/push commands;
 6. user performs the push;
 7. assistant may verify the remote read-only afterward.
 

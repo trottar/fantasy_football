@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fantasy-football-ffpkg-manifest-v1",
+  "title": "Fantasy Football Package Manifest",
+  "type": "object",
+  "required": ["schema_version", "package_id", "package_type", "entrypoint"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "package_id": {"type": "string", "minLength": 1},
+    "package_type": {"enum": ["diagnostic", "local_apply", "runtime_sync", "release_install", "maintenance"]},
+    "entrypoint": {
+      "type": "object",
+      "required": ["type", "path"],
+      "properties": {
+        "type": {"enum": ["python", "powershell", "cmd"]},
+        "path": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "description": {"type": "string"},
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "bytes", "sha256"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "bytes": {"type": "integer", "minimum": 0},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": true
+}

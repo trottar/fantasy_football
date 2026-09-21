@@ -239,11 +239,17 @@ production cancellation, retry, suppression, or result replacement.
 - Memory maintenance follows `MAINTENANCE.md`; detailed chronology belongs in
   dated history/evidence/investigations rather than this file.
 
-## Human-in-the-loop repository checkpoint rule
+## Human-in-the-loop repository checkpoint / delivery rule
+
+Generic repository delivery uses deterministic **text `.ffpkg` carriers** built
+and executed by the permanent `tools/delivery/` infrastructure. Transport,
+integrity, extraction, subprocess execution, and exit propagation are generic;
+package-specific predecessor checks, rollback, idempotence, and domain validation
+remain in the package entrypoint.
 
 Default actor sequence:
 
-`assistant package -> user local run -> returned log -> assistant verification -> separate push commands -> user push -> read-only remote verification`
+`assistant .ffpkg -> user generic local run -> returned summary -> assistant verification -> separate push commands -> user push -> read-only remote verification`
 
 Prepared, local-apply, committed, pushed, remote-verified, and runtime-commissioned
 states are distinct. Control-root local apply uses target predecessor contracts;
@@ -313,3 +319,18 @@ Phase 1A is complete. The next separately gated v1.0A surface is Phase 1B closur
 instrumentation. P/D/K, market/behavior, and persistent-sink expansion remain
 separate later gates.
 <!-- FANTASY_MEMORY_V10A_DATA_SOURCE_RUNTIME_COMMISSIONED_20260921:END -->
+
+<!-- FANTASY_MEMORY_GENERIC_STAGING_INFRASTRUCTURE_20260921:BEGIN -->
+## Generic repository staging infrastructure
+
+The reusable `.ffpkg` delivery layer is extended with declarative isolated
+repository staging. Raw control-root identities and Git index identities are
+treated as different representation layers: source packages authorize raw bytes,
+while staged equivalence is proven by applying the staging checkout's Git clean
+filters and comparing blob OIDs. Durable-memory manifest hashes remain staged
+Git-blob SHA-256 values.
+
+This corrects the staging preflight defect that compared raw `run_package.cmd`
+SHA-256 with its normalized staged bytes. The failed preflight did not commit or
+push and did not modify the control root or commissioned runtime.
+<!-- FANTASY_MEMORY_GENERIC_STAGING_INFRASTRUCTURE_20260921:END -->

@@ -383,3 +383,57 @@ For successful micro-steps, print one concise final summary block so the operato
 can return only that block. Full logs remain appropriate on failure or when an
 omitted measurement is required.
 <!-- FANTASY_LEARNING_INTERACTIVE_POWERSHELL_CONTROL_FLOW_20260921:END -->
+
+<!-- FANTASY_LEARNING_GENERIC_DELIVERY_INFRASTRUCTURE_20260921:BEGIN -->
+## Delivery mechanics belong in reusable infrastructure
+
+The Phase 1B checkpoint exposed several delivery-path defects that were unrelated
+to football or observability logic:
+
+- binary ZIP attachments repeatedly arrived as zero-byte files;
+- long clipboard/Base64 chunk transport was error-prone and operationally noisy;
+- an unconditional PowerShell PASS line could execute after a prior command
+  failed;
+- interactive `else` parsing repeated a known PowerShell 5.1 paste-boundary
+  failure;
+- phase-specific wrappers duplicated execution mechanics;
+- an initially silent bootstrap provided poor operator feedback.
+
+The architectural correction is a permanent generic delivery layer:
+`build_package.py` produces deterministic text `.ffpkg` carriers and
+`run_package.cmd`/`run_package.py` own validation, extraction, entrypoint launch,
+and exit propagation. Package-specific code is limited to its actual target
+contract.
+
+Operational rules:
+1. prefer the generic runner over chat-assembled command sequences;
+2. use text carriers when binary attachment transport is unreliable;
+3. success output must be conditional on actual successful control flow;
+4. long-running installers print an immediate splash and flushed progress;
+5. validate the exact delivered carrier and its reconstructed archive;
+6. do not make the user the first validator of deterministic package code.
+<!-- FANTASY_LEARNING_GENERIC_DELIVERY_INFRASTRUCTURE_20260921:END -->
+
+<!-- FANTASY_LEARNING_STAGE_FILTER_REPRESENTATION_20260921:BEGIN -->
+## Staging identity must compare the same representation
+
+The first generic staging attempt correctly failed on a bad declarative D-025
+marker before modification. After that marker was corrected, staging reached the
+final identity gate and exposed a deeper infrastructure defect: the helper
+compared the raw control-root SHA-256 of `run_package.cmd` with staged Git blob
+bytes.
+
+That comparison is invalid when Git clean filters normalize text, such as
+CRLF-to-LF conversion. It repeated the already-established rule that worktree,
+index, and committed representations are distinct.
+
+Permanent rule:
+1. authorize the copied source with a raw worktree-byte SHA-256;
+2. copy bytes exactly into the isolated staging worktree;
+3. derive the expected staged Git blob OID using the staging checkout's clean
+   filters (`git hash-object --path ... --stdin`);
+4. compare that Git blob OID to the index blob OID;
+5. generate memory-manifest SHA-256 values from staged Git blob bytes.
+
+Never compare a raw worktree SHA-256 directly with staged bytes.
+<!-- FANTASY_LEARNING_STAGE_FILTER_REPRESENTATION_20260921:END -->

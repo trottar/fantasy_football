@@ -8,10 +8,11 @@
 - Phase 0 final lineage: **COMPLETE**
 - 2026 season-roadmap memory checkpoint: **PUSHED / REMOTE VERIFIED**
 - Active development series: **v1.0A observability**
+- Generic `.ffpkg` delivery + staging infrastructure: **LOCAL-APPLIED / VALIDATED / FIRST MEMORY PACKAGE PASS**
 - Phase 1A data-source season-sync shadow pilot: **COMPLETE / RUNTIME COMMISSIONED**
 - Phase 1A source checkpoint: `24a7e57794b0325510349ae163cd36b2f6c19070`
   — **PUSHED / REMOTE VERIFIED**
-- Phase 1B closure instrumentation: **NEXT / NOT STARTED**
+- Phase 1B closure instrumentation: **PREFLIGHT VALIDATED / RETAINED CANDIDATE / CHECKPOINT DEFERRED**
 - Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
@@ -53,6 +54,26 @@ The runtime paired probe measured:
 
 The full-runtime pytest count is intentionally not stated because the returned
 operator summary established PASS but omitted the count line.
+
+## Generic Delivery Infrastructure Gate
+
+The reusable text `.ffpkg` carrier, deterministic builder, permanent generic
+runner, package schema, declarative isolated staging engine, staging schema,
+documentation, and regression suite are local-applied in the control root.
+
+Delivery bootstrap validation passed exact infrastructure identities,
+`py_compile`, targeted pytest, and runner/builder CLI smoke tests. The first real
+`.ffpkg` durable-memory consumer then passed its five local-apply gates.
+
+Repository-staging regression coverage now also freezes the representation
+boundary: raw worktree SHA-256 authorization is separate from Git clean-filtered
+index blob identity. A CRLF worktree / LF index case is explicitly tested.
+
+Future diagnostics, `local_apply`, runtime synchronization, release installation,
+maintenance, and repository staging share these permanent mechanics. Phase-
+specific wrappers and manual chunk transport are superseded.
+
+Repository commit/push remains a separate human-reviewed step.
 
 ## Phase 1B — Next Surface
 

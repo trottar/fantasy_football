@@ -5,7 +5,7 @@ state_updated: 2026-09-21
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: data_source_runtime_commissioning_closure
+active_workstream: generic_delivery_infrastructure_checkpoint
 nfl_week: 2
 fantasy_stage: regular_season
 maintenance_status: healthy
@@ -13,9 +13,9 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Close the commissioned v1.0A data-source season-sync shadow pilot in durable
-memory and repository history, then advance to the separately gated Phase 1B
-closure-instrumentation surface without changing football/model semantics.
+Checkpoint the reusable generic `.ffpkg` delivery infrastructure and its durable
+memory contract, then resume the already-validated Phase 1B closure-shadow
+candidate through that generic runner without changing football/model semantics.
 
 ## Verified State
 
@@ -32,6 +32,16 @@ closure-instrumentation surface without changing football/model semantics.
   `24a7e57794b0325510349ae163cd36b2f6c19070`.
 - Persistent runtime sink remains **DISABLED**.
 - Provider internals remain uninstrumented.
+- Latest durable GitHub checkpoint is
+  `440d17fecb823f29f4cbeaf6d74d82d52f7ea045` (`Record Phase 1A runtime
+  commissioning`) — **PUSHED / REMOTE VERIFIED**.
+- Generic delivery infrastructure is **LOCAL-APPLIED / VALIDATED** in the control
+  root: six exact infrastructure/test paths, `py_compile` PASS, targeted pytest
+  **15 passed**, runner CLI smoke PASS, and builder CLI smoke PASS.
+- The retained Phase 1B closure-shadow candidate remains isolated and unchanged;
+  its four-path candidate gate, targeted 48-test gate, paired probe, privacy gate,
+  full pytest, compileall, and `git diff --check` had already passed before the
+  delivery-infrastructure detour.
 
 ## Phase 1A Runtime Commissioning Evidence
 
@@ -85,18 +95,20 @@ Canonical commissioning evidence:
 
 ## Current Validation State
 
-`PHASE 1A DATA-SOURCE SEASON-SYNC SHADOW = COMMISSIONED / REPOSITORY SOURCE REMOTE VERIFIED / RUNTIME VALIDATED / PERSISTENCE DISABLED`
+`GENERIC DELIVERY + STAGING INFRASTRUCTURE = LOCAL-APPLIED / VALIDATED / PHASE 1B CANDIDATE RETAINED / RUNTIME UNCHANGED`
 
 ## Exact Next Action
 
-Complete this **memory-only runtime-commissioning closure checkpoint** through
-staging, schema-2 manifest regeneration, commit, push, and read-only remote
-verification. The local memory-apply step must not stage, commit, push, or modify
-the commissioned runtime.
+Use the permanent generic staging engine to prepare the delivery-infrastructure
+checkpoint in a fresh isolated clone, including the now **eight** infrastructure
+and regression paths plus the reviewed durable-memory delta. Regenerate the
+schema-2 memory manifest from staged Git blob bytes, validate the exact staged
+allowlist, and stop before commit/push.
 
-After that checkpoint is remote-verified, begin **Phase 1B — closure
-instrumentation** with one narrow hypothesis and targeted preflight. Do not fold
-P/D/K, market/behavior, or persistent-sink work into that slice.
+After that checkpoint is committed, pushed, and remote-verified, resume the
+retained Phase 1B closure-shadow candidate through the generic delivery path.
+Do not rerun its already-passed candidate gates without new evidence, and do not
+fold P/D/K, market/behavior, or persistent-sink work into that slice.
 
 ## Repository / Handoff Boundary
 

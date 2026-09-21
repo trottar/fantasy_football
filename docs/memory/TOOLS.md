@@ -151,3 +151,64 @@ For a control-root memory/diagnostic apply:
 
 Use `HEAD`/index/worktree Git-object comparisons inside the fresh isolated
 staging clone, where that checkout is the actual commit/push authority.
+
+<!-- FANTASY_GENERIC_FFPKG_DELIVERY_20260921:BEGIN -->
+## Generic `.ffpkg` delivery infrastructure
+
+Permanent project delivery tooling lives under `tools/delivery/`.
+
+Build a deterministic text carrier:
+
+```powershell
+python .\tools\delivery\build_package.py <package-source-dir> <output.ffpkg>
+```
+
+Verify without executing:
+
+```powershell
+.\tools\delivery\run_package.cmd <output.ffpkg> --verify-only
+```
+
+Execute:
+
+```powershell
+.\tools\delivery\run_package.cmd <output.ffpkg>
+```
+
+The text carrier contains a Base64-encoded deterministic ZIP with exact byte-count
+and SHA-256 metadata. The generic runner validates the carrier, archive, safe
+paths, exact file inventory, and package manifest before isolated extraction and
+entrypoint launch. It propagates the package exit code and removes the temporary
+extraction tree.
+
+The runner owns transport/execution mechanics only. Package entrypoints own
+scope-specific predecessor checks, backup/rollback, idempotence, and validation.
+Supported package types are `diagnostic`, `local_apply`, `runtime_sync`,
+`release_install`, and `maintenance`.
+
+Do not build phase-specific launch wrappers or manual Base64 chunk procedures
+when this infrastructure is available.
+<!-- FANTASY_GENERIC_FFPKG_DELIVERY_20260921:END -->
+
+<!-- FANTASY_GENERIC_CHECKPOINT_STAGING_20260921:BEGIN -->
+## Generic repository checkpoint staging
+
+Permanent staging infrastructure:
+
+```powershell
+python .\tools\delivery\prepare_checkpoint_stage.py <checkpoint.stage.json>
+```
+
+A declarative staging spec supplies the remote predecessor, control/staging
+roots, exact reviewed source scope, raw-byte identities, semantic markers,
+manifest contract, and validation commands.
+
+Representation is explicit:
+- spec `exact_sha256` values describe raw control-root/worktree bytes;
+- staged source identity is verified as Git clean-filtered blob identity;
+- `docs/memory/manifest.json` continues to hash staged Git blob bytes.
+
+The engine creates an isolated staging clone, regenerates the schema-2 manifest,
+validates strict allowlists/residue/diffs/health, and always stops before commit
+or push.
+<!-- FANTASY_GENERIC_CHECKPOINT_STAGING_20260921:END -->

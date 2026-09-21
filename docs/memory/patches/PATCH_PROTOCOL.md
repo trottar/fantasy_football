@@ -27,17 +27,17 @@ This section is the canonical project repository-write workflow.
 Default sequence:
 
 1. assistant performs read-only audit/reconciliation;
-2. assistant constructs and validates the self-contained ZIP / PowerShell
-   package;
-3. assistant delivers the package with exact scope, hashes, and validation claims;
-4. user runs the `.ps1` locally;
-5. user returns the complete output/log;
+2. assistant constructs and validates a deterministic text `.ffpkg` carrier with
+   `tools/delivery/build_package.py`;
+3. assistant delivers the carrier with exact scope, hashes, and validation claims;
+4. user runs it through `tools\delivery\run_package.cmd` locally;
+5. user returns the concise success summary, or the complete failure output;
 6. assistant verifies the returned local evidence;
 7. assistant supplies separate staging/manifest/commit/push commands;
 8. user executes those commands;
 9. assistant may verify remote state read-only afterward.
 
-Default delivered installers must stop before staging, commit, and push.
+Default delivered packages must stop before staging, commit, and push.
 
 Direct GitHub connector writes are not permitted as project checkpoint writes.
 
@@ -55,6 +55,22 @@ Do not collapse these states:
 
 A different actor sequence requires explicit user authorization for that specific
 checkpoint.
+
+## Generic `.ffpkg` delivery boundary
+
+Delivery mechanics are permanent infrastructure, not phase-specific patch logic.
+The generic runner owns text-carrier parsing, Base64/archive integrity, safe ZIP
+inspection, exact payload inventory validation, isolated extraction, entrypoint
+launch, exit-code propagation, and extraction cleanup.
+
+Package-specific entrypoints own only their domain contract: target predecessor
+checks, affected-scope allowlists, backup/rollback, idempotence, post-write
+validation, and permitted project modifications. They may not reimplement the
+transport/runner layer without a separately justified infrastructure change.
+
+Supported package classes are `diagnostic`, `local_apply`, `runtime_sync`,
+`release_install`, and `maintenance`. The first real consumer of this contract is
+a durable-memory `local_apply` package.
 
 ## Native-process execution on Windows PowerShell 5.1
 
@@ -144,10 +160,10 @@ For Python diagnostics, where applicable:
 - classifier boundary/regression tests;
 - temporary-resource cleanup tests;
 - schema-2 Git index/HEAD manifest tests;
-- exact-ZIP extraction and full QA rerun.
+- exact `.ffpkg` carrier verification, archive reconstruction/extraction, and full QA rerun.
 
-Every successor package must have a unique ZIP name and recommended extraction
-directory.
+Every successor package must have a unique `package_id` and carrier filename;
+the generic runner owns isolated extraction and cleanup.
 
 A successfully applied package should be safely rerunnable:
 - validate semantic predecessor/result markers;
@@ -315,3 +331,25 @@ Required QA for native/Git wrappers:
    arguments survived binding;
 6. continue to evaluate native success using `$LASTEXITCODE`.
 <!-- FANTASY_POWERSHELL_WRAPPER_ARGUMENT_BINDING_20260920:END -->
+
+<!-- FANTASY_GENERIC_STAGING_REPRESENTATION_PROTOCOL_20260921:BEGIN -->
+## Generic staging representation protocol
+
+Repository checkpoint staging should use
+`tools/delivery/prepare_checkpoint_stage.py` with a declarative staging spec.
+
+The staging contract separates:
+- raw control-root/worktree SHA-256 authorization;
+- exact raw-byte copy into the isolated staging worktree;
+- Git clean-filtered index blob identity;
+- schema-2 memory-manifest SHA-256 over staged Git blob bytes.
+
+For each reviewed source path, derive the expected index blob with the staging
+checkout's own clean filters and compare Git blob OIDs. Do not compare raw
+worktree SHA-256 directly with staged content, because line-ending or other
+declared Git filters may change the index representation without indicating
+source drift.
+
+The generic staging engine must stop before commit/push and preserve the existing
+human actor boundary.
+<!-- FANTASY_GENERIC_STAGING_REPRESENTATION_PROTOCOL_20260921:END -->

@@ -148,3 +148,21 @@ persistent sinks remain outside this slice.
 
 See `D-024_V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT.md`.
 <!-- FANTASY_D024_V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_INDEX:END -->
+
+<!-- FANTASY_D025_GENERIC_DELIVERY_INFRASTRUCTURE_INDEX:BEGIN -->
+## D-025 — Generic `.ffpkg` Delivery Infrastructure
+
+**Status:** ACTIVE
+
+Adopt one permanent, roadmap-wide package transport/execution layer. Deterministic
+text `.ffpkg` carriers and `tools/delivery/` own transport, integrity, safe
+extraction, entrypoint launch, exit propagation, and declarative isolated staging.
+Staging distinguishes raw worktree identities from Git-filtered index identities.
+Package-specific code owns only target-specific predecessor, rollback,
+idempotence, and domain validation logic.
+
+This supersedes earlier ZIP/PowerShell wording only for delivery mechanics; the
+human-in-the-loop staging/commit/push boundary remains unchanged.
+
+See `D-025_GENERIC_DELIVERY_INFRASTRUCTURE.md`.
+<!-- FANTASY_D025_GENERIC_DELIVERY_INFRASTRUCTURE_INDEX:END -->
