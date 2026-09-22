@@ -11,9 +11,9 @@
 - Generic `.ffpkg` delivery + declarative staging infrastructure: **PUSHED /
   REMOTE VERIFIED**
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
-- Memory-system refinement: **M0-M6 COMPLETE / M7 CONTENT COMPLETE; COMPLETE
-  when the containing M7 state is remote-durable**
-- Week 3 week-open capture: **NEXT HARD CALENDAR GATE / BEFORE SEP 24 FIRST GAME**
+- Memory-system refinement: **M0-M7 COMPLETE / DURABLE**
+- Week 3 week-open capture: **ACTIVE HARD CALENDAR GATE / BEFORE SEP 24 FIRST
+  GAME**
 - Phase 1B closure instrumentation: **PREFLIGHT VALIDATED / RETAINED CANDIDATE /
   AFTER WEEK 3 CAPTURE GATE**
 - Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
@@ -32,16 +32,26 @@
 - M4R1 — maintenance newline repair: **COMPLETE / DURABLE**
 - M5 — startup contract decision: **COMPLETE / DURABLE**
 - M6 — memory-health enforcement: **COMPLETE / DURABLE**
-- M7 — fresh-session integration audit: **CONTENT COMPLETE / durability from
-  containing repository context**
+- M7 — fresh-session integration audit: **COMPLETE / DURABLE**
 
-M7 confirms that a fresh substantial session can recover current state, actor
-boundaries, scientific constraints, environment, handoff state, and the next
-narrow task from the five-file core plus task-linked canonical records without a
-giant chat continuation prompt.
+Remote `main` at
+`b49104b84e34d3169d1b4876a3e1748e6553800a` contains the exact M7 evidence and
+continuity state required by the M7 completion condition. The memory-refinement
+series is therefore closed.
 
-Once the containing M7 state is remote-durable, M0-M7 is closed. The Week 3
-prospective-capture gate then becomes the immediate operational frontier.
+Canonical durability evidence:
+`../evidence/MEMORY_M7_DURABILITY_CLOSURE_2026-09-22.md`.
+
+## Week 3 Prospective Capture
+
+Week 3 is now the immediate operational frontier.
+
+Before the Sep 24 first game, freeze the week-open state using the commissioned
+`v0.36-repack1` baseline and only information available at capture time. Keep
+authenticated/raw runtime material local and preserve an immutable,
+provenance-bearing prospective artifact.
+
+A missed prospective state is recorded as missing and is never backfilled.
 
 ## Phase 1A — Commissioned Result
 
@@ -87,7 +97,8 @@ instrumentation, or persistent evidence.
 - active state: `../CURRENT.md`
 - M5 evidence: `../evidence/MEMORY_M5_STARTUP_CONTRACT_DECISION_2026-09-21.md`
 - M6 evidence: `../evidence/MEMORY_M6_MEMORY_HEALTH_ENFORCEMENT_2026-09-21.md`
-- M7 evidence: `../evidence/MEMORY_M7_FRESH_SESSION_INTEGRATION_AUDIT_2026-09-22.md`
+- M7 integration evidence: `../evidence/MEMORY_M7_FRESH_SESSION_INTEGRATION_AUDIT_2026-09-22.md`
+- M7 durability evidence: `../evidence/MEMORY_M7_DURABILITY_CLOSURE_2026-09-22.md`
 - startup/handoff health: `../MAINTENANCE.md`
 - long-range roadmap: `../../ROADMAP.md`
 - 2026 weekly map: `SEASON_2026.md`
