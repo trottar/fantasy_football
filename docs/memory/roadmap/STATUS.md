@@ -8,159 +8,86 @@
 - Phase M repository/season-roadmap authority transition: **COMPLETE / PUSHED /
   REMOTE VERIFIED**
 - Active engineering series: **v1.0A observability**
-- Generic `.ffpkg` delivery + declarative staging infrastructure: **PUSHED /
-  REMOTE VERIFIED**
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
 - Phase 1B closure shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Memory-system refinement: **M0-M7 COMPLETE / DURABLE**
-- Week 3 week-open capture: **SECURED / VALID / PRE-KICKOFF**
-- Phase 1C player/DST/kicker observability: **READ-ONLY BOUNDARY AUDIT NEXT**
+- Phase 1C channel boundary audit: **COMPLETE**
+- Phase 1C DST shadow: **TARGETED PREFLIGHT NEXT**
+- Phase 1C K shadow: **DEFERRED BEHIND DST GATE**
+- Phase 1C player shadow: **BOUNDARY UNRESOLVED / OLD PLANNED POINT REJECTED**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
 - Persistent runtime sink: **DISABLED**
+- Week 3 week-open capture: **SECURED / VALID / PRE-KICKOFF**
 
-## Memory-System Refinement
+## Phase 1C Boundary Audit
 
-- M0 — read-only audit: **COMPLETE / DURABLE**
-- M1 — active/planning reconciliation: **COMPLETE / DURABLE**
-- M2 — checkpoint identity semantics: **COMPLETE / DURABLE**
-- M3A — procedure ownership / delivery wording cleanup: **COMPLETE / DURABLE**
-- M3B — curated `MEMORY.md` cleanup: **COMPLETE / DURABLE**
-- M4 — handoff contract: **COMPLETE / DURABLE**
-- M4R1 — maintenance newline repair: **COMPLETE / DURABLE**
-- M5 — startup contract decision: **COMPLETE / DURABLE**
-- M6 — memory-health enforcement: **COMPLETE / DURABLE**
-- M7 — fresh-session integration audit: **COMPLETE / DURABLE**
+The existing v1.0A integration map was checked against exact current production
+source.
 
-The memory-refinement series is closed.
+### Player
 
-Canonical durability evidence:
-`../evidence/MEMORY_M7_DURABILITY_CLOSURE_2026-09-22.md`.
+Planned map point:
 
-## Week 3 Prospective Capture
-
-The first future hard Week 3 capture gate is secured.
+`src/transaction_manager.py::evaluate_roster_predictive`
 
 Classification:
-`PROSPECTIVE_WEEK_OPEN_CAPTURE_VALID`.
 
-- captured UTC: `2026-09-22T14:10:53.254794Z`;
-- snapshot UTC: `2026-09-22T14:10:51.714616Z`;
-- deadline UTC: `2026-09-25T00:15:00Z`;
-- runtime/model version: `0.36`;
-- measurement contract: `A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034`;
-- capture integrity: **PASS**;
-- pre-data firewall: **PASS**;
-- source groups: ESPN, Sleeper, nflverse rosters, nflverse matchups, NFL.com
-  team rosters, and NFL.com status — **ALL OK**;
-- degraded sources: **NONE**;
-- capture remained local/private; repository write: false; runtime source write:
-  false; persistent runtime sink: false.
+`REJECT AS PLAYER-ONLY OBSERVABILITY BOUNDARY`
 
-Canonical sanitized evidence:
-`../evidence/WEEK3_WEEK_OPEN_PROSPECTIVE_CAPTURE_2026-09-22.md`.
+Reason:
 
-Continue to preserve separate decision-time captures for consequential Week 3
-lineup, transaction, and specialist actions.
+- production calls pass complete `ctx.roster` and complete action `new_roster`;
+- transaction-manager roster positions include `K` and `DST`;
+- the predictive simulation explicitly handles DST component scoring.
 
-## Phase 1A — Commissioned Result
+This is a complete-roster response/utility boundary. It may be useful at a
+future complete-roster observability layer, but naming it `subsystem.player` would
+violate `P ⊕ D ⊕ K`.
 
-The outer `sync_season_snapshot` observability boundary is commissioned with
-privacy/non-interference and runtime validation complete. Production football
-semantics remain unchanged and the persistent sink remains disabled.
+A narrower player-only production boundary must be identified before player
+instrumentation.
 
-Canonical evidence:
-`../evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`.
+### DST
 
-## Phase 1B — Commissioned Result
+Accepted outer channel point:
 
-Phase 1B closure observability is complete.
+`src/specialist_policy_v032.py::evaluate_defense_channel`
 
-Repository source checkpoint:
-`29b0635218b06a9d4abe203128d426402cb1ebc8`.
+The public wrapper fixes `position="DST"` and routes into specialist policy
+machinery whose candidate/configuration comparisons remain within that selected
+specialist position. Cross-channel effects are used only at permitted
+complete-roster utility/state boundaries.
 
-The commissioned runtime instruments only the final v0.34 closure-capture
-override at `subsystem.closure.capture`. The inherited pre-v0.34 closure function
-and the shared commissioned `shadow_pilot.py` remain unchanged.
+DST is selected as the first Phase 1C preflight because its current physical
+response already exposes explicit defensive components and therefore has the
+strongest immediate closure/diagnostic value.
 
-Source validation for the exact commissioned bytes:
+### Kicker
 
-- targeted pytest: **33 passed in 1.94 s**;
-- paired source privacy/non-interference/RNG/overhead gate: PASS;
-- full source pytest: **491 passed in 51.83 s**;
-- full source compileall: PASS;
-- `git diff --check`: PASS.
+Accepted outer channel point:
 
-The first runtime commissioning attempt failed in validation tooling after source
-sync: pytest collection escaped into the Windows user temp hierarchy and hit an
-inaccessible sibling path. Rollback completed successfully.
+`src/specialist_policy_v032.py::evaluate_kicker_channel`
 
-The corrected continuation used runtime-local validation artifacts and explicit
-pytest root confinement. It passed:
+The wrapper fixes `position="K"` and remains a separately gated K channel.
 
-- dedicated runtime test: **6 passed in 0.71 s**;
-- paired runtime output/exception/state/privacy/RNG gate: PASS;
-- runtime median incremental observer cost: **63,200 ns**;
-- full runtime pytest: **353 passed in 43.09 s**;
-- runtime compileall: PASS;
-- final runtime source identities: PASS;
-- rollback-backup identities: PASS;
-- runtime validation residue: NONE.
+K is deferred until the DST gate is complete. The current K model remains the
+deliberately simpler aggregate-yield/team-environment representation pending
+prospective kicker closure.
 
-Runtime paired timing was `6200 ns` baseline versus `69400 ns` observed. As with
-the source preflight, the tiny baseline is below the configured relative floor,
-so the absolute `63,200 ns` increment is the active overhead criterion and passes
-the `2,000,000 ns` limit.
+### Audit Result
 
-Current classification:
+`PHASE1C_CHANNEL_BOUNDARY_AUDIT=COMPLETE`
 
-`PHASE 1B COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED`
+No production or runtime source was modified.
 
 Canonical evidence:
-
-- `../evidence/PHASE1B_CLOSURE_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
-- `../evidence/PHASE1B_CLOSURE_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
-
-Phase 1B does not authorize P/D/K instrumentation, manager-behavior
-instrumentation, persistent evidence, or football-model changes.
-
-## 2026 Season Milestones
-
-- Week 3 (Sep 24-28): week-open prospective capture **SECURED**; preserve
-  decision-time captures for consequential actions.
-- Week 5: preferred broader v1.0 observability commissioning target / first bye
-  stress.
-- After Week 5: first formal three-clean-week prospective closure review, if the
-  captures are valid.
-- Before Week 9: commission only evidence-supported calibration; otherwise defer.
-- Weeks 12-13: playoff-readiness/model-freeze preparation.
-- Before Week 14: playoff production baseline commissioned.
-- Weeks 14-17: production-first; major empirical calibration frozen by default.
+`../evidence/PHASE1C_CHANNEL_BOUNDARY_AUDIT_2026-09-22.md`.
 
 ## Boundary Conditions
 
 - Preserve `P ⊕ D ⊕ K`.
 - No observed 2026 outcome may retroactively tune a v0.X model.
 - Diagnostics remain observers, not decision/control logic.
-- Missed prospective captures are recorded as missing, never backfilled.
 - Persistent evidence requires a separate authorization gate.
 - Authenticated/raw capture material remains local.
-- Validation evidence is bound to the candidate byte identity that produced it.
-
-## Canonical References
-
-- active state: `../CURRENT.md`
-- Phase 1B runtime commissioning evidence:
-  `../evidence/PHASE1B_CLOSURE_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
-- Phase 1B source-validation evidence:
-  `../evidence/PHASE1B_CLOSURE_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
-- Week 3 capture evidence:
-  `../evidence/WEEK3_WEEK_OPEN_PROSPECTIVE_CAPTURE_2026-09-22.md`
-- M7 durability evidence:
-  `../evidence/MEMORY_M7_DURABILITY_CLOSURE_2026-09-22.md`
-- Phase 1A runtime evidence:
-  `../evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`
-- startup/handoff health: `../MAINTENANCE.md`
-- long-range roadmap: `../../ROADMAP.md`
-- 2026 weekly map: `SEASON_2026.md`
-- known issues: `../../KNOWN_ISSUES.md`
+- Validation evidence is bound to the byte identity that produced it.

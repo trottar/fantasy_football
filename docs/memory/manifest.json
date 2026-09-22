@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-22T14:46:17.466494-04:00",
+  "generated_at": "2026-09-22T14:58:51.262153-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5710,
-      "sha256": "372138c0c0f58a32fe51a583e8c34b3fb3b581287b0803bd4883efffa68764d5"
+      "bytes": 5618,
+      "sha256": "1e67542a93b3b6d72e716f86db90faac9f842d84a48acc4dde2e0b348a7b0136"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 10887,
-      "sha256": "bca294403a8df035dff75f399401770927d26a179e84994a59b7fa47e8bafd82"
+      "bytes": 11938,
+      "sha256": "25161bc797c91c7790ebf0f88086099d321a43c66e1280ec31682917db4677a8"
     },
     {
       "path": "README.md",
@@ -335,6 +335,11 @@
       "sha256": "35763bcb9546f8216349e95e61692e26a8c13c10074dbb5230e6729b2eb8136e"
     },
     {
+      "path": "evidence/PHASE1C_CHANNEL_BOUNDARY_AUDIT_2026-09-22.md",
+      "bytes": 4773,
+      "sha256": "80ba2cc60e2dfc17edbe5fecc150bcde2ebf2faae7df9d0a7421ef5b4f319c4b"
+    },
+    {
       "path": "evidence/README.md",
       "bytes": 492,
       "sha256": "2a28cca0bb2223b3ffe824e257a77626bc675adbefb8afe782a88fc274953f38"
@@ -441,8 +446,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 1708,
-      "sha256": "9b06164b373c3a80a0b93c186f61f2f695b1608444a1888b424de0f05d0adb75"
+      "bytes": 1339,
+      "sha256": "378cf16cddb347101e4de51028c96f6ae5bd0ed92168608043127921b712e1c4"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -541,8 +546,8 @@
     },
     {
       "path": "memory/2026-09-22.md",
-      "bytes": 6498,
-      "sha256": "7085b844f7acdb3084ef3d376737eb465e90ed851a2edfb2a57ff90b09d9ecc2"
+      "bytes": 7528,
+      "sha256": "037239343f11f6a05c4b54a14cb60b417d581d2a0945ad5da984c1cb2db5f7d6"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -571,8 +576,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 6894,
-      "sha256": "59df9bbfaa9132b353f4f02a296327e36f8e33d6b96f85a962e4bc3311997160"
+      "bytes": 3237,
+      "sha256": "a61ab872a34ebc47e3b1114a5309dfcced8aada5eab2068ab5d4f4c54a3bc875"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

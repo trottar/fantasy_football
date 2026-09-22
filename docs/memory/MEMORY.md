@@ -255,6 +255,28 @@ Canonical records:
 
 Phase 1C player/DST/kicker observability remains separately gated.
 
+## Phase 1C Channel-Boundary Audit
+
+The initial Phase 1C source audit found that the v1.0A integration map's planned
+player point, `transaction_manager.evaluate_roster_predictive`, is not a pure
+player-channel boundary. Production passes complete rosters through it and its
+predictive simulation includes specialist handling, including DST component
+simulation. Treat it as a complete-roster utility/response surface, not
+`subsystem.player`.
+
+The current DST and K outer policy wrappers in `specialist_policy_v032.py` are
+accepted as separate channel boundaries because each fixes its specialist
+position (`DST` or `K`) before entering position-scoped policy evaluation.
+Permitted player/specialist coupling remains confined to complete-roster
+utility/state response boundaries.
+
+Phase 1C sequencing begins with DST targeted preflight. K remains separately
+gated, and player instrumentation remains blocked until a narrower QB/RB/WR/TE
+production boundary is established.
+
+Canonical evidence:
+`evidence/PHASE1C_CHANNEL_BOUNDARY_AUDIT_2026-09-22.md`.
+
 ## 2026 Season-Gated Development Contract
 
 The season uses two independent clocks.
