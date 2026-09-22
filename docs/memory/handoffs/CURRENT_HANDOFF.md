@@ -5,34 +5,46 @@ exceptional cross-session transfer state and cannot override `CURRENT.md`.
 
 ## Transfer State
 
-Phase 1B retained-candidate recovery established that the previously validated
-candidate bytes are no longer present in the surviving Git worktrees, retained
-`.ffpkg` carriers, or historical generic-delivery staging root.
+Phase 1B recovery/reconstruction has advanced past source validation.
 
-Fresh-candidate package
-`phase1b_closure_shadow_fresh_candidate_20260922_v1` then failed inside its owned
-isolated candidate during source transformation after predecessor HEAD/blob
-validation. It reported an ambiguous byte-marker match before targeted tests or
-the paired probe ran.
+The exact fresh v2 candidate byte identity passed:
+- retained-byte verification;
+- exact four-path allowlist;
+- structural final-v0.34 boundary verification;
+- targeted pytest: 33 passed;
+- paired output/exception/state/privacy/RNG/overhead probe;
+- full pytest: 491 passed;
+- full compileall;
+- `git diff --check`;
+- post-validation exact-byte verification.
 
-Authoritative control-root source, commissioned runtime source, Git index/history,
-and remote state were not modified by that failure.
+The validated technical paths are:
 
-The owned failed candidate may remain at:
+- `src/closure.py`
+- `src/observability/closure_shadow.py`
+- `tests/test_observability_closure_shadow_v10a.py`
+- `tools/probe_observability_closure_shadow_v10a.py`
 
-`_phase1b_closure_shadow_candidate_20260922_v1`
+The v2 validator initially failed because Git stderr containing a CRLF warning was
+merged into stdout and treated as an extra path. The v3 continuation fixed only
+that validation-layer defect and reused the exact retained candidate bytes.
 
-A successor may delete/recreate that path only after verifying its expected HEAD
-and that any changes are confined to the failed package's owned technical scope.
+Those exact validated bytes are now applied to the control-root checkpoint
+surface together with durable memory.
+
+The commissioned `v0.36-repack1` runtime has not been modified. Phase 1B is not
+runtime commissioned.
+
+Repository staging/commit/push for this source checkpoint remain pending.
 
 ## Resume
 
 Follow `../CURRENT.md`'s `Exact Next Action`.
 
-Do not resume from the historical retained-candidate validation gate. Rebuild one
-fresh Phase 1B candidate from exact current source and validate the new byte
-identity independently.
+Do not reconstruct or retest a different Phase 1B candidate. The authoritative
+source candidate is the exact four-file byte identity recorded in
+`../evidence/PHASE1B_CLOSURE_SHADOW_SOURCE_VALIDATION_2026-09-22.md`.
 
 Repository actor sequence remains:
 
-`assistant audit/package -> user local run -> returned evidence -> assistant verification -> isolated staging -> user publication -> remote verification`
+`assistant audit/package -> user local run -> returned evidence -> assistant verification -> isolated staging -> user publication -> remote verification -> separate runtime synchronization/commissioning`

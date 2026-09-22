@@ -11,6 +11,7 @@ import pandas as pd
 
 from .data_sources.nflverse import sync_weekly_player_stats
 from .league import load_league
+from .observability.closure_shadow import shadow_closure_call
 from .scoring import score_offense
 from .transaction_manager import UtilityContext
 from .weekly_manager import availability_status, find_week_opponent, resolve_team
@@ -630,6 +631,7 @@ def load_closure_summary(path: str | Path = "data/season_closure/summary.json") 
 _build_pregame_capture_from_context_pre_v034 = build_pregame_capture_from_context
 
 
+@shadow_closure_call("subsystem.closure.capture")
 def build_pregame_capture_from_context(
     snapshot: dict[str, Any],
     model: dict[str, Any],

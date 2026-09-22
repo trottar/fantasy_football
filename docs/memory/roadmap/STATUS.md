@@ -13,7 +13,8 @@
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
 - Memory-system refinement: **M0-M7 COMPLETE / DURABLE**
 - Week 3 week-open capture: **SECURED / VALID / PRE-KICKOFF**
-- Phase 1B closure instrumentation: **RECOVERY / FRESH REBUILD REQUIRED**
+- Phase 1B closure instrumentation: **SOURCE VALIDATED / CONTROL-ROOT APPLIED /
+  CHECKPOINT PENDING**
 - Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
@@ -72,30 +73,45 @@ semantics remain unchanged and the persistent sink remains disabled.
 Canonical evidence:
 `../evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`.
 
-## Phase 1B — Recovery / Fresh Rebuild
+## Phase 1B — Source Validated / Checkpoint Pending
 
-The prior Phase 1B closure-shadow candidate had established targeted tests,
-paired non-interference/privacy evidence, full pytest, compileall, and
-diff/allowlist validation. Direct recovery work on 2026-09-22 established that
-the candidate's exact byte identity is no longer present in surviving worktrees,
-retained source carriers, or the remaining generic-delivery staging root.
+The lost historical candidate was not reused.
 
-Those prior validations remain historical evidence about the lost candidate; they
-cannot authorize a newly generated candidate.
+Fresh v2 reconstructs Phase 1B as exactly four technical paths and instruments
+only the final v0.34 closure-capture override. The commissioned shared
+`shadow_pilot.py` remains unchanged.
 
-A first fresh-candidate reconstruction package failed inside its owned isolated
-clone during source transformation before targeted tests or the paired probe.
-Authoritative source/runtime/Git/remote state was unchanged.
+Validation for this exact byte identity:
+
+- structural final-v0.34 boundary: PASS;
+- targeted pytest: **33 passed in 1.94 s**;
+- paired output/exception/state/privacy/RNG gate: PASS;
+- median incremental observer cost: **64,000 ns**;
+- absolute overhead budget: **PASS**;
+- full pytest: **491 passed in 51.83 s**;
+- full compileall: PASS;
+- `git diff --check`: PASS;
+- post-validation exact-byte/four-path identity: PASS.
+
+The measured relative timing fraction was `10.491803278688524`, but the baseline
+median was only `6100 ns`, below the configured `50,000,000 ns` relative floor.
+Under the declared `OverheadBudget`, the absolute `64,000 ns` increment is the
+active criterion and is below the `2,000,000 ns` limit.
+
+A v2 validation attempt failed before tests because the package incorrectly
+merged a benign Git CRLF warning from stderr into stdout path enumeration. The v3
+continuation separated stdout/stderr, verified the retained bytes exactly, and
+continued without changing candidate source.
 
 Current classification:
 
-`PHASE 1B RECOVERY / FRESH CANDIDATE REQUIRED / NOT YET PREFLIGHT VALIDATED`
+`PHASE 1B SOURCE VALIDATED / CONTROL-ROOT APPLIED / NOT YET STAGED OR COMMISSIONED`
 
-Canonical recovery evidence:
-`../evidence/PHASE1B_RECOVERY_FAILURE_LINEAGE_2026-09-22.md`.
+Canonical source-validation evidence:
+`../evidence/PHASE1B_CLOSURE_SHADOW_SOURCE_VALIDATION_2026-09-22.md`.
 
 Phase 1B still does not authorize P/D/K instrumentation, manager-behavior
-instrumentation, or persistent evidence.
+instrumentation, persistent evidence, or football-model changes.
 
 ## 2026 Season Milestones
 
@@ -123,6 +139,8 @@ instrumentation, or persistent evidence.
 ## Canonical References
 
 - active state: `../CURRENT.md`
+- Phase 1B source-validation evidence:
+  `../evidence/PHASE1B_CLOSURE_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
 - Phase 1B recovery evidence:
   `../evidence/PHASE1B_RECOVERY_FAILURE_LINEAGE_2026-09-22.md`
 - Week 3 capture evidence:
