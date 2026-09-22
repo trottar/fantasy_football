@@ -222,15 +222,38 @@ and exception type in bounded memory. Arguments, credentials/authenticated
 payloads, returned snapshot/path data, exception messages, provider internals,
 and persistent sinks remain excluded.
 
-Phase 1A is complete. Persistent evidence remains disabled. Phase 1B closure,
-Phase 1C P/D/K, Phase 1D market/behavior, and Phase 1E persistence remain
-separately gated.
+Phase 1A is complete and runtime commissioned. Persistent evidence remains
+disabled. Phase 1C P/D/K, Phase 1D market/behavior, and Phase 1E persistence
+remain separately gated.
 
 Canonical records:
 
 - `decisions/D-024_V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT.md`
 - `evidence/V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT_PREFLIGHT_2026-09-21.md`
 - `evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`
+
+## Phase 1B Commissioned Closure Shadow
+
+The final v0.34 `build_pregame_capture_from_context` public override is
+commissioned in the `v0.36-repack1` runtime at
+`subsystem.closure.capture`.
+
+The observer reuses the bounded in-memory `ShadowRecorder`; it captures boundary
+identity/correlation, duration, and exception type only. It does not retain
+arguments, returned capture payloads, authenticated/private data, or exception
+messages. The inherited pre-v0.34 closure implementation remains uninstrumented,
+persistent evidence remains disabled, and football/model/P-D-K/manager behavior
+semantics are unchanged.
+
+Repository source checkpoint:
+`29b0635218b06a9d4abe203128d426402cb1ebc8`.
+
+Canonical records:
+
+- `evidence/PHASE1B_CLOSURE_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
+- `evidence/PHASE1B_CLOSURE_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
+
+Phase 1C player/DST/kicker observability remains separately gated.
 
 ## 2026 Season-Gated Development Contract
 

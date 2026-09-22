@@ -11,11 +11,10 @@
 - Generic `.ffpkg` delivery + declarative staging infrastructure: **PUSHED /
   REMOTE VERIFIED**
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
+- Phase 1B closure shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 - Memory-system refinement: **M0-M7 COMPLETE / DURABLE**
 - Week 3 week-open capture: **SECURED / VALID / PRE-KICKOFF**
-- Phase 1B closure instrumentation: **SOURCE VALIDATED / CONTROL-ROOT APPLIED /
-  CHECKPOINT PENDING**
-- Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
+- Phase 1C player/DST/kicker observability: **READ-ONLY BOUNDARY AUDIT NEXT**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
 - Persistent runtime sink: **DISABLED**
@@ -73,44 +72,56 @@ semantics remain unchanged and the persistent sink remains disabled.
 Canonical evidence:
 `../evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`.
 
-## Phase 1B — Source Validated / Checkpoint Pending
+## Phase 1B — Commissioned Result
 
-The lost historical candidate was not reused.
+Phase 1B closure observability is complete.
 
-Fresh v2 reconstructs Phase 1B as exactly four technical paths and instruments
-only the final v0.34 closure-capture override. The commissioned shared
-`shadow_pilot.py` remains unchanged.
+Repository source checkpoint:
+`29b0635218b06a9d4abe203128d426402cb1ebc8`.
 
-Validation for this exact byte identity:
+The commissioned runtime instruments only the final v0.34 closure-capture
+override at `subsystem.closure.capture`. The inherited pre-v0.34 closure function
+and the shared commissioned `shadow_pilot.py` remain unchanged.
 
-- structural final-v0.34 boundary: PASS;
+Source validation for the exact commissioned bytes:
+
 - targeted pytest: **33 passed in 1.94 s**;
-- paired output/exception/state/privacy/RNG gate: PASS;
-- median incremental observer cost: **64,000 ns**;
-- absolute overhead budget: **PASS**;
-- full pytest: **491 passed in 51.83 s**;
-- full compileall: PASS;
-- `git diff --check`: PASS;
-- post-validation exact-byte/four-path identity: PASS.
+- paired source privacy/non-interference/RNG/overhead gate: PASS;
+- full source pytest: **491 passed in 51.83 s**;
+- full source compileall: PASS;
+- `git diff --check`: PASS.
 
-The measured relative timing fraction was `10.491803278688524`, but the baseline
-median was only `6100 ns`, below the configured `50,000,000 ns` relative floor.
-Under the declared `OverheadBudget`, the absolute `64,000 ns` increment is the
-active criterion and is below the `2,000,000 ns` limit.
+The first runtime commissioning attempt failed in validation tooling after source
+sync: pytest collection escaped into the Windows user temp hierarchy and hit an
+inaccessible sibling path. Rollback completed successfully.
 
-A v2 validation attempt failed before tests because the package incorrectly
-merged a benign Git CRLF warning from stderr into stdout path enumeration. The v3
-continuation separated stdout/stderr, verified the retained bytes exactly, and
-continued without changing candidate source.
+The corrected continuation used runtime-local validation artifacts and explicit
+pytest root confinement. It passed:
+
+- dedicated runtime test: **6 passed in 0.71 s**;
+- paired runtime output/exception/state/privacy/RNG gate: PASS;
+- runtime median incremental observer cost: **63,200 ns**;
+- full runtime pytest: **353 passed in 43.09 s**;
+- runtime compileall: PASS;
+- final runtime source identities: PASS;
+- rollback-backup identities: PASS;
+- runtime validation residue: NONE.
+
+Runtime paired timing was `6200 ns` baseline versus `69400 ns` observed. As with
+the source preflight, the tiny baseline is below the configured relative floor,
+so the absolute `63,200 ns` increment is the active overhead criterion and passes
+the `2,000,000 ns` limit.
 
 Current classification:
 
-`PHASE 1B SOURCE VALIDATED / CONTROL-ROOT APPLIED / NOT YET STAGED OR COMMISSIONED`
+`PHASE 1B COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED`
 
-Canonical source-validation evidence:
-`../evidence/PHASE1B_CLOSURE_SHADOW_SOURCE_VALIDATION_2026-09-22.md`.
+Canonical evidence:
 
-Phase 1B still does not authorize P/D/K instrumentation, manager-behavior
+- `../evidence/PHASE1B_CLOSURE_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
+- `../evidence/PHASE1B_CLOSURE_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
+
+Phase 1B does not authorize P/D/K instrumentation, manager-behavior
 instrumentation, persistent evidence, or football-model changes.
 
 ## 2026 Season Milestones
@@ -139,10 +150,10 @@ instrumentation, persistent evidence, or football-model changes.
 ## Canonical References
 
 - active state: `../CURRENT.md`
+- Phase 1B runtime commissioning evidence:
+  `../evidence/PHASE1B_CLOSURE_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
 - Phase 1B source-validation evidence:
   `../evidence/PHASE1B_CLOSURE_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
-- Phase 1B recovery evidence:
-  `../evidence/PHASE1B_RECOVERY_FAILURE_LINEAGE_2026-09-22.md`
 - Week 3 capture evidence:
   `../evidence/WEEK3_WEEK_OPEN_PROSPECTIVE_CAPTURE_2026-09-22.md`
 - M7 durability evidence:

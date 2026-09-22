@@ -5,46 +5,46 @@ exceptional cross-session transfer state and cannot override `CURRENT.md`.
 
 ## Transfer State
 
-Phase 1B recovery/reconstruction has advanced past source validation.
+Phase 1B closure observability is complete through runtime commissioning.
 
-The exact fresh v2 candidate byte identity passed:
-- retained-byte verification;
-- exact four-path allowlist;
-- structural final-v0.34 boundary verification;
-- targeted pytest: 33 passed;
-- paired output/exception/state/privacy/RNG/overhead probe;
-- full pytest: 491 passed;
-- full compileall;
-- `git diff --check`;
-- post-validation exact-byte verification.
+Repository source checkpoint:
 
-The validated technical paths are:
+`29b0635218b06a9d4abe203128d426402cb1ebc8`
 
-- `src/closure.py`
-- `src/observability/closure_shadow.py`
-- `tests/test_observability_closure_shadow_v10a.py`
-- `tools/probe_observability_closure_shadow_v10a.py`
+Commissioned runtime:
 
-The v2 validator initially failed because Git stderr containing a CRLF warning was
-merged into stdout and treated as an extra path. The v3 continuation fixed only
-that validation-layer defect and reused the exact retained candidate bytes.
+`fantasy_season_v0_36_repack1` with internal `VERSION = 0.36`.
 
-Those exact validated bytes are now applied to the control-root checkpoint
-surface together with durable memory.
+The first Phase 1B runtime-commissioning package failed during dedicated pytest
+collection because the validation test was located under the Windows user temp
+directory; pytest traversed an inaccessible sibling path. The package successfully
+rolled back both runtime source changes.
 
-The commissioned `v0.36-repack1` runtime has not been modified. Phase 1B is not
-runtime commissioned.
+The corrected continuation reused the same published source bytes, placed
+validation-only artifacts under a temporary runtime-local directory, constrained
+pytest to the runtime root, and removed the temporary directory before the full
+runtime regression.
 
-Repository staging/commit/push for this source checkpoint remain pending.
+Successful commissioning evidence includes:
+
+- dedicated runtime test: 6 passed;
+- paired output/exception/state/privacy/RNG probe: PASS;
+- full runtime pytest: 353 passed;
+- runtime compileall: PASS;
+- final target identities: PASS;
+- rollback-backup identities: PASS;
+- runtime validation residue: NONE;
+- persistent sink: disabled.
+
+Canonical evidence:
+`../evidence/PHASE1B_CLOSURE_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`.
 
 ## Resume
 
 Follow `../CURRENT.md`'s `Exact Next Action`.
 
-Do not reconstruct or retest a different Phase 1B candidate. The authoritative
-source candidate is the exact four-file byte identity recorded in
-`../evidence/PHASE1B_CLOSURE_SHADOW_SOURCE_VALIDATION_2026-09-22.md`.
+The next frontier is a read-only Phase 1C channel-observability audit. Preserve
+`P ⊕ D ⊕ K` and do not infer that Phase 1B authorizes player/DST/kicker source
+changes.
 
-Repository actor sequence remains:
-
-`assistant audit/package -> user local run -> returned evidence -> assistant verification -> isolated staging -> user publication -> remote verification -> separate runtime synchronization/commissioning`
+Repository and runtime commissioning remain separate actor/gate boundaries.
