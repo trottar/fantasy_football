@@ -13,8 +13,7 @@
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
 - Memory-system refinement: **M0-M7 COMPLETE / DURABLE**
 - Week 3 week-open capture: **SECURED / VALID / PRE-KICKOFF**
-- Phase 1B closure instrumentation: **PREFLIGHT VALIDATED / RETAINED CANDIDATE /
-  ACTIVE RESUME FRONTIER**
+- Phase 1B closure instrumentation: **RECOVERY / FRESH REBUILD REQUIRED**
 - Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
@@ -40,7 +39,7 @@ Canonical durability evidence:
 
 ## Week 3 Prospective Capture
 
-The first future hard prospective-capture gate is secured.
+The first future hard Week 3 capture gate is secured.
 
 Classification:
 `PROSPECTIVE_WEEK_OPEN_CAPTURE_VALID`.
@@ -73,17 +72,29 @@ semantics remain unchanged and the persistent sink remains disabled.
 Canonical evidence:
 `../evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`.
 
-## Phase 1B — Retained Candidate
+## Phase 1B — Recovery / Fresh Rebuild
 
-Closure instrumentation is now the active technical frontier because the Week 3
-week-open capture is secured.
+The prior Phase 1B closure-shadow candidate had established targeted tests,
+paired non-interference/privacy evidence, full pytest, compileall, and
+diff/allowlist validation. Direct recovery work on 2026-09-22 established that
+the candidate's exact byte identity is no longer present in surviving worktrees,
+retained source carriers, or the remaining generic-delivery staging root.
 
-The retained candidate already passed its established targeted tests, paired
-non-interference/privacy probe, full pytest, compileall, and diff/allowlist gates.
-Resume from the last validated gate; do not rerun them unless new evidence
-invalidates the result.
+Those prior validations remain historical evidence about the lost candidate; they
+cannot authorize a newly generated candidate.
 
-Phase 1B does not authorize P/D/K instrumentation, manager-behavior
+A first fresh-candidate reconstruction package failed inside its owned isolated
+clone during source transformation before targeted tests or the paired probe.
+Authoritative source/runtime/Git/remote state was unchanged.
+
+Current classification:
+
+`PHASE 1B RECOVERY / FRESH CANDIDATE REQUIRED / NOT YET PREFLIGHT VALIDATED`
+
+Canonical recovery evidence:
+`../evidence/PHASE1B_RECOVERY_FAILURE_LINEAGE_2026-09-22.md`.
+
+Phase 1B still does not authorize P/D/K instrumentation, manager-behavior
 instrumentation, or persistent evidence.
 
 ## 2026 Season Milestones
@@ -107,13 +118,19 @@ instrumentation, or persistent evidence.
 - Missed prospective captures are recorded as missing, never backfilled.
 - Persistent evidence requires a separate authorization gate.
 - Authenticated/raw capture material remains local.
+- Validation evidence is bound to the candidate byte identity that produced it.
 
 ## Canonical References
 
 - active state: `../CURRENT.md`
-- Week 3 capture evidence: `../evidence/WEEK3_WEEK_OPEN_PROSPECTIVE_CAPTURE_2026-09-22.md`
-- M7 durability evidence: `../evidence/MEMORY_M7_DURABILITY_CLOSURE_2026-09-22.md`
-- Phase 1A runtime evidence: `../evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`
+- Phase 1B recovery evidence:
+  `../evidence/PHASE1B_RECOVERY_FAILURE_LINEAGE_2026-09-22.md`
+- Week 3 capture evidence:
+  `../evidence/WEEK3_WEEK_OPEN_PROSPECTIVE_CAPTURE_2026-09-22.md`
+- M7 durability evidence:
+  `../evidence/MEMORY_M7_DURABILITY_CLOSURE_2026-09-22.md`
+- Phase 1A runtime evidence:
+  `../evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`
 - startup/handoff health: `../MAINTENANCE.md`
 - long-range roadmap: `../../ROADMAP.md`
 - 2026 weekly map: `SEASON_2026.md`

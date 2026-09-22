@@ -14,43 +14,52 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Resume the retained Phase 1B closure-instrumentation candidate from its last
-validated preflight state now that the irreversible Week 3 week-open prospective
-capture is secured.
+Recover Phase 1B closure instrumentation from the exact current source after
+direct local evidence established that the previously retained candidate's byte
+identity is no longer available.
 
-Do not rerun already-passed Phase 1B gates unless new evidence invalidates them.
+Historical validation of the lost candidate remains valid evidence about that
+lost byte state, but it does not authorize a newly reconstructed candidate.
 
 ## Current Work Item
 
-**Phase 1B closure instrumentation: RESUME RETAINED PREFLIGHT-VALIDATED CANDIDATE.**
+**Phase 1B closure instrumentation: RECOVERY / FRESH REBUILD REQUIRED.**
 
-The Week 3 week-open prospective capture is **SECURED / VALID / PRE-KICKOFF**.
+The Week 3 week-open prospective capture remains
+**SECURED / VALID / PRE-KICKOFF**.
 
-Sanitized capture evidence:
-`evidence/WEEK3_WEEK_OPEN_PROSPECTIVE_CAPTURE_2026-09-22.md`.
+Canonical recovery evidence:
+`evidence/PHASE1B_RECOVERY_FAILURE_LINEAGE_2026-09-22.md`.
 
 ## Verified State
 
 - `v0.36-repack1` remains the commissioned 0.X runtime baseline with internal
   `VERSION = 0.36`.
-- Phase 1A data-source season-sync shadow is **COMPLETE / RUNTIME COMMISSIONED**.
-- M0-M7 memory-system refinement is **COMPLETE / DURABLE**.
-- Week 3 week-open capture is **PROSPECTIVE_WEEK_OPEN_CAPTURE_VALID**.
-- Capture time: `2026-09-22T14:10:53.254794Z`.
-- Snapshot time: `2026-09-22T14:10:51.714616Z`.
-- Week 3 first-game deadline used by the capture gate:
-  `2026-09-25T00:15:00Z`.
-- Capture integrity and pre-data firewall: **PASS**.
-- All configured source groups reported **OK**; degraded sources: **NONE**.
-- Player measurement: 32 matchup players and 174 all-league rostered
-  QB/RB/WR/TE predictions.
-- Specialist measurement: 64 total, split 32 DST and 32 K.
-- Behavioral state: 12 fantasy teams and 846 market players.
-- The retained Phase 1B closure-shadow candidate remains **PREFLIGHT VALIDATED /
-  NOT APPLIED**.
+- Phase 1A data-source season-sync shadow remains
+  **COMPLETE / RUNTIME COMMISSIONED**.
+- M0-M7 memory-system refinement remains **COMPLETE / DURABLE**.
+- Week 3 week-open capture remains **PROSPECTIVE_WEEK_OPEN_CAPTURE_VALID**.
 - Persistent runtime evidence remains **DISABLED**.
-- The Week 3 capture created local private runtime evidence only; repository and
-  runtime source were not modified by the diagnostic package.
+- A compact inventory found 16 Git roots and no surviving four-file Phase 1B
+  retained worktree.
+- A retained-package inventory found no surviving Phase 1B source carrier.
+- The remaining 21-change generic-delivery staging root contains delivery and
+  memory infrastructure only, not Phase 1B technical files.
+- The old Phase 1B targeted/full-test/probe evidence therefore describes a lost
+  candidate byte identity and is historical only.
+- Fresh-candidate package
+  `phase1b_closure_shadow_fresh_candidate_20260922_v1` verified the intended
+  predecessor HEAD/blob identities, created only its owned isolated candidate,
+  then failed during source transformation because a byte-marker helper reported
+  two matches where the package expected one.
+- That failure did **not** modify authoritative control-root source,
+  commissioned runtime source, Git index/history, or remote state.
+- No targeted pytest or paired Phase 1B probe ran in the failed fresh-candidate
+  package.
+- The failed isolated candidate path may remain at
+  `_phase1b_closure_shadow_candidate_20260922_v1`; a successor may remove it only
+  after verifying that it is the owned failed candidate and contains no
+  out-of-scope changes.
 
 ## Calendar / Evidence Gates
 
@@ -71,16 +80,22 @@ Sanitized capture evidence:
 - `0.X` remains a-priori; observed 2026 outcomes may tune only `1.X`.
 - Observability remains non-interfering and non-authoritative.
 - Authenticated/raw capture material remains local.
+- Do not transfer validation claims between different candidate byte identities.
 
 ## Exact Next Action
 
-Resume the retained Phase 1B closure-instrumentation candidate from the last
-validated preflight gate.
+Inspect the exact current Phase 1B source boundary and construct one fresh,
+isolated closure-observability candidate from the remote-verified
+`661f0a16faa3c7f91f8ab19447ba84867b65297d` source state.
 
-Preserve all already-passed targeted tests, paired non-interference/privacy probe,
-full pytest, compileall, and diff/allowlist evidence unless new evidence
-invalidates them. Continue through the normal generic `.ffpkg` checkpoint and
-separate runtime-commissioning workflow; do not enable persistent evidence.
+The successor must use a non-ambiguous structural/source transform, self-test
+that transform against the exact predecessor representation before delivery,
+verify ownership before removing the failed isolated candidate, and then run the
+new candidate's targeted non-interference/privacy gates. Historical tests for the
+lost candidate must not be reused as validation of new bytes.
+
+Do not modify the commissioned runtime, enable persistent evidence, or alter
+football/model semantics during this recovery.
 
 ## Relevant References
 
@@ -88,6 +103,7 @@ separate runtime-commissioning workflow; do not enable persistent evidence.
 - `MEMORY.md`
 - `handoffs/CURRENT_HANDOFF.md`
 - `USER.md`
+- `evidence/PHASE1B_RECOVERY_FAILURE_LINEAGE_2026-09-22.md`
 - `evidence/WEEK3_WEEK_OPEN_PROSPECTIVE_CAPTURE_2026-09-22.md`
 - `evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`
 - `roadmap/STATUS.md`
