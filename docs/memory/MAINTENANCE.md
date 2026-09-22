@@ -380,16 +380,36 @@ Do not convert package/local-apply state into commit/push state.
 
 ## Health Tool
 
-`tools/check_memory_health.py` is observational.
+`tools/check_memory_health.py` is observational. M6 promotes it from
+structural-only checks to enforcement of the stable representation contracts
+selected by M1-M5. It never rewrites memory.
 
-It reports:
-- byte/line thresholds;
-- duplicate headings;
-- active-objective and exact-next-action counts;
-- checkpoint-marker accumulation in active files;
-- bootstrap total.
+Strict health enforces:
 
-It never rewrites memory.
+- required active bootstrap/policy/status files exist;
+- existing byte/line thresholds and duplicate-heading rules;
+- exactly one active objective and exact next action;
+- the M5 five-file startup core appears in canonical order in `AGENTS.md`,
+  `MAINTENANCE.md`, and `README.md`;
+- each startup surface requires the core to be read in full before selective
+  post-core expansion;
+- `CURRENT.md` contains the selected active-state headings exactly once and in
+  order: Active Objective, Current Work Item, Verified State, Calendar / Evidence
+  Gates, Scientific / Architectural Boundaries, Exact Next Action, and Relevant
+  References;
+- `CURRENT_HANDOFF.md` preserves CURRENT authority, one Transfer State, one Resume
+  section, non-empty transfer state, a CURRENT resume pointer, and no routine
+  CURRENT-style headings;
+- `MEMORY.md` does not acquire exact active/transfer headings;
+- active rendered memory/policy surfaces do not contain literal escaped-newline
+  artifacts of the class that caused the M4 rendering defect.
+
+The checker deliberately does not infer football truth, empirical phase
+completion, or decision validity from prose. Canonical source/evidence remains
+authoritative for those questions.
+
+A dedicated `tests/test_memory_health.py` covers the enforced semantic branches,
+and `--self-test` provides a dependency-light regression gate.
 
 ## Checkpoint Integration
 

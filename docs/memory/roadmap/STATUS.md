@@ -11,8 +11,8 @@
 - Generic `.ffpkg` delivery + declarative staging infrastructure: **PUSHED /
   REMOTE VERIFIED**
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
-- Memory-system refinement: **M0-M4 COMPLETE / M4R1 COMPLETE /
-  M5 CONTENT COMPLETE / M6 NEXT AFTER DURABLE M5**
+- Memory-system refinement: **M0-M5 COMPLETE / M4R1 COMPLETE /
+  M6 CONTENT COMPLETE / M7 NEXT AFTER DURABLE M6**
 - Phase 1B closure instrumentation: **PREFLIGHT VALIDATED / RETAINED CANDIDATE /
   CHECKPOINT DEFERRED DURING MEMORY REFINEMENT**
 - Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
@@ -29,15 +29,16 @@
 - M3B — curated `MEMORY.md` cleanup: **COMPLETE / DURABLE**
 - M4 — handoff contract: **COMPLETE / DURABLE**
 - M4R1 — maintenance newline repair: **COMPLETE / DURABLE**
-- M5 — startup contract decision: **CONTENT COMPLETE**
-- M6 — memory-health enforcement: **NEXT after M5 is durable**
-- M7 — fresh-session integration test: **PENDING**
+- M5 — startup contract decision: **COMPLETE / DURABLE**
+- M6 — memory-health enforcement: **CONTENT COMPLETE**
+- M7 — fresh-session integration test: **NEXT after M6 is durable**
 
-M5 retains the five-file startup core and makes retrieval selective only after
-that core is read. M6 will encode the selected contract in health tooling; it
-does not get to redesign the contract.
+M6 encodes the selected M1-M5 memory representation contracts in observational
+health tooling. It checks startup-contract agreement, CURRENT structure, handoff
+role/authority, durable-memory role separation, and rendered-text regressions
+without trying to infer substantive football truth from prose.
 
-The Week 3 prospective-capture gate outranks nonessential M6-M7 progress.
+The Week 3 prospective-capture gate outranks nonessential M7 progress.
 
 ## Phase 1A — Commissioned Result
 
@@ -83,6 +84,7 @@ instrumentation, or persistent evidence.
 - M4 evidence: `../evidence/MEMORY_M4_HANDOFF_CONTRACT_2026-09-21.md`
 - M4R1 evidence: `../evidence/MEMORY_M4R1_MAINTENANCE_NEWLINE_REPAIR_2026-09-21.md`
 - M5 evidence: `../evidence/MEMORY_M5_STARTUP_CONTRACT_DECISION_2026-09-21.md`
+- M6 evidence: `../evidence/MEMORY_M6_MEMORY_HEALTH_ENFORCEMENT_2026-09-21.md`
 - handoff contract: `../MAINTENANCE.md`
 - handoff template: `../templates/CURRENT_HANDOFF.md`
 - long-range roadmap: `../../ROADMAP.md`

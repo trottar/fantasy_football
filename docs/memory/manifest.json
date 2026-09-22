@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-21T23:34:30.408838-04:00",
+  "generated_at": "2026-09-22T01:20:25.858529-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 3570,
-      "sha256": "decc616cb15bac62e9f25415fd77c2f0184cdd386f912f7915616692542f5e8a"
+      "bytes": 3935,
+      "sha256": "08534148443cb18b791dae75b62c311ed477e727b24034bb2f65828e8454cc1f"
     },
     {
       "path": "LEARNINGS.md",
@@ -26,8 +26,8 @@
     },
     {
       "path": "MAINTENANCE.md",
-      "bytes": 16904,
-      "sha256": "7b6524044fd5431a74768e92e6ba27a5af53df7d2107bd360186575c44d1ec0c"
+      "bytes": 18229,
+      "sha256": "ca8392113da80889d5d572ac3fdc2d5e0c0000f81174a1aa8a1f77b5682dcd84"
     },
     {
       "path": "MEMORY.md",
@@ -278,6 +278,11 @@
       "path": "evidence/MEMORY_M5_STARTUP_CONTRACT_DECISION_2026-09-21.md",
       "bytes": 5383,
       "sha256": "1bc70f7020f24b359238597c1d6dd4e8be4b1bafa69de029a46ac5db55775337"
+    },
+    {
+      "path": "evidence/MEMORY_M6_MEMORY_HEALTH_ENFORCEMENT_2026-09-21.md",
+      "bytes": 8002,
+      "sha256": "e0661498d6ec8229a338b02444a92d6a8cc067aad9ab52fcbd93668e912c64f6"
     },
     {
       "path": "evidence/MEMORY_MAINTENANCE_AUDIT_2026-09-17.md",
@@ -531,8 +536,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 4060,
-      "sha256": "2ccc609e8ec39c4365164c3cbf4ce557e9aac08b11b722d3802b792a0fe1fe31"
+      "bytes": 4252,
+      "sha256": "3278b09c205d894e074550c046941672778abe026a4f9cd533e4ccb62f14ddd9"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",
