@@ -7,6 +7,7 @@ from typing import Any
 import numpy as np
 
 from .observability.dst_shadow import shadow_dst_call
+from .observability.k_shadow import shadow_k_call
 
 from .season_utility import week_weights
 from .specialist_channels import (
@@ -909,5 +910,6 @@ def evaluate_defense_channel(*args, **kwargs) -> dict[str, Any]:
     return _evaluate_policy_channel(*args, position="DST", **kwargs)
 
 
+@shadow_k_call("subsystem.k.channel")
 def evaluate_kicker_channel(*args, **kwargs) -> dict[str, Any]:
     return _evaluate_policy_channel(*args, position="K", **kwargs)

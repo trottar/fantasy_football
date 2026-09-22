@@ -19,12 +19,16 @@ from src.observability.dst_shadow import (
     clear_dst_shadow_events,
     last_dst_shadow_events,
 )
-import src.observability.dst_shadow as dst_shadow
+from src.observability.k_shadow import (
+    clear_k_shadow_events,
+    last_k_shadow_events,
+)
+import src.observability.k_shadow as k_shadow
 
 
-PRIVATE_ARG = "PRIVATE_DST_ARG_DO_NOT_CAPTURE"
-PRIVATE_RESULT = "PRIVATE_DST_RESULT_DO_NOT_CAPTURE"
-PRIVATE_ERROR = "PRIVATE_DST_ERROR_DO_NOT_CAPTURE"
+PRIVATE_ARG = "PRIVATE_K_ARG_DO_NOT_CAPTURE"
+PRIVATE_RESULT = "PRIVATE_K_RESULT_DO_NOT_CAPTURE"
+PRIVATE_ERROR = "PRIVATE_K_ERROR_DO_NOT_CAPTURE"
 
 
 def _event_json(events) -> str:
@@ -68,18 +72,29 @@ def _input_probe(payload: dict, mutable: dict) -> StateProbe:
         mutable.clear()
         mutable.update(mutable_state)
 
-    return StateProbe("dst_inputs", capture, restore)
+    return StateProbe("k_inputs", capture, restore)
 
 
 def _call(payload, *, mode="TEST"):
-    return specialist_policy.evaluate_defense_channel(payload, mode=mode)
+    return specialist_policy.evaluate_kicker_channel(payload, mode=mode)
 
 
 def _direct(payload, *, mode="TEST"):
-    return specialist_policy.evaluate_defense_channel.__wrapped__(
+    return specialist_policy.evaluate_kicker_channel.__wrapped__(
         payload,
         mode=mode,
     )
+
+
+def _decorator_contract(fn_node, *, decorator_name: str, boundary: str) -> None:
+    assert len(fn_node.decorator_list) == 1
+    decorator = fn_node.decorator_list[0]
+    assert isinstance(decorator, ast.Call)
+    assert isinstance(decorator.func, ast.Name)
+    assert decorator.func.id == decorator_name
+    assert len(decorator.args) == 1
+    assert isinstance(decorator.args[0], ast.Constant)
+    assert decorator.args[0].value == boundary
 
 
 def test_dst_and_k_wrappers_have_separate_shadow_decorators():
@@ -94,25 +109,16 @@ def test_dst_and_k_wrappers_have_separate_shadow_decorators():
     }
     assert set(funcs) == {"evaluate_defense_channel", "evaluate_kicker_channel"}
 
-    defense = funcs["evaluate_defense_channel"]
-    assert len(defense.decorator_list) == 1
-    decorator = defense.decorator_list[0]
-    assert isinstance(decorator, ast.Call)
-    assert isinstance(decorator.func, ast.Name)
-    assert decorator.func.id == "shadow_dst_call"
-    assert len(decorator.args) == 1
-    assert isinstance(decorator.args[0], ast.Constant)
-    assert decorator.args[0].value == "subsystem.dst.channel"
-
-    kicker = funcs["evaluate_kicker_channel"]
-    assert len(kicker.decorator_list) == 1
-    decorator = kicker.decorator_list[0]
-    assert isinstance(decorator, ast.Call)
-    assert isinstance(decorator.func, ast.Name)
-    assert decorator.func.id == "shadow_k_call"
-    assert len(decorator.args) == 1
-    assert isinstance(decorator.args[0], ast.Constant)
-    assert decorator.args[0].value == "subsystem.k.channel"
+    _decorator_contract(
+        funcs["evaluate_defense_channel"],
+        decorator_name="shadow_dst_call",
+        boundary="subsystem.dst.channel",
+    )
+    _decorator_contract(
+        funcs["evaluate_kicker_channel"],
+        decorator_name="shadow_k_call",
+        boundary="subsystem.k.channel",
+    )
 
     imports = {
         (node.module, alias.name)
@@ -123,12 +129,13 @@ def test_dst_and_k_wrappers_have_separate_shadow_decorators():
     assert ("observability.dst_shadow", "shadow_dst_call") in imports
     assert ("observability.k_shadow", "shadow_k_call") in imports
 
-def test_dst_shadow_success_preserves_output_and_omits_private_data(monkeypatch):
-    clear_dst_shadow_events()
+
+def test_k_shadow_success_preserves_output_and_omits_private_data(monkeypatch):
+    clear_k_shadow_events()
     payload = {"private": PRIVATE_ARG}
 
     def fake_policy(*args, position, **kwargs):
-        assert position == "DST"
+        assert position == "K"
         return {
             "position": position,
             "private_result": PRIVATE_RESULT,
@@ -144,25 +151,25 @@ def test_dst_shadow_success_preserves_output_and_omits_private_data(monkeypatch)
     assert observed == direct
     assert observed["private_result"] == PRIVATE_RESULT
 
-    events = last_dst_shadow_events()
+    events = last_k_shadow_events()
     assert [event.event_name for event in events[-2:]] == [
         "action.start",
         "action.complete",
     ]
-    assert all(event.context.subsystem == "dst" for event in events[-2:])
+    assert all(event.context.subsystem == "k" for event in events[-2:])
     rendered = _event_json(events[-2:])
-    assert "subsystem.dst.channel" in rendered
+    assert "subsystem.k.channel" in rendered
     assert '"boundary_kind":"subsystem"' in rendered
     assert PRIVATE_ARG not in rendered
     assert PRIVATE_RESULT not in rendered
     assert "duration_ns" in rendered
 
 
-def test_dst_shadow_error_preserves_exception_and_omits_message(monkeypatch):
-    clear_dst_shadow_events()
+def test_k_shadow_error_preserves_exception_and_omits_message(monkeypatch):
+    clear_k_shadow_events()
 
     def fail(*_args, position, **_kwargs):
-        assert position == "DST"
+        assert position == "K"
         raise ValueError(PRIVATE_ERROR)
 
     monkeypatch.setattr(specialist_policy, "_evaluate_policy_channel", fail)
@@ -170,16 +177,16 @@ def test_dst_shadow_error_preserves_exception_and_omits_message(monkeypatch):
     with pytest.raises(ValueError, match=PRIVATE_ERROR):
         _call({"private": PRIVATE_ARG})
 
-    rendered = _event_json(last_dst_shadow_events())
+    rendered = _event_json(last_k_shadow_events())
     assert PRIVATE_ERROR not in rendered
     assert '"error_type":"ValueError"' in rendered
 
 
-def test_dst_observer_emit_failure_does_not_change_production_result(monkeypatch):
-    clear_dst_shadow_events()
+def test_k_observer_emit_failure_does_not_change_production_result(monkeypatch):
+    clear_k_shadow_events()
 
     def fake_policy(*args, position, **kwargs):
-        assert position == "DST"
+        assert position == "K"
         return {
             "position": position,
             "private_result": PRIVATE_RESULT,
@@ -188,7 +195,7 @@ def test_dst_observer_emit_failure_does_not_change_production_result(monkeypatch
         }
 
     monkeypatch.setattr(specialist_policy, "_evaluate_policy_channel", fake_policy)
-    recorder = dst_shadow._dst_shadow_recorder()
+    recorder = k_shadow._k_shadow_recorder()
     assert recorder is not None
 
     def broken_emit(_event):
@@ -203,7 +210,8 @@ def test_dst_observer_emit_failure_does_not_change_production_result(monkeypatch
     assert recorder.observer_failures >= 1
 
 
-def test_kicker_wrapper_emits_no_dst_shadow_events(monkeypatch):
+def test_defense_wrapper_emits_no_k_shadow_events(monkeypatch):
+    clear_k_shadow_events()
     clear_dst_shadow_events()
 
     def fake_policy(*_args, position, **_kwargs):
@@ -211,21 +219,22 @@ def test_kicker_wrapper_emits_no_dst_shadow_events(monkeypatch):
 
     monkeypatch.setattr(specialist_policy, "_evaluate_policy_channel", fake_policy)
 
-    before = len(last_dst_shadow_events())
-    result = specialist_policy.evaluate_kicker_channel({"private": PRIVATE_ARG})
-    after = len(last_dst_shadow_events())
+    before = len(last_k_shadow_events())
+    result = specialist_policy.evaluate_defense_channel({"private": PRIVATE_ARG})
+    after = len(last_k_shadow_events())
 
-    assert result == {"position": "K"}
+    assert result == {"position": "DST"}
     assert after == before
+    assert len(last_dst_shadow_events()) >= 2
 
 
-def test_dst_shadow_passes_paired_python_numpy_state_and_overhead_gate(monkeypatch):
-    clear_dst_shadow_events()
+def test_k_shadow_passes_paired_python_numpy_state_and_overhead_gate(monkeypatch):
+    clear_k_shadow_events()
     payload = {"private": PRIVATE_ARG}
     mutable = {"calls": 0, "positions": []}
 
     def fake_policy(*args, position, **kwargs):
-        assert position == "DST"
+        assert position == "K"
         mutable["calls"] += 1
         mutable["positions"].append(position)
         return {

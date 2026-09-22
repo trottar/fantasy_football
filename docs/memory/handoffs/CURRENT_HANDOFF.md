@@ -5,30 +5,41 @@ exceptional cross-session transfer state and cannot override `CURRENT.md`.
 
 ## Transfer State
 
-Phase 1C DST observability is complete and durable.
+Phase 1C DST observability remains complete, durable, source-published, and
+runtime-commissioned.
 
-Source checkpoint:
-`9d174a25db3990f35dbf7a13b5421253c265baa9`.
+Phase 1C K has passed its targeted diagnostic preflight and the exact K-only
+candidate has passed full source validation. The validated technical bytes are
+locally applied to the control-root checkpoint surface.
 
-Runtime:
-`fantasy_season_v0_36_repack1`, internal `VERSION = 0.36`, DST shadow
-commissioned.
+K boundary:
+`src/specialist_policy_v032.py::evaluate_kicker_channel`
 
-Durable runtime-commissioning closure:
-`c5eaa69613ca00a85081b76e37ab03a0d7aacea3`
-with tree `cfb22b38c6414535796cac0695033688a8398696`.
+Namespace:
+`subsystem.k.channel`
 
-The closure commit is pushed and remote verified. Persistent evidence remains
-disabled. K and player instrumentation were not introduced by the DST workstream.
+Validated K source predecessor:
+`af20e84f61e7b4ef86d7f03b568fa1ef8ce1d9a5`.
 
-The accepted K outer boundary remains
-`specialist_policy_v032.evaluate_kicker_channel`; it is separately gated and is
-the next targeted diagnostic preflight. Player instrumentation remains blocked
-pending a narrower QB/RB/WR/TE production boundary.
+Validation:
+
+- targeted K+DST pytest: 12 passed;
+- paired K privacy/semantics/RNG/mutable-state probe: PASS;
+- DST non-interference and P/D/K guard: PASS;
+- full pytest: 503 passed;
+- compileall and diff check: PASS;
+- exact five-path identities: PASS;
+- persistent sink: false.
+
+The repository has not yet staged/published the K source candidate and the
+commissioned runtime has not been synchronized with K instrumentation.
+
+Player instrumentation remains blocked pending a narrower QB/RB/WR/TE production
+boundary.
 
 ## Resume
 
 Follow `../CURRENT.md`'s `Exact Next Action`.
 
-Resume with the diagnostic-only K targeted preflight. Do not modify K production
-source until that preflight is validated.
+Stage/publish the exact validated K source checkpoint first. Runtime
+synchronization is a separate later gate after remote verification.

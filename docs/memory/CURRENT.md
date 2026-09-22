@@ -5,7 +5,7 @@ state_updated: 2026-09-22
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: phase1c_k_shadow_preflight
+active_workstream: phase1c_k_shadow_source_checkpoint
 memory_refinement_step: M0_M7_complete_durable
 nfl_week: 3
 fantasy_stage: regular_season
@@ -14,13 +14,13 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Advance the next separately gated Phase 1C specialist channel while
-preserving `P ⊕ D ⊕ K`.
+Checkpoint the exact fully source-validated Phase 1C K observer candidate
+while preserving `P ⊕ D ⊕ K`.
 
-Phase 1C DST is complete, durable, source-published, runtime-commissioned, and
-remote verified. The next task is a diagnostic-only preflight for the accepted K
-outer channel boundary. Player instrumentation remains blocked pending a narrower
-QB/RB/WR/TE production boundary.
+The K targeted preflight and isolated full source validation are complete. The
+exact validated five-path candidate is locally applied to the control-root source
+surface. Repository staging/publication and commissioned-runtime synchronization
+remain separate gates.
 
 ## Current Work Item
 
@@ -31,7 +31,7 @@ COMMISSIONED.**
 
 **Phase 1C DST shadow: COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED.**
 
-**Phase 1C K shadow: TARGETED PREFLIGHT NEXT / NO SOURCE CHANGE YET.**
+**Phase 1C K shadow: FULLY SOURCE VALIDATED / LOCALLY APPLIED / STAGING NEXT.**
 
 **Phase 1C player shadow: BOUNDARY UNRESOLVED / UNCHANGED.**
 
@@ -97,6 +97,16 @@ Canonical Phase 1C DST validation record:
 - Runtime paired timing: baseline `7500 ns`, observed `81900 ns`, incremental
   `74400 ns`; persistent sink remains disabled.
 
+- Phase 1C K targeted preflight: **PASS** at `subsystem.k.channel`.
+- Exact K source candidate validation: **12 targeted tests passed**, paired
+  privacy/semantics/RNG/mutable-state probe PASS, DST non-interference and P/D/K
+  guard PASS, full pytest **503 passed**, compileall/diff/exact identities PASS.
+- Canonical identities and measurements are recorded in
+  `evidence/PHASE1C_K_TARGETED_PREFLIGHT_2026-09-22.md` and
+  `evidence/PHASE1C_K_SHADOW_SOURCE_VALIDATION_2026-09-22.md`.
+- The K candidate is source-only at this gate; runtime K remains uninstrumented
+  and persistent evidence remains disabled.
+
 ## Calendar / Evidence Gates
 
 - Week 3 week-open capture remains **SECURED / VALID / PRE-KICKOFF**.
@@ -112,32 +122,24 @@ Canonical Phase 1C DST validation record:
 - Preserve `P ⊕ D ⊕ K`.
 - Players compare only with players; DST only with DST; K only with K.
 - `evaluate_defense_channel` remains DST-only.
-- `evaluate_kicker_channel` remains undecorated and separately gated.
+- The validated source candidate decorates only `evaluate_kicker_channel` at
+  `subsystem.k.channel`; commissioned runtime K remains uninstrumented.
 - Cross-channel coupling belongs only at complete-roster utility/state boundaries.
 - Observability remains non-interfering and non-authoritative.
 - Persistent evidence requires a separate authorization gate.
 
 ## Exact Next Action
 
-Construct one diagnostic-only targeted preflight for the exact current
-`src/specialist_policy_v032.py::evaluate_kicker_channel` boundary.
+Stage the exact five validated K technical paths plus the reviewed K
+memory/evidence paths in an isolated checkpoint based on remote predecessor
+`af20e84f61e7b4ef86d7f03b568fa1ef8ce1d9a5`.
 
-The preflight must not modify production source. It should establish the K
-observer contract before instrumentation:
+Regenerate `docs/memory/manifest.json` from staged Git blob bytes and require the
+exact staged allowlist.
 
-- boundary identity: `subsystem.k.channel`;
-- subsystem: `k`;
-- bounded in-memory only;
-- no arguments, returned policy payloads, private/authenticated data, or exception
-  messages retained;
-- production result/exception wins over observer behavior;
-- Python/NumPy stochastic state and relevant mutable input state remain unchanged;
-- output/exception behavior is paired against the unobserved call;
-- overhead uses the existing benchmark-gate contract;
-- persistent sink remains disabled;
-- DST observer behavior and player channel remain unchanged.
-
-Do not instrument K or player production source during this preflight.
+Do not synchronize the commissioned runtime until the K source checkpoint is
+published and remote verified. Do not instrument the player channel or enable a
+persistent sink.
 
 ## Relevant References
 
@@ -150,5 +152,7 @@ Do not instrument K or player production source during this preflight.
 - `evidence/PHASE1C_CHANNEL_BOUNDARY_AUDIT_2026-09-22.md`
 - `evidence/PHASE1C_DST_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
 - `evidence/PHASE1C_DST_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
+- `evidence/PHASE1C_K_TARGETED_PREFLIGHT_2026-09-22.md`
+- `evidence/PHASE1C_K_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
 - `roadmap/STATUS.md`
 - `patches/PATCH_PROTOCOL.md`

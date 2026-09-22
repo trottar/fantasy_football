@@ -10,7 +10,7 @@
 - Phase 1C channel boundary audit: **COMPLETE / DURABLE**
 - Phase 1C DST shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 - Phase 1C DST durable-memory closure: **COMPLETE / PUSHED / REMOTE VERIFIED**
-- Phase 1C K shadow: **TARGETED PREFLIGHT NEXT / NO SOURCE CHANGE YET**
+- Phase 1C K shadow: **FULLY SOURCE VALIDATED / LOCALLY APPLIED / STAGING NEXT**
 - Phase 1C player shadow: **BOUNDARY UNRESOLVED / OLD PLANNED POINT REJECTED**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
@@ -61,6 +61,37 @@ Classification:
 Canonical evidence:
 `../evidence/PHASE1C_DST_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`.
 
+## Phase 1C K Source Candidate State
+
+Boundary:
+`src/specialist_policy_v032.py::evaluate_kicker_channel`
+
+Namespace:
+`subsystem.k.channel`
+
+Source predecessor:
+`af20e84f61e7b4ef86d7f03b568fa1ef8ce1d9a5`
+
+Validation:
+
+- targeted preflight: PASS;
+- targeted K+DST pytest: **12 passed in 1.30 s**;
+- paired K probe: PASS;
+- baseline `7300 ns`, observed `80250 ns`, incremental `72950 ns`;
+- privacy / success-error semantics / RNG / mutable state: PASS;
+- DST non-interference: PASS;
+- P/D/K cross-channel guard: PASS;
+- full pytest: **503 passed in 52.77 s**;
+- compileall / diff / exact five-path identity: PASS;
+- persistent sink: false.
+
+Classification:
+
+`PHASE1C_K_CANDIDATE_FULLY_SOURCE_VALIDATED`
+
+The exact validated candidate is locally applied. Repository publication and
+runtime commissioning remain separate gates.
+
 ## Boundary Conditions
 
 - Preserve `P ⊕ D ⊕ K`.
@@ -68,6 +99,6 @@ Canonical evidence:
 - No observed 2026 outcome may tune a v0.X model.
 - Diagnostics remain observers, not decision/control logic.
 - Persistent evidence requires a separate authorization gate.
-- K remains separately gated.
+- K source publication and runtime commissioning remain separately gated.
 - Player instrumentation remains blocked until a narrower QB/RB/WR/TE production
   boundary is established.
