@@ -5,44 +5,41 @@ exceptional cross-session transfer state and cannot override `CURRENT.md`.
 
 ## Transfer State
 
-Phase 1C DST source candidate is fully source validated and locally applied to
-the control root. Repository staging/publication is the next gate; the
-commissioned runtime has not been synchronized.
+Phase 1C DST observability is source published, remote verified, and runtime
+commissioned.
 
-Source predecessor:
-`37f841b7aec0280fa695f60e5285ff34646f9a10`.
+Source checkpoint:
+`9d174a25db3990f35dbf7a13b5421253c265baa9`.
 
-Exact technical candidate scope:
+Published tree:
+`65a1a8fed7f24906047b9e575d3ce9171ff4a9d7`.
 
-1. `src/specialist_policy_v032.py`
-2. `src/observability/dst_shadow.py`
-3. `tests/test_observability_dst_shadow_v10a.py`
-4. `tools/probe_observability_dst_shadow_v10a.py`
+Commissioned runtime:
+`fantasy_season_v0_36_repack1`, internal `VERSION = 0.36`.
+
+Runtime validation passed:
+
+- dedicated DST test: 6 passed;
+- paired outputs/exception/state/privacy/RNG/mutable-state: PASS;
+- K non-interference: PASS;
+- observer-failure fallthrough: PASS;
+- P/D/K cross-channel guard: PASS;
+- full runtime pytest: 353 passed;
+- compileall: PASS;
+- final runtime identities: PASS;
+- runtime validation residue: NONE;
+- persistent sink: false.
 
 Only `evaluate_defense_channel` is observed at `subsystem.dst.channel`.
-`evaluate_kicker_channel` remains undecorated.
-
-Validation lineage:
-
-- preflight v1 failed only because its validator rejected the staging helper's
-  intentional `.checkpoint_stage_id` sentinel;
-- corrected preflight passed non-interference/privacy/RNG/mutable-state,
-  observer-failure, and P/D/K gates;
-- candidate validation v1 passed targeted pytest (6 passed) but exposed an
-  invalid extra probe comparison that did not restore RNG/mutable state;
-- validation continuation fixed only the harness and passed corrected paired
-  probe, full pytest (497 passed), compileall, exact-byte, diff, and residue
-  gates.
+`evaluate_kicker_channel` remains undecorated and uninstrumented.
 
 Canonical evidence:
-`../evidence/PHASE1C_DST_SHADOW_SOURCE_VALIDATION_2026-09-22.md`.
+`../evidence/PHASE1C_DST_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`.
 
 ## Resume
 
 Follow `../CURRENT.md`'s `Exact Next Action`.
 
-Stage the exact validated source + memory scope against predecessor `37f841b7...`.
-Do not synchronize the runtime until the source checkpoint is pushed and remotely
-verified.
-
-K and player instrumentation remain separately gated.
+Durable-memory staging/publication is the remaining Phase 1C DST closure gate.
+K remains separately gated. Player instrumentation remains blocked until a
+narrower QB/RB/WR/TE production boundary is established.

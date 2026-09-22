@@ -255,27 +255,31 @@ Canonical records:
 
 Phase 1C player/DST/kicker observability remains separately gated.
 
-## Phase 1C Channel-Boundary Audit
+## Phase 1C Specialist-Channel Observability
 
-The initial Phase 1C source audit found that the v1.0A integration map's planned
-player point, `transaction_manager.evaluate_roster_predictive`, is not a pure
-player-channel boundary. Production passes complete rosters through it and its
-predictive simulation includes specialist handling, including DST component
-simulation. Treat it as a complete-roster utility/response surface, not
-`subsystem.player`.
+The Phase 1C audit rejected `transaction_manager.evaluate_roster_predictive` as a
+pure player boundary because it carries complete-roster state and specialist
+handling. Player instrumentation remains blocked pending a narrower QB/RB/WR/TE
+production boundary.
 
-The current DST and K outer policy wrappers in `specialist_policy_v032.py` are
-accepted as separate channel boundaries because each fixes its specialist
-position (`DST` or `K`) before entering position-scoped policy evaluation.
-Permitted player/specialist coupling remains confined to complete-roster
-utility/state response boundaries.
+The outer specialist wrappers in `specialist_policy_v032.py` remain the accepted
+separate DST and K channel boundaries. DST is now source-published and runtime
+commissioned at `subsystem.dst.channel`; K remains separately gated and
+uninstrumented.
 
-Phase 1C sequencing begins with DST targeted preflight. K remains separately
-gated, and player instrumentation remains blocked until a narrower QB/RB/WR/TE
-production boundary is established.
+DST source checkpoint:
+`9d174a25db3990f35dbf7a13b5421253c265baa9`.
 
-Canonical evidence:
-`evidence/PHASE1C_CHANNEL_BOUNDARY_AUDIT_2026-09-22.md`.
+The commissioned DST observer is bounded and in-memory only. It retains no
+arguments, returned policy payloads, authenticated/private data, or exception
+messages. Production behavior remains authoritative, `P ⊕ D ⊕ K` is preserved,
+and persistent evidence remains disabled.
+
+Canonical records:
+
+- `evidence/PHASE1C_CHANNEL_BOUNDARY_AUDIT_2026-09-22.md`
+- `evidence/PHASE1C_DST_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
+- `evidence/PHASE1C_DST_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
 
 ## 2026 Season-Gated Development Contract
 

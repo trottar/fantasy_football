@@ -8,16 +8,16 @@
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
 - Phase 1B closure shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 - Phase 1C channel boundary audit: **COMPLETE / DURABLE**
-- Phase 1C DST shadow: **FULLY SOURCE VALIDATED / LOCALLY APPLIED / STAGING NEXT**
-- Phase 1C DST runtime: **NOT SYNCHRONIZED**
-- Phase 1C K shadow: **DEFERRED BEHIND DST GATE**
+- Phase 1C DST shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
+- Phase 1C DST durable-memory closure: **LOCAL UPDATE NEXT / PUBLICATION PENDING**
+- Phase 1C K shadow: **DEFERRED / SEPARATELY GATED**
 - Phase 1C player shadow: **BOUNDARY UNRESOLVED / OLD PLANNED POINT REJECTED**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
 - Persistent runtime sink: **DISABLED**
 - Week 3 week-open capture: **SECURED / VALID / PRE-KICKOFF**
 
-## Phase 1C DST Source Candidate
+## Phase 1C DST Commissioned State
 
 Boundary:
 `src/specialist_policy_v032.py::evaluate_defense_channel`
@@ -25,56 +25,46 @@ Boundary:
 Namespace:
 `subsystem.dst.channel`
 
-The source candidate adds a lazy bounded `dst_shadow` recorder and decorates
-only the DST public policy wrapper. The K wrapper remains unchanged and
-undecorated.
+Source checkpoint:
+`9d174a25db3990f35dbf7a13b5421253c265baa9`
 
-Validated exact technical scope:
+Published tree:
+`65a1a8fed7f24906047b9e575d3ce9171ff4a9d7`
 
-1. `src/specialist_policy_v032.py`
-2. `src/observability/dst_shadow.py`
-3. `tests/test_observability_dst_shadow_v10a.py`
-4. `tools/probe_observability_dst_shadow_v10a.py`
+Only the DST wrapper is instrumented. The K wrapper remains unchanged and
+uninstrumented.
 
-Validation:
+Runtime commissioning:
 
-- targeted pytest: **6 passed in 1.03 s**;
-- corrected paired probe: PASS;
-- outputs/exception behavior/state: PASS;
+- dedicated DST test: **6 passed in 0.85 s**;
+- paired probe: PASS;
+- outputs / exception behavior / states: PASS;
 - success/error privacy: PASS;
 - K non-interference: PASS;
 - observer-failure fallthrough: PASS;
 - P/D/K cross-channel guard: PASS;
 - Python RNG / NumPy RNG / mutable state: preserved;
-- full pytest: **497 passed in 47.21 s**;
-- full compileall: PASS;
-- exact four-path bytes after validation: PASS;
-- candidate residue: NONE.
+- paired timing: baseline `7500 ns`, observed `81900 ns`, incremental `74400 ns`;
+- full runtime pytest: **353 passed in 45.97 s**;
+- runtime compileall: PASS;
+- exact final runtime identities: PASS;
+- validation residue: NONE;
+- persistent sink: false.
 
-Paired benchmark: baseline `7500 ns`, observed `79800 ns`, incremental `72300 ns`.
-The baseline is below the `1,000,000 ns` relative floor, so the relative factor is
-non-authoritative; the absolute `1,000,000 ns` limit passes.
+Classification:
 
-Two diagnostic-tooling defects were isolated without invalidating source:
-
-1. preflight v1 incorrectly rejected the staging-helper ownership sentinel;
-2. candidate-validation v1 performed an extra sequential RNG-consuming
-   comparison without restoring state, despite the canonical benchmark gate
-   already passing.
-
-Current classification:
-
-`PHASE1C_DST_CANDIDATE_FULLY_SOURCE_VALIDATED / LOCALLY_APPLIED`
+`PHASE1C_DST_RUNTIME_COMMISSIONED`
 
 Canonical evidence:
-`../evidence/PHASE1C_DST_SHADOW_SOURCE_VALIDATION_2026-09-22.md`.
+`../evidence/PHASE1C_DST_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`.
 
 ## Boundary Conditions
 
 - Preserve `P ⊕ D ⊕ K`.
-- DST instrumentation does not authorize K or player instrumentation.
+- DST commissioning does not authorize K or player instrumentation.
 - No observed 2026 outcome may tune a v0.X model.
 - Diagnostics remain observers, not decision/control logic.
 - Persistent evidence requires a separate authorization gate.
-- Validation evidence is bound to the exact candidate byte identity.
-- Runtime commissioning follows source publication; it does not precede it.
+- K remains separately gated.
+- Player instrumentation remains blocked until a narrower QB/RB/WR/TE production
+  boundary is established.

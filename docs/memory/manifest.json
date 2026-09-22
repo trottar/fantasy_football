@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-22T16:32:10.469828-04:00",
+  "generated_at": "2026-09-22T17:17:55.180671-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5178,
-      "sha256": "1dcc7cd50d11146ff3bdedeb04f1545e04e972738b5337322fce47a9c08412f5"
+      "bytes": 5857,
+      "sha256": "12ccbb7a2b07766a5033874a541de68fc145aa17e92803cdb1b1642c9c1a1aff"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 11938,
-      "sha256": "25161bc797c91c7790ebf0f88086099d321a43c66e1280ec31682917db4677a8"
+      "bytes": 12001,
+      "sha256": "693ab70607063ddf6fa66ab8a1b1bbe8d2b44afe1f50adfb42911cda8fada491"
     },
     {
       "path": "README.md",
@@ -340,6 +340,11 @@
       "sha256": "80ba2cc60e2dfc17edbe5fecc150bcde2ebf2faae7df9d0a7421ef5b4f319c4b"
     },
     {
+      "path": "evidence/PHASE1C_DST_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md",
+      "bytes": 3100,
+      "sha256": "e2aafebd401f491fe68aa38afec2dcfe128aebe5ea5f870712aa92ead1843ee3"
+    },
+    {
       "path": "evidence/PHASE1C_DST_SHADOW_SOURCE_VALIDATION_2026-09-22.md",
       "bytes": 5379,
       "sha256": "26fd2503fd4f5ff241ee6c166456c37a1548ab35ea51ed8b747c9b01f5f2f4eb"
@@ -451,8 +456,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 1727,
-      "sha256": "efae849ece7793bc0e6fbae537252f1aa685cc02933d7d6a4ba326c9eafa9c4d"
+      "bytes": 1370,
+      "sha256": "d0b214860ab86a273c1364d215f5326ba6e164495f20eb812c749a6e13a36d4b"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -551,8 +556,8 @@
     },
     {
       "path": "memory/2026-09-22.md",
-      "bytes": 8916,
-      "sha256": "8ac95f93f439e0d8343ed3213a55fd828c5047cc421aaf5049c3f438bdb4a9ff"
+      "bytes": 10108,
+      "sha256": "e526d38f2ebbf60634e0851533411474b91b5ec28b840c72562617c485ef13b8"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -581,8 +586,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3065,
-      "sha256": "5bfccc4a151ae439db6efe5956f0f0051d5728777e4cbbef823070ce5de1ef8b"
+      "bytes": 2479,
+      "sha256": "9578102aaf586b138fa4697b41faf69d838b345a5efc5604b05303a8eebd2773"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

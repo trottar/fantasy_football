@@ -5,7 +5,7 @@ state_updated: 2026-09-22
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: phase1c_dst_shadow_source_checkpoint
+active_workstream: phase1c_dst_runtime_memory_checkpoint
 memory_refinement_step: M0_M7_complete_durable
 nfl_week: 3
 fantasy_stage: regular_season
@@ -14,12 +14,12 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Checkpoint the exact fully source-validated Phase 1C DST observer candidate while
-preserving `P ⊕ D ⊕ K`.
+Close Phase 1C DST observability durably after source publication and runtime
+commissioning while preserving `P ⊕ D ⊕ K`.
 
-The control-root candidate is locally applied after exact candidate validation.
-Repository staging/publication and commissioned-runtime synchronization remain
-separate gates.
+The source checkpoint is pushed and remote verified, and the commissioned
+`v0.36-repack1` runtime now contains the exact validated DST observer bytes.
+Durable-memory publication is the remaining closure gate.
 
 ## Current Work Item
 
@@ -28,7 +28,7 @@ COMMISSIONED.**
 
 **Phase 1C channel boundary audit: COMPLETE / DURABLE.**
 
-**Phase 1C DST shadow: FULLY SOURCE VALIDATED / LOCALLY APPLIED / STAGING NEXT.**
+**Phase 1C DST shadow: COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED.**
 
 **Phase 1C K shadow: DEFERRED / UNCHANGED.**
 
@@ -44,10 +44,10 @@ Canonical Phase 1C DST validation record:
 
 - `v0.36-repack1` remains the commissioned runtime baseline with internal
   `VERSION = 0.36`.
-- Remote source predecessor:
-  `37f841b7aec0280fa695f60e5285ff34646f9a10`.
-- Predecessor tree:
-  `e4ff60adc5db0559c57bb72e55f30b282a4b7337`.
+- Phase 1C DST source checkpoint:
+  `9d174a25db3990f35dbf7a13b5421253c265baa9`.
+- Published source tree:
+  `65a1a8fed7f24906047b9e575d3ce9171ff4a9d7`.
 - DST observer boundary:
   `src/specialist_policy_v032.py::evaluate_defense_channel`
   at `subsystem.dst.channel`.
@@ -83,8 +83,15 @@ Canonical Phase 1C DST validation record:
 - This is observability only. Specialist football policy, DST physics, K policy,
   player policy, scoring, manager behavior, and recommendation authority are
   unchanged.
-- The commissioned runtime has **NOT** yet been synchronized with the DST
-  observer.
+- The commissioned `v0.36-repack1` runtime is synchronized with the exact DST
+  production observer bytes.
+- Runtime commissioning passed dedicated DST pytest (**6 passed in 0.85 s**),
+  paired output/exception/state/privacy/RNG/mutable-state gates, K
+  non-interference, observer-failure fallthrough, P/D/K guard, full runtime
+  pytest (**353 passed in 45.97 s**), compileall, final target identity, and
+  residue cleanup.
+- Runtime paired timing: baseline `7500 ns`, observed `81900 ns`, incremental
+  `74400 ns`; persistent sink remains disabled.
 
 ## Calendar / Evidence Gates
 
@@ -108,15 +115,17 @@ Canonical Phase 1C DST validation record:
 
 ## Exact Next Action
 
-Stage the exact four validated technical paths plus the five reviewed
-memory/evidence paths in an isolated checkpoint based on remote predecessor
-`37f841b7aec0280fa695f60e5285ff34646f9a10`.
+Stage and publish this exact Phase 1C DST runtime-commissioning durable-memory
+checkpoint against source checkpoint
+`9d174a25db3990f35dbf7a13b5421253c265baa9`.
 
-Regenerate `docs/memory/manifest.json` from staged Git blob bytes and require the
-exact staged allowlist.
+The reviewed memory scope is `CURRENT.md`, curated `MEMORY.md`,
+`handoffs/CURRENT_HANDOFF.md`, `roadmap/STATUS.md`, dated history, and the new
+canonical runtime-commissioning evidence record. Regenerate
+`docs/memory/manifest.json` from staged Git blob bytes.
 
-Do not modify the commissioned runtime yet. Runtime synchronization is a later
-gate after source checkpoint publication and remote verification.
+Do not modify runtime source during the memory checkpoint. K and player
+instrumentation remain separately gated.
 
 ## Relevant References
 
@@ -128,5 +137,6 @@ gate after source checkpoint publication and remote verification.
 - `architecture/DIAGNOSTICS_OBSERVABILITY.md`
 - `evidence/PHASE1C_CHANNEL_BOUNDARY_AUDIT_2026-09-22.md`
 - `evidence/PHASE1C_DST_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
+- `evidence/PHASE1C_DST_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
 - `roadmap/STATUS.md`
 - `patches/PATCH_PROTOCOL.md`
