@@ -16,7 +16,9 @@ Historical chronology, evidence, investigations, release receipts, and
 superseded states remain available but are not required to determine what is
 current.
 
-## Bootstrap Set
+## Startup Contract Health
+
+M5 retains the stable five-file core defined operationally by `AGENTS.md`.
 
 Read first, in full:
 
@@ -26,14 +28,18 @@ Read first, in full:
 4. `handoffs/CURRENT_HANDOFF.md`
 5. `USER.md`
 
-Then load task-relevant referenced material and exact source/tests.
+Only after that core is complete, expand selectively from `CURRENT.md`'s exact
+next action, references, and the task itself. Load canonical records, source, and
+tests as needed; do not eagerly traverse the wider memory hierarchy.
 
-`CURRENT.md` is authoritative active state.
+`CURRENT.md` is authoritative active state. `MEMORY.md` is curated durable
+cross-phase knowledge. `CURRENT_HANDOFF.md` is exceptional-transfer state only
+and cannot override `CURRENT.md`. `USER.md` owns collaboration/environment
+preferences.
 
-`MEMORY.md` is curated durable cross-phase knowledge.
-
-`handoffs/CURRENT_HANDOFF.md` is compact resume/operational metadata and cannot
-override `CURRENT.md`.
+`AGENTS.md` owns the operational startup sequence. This file owns the
+maintenance/health expectation that the core remains coherent and that selective
+expansion does not become eager hierarchy loading.
 
 For any repository-write/package task, `patches/PATCH_PROTOCOL.md` becomes
 mandatory reading before action.
@@ -453,8 +459,8 @@ Direct GitHub connector writes do not satisfy this process.
 
 ### Bootstrap
 
-- [ ] A fresh session can understand current work from the complete mandatory
-  bootstrap set.
+- [ ] A fresh session reads the complete M5 five-file core before selective
+  expansion.
 - [ ] Historical logs are not needed during normal startup.
 - [ ] Evidence is loaded only when relevant.
 - [ ] Bootstrap files remain below thresholds.

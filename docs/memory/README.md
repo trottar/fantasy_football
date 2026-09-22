@@ -3,9 +3,9 @@
 `docs/memory/` is the repository-backed continuity layer for the fantasy-football
 project. Development must not depend on chat history alone.
 
-## Current Startup Contract
+## Startup Contract
 
-Until M5 explicitly changes it, a fresh substantial work session reads:
+M5 retains a fixed five-file core for every fresh substantial work session:
 
 1. `AGENTS.md`
 2. `CURRENT.md`
@@ -13,11 +13,13 @@ Until M5 explicitly changes it, a fresh substantial work session reads:
 4. `handoffs/CURRENT_HANDOFF.md`
 5. `USER.md`
 
-Then load only task-relevant canonical records/source/tests.
+Read that core in full. Then expand selectively from `CURRENT.md`'s exact next
+action/references and the task itself; do not eagerly load the wider hierarchy.
 
-`CURRENT.md` is authoritative active state. `MEMORY.md` supplies curated durable
-cross-phase knowledge. `CURRENT_HANDOFF.md` is compact transition metadata and
-cannot override `CURRENT.md`.
+`AGENTS.md` owns the operational startup contract. `MAINTENANCE.md` owns its
+health/coherence rules. `CURRENT.md` is authoritative active state. `MEMORY.md`
+supplies curated durable cross-phase knowledge. `CURRENT_HANDOFF.md` carries only
+exceptional transfer state and cannot override `CURRENT.md`.
 
 ## Authority
 

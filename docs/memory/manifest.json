@@ -1,13 +1,13 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-21T22:26:53.928898-04:00",
+  "generated_at": "2026-09-21T23:34:30.408838-04:00",
   "durable_memory_updated": true,
   "files": [
     {
       "path": "AGENTS.md",
-      "bytes": 6643,
-      "sha256": "afdb96157d373fb0290ec1240488d9b725bdf467e949dfb3ba372129479c56d5"
+      "bytes": 7255,
+      "sha256": "27b06ea83a8f1d50950669d25ea361f08523054582defc8c6b1ba9875400e3f3"
     },
     {
       "path": "COMMUNICATION.md",
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 3919,
-      "sha256": "105c1ef1ba6c904d0ef87de9bcc9a638bac475c1a218d232d370551426e6d618"
+      "bytes": 3570,
+      "sha256": "decc616cb15bac62e9f25415fd77c2f0184cdd386f912f7915616692542f5e8a"
     },
     {
       "path": "LEARNINGS.md",
@@ -26,8 +26,8 @@
     },
     {
       "path": "MAINTENANCE.md",
-      "bytes": 16420,
-      "sha256": "9fa5893b345c26bceabc5bb8b77c221b7096ffa59c61154f7d5c5a8b7202040e"
+      "bytes": 16904,
+      "sha256": "7b6524044fd5431a74768e92e6ba27a5af53df7d2107bd360186575c44d1ec0c"
     },
     {
       "path": "MEMORY.md",
@@ -36,8 +36,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3628,
-      "sha256": "ac9b98f5af9ff97639f37230a2628f34a47ea066b9f061a9c07d3b7820f3a773"
+      "bytes": 3832,
+      "sha256": "beab4b5f89c571306ede5e38e3e152c25e7c793a7d329f05b2771fc0ac7ac6dc"
     },
     {
       "path": "TOOLS.md",
@@ -273,6 +273,11 @@
       "path": "evidence/MEMORY_M4_HANDOFF_CONTRACT_2026-09-21.md",
       "bytes": 4430,
       "sha256": "fde17b14caf0acef256aaaae110fd1977f7b9a9740a30b4e6c8263de6eef5635"
+    },
+    {
+      "path": "evidence/MEMORY_M5_STARTUP_CONTRACT_DECISION_2026-09-21.md",
+      "bytes": 5383,
+      "sha256": "1bc70f7020f24b359238597c1d6dd4e8be4b1bafa69de029a46ac5db55775337"
     },
     {
       "path": "evidence/MEMORY_MAINTENANCE_AUDIT_2026-09-17.md",
@@ -527,7 +532,7 @@
     {
       "path": "roadmap/STATUS.md",
       "bytes": 4060,
-      "sha256": "0b08afa43ae7b49f5c76f8af8247412c28f41440635354aa745855469db88539"
+      "sha256": "2ccc609e8ec39c4365164c3cbf4ce557e9aac08b11b722d3802b792a0fe1fe31"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

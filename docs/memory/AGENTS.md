@@ -1,9 +1,9 @@
 # Agent Operating Rules
 
-## Mandatory startup contract
+## Startup contract — M5 retained five-file core
 
-For every substantial work session, read this bootstrap set before planning or
-acting:
+For every substantial work session, read this stable core **in full** before
+planning or acting:
 
 1. `AGENTS.md`
 2. `CURRENT.md`
@@ -11,18 +11,31 @@ acting:
 4. `handoffs/CURRENT_HANDOFF.md`
 5. `USER.md`
 
-Then read the task-relevant architecture, decision, investigation, evidence,
-roadmap, patch/procedure, source, and test files referenced by that bootstrap
-set.
+M5 explicitly retains this five-file core. It is not an instruction to eagerly
+load the wider memory hierarchy.
+
+After the core is read:
+
+1. use `CURRENT.md`'s exact next action and references as the primary retrieval
+   frontier;
+2. open the canonical record before restating a decision, gate, classification,
+   deadline, or architectural constraint;
+3. load only task-relevant architecture, decision, investigation, evidence,
+   roadmap, patch/procedure, source, and test files;
+4. consult dated history and other deep memory only when the active task requires
+   it.
 
 `CURRENT.md` is the sole authoritative active-state document. `MEMORY.md`
-contains durable cross-phase knowledge. `CURRENT_HANDOFF.md` is a compact resume
-pointer and operational warning surface; it cannot override `CURRENT.md`.
-Historical files and dated logs explain lineage but do not override newer
-validated state.
+contains curated durable cross-phase knowledge. `CURRENT_HANDOFF.md` contains
+exceptional transfer state only and cannot override `CURRENT.md`. `USER.md` owns
+collaboration/environment preferences. Historical files and dated logs explain
+lineage but do not override newer validated state.
 
-Do not reduce this startup set to a shorter remembered subset. A fresh chat must
-actually inspect these files rather than relying on chat summaries.
+A fresh chat must actually inspect all five core files rather than relying on
+chat summaries or a remembered subset.
+
+This section in `AGENTS.md` is the operational owner of the startup contract.
+`MAINTENANCE.md` owns its health/coherence rules and `README.md` summarizes it.
 
 ## Authority and evidence
 
