@@ -12,10 +12,9 @@
   REMOTE VERIFIED**
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
 - Memory-system refinement: **M0-M7 COMPLETE / DURABLE**
-- Week 3 week-open capture: **ACTIVE HARD CALENDAR GATE / BEFORE SEP 24 FIRST
-  GAME**
+- Week 3 week-open capture: **SECURED / VALID / PRE-KICKOFF**
 - Phase 1B closure instrumentation: **PREFLIGHT VALIDATED / RETAINED CANDIDATE /
-  AFTER WEEK 3 CAPTURE GATE**
+  ACTIVE RESUME FRONTIER**
 - Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
@@ -34,24 +33,36 @@
 - M6 — memory-health enforcement: **COMPLETE / DURABLE**
 - M7 — fresh-session integration audit: **COMPLETE / DURABLE**
 
-Remote `main` at
-`b49104b84e34d3169d1b4876a3e1748e6553800a` contains the exact M7 evidence and
-continuity state required by the M7 completion condition. The memory-refinement
-series is therefore closed.
+The memory-refinement series is closed.
 
 Canonical durability evidence:
 `../evidence/MEMORY_M7_DURABILITY_CLOSURE_2026-09-22.md`.
 
 ## Week 3 Prospective Capture
 
-Week 3 is now the immediate operational frontier.
+The first future hard prospective-capture gate is secured.
 
-Before the Sep 24 first game, freeze the week-open state using the commissioned
-`v0.36-repack1` baseline and only information available at capture time. Keep
-authenticated/raw runtime material local and preserve an immutable,
-provenance-bearing prospective artifact.
+Classification:
+`PROSPECTIVE_WEEK_OPEN_CAPTURE_VALID`.
 
-A missed prospective state is recorded as missing and is never backfilled.
+- captured UTC: `2026-09-22T14:10:53.254794Z`;
+- snapshot UTC: `2026-09-22T14:10:51.714616Z`;
+- deadline UTC: `2026-09-25T00:15:00Z`;
+- runtime/model version: `0.36`;
+- measurement contract: `A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034`;
+- capture integrity: **PASS**;
+- pre-data firewall: **PASS**;
+- source groups: ESPN, Sleeper, nflverse rosters, nflverse matchups, NFL.com
+  team rosters, and NFL.com status — **ALL OK**;
+- degraded sources: **NONE**;
+- capture remained local/private; repository write: false; runtime source write:
+  false; persistent runtime sink: false.
+
+Canonical sanitized evidence:
+`../evidence/WEEK3_WEEK_OPEN_PROSPECTIVE_CAPTURE_2026-09-22.md`.
+
+Continue to preserve separate decision-time captures for consequential Week 3
+lineup, transaction, and specialist actions.
 
 ## Phase 1A — Commissioned Result
 
@@ -64,17 +75,21 @@ Canonical evidence:
 
 ## Phase 1B — Retained Candidate
 
-Closure instrumentation remains the next technical observability surface after
-the Week 3 week-open capture is secured. The retained candidate already passed
-its established source/test/probe gates and remains frozen unless new evidence
-invalidates them.
+Closure instrumentation is now the active technical frontier because the Week 3
+week-open capture is secured.
+
+The retained candidate already passed its established targeted tests, paired
+non-interference/privacy probe, full pytest, compileall, and diff/allowlist gates.
+Resume from the last validated gate; do not rerun them unless new evidence
+invalidates the result.
 
 Phase 1B does not authorize P/D/K instrumentation, manager-behavior
 instrumentation, or persistent evidence.
 
 ## 2026 Season Milestones
 
-- Week 3 (Sep 24-28): first future hard prospective week-open capture gate.
+- Week 3 (Sep 24-28): week-open prospective capture **SECURED**; preserve
+  decision-time captures for consequential actions.
 - Week 5: preferred broader v1.0 observability commissioning target / first bye
   stress.
 - After Week 5: first formal three-clean-week prospective closure review, if the
@@ -91,14 +106,14 @@ instrumentation, or persistent evidence.
 - Diagnostics remain observers, not decision/control logic.
 - Missed prospective captures are recorded as missing, never backfilled.
 - Persistent evidence requires a separate authorization gate.
+- Authenticated/raw capture material remains local.
 
 ## Canonical References
 
 - active state: `../CURRENT.md`
-- M5 evidence: `../evidence/MEMORY_M5_STARTUP_CONTRACT_DECISION_2026-09-21.md`
-- M6 evidence: `../evidence/MEMORY_M6_MEMORY_HEALTH_ENFORCEMENT_2026-09-21.md`
-- M7 integration evidence: `../evidence/MEMORY_M7_FRESH_SESSION_INTEGRATION_AUDIT_2026-09-22.md`
+- Week 3 capture evidence: `../evidence/WEEK3_WEEK_OPEN_PROSPECTIVE_CAPTURE_2026-09-22.md`
 - M7 durability evidence: `../evidence/MEMORY_M7_DURABILITY_CLOSURE_2026-09-22.md`
+- Phase 1A runtime evidence: `../evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`
 - startup/handoff health: `../MAINTENANCE.md`
 - long-range roadmap: `../../ROADMAP.md`
 - 2026 weekly map: `SEASON_2026.md`

@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-22T02:35:07.372687-04:00",
+  "generated_at": "2026-09-22T11:12:17.431894-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 3469,
-      "sha256": "d5abf04a087ff2e297eefc4d35ec951663ca88aac206f502f6ddba1c42d75fe3"
+      "bytes": 3654,
+      "sha256": "22e91e23e65d78311fc2a3007daabad1c8a6dc19e9e6f62b1234a6c195d066ee"
     },
     {
       "path": "LEARNINGS.md",
@@ -420,6 +420,11 @@
       "sha256": "d9c44f06db652b187a5adf388f6814d50daa385d029c058d224bd253cbe59707"
     },
     {
+      "path": "evidence/WEEK3_WEEK_OPEN_PROSPECTIVE_CAPTURE_2026-09-22.md",
+      "bytes": 3030,
+      "sha256": "1fcda3bd036d25035da8c9ddf8dc2e6d1de5a650af43dca52f37655924016cf9"
+    },
+    {
       "path": "handoffs/CURRENT_HANDOFF.md",
       "bytes": 545,
       "sha256": "0d948e28e51c6dbaedf2c39562d94801d3b92cc48083582eef5d29fa4cf3b639"
@@ -521,8 +526,8 @@
     },
     {
       "path": "memory/2026-09-22.md",
-      "bytes": 1314,
-      "sha256": "5db6f9def4973c9f2139c3522c397e1a5f82f3f1da015b06868688f4e1be3907"
+      "bytes": 1866,
+      "sha256": "4baa1994328aad49abe847ff554b6c1e9f1812a6ae2bef4824e473c01924af24"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -551,8 +556,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 4622,
-      "sha256": "54d5235ba7432442ee76f744b3b3f3ddc3b23f8cbffb60c60f399ab1963a9310"
+      "bytes": 5113,
+      "sha256": "f7f981fb814b4aaba19c3117f4be3b673e3daf4d694583814196dc82a6b7320e"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",
