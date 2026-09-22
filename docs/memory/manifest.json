@@ -1,13 +1,13 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-21T20:46:24.986608-04:00",
+  "generated_at": "2026-09-21T21:07:07.003881-04:00",
   "durable_memory_updated": true,
   "files": [
     {
       "path": "AGENTS.md",
-      "bytes": 5935,
-      "sha256": "c4ade656603dbc211e24ec7ba0937d012ae2858f7c329d3f8d1a79eb6ec8c501"
+      "bytes": 6643,
+      "sha256": "afdb96157d373fb0290ec1240488d9b725bdf467e949dfb3ba372129479c56d5"
     },
     {
       "path": "COMMUNICATION.md",
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 4064,
-      "sha256": "2b2ab107b82c3e76bbf464c6a1b6f5589548fb2619a795bdef80f41b41b0466f"
+      "bytes": 4389,
+      "sha256": "1c71cc872943746aa68a5bfaaa631db35d95a12485bf0129229f417800c9bb1e"
     },
     {
       "path": "LEARNINGS.md",
@@ -26,8 +26,8 @@
     },
     {
       "path": "MAINTENANCE.md",
-      "bytes": 12798,
-      "sha256": "a3ab99107c4f21cbbf5b609c3595dccee5cd7addf3002a492d320030e10ffc03"
+      "bytes": 14762,
+      "sha256": "572af5af7cb9465d22552b7dd4aa6d554774299d80e82056b77949ef651a47c0"
     },
     {
       "path": "MEMORY.md",
@@ -215,6 +215,11 @@
       "sha256": "90259f893df5985040a7dfad977fbac015717aab4062e6d9509b4fc8df0e7400"
     },
     {
+      "path": "evidence/MEMORY_CHECKPOINT_IDENTITY_SEMANTICS_2026-09-21.md",
+      "bytes": 4904,
+      "sha256": "faf27a789e1f9bbc66a93c93a23569abd98fb127af0aa69e093ea2ffc2bf3d4e"
+    },
+    {
       "path": "evidence/MEMORY_HANDOFF_PUSH_V1_FAILURE_2026-09-20.md",
       "bytes": 2278,
       "sha256": "2959606c135b54d62a3b641e5d65c839b2f3a0a7c6b4108bea998661c385d955"
@@ -376,8 +381,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 2095,
-      "sha256": "994345939bc52da13989cdb0ad756c5d50bf839df7daae816fd5af0aa4e94635"
+      "bytes": 2317,
+      "sha256": "d81faa2aee33eea436dc4cce5f314dd5980a01daadb12683e80e02c27d4d1096"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -486,8 +491,8 @@
     },
     {
       "path": "patches/PATCH_PROTOCOL.md",
-      "bytes": 15524,
-      "sha256": "dd9cf4567cef12b56a7d07ce2cba003cb0d0165f6eb1b633105a6c21f5680a61"
+      "bytes": 16855,
+      "sha256": "ef5d4999a0f44d8deb231b1ec84ab2a509486ef1ea5ee4b6acc1f42419eb9f56"
     },
     {
       "path": "repository/README.md",
@@ -501,8 +506,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3567,
-      "sha256": "6dfd47c5b68f79468c5e14b0d6faed1140310ea293e451beddc9547996c23957"
+      "bytes": 3911,
+      "sha256": "34fc7b4111f281a2f7c0bc208ebe1c18e3367558858f6115b2ee9dc149ccf093"
     },
     {
       "path": "templates/DECISION.md",

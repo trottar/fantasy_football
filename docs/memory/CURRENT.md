@@ -6,7 +6,7 @@ authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
 active_workstream: memory_system_refinement
-memory_refinement_step: M1_complete_M2_next
+memory_refinement_step: M2_content_complete_M3_after_durable_checkpoint
 nfl_week: 2
 fantasy_stage: regular_season
 maintenance_status: healthy
@@ -18,19 +18,28 @@ Refine the repository-backed durable-memory system in small, independently
 reviewable checkpoints while preserving the commissioned football/runtime state
 and the irreversible Week 3 prospective-capture gate.
 
-M0 audited the memory system. M1 reconciles the active/planning surfaces. The
-next structural memory step is M2 checkpoint-identity semantics.
+M0 audited the memory system, M1 reconciled active/planning state, and M2 defines
+checkpoint-identity semantics so active memory no longer needs a follow-up commit
+merely to write the SHA of the checkpoint that contains it.
 
 ## Current Work Item
 
-**M1 — active/planning reconciliation: COMPLETE CONTENT / PUBLICATION-GATED.**
+**M2 — checkpoint identity semantics: CONTENT COMPLETE.**
 
-The mutually dependent active/planning surface is now internally consistent:
-`CURRENT.md`, `CURRENT_HANDOFF.md`, `roadmap/STATUS.md`, the long-range roadmap,
-known issues, and the 2026 season calendar all describe the same frontier.
+Durability/publication state is intentionally resolved from the Git context that
+contains these files, not from a future self-SHA embedded in `CURRENT.md`.
 
-M2 must not be locally applied until this M0+M1 state is `PUSHED / REMOTE
-VERIFIED` through the generic staging/publication workflow.
+The M2 contract distinguishes:
+
+- local package state by package ID plus predecessor/target identities;
+- isolated staging state by expected remote predecessor plus staged tree identity;
+- committed state by commit/parent/tree identity;
+- pushed/remote-verified state by the remote ref actually containing the commit;
+- historical concrete SHAs in evidence/history by their explicit historical role.
+
+If this exact M2 state is already present on remote `main`, the M2 durability gate
+is satisfied and M3 may begin. If it exists only as local-applied content, publish
+only the reviewed M2 scope before beginning M3.
 
 ## Verified State
 
@@ -38,27 +47,25 @@ VERIFIED` through the generic staging/publication workflow.
   internal `VERSION = 0.36`.
 - Phase 1A data-source season-sync shadow is **COMPLETE / RUNTIME COMMISSIONED**.
 - Generic text `.ffpkg` delivery and declarative isolated staging infrastructure
-  are **PUSHED / REMOTE VERIFIED** at repository checkpoint
-  `e52665db5b0799bf76f09cbacbac5edf44e507a9`.
-- M0 memory-system audit is **COMPLETE** and recorded at
-  `evidence/MEMORY_SYSTEM_M0_AUDIT_2026-09-21.md`.
+  are **PUSHED / REMOTE VERIFIED**.
+- M0 memory-system audit and M1 active/planning reconciliation are **PUSHED /
+  REMOTE VERIFIED**.
+- M2 checkpoint-identity semantics are content-complete and recorded at
+  `evidence/MEMORY_CHECKPOINT_IDENTITY_SEMANTICS_2026-09-21.md`.
 - The retained Phase 1B closure-shadow candidate remains isolated and unchanged.
-  Its established four-path candidate gate, targeted 48-test gate, paired
-  privacy/non-interference probe, full pytest, compileall, and `git diff --check`
-  passed before the delivery-infrastructure detour. Do not rerun those gates
+  Its established candidate/test/probe gates remain valid and must not be rerun
   without new evidence.
 - Phase 1C P/D/K observability, Phase 1D manager/market observability, and Phase
   1E persistent evidence authorization remain separately gated and not started.
 - Persistent runtime evidence remains **DISABLED**.
-- No football/model semantics are changed by M0/M1 memory maintenance.
+- No football/model semantics are changed by M0-M2 memory maintenance.
 
 ## Calendar / Evidence Gates
 
-- Week 2 closes on 2026-09-21. Use Week 1/2 as prospective evidence only where a
-  genuine frozen capture already exists; never backfill.
+- Use Week 1/2 as prospective evidence only where a genuine frozen capture
+  already exists; never backfill.
 - Week 3 (Sep 24-28) is the first future hard prospective-capture gate.
-- Causally valid Week 3 capture outranks nonessential memory or feature work.
-  Do not miss the week-open capture merely to finish M2-M7 or Phase 1B.
+- Causally valid Week 3 capture outranks nonessential M3-M7 or Phase 1B work.
 - Broad empirical calibration remains blocked until sufficient clean prospective
   closure evidence exists.
 
@@ -75,20 +82,20 @@ VERIFIED` through the generic staging/publication workflow.
 
 ## Exact Next Action
 
-Advance to **M2 — checkpoint identity semantics**, with one hard precondition:
-this M0+M1 memory checkpoint must first be `PUSHED / REMOTE VERIFIED`. If that
-precondition is not yet true, publish only the reviewed M0+M1 memory scope through
-the generic isolated staging/manifest/commit/push sequence; do not start M2 or
-resume Phase 1B beforehand.
+Resolve the M2 durability state from the repository context containing these
+files. If remote `main` does not yet contain this exact M2 policy/evidence state,
+publish only the reviewed M2 checkpoint. If remote `main` already contains it,
+advance to **M3 — procedure/ownership cleanup**. Do not create a documentation-only
+follow-up commit merely to write the M2 commit SHA into active memory.
 
 ## Relevant References
 
 - `evidence/MEMORY_SYSTEM_M0_AUDIT_2026-09-21.md`
+- `evidence/MEMORY_CHECKPOINT_IDENTITY_SEMANTICS_2026-09-21.md`
+- `MAINTENANCE.md`
+- `patches/PATCH_PROTOCOL.md`
 - `roadmap/STATUS.md`
 - `roadmap/SEASON_2026.md`
-- `../../ROADMAP.md`
 - `../../KNOWN_ISSUES.md`
 - `decisions/D-024_V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT.md`
 - `decisions/D-025_GENERIC_DELIVERY_INFRASTRUCTURE.md`
-- `evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`
-- `patches/PATCH_PROTOCOL.md`

@@ -127,6 +127,30 @@ Do not use direct GitHub connector writes as the project checkpoint mechanism.
 Memory/diagnostic tooling has standing authorization; football/model/application/
 business-logic changes require explicit user authorization.
 
+## Checkpoint identity semantics
+
+Repository publication uses different identities at different boundaries. Do not
+collapse them or force active memory to predict its own future commit SHA.
+
+1. **Local apply** — authorize affected files with package-specific predecessor
+   identities and validate target/result identities. The package ID plus local
+   receipt identifies the applied candidate.
+2. **Isolated staging** — authorize the remote predecessor, exact reviewed
+   allowlist, Git clean-filtered staged blobs, schema-2 manifest, and staged tree
+   OID. The tree OID identifies staged content but is not a commit.
+3. **Local commit** — verify commit SHA, parent SHA, and committed tree OID.
+4. **Push/remote verification** — re-check the remote movement guard and then
+   prove the remote branch/ref resolves to the exact commit SHA.
+
+`CURRENT.md`, `CURRENT_HANDOFF.md`, and roadmap status should not require the SHA
+of the commit that will contain their current text. When exact current checkpoint
+identity is needed, resolve it from Git/ref context at read time.
+
+Concrete SHAs remain appropriate in immutable evidence/history and in explicit
+predecessor, commissioning, or lineage roles. Do not create a documentation-only
+successor commit solely to record the SHA of the immediately preceding memory
+checkpoint.
+
 ## Durable-memory manifest checkpoint semantics
 
 `docs/memory/manifest.json` is a registry of the durable Git checkpoint

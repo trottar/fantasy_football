@@ -65,6 +65,21 @@ For local package apply, use the target-specific predecessor contract, not the
 control root's whole-tree Git status or local `HEAD`. For commit/push, use the
 isolated staging clone's Git state as authority.
 
+## Checkpoint identity semantics
+
+When exact identity of the current committed checkpoint is required, resolve it
+from the Git commit/ref that contains the memory files. `CURRENT.md` and
+`CURRENT_HANDOFF.md` must not be required to name their own not-yet-created
+commit.
+
+Concrete SHAs in active memory are valid only when their role is explicit, such
+as a predecessor, commissioned source checkpoint, or historical evidence
+checkpoint. They are not an implicit "latest state" field.
+
+Local package state, isolated staged state, committed state, and remote-verified
+state remain distinct. The canonical memory policy is `MAINTENANCE.md`; repository
+publication mechanics are in `patches/PATCH_PROTOCOL.md`.
+
 ## Development method
 
 Use the evidence-led loop:

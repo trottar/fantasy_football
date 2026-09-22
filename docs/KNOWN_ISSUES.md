@@ -7,14 +7,14 @@ This file owns open/deferred/blocker/debt state that should not clutter
 
 | Item | Status | Blocks current work? | Owner / resolve condition |
 | --- | --- | --- | --- |
-| Memory-system refinement M0-M7 | ACTIVE MAINTENANCE | Blocks advancing the retained Phase 1B checkpoint while the current memory step is unpublished; does not outrank the Week 3 capture | Complete each narrow M-step with its own validation; preserve prospective capture first |
-| M0+M1 memory checkpoint publication | GATE CONDITION | Yes for M2 | Publish reviewed M0 audit + six M1 active/planning paths through isolated staging/manifest/commit/push and remote verification |
+| Memory-system refinement M0-M7 | ACTIVE MAINTENANCE | Blocks advancing the retained Phase 1B checkpoint while the current memory step is not durable; does not outrank the Week 3 capture | Complete each narrow M-step with its own validation; preserve prospective capture first |
+| Current memory-step durability gate | GATE CONDITION | Yes for the next M-step only when the current step exists only as local/unpublished state | Resolve from the repository context containing the current memory files. If remote `main` contains the current step, the gate is satisfied; do not require CURRENT/HANDOFF to embed their own future commit SHA |
 | Closure production instrumentation | NEXT TECHNICAL SLICE / RETAINED CANDIDATE | Deferred during M0-M7 memory refinement | Resume Phase 1B only after memory refinement gate chosen in CURRENT; do not rerun established candidate gates without new evidence |
 | Player/DST/K production instrumentation | PLANNED / SEPARATELY GATED | No | v1.0A Phase 1C |
 | Market/manager-behavior production instrumentation | PLANNED / SEPARATELY GATED | No | v1.0A Phase 1D |
 | Persistent runtime evidence sink disabled | INTENTIONAL / DEFERRED | No | Enable only after separate privacy/non-interference authorization |
 | Week 1/2 prospective-capture availability not classified here | UNCLASSIFIED | Blocks treating those weeks as prospective closure if no frozen capture exists | Inspect genuine frozen evidence only; never backfill |
-| Week 3 week-open capture | UPCOMING HARD CALENDAR GATE | Yes for causal 2026 measurement quality | Freeze prospective state before the first Week 3 game; do not delay for nonessential M2-M7 or Phase 1B work |
+| Week 3 week-open capture | UPCOMING HARD CALENDAR GATE | Yes for causal 2026 measurement quality | Freeze prospective state before the first Week 3 game; do not delay for nonessential M3-M7 or Phase 1B work |
 | Three-clean-week prospective closure baseline | INSUFFICIENT EVIDENCE | Yes for broad empirical calibration | Accumulate/verify clean weekly closure; first formal review after Week 5 if W3-W5 are valid |
 | Midseason calibration | DEFERRED PENDING EVIDENCE | No | Authorize only from repeated prospective residual/coverage evidence |
 | Playoff production baseline | PLANNED | Becomes blocking before Week 14 | Commission before Week 14 |

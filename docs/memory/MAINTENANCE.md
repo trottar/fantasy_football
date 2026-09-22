@@ -270,6 +270,46 @@ A handoff may contain:
 
 Rewrite it at meaningful checkpoints. Do not append indefinitely.
 
+## Checkpoint Identity Semantics
+
+Active memory must be truthful without requiring the SHA of the commit that will
+eventually contain it.
+
+Use these identity layers:
+
+1. **Committed repository state** — when memory is read from a Git commit/ref, the
+   containing Git context identifies that checkpoint. Query the ref/commit at
+   read time when an exact current SHA is needed.
+2. **Local package state** — before commit, identify state by package ID,
+   affected-file predecessor identities, target/result identities, and the local
+   validation receipt. This is not proof of commit or push.
+3. **Isolated staged state** — identify a publication candidate by expected
+   remote predecessor, exact staged allowlist/blob identities, regenerated
+   manifest, and staged tree OID. A staged tree is not yet a commit.
+4. **Committed/pushed state** — commit SHA, parent, and tree prove the local
+   commit; the remote ref resolving to that commit proves pushed/remote state.
+5. **Historical identities** — evidence, decisions, dated history, commissioning
+   records, and predecessor contracts may permanently record concrete SHAs whose
+   role is already known.
+
+Rules for active files:
+
+- do not require `CURRENT.md` or `CURRENT_HANDOFF.md` to name their own future
+  commit;
+- do not create a follow-up commit solely to insert the SHA of the memory
+  checkpoint just published;
+- when a concrete SHA appears, label its role rather than treating it as an
+  implicit "latest checkpoint" field;
+- self-relative wording is valid: if the exact state is already on remote
+  `main`, its durability gate is satisfied; if it exists only locally, publish
+  the reviewed scope first;
+- when files are read from the synchronized control root, content alone does not
+  prove remote publication because control-root Git metadata may lag the
+  isolated staging/push authority.
+
+This policy preserves epistemic strength while eliminating recursive checkpoint
+bookkeeping.
+
 ## Prevent Recursive Summarization
 
 Do not preserve knowledge only through summaries of summaries.
