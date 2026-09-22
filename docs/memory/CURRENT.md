@@ -1,44 +1,42 @@
 # Current Project State
 
 ---
-state_updated: 2026-09-21
+state_updated: 2026-09-22
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: memory_system_refinement
-memory_refinement_step: M6_content_complete_M7_after_durable_checkpoint
-nfl_week: 2
+active_workstream: week3_prospective_capture
+memory_refinement_step: M7_content_complete_durability_context
+nfl_week: 3
 fantasy_stage: regular_season
 maintenance_status: healthy
 ---
 
 ## Active Objective
 
-Refine the repository-backed durable-memory system in small, independently
-reviewable checkpoints while preserving the commissioned football/runtime state
-and the irreversible Week 3 prospective-capture gate.
+Close the M0-M7 durable-memory refinement at a durable repository checkpoint and
+preserve the first future causally valid Week 3 week-open state before the Sep 24
+first game.
 
-M0-M5 established current-state, identity, procedure-ownership, curated-memory,
-handoff, and startup contracts. M6 now encodes those selected structures in
-observational health tooling without changing football/runtime behavior.
+The irreversible prospective-capture deadline outranks Phase 1B or other
+nonessential development.
 
 ## Current Work Item
 
-**M6 — memory-health enforcement: CONTENT COMPLETE.**
+**M7 — fresh-session integration audit: CONTENT COMPLETE.**
 
-The observational health checker now enforces the stable memory contracts chosen
-by M1-M5 rather than only size/basic structure:
+A repository-only recovery audit followed the finalized M5 startup contract:
+`AGENTS -> CURRENT -> MEMORY -> CURRENT_HANDOFF -> USER`, then loaded only
+CURRENT/task-linked canonical records.
 
-- M5 startup core/order/full-read/selective-expansion agreement across AGENTS,
-  MAINTENANCE, and README;
-- canonical CURRENT active-state headings exactly once and in order;
-- handoff authority/structure/non-empty transfer state/no second-CURRENT headings;
-- durable MEMORY role separation;
-- active rendered-text escaped-newline regression protection;
-- required active-memory surface existence.
+The audit recovered the commissioned baseline, active engineering series,
+scientific/causal boundaries, human checkpoint actor sequence, Windows execution
+environment, handoff state, M6 durability context, Week 3 calendar gate, retained
+Phase 1B candidate status, and persistent-sink status without requiring a giant
+chat continuation prompt.
 
-Dedicated tests cover both the healthy contract and targeted semantic failures.
-The checker still does not rewrite memory or infer substantive football truth.
+Canonical evidence:
+`evidence/MEMORY_M7_FRESH_SESSION_INTEGRATION_AUDIT_2026-09-22.md`.
 
 ## Verified State
 
@@ -47,21 +45,23 @@ The checker still does not rewrite memory or infer substantive football truth.
 - Phase 1A data-source season-sync shadow is **COMPLETE / RUNTIME COMMISSIONED**.
 - Generic `.ffpkg` delivery and declarative staging infrastructure are **PUSHED /
   REMOTE VERIFIED**.
-- M0-M5, including M4R1, are **PUSHED / REMOTE VERIFIED**.
-- M6 checker/enforcement content is recorded at
-  `evidence/MEMORY_M6_MEMORY_HEALTH_ENFORCEMENT_2026-09-21.md`.
-- The retained Phase 1B closure-shadow candidate remains isolated and unchanged.
-  Its established candidate/test/probe gates remain valid and must not be rerun
-  without new evidence.
+- M0-M6, including M4R1/M6R1/M6R2 corrections, are **PUSHED / REMOTE VERIFIED**.
+- M7 repository-only recovery is **CONTENT COMPLETE** and awaits only the
+  containing repository-state durability check.
+- The retained Phase 1B closure-shadow candidate remains **PREFLIGHT VALIDATED /
+  NOT APPLIED**. Do not rerun established candidate gates without new evidence.
 - Persistent runtime evidence remains **DISABLED**.
-- No football/model/application semantics are changed by M0-M6 maintenance.
+- M0-M7 memory work changes no football/model/application semantics and does not
+  touch the commissioned runtime.
 
 ## Calendar / Evidence Gates
 
-- Use Week 1/2 as prospective evidence only where a genuine frozen capture
+- Weeks 1/2 count as prospective evidence only where a genuine frozen capture
   already exists; never backfill.
 - Week 3 (Sep 24-28) is the first future hard prospective-capture gate.
-- Causally valid Week 3 capture outranks nonessential M7 or Phase 1B work.
+- Freeze the Week 3 week-open state before the first game using the commissioned
+  baseline and decision-time information available at capture.
+- A valid Week 3 capture outranks Phase 1B and any nonessential post-M7 work.
 - Broad empirical calibration remains blocked until sufficient clean prospective
   closure evidence exists.
 
@@ -76,23 +76,29 @@ The checker still does not rewrite memory or infer substantive football truth.
 
 ## Exact Next Action
 
-Resolve M6 durability from the repository context containing these files. If
-remote `main` does not yet contain the exact M6 checker/tests/evidence state,
-publish only the reviewed M6 checkpoint. If remote `main` already contains it,
-advance to **M7 — fresh-session integration audit**.
+Resolve M7 durability from the repository context containing these files.
 
-M7 must test repository-backed recovery from the finalized M1-M6 contracts; it
-must not reopen or redesign them without new evidence.
+If remote `main` contains the exact M7 evidence/state, classify memory-system
+refinement M0-M7 **COMPLETE / DURABLE** and make the Week 3 week-open prospective
+capture the active operation. Freeze the commissioned `v0.36-repack1` state
+before the Sep 24 first game. Do not resume/checkpoint Phase 1B if doing so risks
+that irreversible capture.
+
+If this M7 state exists only locally, publish only the reviewed M7 checkpoint
+first.
 
 ## Relevant References
 
 - `AGENTS.md`
+- `MEMORY.md`
+- `handoffs/CURRENT_HANDOFF.md`
+- `USER.md`
 - `MAINTENANCE.md`
 - `README.md`
+- `evidence/MEMORY_M7_FRESH_SESSION_INTEGRATION_AUDIT_2026-09-22.md`
 - `evidence/MEMORY_M6_MEMORY_HEALTH_ENFORCEMENT_2026-09-21.md`
-- `evidence/MEMORY_M5_STARTUP_CONTRACT_DECISION_2026-09-21.md`
-- `evidence/MEMORY_SYSTEM_M0_AUDIT_2026-09-21.md`
 - `roadmap/STATUS.md`
+- `roadmap/SEASON_2026.md`
+- `../../ROADMAP.md`
 - `../../KNOWN_ISSUES.md`
-- `../../tools/check_memory_health.py`
-- `../../tests/test_memory_health.py`
+- `patches/PATCH_PROTOCOL.md`
