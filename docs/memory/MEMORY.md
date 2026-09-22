@@ -262,13 +262,17 @@ pure player boundary because it carries complete-roster state and specialist
 handling. Player instrumentation remains blocked pending a narrower QB/RB/WR/TE
 production boundary.
 
-The outer specialist wrappers in `specialist_policy_v032.py` remain the accepted
-separate DST and K channel boundaries. DST is source-published and runtime commissioned at `subsystem.dst.channel`.
-K now has a fully source-validated local candidate at `subsystem.k.channel`;
-repository publication and runtime commissioning remain separately gated.
+The outer specialist wrappers in `specialist_policy_v032.py` are the accepted
+separate DST and K channel boundaries. DST is source-published and runtime
+commissioned at `subsystem.dst.channel`; K is source-published and runtime
+commissioned at `subsystem.k.channel`. Player instrumentation remains blocked
+pending a narrower QB/RB/WR/TE-only production boundary.
 
 DST source checkpoint:
 `9d174a25db3990f35dbf7a13b5421253c265baa9`.
+
+K source checkpoint:
+`2d28adf926c8da22dcb695c03f7945bd361d13d2`.
 
 The commissioned DST observer is bounded and in-memory only. It retains no
 arguments, returned policy payloads, authenticated/private data, or exception
@@ -282,6 +286,7 @@ Canonical records:
 - `evidence/PHASE1C_DST_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
 - `evidence/PHASE1C_K_TARGETED_PREFLIGHT_2026-09-22.md`
 - `evidence/PHASE1C_K_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
+- `evidence/PHASE1C_K_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
 
 ## 2026 Season-Gated Development Contract
 

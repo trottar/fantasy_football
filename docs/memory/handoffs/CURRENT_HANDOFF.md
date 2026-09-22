@@ -5,41 +5,28 @@ exceptional cross-session transfer state and cannot override `CURRENT.md`.
 
 ## Transfer State
 
-Phase 1C DST observability remains complete, durable, source-published, and
-runtime-commissioned.
+Phase 1C DST and K specialist observability are complete, source-published, and
+runtime-commissioned with separate `P ⊕ D ⊕ K` channels.
 
-Phase 1C K has passed its targeted diagnostic preflight and the exact K-only
-candidate has passed full source validation. The validated technical bytes are
-locally applied to the control-root checkpoint surface.
+K source checkpoint:
+`2d28adf926c8da22dcb695c03f7945bd361d13d2`.
 
 K boundary:
 `src/specialist_policy_v032.py::evaluate_kicker_channel`
+at `subsystem.k.channel`.
 
-Namespace:
-`subsystem.k.channel`
+Runtime commissioning passed dedicated K+DST tests, paired privacy/semantics/RNG
+and mutable-state checks, DST non-interference, the P/D/K cross-channel guard,
+the full 353-test runtime suite, compileall, exact identities, cleanup, and
+residue gates. Persistent evidence remains disabled.
 
-Validated K source predecessor:
-`af20e84f61e7b4ef86d7f03b568fa1ef8ce1d9a5`.
-
-Validation:
-
-- targeted K+DST pytest: 12 passed;
-- paired K privacy/semantics/RNG/mutable-state probe: PASS;
-- DST non-interference and P/D/K guard: PASS;
-- full pytest: 503 passed;
-- compileall and diff check: PASS;
-- exact five-path identities: PASS;
-- persistent sink: false.
-
-The repository has not yet staged/published the K source candidate and the
-commissioned runtime has not been synchronized with K instrumentation.
-
-Player instrumentation remains blocked pending a narrower QB/RB/WR/TE production
-boundary.
+Player instrumentation is still blocked. The previously planned complete-roster
+point remains rejected as a player-only boundary.
 
 ## Resume
 
 Follow `../CURRENT.md`'s `Exact Next Action`.
 
-Stage/publish the exact validated K source checkpoint first. Runtime
-synchronization is a separate later gate after remote verification.
+The next engineering frontier is read-only discovery of a narrower
+QB/RB/WR/TE-only production boundary. Do not instrument player production source
+until a boundary is accepted by evidence.

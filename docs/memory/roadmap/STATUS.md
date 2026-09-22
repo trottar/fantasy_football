@@ -10,8 +10,8 @@
 - Phase 1C channel boundary audit: **COMPLETE / DURABLE**
 - Phase 1C DST shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 - Phase 1C DST durable-memory closure: **COMPLETE / PUSHED / REMOTE VERIFIED**
-- Phase 1C K shadow: **FULLY SOURCE VALIDATED / LOCALLY APPLIED / STAGING NEXT**
-- Phase 1C player shadow: **BOUNDARY UNRESOLVED / OLD PLANNED POINT REJECTED**
+- Phase 1C K shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
+- Phase 1C player shadow: **BOUNDARY UNRESOLVED / READ-ONLY DISCOVERY NEXT**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
 - Persistent runtime sink: **DISABLED**
@@ -63,42 +63,45 @@ Canonical evidence:
 
 ## Phase 1C K Source Candidate State
 
+## Phase 1C K Commissioned State
+
 Boundary:
 `src/specialist_policy_v032.py::evaluate_kicker_channel`
 
 Namespace:
 `subsystem.k.channel`
 
-Source predecessor:
-`af20e84f61e7b4ef86d7f03b568fa1ef8ce1d9a5`
+Source checkpoint:
+`2d28adf926c8da22dcb695c03f7945bd361d13d2`
 
-Validation:
+Published tree:
+`ebb4997245abace8d2d692de3aa35d03e646af35`
 
-- targeted preflight: PASS;
-- targeted K+DST pytest: **12 passed in 1.30 s**;
-- paired K probe: PASS;
-- baseline `7300 ns`, observed `80250 ns`, incremental `72950 ns`;
+Runtime commissioning:
+
+- dedicated K+DST pytest: **12 passed in 0.82 s**;
+- paired K probe: baseline `7400 ns`, observed `82700 ns`, incremental `75300 ns`;
 - privacy / success-error semantics / RNG / mutable state: PASS;
 - DST non-interference: PASS;
 - P/D/K cross-channel guard: PASS;
-- full pytest: **503 passed in 52.77 s**;
-- compileall / diff / exact five-path identity: PASS;
+- full runtime pytest: **353 passed in 44.75 s**;
+- compileall / exact final identities / rollback backup: PASS;
+- validation cleanup / residue: PASS / NONE;
 - persistent sink: false.
 
 Classification:
 
-`PHASE1C_K_CANDIDATE_FULLY_SOURCE_VALIDATED`
+`PHASE1C_K_RUNTIME_COMMISSIONED`
 
-The exact validated candidate is locally applied. Repository publication and
-runtime commissioning remain separate gates.
+Canonical evidence:
+`../evidence/PHASE1C_K_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`.
 
 ## Boundary Conditions
 
 - Preserve `P ⊕ D ⊕ K`.
-- DST commissioning does not authorize K or player instrumentation.
+- DST/K commissioning does not authorize player instrumentation.
 - No observed 2026 outcome may tune a v0.X model.
 - Diagnostics remain observers, not decision/control logic.
 - Persistent evidence requires a separate authorization gate.
-- K source publication and runtime commissioning remain separately gated.
 - Player instrumentation remains blocked until a narrower QB/RB/WR/TE production
   boundary is established.
