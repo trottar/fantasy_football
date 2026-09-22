@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-21T19:41:24.364796-04:00",
+  "generated_at": "2026-09-21T20:46:24.986608-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5618,
-      "sha256": "8348d135be8484ca8f6f0832d9eddad8e0ec76cb5358a218c2cf5f28d17022ad"
+      "bytes": 4064,
+      "sha256": "2b2ab107b82c3e76bbf464c6a1b6f5589548fb2619a795bdef80f41b41b0466f"
     },
     {
       "path": "LEARNINGS.md",
@@ -260,6 +260,11 @@
       "sha256": "848b03ab3684075959fac10217ff8830547725627b43b60666932dc2a34c2747"
     },
     {
+      "path": "evidence/MEMORY_SYSTEM_M0_AUDIT_2026-09-21.md",
+      "bytes": 10799,
+      "sha256": "62e35096fe753472a28148b116bcf6d7f99f49990c8b89d8169838ce3b61f493"
+    },
+    {
       "path": "evidence/MEMORY_WORKFLOW_AUDIT_2026-09-18.md",
       "bytes": 6834,
       "sha256": "a7c8b32ec8a09cf8ff3d25856b4d207ce5778f76a0253ee534cbeaa0cc63fa38"
@@ -371,8 +376,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 2444,
-      "sha256": "1675c0dfbb92ca29908ab62e2c80fbe1ffd89d261aac71b6de98a4718d6359d5"
+      "bytes": 2095,
+      "sha256": "994345939bc52da13989cdb0ad756c5d50bf839df7daae816fd5af0aa4e94635"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -491,13 +496,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 5299,
-      "sha256": "7f57409baf923fd7f29ab1026baa565a28a13d8402f78f68110ae888d55c4ab8"
+      "bytes": 5321,
+      "sha256": "77bf6a05c4f1b3c016fb3e8c6be7bffcb633b3d7accf5a62e5b6036405cec867"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 5177,
-      "sha256": "37907761cda96ec80b9d092ffc953d1ee6b3b026d8d36aac03099538124407e0"
+      "bytes": 3567,
+      "sha256": "6dfd47c5b68f79468c5e14b0d6faed1140310ea293e451beddc9547996c23957"
     },
     {
       "path": "templates/DECISION.md",

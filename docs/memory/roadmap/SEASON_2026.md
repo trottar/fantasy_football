@@ -1,15 +1,15 @@
 # 2026 Season Calendar / Development Gates
 
-**Planning state:** 2026-09-20
+**Planning state:** 2026-09-21
 **Configured fantasy regular season:** Weeks 1-13
 **Configured fantasy playoffs:** Weeks 14-17
 **Configured playoff Round 1:** Week 14
 
 This file owns the active 2026 temporal plan. `docs/ROADMAP.md` owns long-range
-phase intent; `roadmap/STATUS.md` owns current roadmap position;
-`CURRENT.md` owns the exact active task.
+phase intent; `roadmap/STATUS.md` owns current roadmap position; `CURRENT.md`
+owns the exact active task.
 
-## Gate types
+## Gate Types
 
 **Calendar gate:** irreversible deadline for a prospective capture or operational
 freeze.
@@ -19,15 +19,15 @@ evidence supports it.
 
 A date can trigger an evidence review. It cannot force the evidence gate to pass.
 
-## Week-by-week map
+## Week-by-Week Map
 
 | Week | NFL window | Bye teams from league config | Project posture / deadline |
 | --- | --- | --- | --- |
 | 1 | Sep 9-14 | none | Closed. Use as prospective evidence only if a genuine frozen capture already exists. Never backfill. |
-| 2 | Sep 17-21 | none | Current week. Close any genuine frozen W2 evidence after the final game. Finish roadmap/memory authority transition. |
-| 3 | Sep 24-28 | none | **First future hard capture gate.** Freeze week-open state before the first game. Begin fully versioned weekly closure. Execute data-source season-sync shadow pilot after memory gate. |
-| 4 | Oct 1-5 | none | Continue closure instrumentation; begin P/D/K and market instrumentation only through separate gates. Rehearse v1.0 commissioning. |
-| 5 | Oct 8-12 | CAR, KC | **Preferred v1.0 observability commissioning target.** First bye-week operational stress. |
+| 2 | Sep 17-21 | none | Closing. Phase 1A is already commissioned. Preserve any genuine frozen W2 evidence and classify gaps explicitly. |
+| 3 | Sep 24-28 | none | **First future hard capture gate.** Freeze week-open state before the first game using the commissioned baseline. Do not delay this capture for M2-M7 memory work or Phase 1B. Begin fully versioned weekly closure from whatever causally valid instrumentation is commissioned at capture time. |
+| 4 | Oct 1-5 | none | Continue prospective closure. Resume/commission Phase 1B and later observability slices only through their separate gates. |
+| 5 | Oct 8-12 | CAR, KC | Preferred broader v1.0 observability commissioning target and first bye-week operational stress. |
 | 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks (W3-W5 if valid). Open calibration investigations only; no automatic tuning. |
 | 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow candidate calibration only when justified. |
 | 8 | Oct 29-Nov 2 | HOU, NO, NYG, SF | Midseason calibration decision review. Commission only evidence-supported changes; otherwise defer. |
@@ -42,30 +42,21 @@ A date can trigger an evidence review. It cannot force the evidence gate to pass
 | 17 | Dec 31-Jan 4 | none | Final configured fantasy playoff week. Preserve all frozen decisions/outcomes. |
 | 18 | Jan 9-10 | none | Fantasy season complete. Out-of-sample football evidence and full-season closure. |
 
-## Standard weekly scientific cycle
+## Standard Weekly Scientific Cycle
 
 ### Final game -> Tuesday: observation
 
 - ingest final outcomes;
 - preserve raw observations;
-- finalize availability outcomes;
-- finalize transaction outcomes;
+- finalize availability/transaction outcomes;
 - link frozen predictions/actions to outcomes.
 
 ### Tuesday: Data/MC closure
 
-Evaluate channel-separated:
-
-- residuals;
-- pulls;
-- MAE/RMSE;
-- pull mean/width;
-- interval coverage;
-- availability Brier scores;
-- matchup outcomes;
-- opportunity/efficiency/scoring;
-- market/behavior outcomes;
-- lineup/transaction regret.
+Evaluate channel-separated residuals, pulls, MAE/RMSE, pull mean/width, interval
+coverage, availability Brier scores, matchup outcomes,
+opportunity/efficiency/scoring, market/behavior outcomes, and
+lineup/transaction regret.
 
 ### Tuesday-Wednesday: diagnosis
 
@@ -77,40 +68,23 @@ No broad retuning from a recap alone.
 
 ### Wednesday: development window
 
-Evidence-supported patches may advance.
-
-A missed Wednesday development goal is preferable to rushing an unvalidated
-change into the next game window.
+Evidence-supported patches may advance. A missed development goal is preferable
+to rushing an unvalidated change into the next game window.
 
 ### Before first game: week-open reference capture
 
-Freeze:
-
-- state;
-- model/release/config identity;
-- source/data-as-of;
-- inputs;
-- projections;
-- uncertainty;
-- roster/league state;
-- availability;
-- matchup context;
-- provenance.
+Freeze state, model/release/config identity, source/data-as-of, inputs,
+projections, uncertainty, roster/league state, availability, matchup context, and
+provenance.
 
 ### During the week: decision-time captures
 
-Preserve a separate prospective capture for each consequential:
+Preserve a separate prospective capture for each consequential lineup change,
+waiver/add/drop, trade evaluation, DST/kicker stream, and injury replacement.
+A Sunday decision may use information unavailable Thursday; both remain
+prospective if their information times are explicit.
 
-- lineup change;
-- waiver/add/drop;
-- trade evaluation;
-- DST/kicker stream;
-- injury replacement.
-
-A Sunday decision may legitimately use information unavailable Thursday; both
-captures remain prospective if their information times are explicit.
-
-## Calibration evidence ladder
+## Calibration Evidence Ladder
 
 - one surprising game -> investigation candidate only;
 - repeated player discrepancy -> diagnose role/input/structure before population tuning;
@@ -118,9 +92,7 @@ captures remain prospective if their information times are explicit.
 - multiple prospective weeks plus validation improvement -> may authorize v1.X calibration;
 - Weeks 14-17 -> major empirical calibration frozen by default.
 
-## Irreversible rule
+## Irreversible Rule
 
-Code can be implemented later.
-
-A missed prospective information state cannot be recreated later without
-hindsight.
+Code and memory maintenance can be completed later. A missed prospective
+information state cannot be recreated later without hindsight.

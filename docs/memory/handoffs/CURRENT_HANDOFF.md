@@ -1,54 +1,46 @@
 # Current Handoff
 
-`CURRENT.md` is authoritative. This file is a compact resume/operational-warning
-surface and cannot override it.
+`CURRENT.md` is authoritative. This file is only a compact resume and operational
+warning surface; it cannot override current state.
 
-## Last Remote-Verified Checkpoint
+## Resume State
 
-`440d17fecb823f29f4cbeaf6d74d82d52f7ea045`
-
-Commit: **Record Phase 1A runtime commissioning**.
-
-## Active Technical Checkpoint
-
-**Generic `.ffpkg` delivery + repository staging infrastructure — LOCAL-APPLIED / VALIDATED**
-
-Current classification:
-
-`DELIVERY/STAGING INFRASTRUCTURE LOCAL-APPLIED / DELIVERY TESTS 18 PASS / GIT-FILTERED STAGE IDENTITY REGRESSION PASS / MEMORY .FFPKG PASS / RUNTIME UNCHANGED`
-
-The commissioned runtime remains `v0.36-repack1`, internal `VERSION = 0.36`, and
-Phase 1A remains commissioned. The retained Phase 1B closure-shadow candidate is
-still isolated and unchanged; its candidate validation gates already passed and
-must not be rerun without new evidence.
-
-The permanent delivery path is now:
-
-`assistant builds deterministic text .ffpkg -> user runs tools\delivery\run_package.cmd -> returned summary -> assistant verification -> separate staging/manifest/commit/push -> remote verification`
+- Commissioned runtime: `v0.36-repack1`, internal `VERSION = 0.36`.
+- Phase 1A data-source season-sync shadow: **COMPLETE / COMMISSIONED**.
+- Generic `.ffpkg` delivery + declarative staging infrastructure: **PUSHED /
+  REMOTE VERIFIED** at `e52665db5b0799bf76f09cbacbac5edf44e507a9`.
+- M0 memory-system audit: **COMPLETE**.
+- M1 active/planning reconciliation: **CONTENT COMPLETE**.
+- Next memory-design step: **M2 checkpoint-identity semantics**, but only after
+  the M0+M1 memory checkpoint is `PUSHED / REMOTE VERIFIED`.
+- Retained Phase 1B closure-shadow candidate: **PREFLIGHT VALIDATED / ISOLATED /
+  UNCHANGED**. Do not rerun established gates without new evidence.
 
 ## Resume Instruction
 
-1. Read the complete bootstrap set.
-2. Treat Phase 1A runtime commissioning and repository closure as complete.
-3. Treat the first generic durable-memory `.ffpkg` as passed.
-4. Use `tools/delivery/prepare_checkpoint_stage.py` with a declarative staging
-   spec; raw worktree SHA-256 and Git index blob identity are separate layers.
-5. Stage the eight delivery/staging infrastructure and regression paths plus the
-   reviewed memory delta, regenerate the schema-2 manifest, and validate without
-   committing/pushing.
-6. Commit/push/remote-verify that checkpoint separately, then resume the retained
-   Phase 1B closure-shadow candidate; preserve the Week 3 prospective-capture deadline.
+1. Read the complete bootstrap set required by the current policy.
+2. Check whether the M0+M1 memory checkpoint containing
+   `MEMORY_SYSTEM_M0_AUDIT_2026-09-21.md` and the six reconciled active/planning
+   files is already `PUSHED / REMOTE VERIFIED`.
+3. If not, publish only that reviewed scope through the generic staging workflow.
+4. If yes, proceed to M2. Do not jump to M3-M7 or Phase 1B.
+5. Preserve the Week 3 week-open prospective capture even if memory work slips.
 
 ## Critical Boundaries
 
-- control root != staging clone != commissioned runtime;
-- generic delivery infrastructure owns transport/execution mechanics only;
-- package entrypoints own target-specific predecessor/rollback/idempotence logic;
-- no provider-level instrumentation;
-- no arguments, returned payloads/paths, authenticated data, or exception
-  messages in observability events;
-- persistent sink remains disabled;
-- no football/model semantic change;
-- no direct GitHub connector writes for checkpoints;
-- successful operator steps may return concise summary blocks; request full logs
-  only for failures or missing evidence.
+- control root != isolated staging clone != commissioned runtime;
+- no direct GitHub connector writes for project checkpoints;
+- generic delivery owns transport/execution mechanics; package entrypoints own
+  target-specific predecessor/rollback/idempotence/validation;
+- no football/model semantic change from memory maintenance;
+- persistent evidence sink remains disabled;
+- Week 3 prospective capture is causally irreversible and outranks nonessential
+  development.
+
+## Canonical Pointers
+
+- active state: `../CURRENT.md`
+- M0 audit: `../evidence/MEMORY_SYSTEM_M0_AUDIT_2026-09-21.md`
+- roadmap status: `../roadmap/STATUS.md`
+- season gates: `../roadmap/SEASON_2026.md`
+- checkpoint mechanics: `../patches/PATCH_PROTOCOL.md`

@@ -1,13 +1,12 @@
 # Fantasy Football Project Roadmap — 2026 Season-Gated Development
 
-**Accepted planning baseline:** 2026-09-20
+**Accepted planning baseline:** 2026-09-21
 **Commissioned football baseline:** `v0.36-repack1`
 **Current engineering series:** v1.0A observability
 
-This roadmap owns long-range phase intent and phase acceptance gates. It does
-not own the current active task; `docs/memory/CURRENT.md` does. The active 2026
-week-by-week calendar is maintained in
-`docs/memory/roadmap/SEASON_2026.md`.
+This roadmap owns long-range phase intent and phase acceptance gates. It does not
+own the exact active task; `docs/memory/CURRENT.md` does. The active weekly
+calendar is `docs/memory/roadmap/SEASON_2026.md`.
 
 ## 1. Governing model
 
@@ -23,7 +22,7 @@ and specialist-channel separation:
 
 `P ⊕ D ⊕ K`
 
-The development sequence remains:
+Development remains:
 
 `MC -> Data -> closure -> diagnosis -> calibration`
 
@@ -33,48 +32,31 @@ and:
 
 ## 2. Two clocks
 
-### Calendar gates
+**Calendar gates** protect prospective information or operational opportunities
+that disappear once games/outcomes occur. A missed prospective capture is
+recorded as missing and is never reconstructed later as if it were frozen in
+advance.
 
-Calendar gates protect information or operational opportunities that disappear
-once games/outcomes occur.
-
-Examples:
-
-- week-open reference capture;
-- decision-time lineup/waiver/trade state;
-- playoff production freeze;
-- pregame source/config/model provenance.
-
-A missed prospective capture is recorded as missing. It is never reconstructed
-after relevant outcomes and relabeled prospective.
-
-### Evidence gates
-
-Evidence gates decide whether prospective measurements support diagnosis,
-calibration, or architectural change.
-
-A planned date is a review point, not automatic authorization. If evidence is
-insufficient, `DEFER / COLLECT MORE DATA` is the correct result.
+**Evidence gates** authorize diagnosis/calibration only when accumulated
+prospective evidence supports them. A review date does not force a gate to pass;
+`DEFER / COLLECT MORE DATA` is a valid result.
 
 ## 3. Concurrent lanes
 
-Throughout the season the project maintains three lanes.
-
 ### Production lane
 
-The commissioned model remains usable and stable for real fantasy decisions.
+Keep the commissioned model stable and usable for real decisions.
 
 ### Measurement lane
 
-Every usable week captures prospective state, predictions, decisions, outcomes,
-closure, and provenance.
-
-Measurement deadlines are normally harder than feature-development deadlines.
+Freeze usable prospective state, predictions, actions, outcomes, closure, and
+provenance. Measurement deadlines outrank nonessential feature work.
 
 ### Development lane
 
-Diagnostics, model changes, behavior kernels, and calibration advance only from
-classified evidence and may slip rather than contaminate prospective evidence.
+Advance diagnostics, model changes, behavior kernels, and calibration only from
+classified evidence. Development may slip rather than contaminate a prospective
+window.
 
 ---
 
@@ -84,56 +66,29 @@ classified evidence and may slip rather than contaminate prospective evidence.
 
 Purpose: establish the pre-outcome 2026 architecture.
 
-Accepted scope includes:
-
-- player predictive channel;
-- DST specialist channel;
-- kicker specialist channel;
-- availability and matchup interactions;
-- uncertainty-aware Monte Carlo;
-- roster-state perturbations;
-- waiver/trade response machinery;
-- manager-behavior separation;
-- data-source and GUI foundations;
-- prospective closure machinery;
-- `P ⊕ D ⊕ K`.
+Accepted scope includes the player predictive channel, DST/kicker specialist
+channels, availability/matchup interactions, uncertainty-aware Monte Carlo,
+roster-state perturbations, waiver/trade response, manager-behavior separation,
+data-source/GUI foundations, prospective closure machinery, and `P ⊕ D ⊕ K`.
 
 Final authority: `v0.36-repack1`.
 
 Observed 2026 outcomes may not retroactively tune a `0.X` model and then be
 described as a-priori.
 
-Acceptance: already commissioned.
-
 ---
 
-# Phase M — Repository / durable-memory authority checkpoint
+# Phase M — Repository / durable-memory authority transition
 
-**Status: ACTIVE TRANSITION**
+**Status: COMPLETE / PUSHED / REMOTE VERIFIED**
 
-Purpose: synchronize the accepted roadmap and memory contract before further
-technical implementation.
+The season roadmap, calendar, known-issue register, v1.X context, causal capture
+rules, memory/handoff policy, and human-in-the-loop checkpoint boundary were
+established and published before Phase 1A commissioning.
 
-Required:
-
-- long-range roadmap;
-- season calendar;
-- known/deferred issue register;
-- v1.X phase context;
-- D-023 season-gate decision;
-- weekly closure template;
-- source-before-summary rule;
-- memory/handoff reconciliation;
-- schema-2 manifest regenerated later from staged Git blobs;
-- human-in-the-loop commit/push/remote verification.
-
-This phase changes documentation/continuity only.
-
-Exit gate:
-
-`PUSHED / REMOTE VERIFIED`
-
-No technical season-sync work begins before this gate.
+The later M0-M7 memory-system refinement is maintenance of that continuity layer;
+it does not roll Phase M back to an active gate and does not invalidate completed
+football/observability work.
 
 ---
 
@@ -147,47 +102,44 @@ football/model semantics.
 
 ## 1A — Data-source season-sync shadow pilot
 
-Instrument the predeclared season-sync boundary with:
+**Status: COMPLETE / RUNTIME COMMISSIONED**
 
-- behavior equivalence;
-- exception-type equivalence;
-- privacy/redaction;
-- no authenticated payload capture;
-- no credential capture;
-- bounded overhead;
-- fail-open observer behavior;
-- no football/model changes.
+The outer season-sync boundary is commissioned with behavior/exception
+non-interference, privacy/redaction, bounded overhead, fail-open observation, and
+no authenticated payload/credential capture. Persistent evidence remains disabled.
 
 ## 1B — Closure instrumentation
 
-Add immutable provenance around:
+**Status: PREFLIGHT VALIDATED / RETAINED CANDIDATE / NOT YET CHECKPOINTED**
 
-- release/commit/config/input identity;
-- NFL week;
-- prediction time;
-- `data_as_of`;
-- channel;
-- RNG/CRN identity where applicable;
-- recommendation/action identity;
-- later outcome linkage.
+Add immutable provenance around release/commit/config/input identity, NFL week,
+prediction time, `data_as_of`, channel, RNG/CRN identity where applicable,
+recommendation/action identity, and later outcome linkage.
+
+The retained candidate remains frozen during M0-M7 memory refinement unless new
+evidence invalidates its established gates.
 
 ## 1C — Player / DST / kicker observability
 
-Instrument each specialist channel separately.
+**Status: NOT STARTED / SEPARATELY GATED**
 
-Do not create a generic cross-channel ranking authority.
+Instrument each specialist channel separately. Do not create a generic
+cross-channel ranking authority.
 
 ## 1D — Market / manager-behavior observability
+
+**Status: NOT STARTED / SEPARATELY GATED**
 
 Observe waiver/trade/ownership/field response without feeding perception into
 intrinsic football value.
 
 ## 1E — Persistent evidence authorization
 
-Persistence requires a separate privacy/non-interference gate.
+**Status: NOT STARTED / SEPARATELY GATED**
 
-Raw authenticated/private evidence remains local. Sanitized durable conclusions
-may enter Git.
+Persistence requires a separate privacy/non-interference gate. Raw
+authenticated/private evidence remains local; sanitized durable conclusions may
+enter Git.
 
 ### Phase 1 acceptance
 
@@ -206,24 +158,13 @@ may enter Git.
 **Collection:** continuous
 **Primary clean review window:** Weeks 3-5
 
-Purpose: establish genuine prospective closure.
+Track at minimum residuals `r_i = D_i - M_i`, pulls
+`z_i = (D_i - M_i) / sigma_i`, MAE, RMSE, pull mean/width, interval coverage,
+availability Brier score, matchup outcomes, opportunity/efficiency/scoring,
+transaction/lineup regret, and manager-behavior outcomes.
 
-Track at minimum:
-
-- residual `r_i = D_i - M_i`;
-- pull `z_i = (D_i - M_i) / sigma_i`;
-- MAE;
-- RMSE;
-- pull mean/width;
-- interval coverage;
-- availability Brier score;
-- matchup outcomes;
-- opportunity/efficiency/scoring decomposition;
-- transaction and lineup regret;
-- manager-behavior outcomes.
-
-Weeks 1-2 may enter prospective closure only where genuine frozen captures
-already exist. Never reconstruct them after the fact.
+Weeks 1-2 count only where genuine frozen captures already exist. Never
+reconstruct them after the fact.
 
 Exit gate: enough clean prospective weekly cycles to open serious calibration
 investigations. Three weeks may justify investigation; they do not automatically
@@ -236,33 +177,18 @@ justify broad tuning.
 **Primary window:** Weeks 6-8
 **Review target:** before Week 9
 
-For each systematic discrepancy ask:
+For each systematic discrepancy ask whether the information was available,
+whether the input was correct, whether the architecture could represent the
+process, whether expectation/uncertainty is biased, and whether the observation
+is consistent with fluctuation.
 
-1. Was the relevant information available?
-2. Was the input correct?
-3. Could the architecture represent the process?
-4. Is the expected value biased?
-5. Is uncertainty miscalibrated?
-6. Is the observation consistent with fluctuation?
+Candidate areas include availability, workload/opportunity, efficiency
+dispersion, matchup acceptance, variance/correlation, player temporal
+transitions, DST component distributions, and kicker opportunity/yield.
 
-Candidate calibration areas include:
-
-- availability;
-- workload/opportunity;
-- efficiency dispersion;
-- matchup acceptance;
-- variance/correlation;
-- player temporal transitions;
-- DST component distributions;
-- kicker opportunity/yield.
-
-No player-specific overreaction to one game.
-
-A v1.X calibration may be commissioned only with repeated prospective evidence
-and a validation showing the correction improves the relevant closure without
-breaking uncertainty or subsystem boundaries.
-
-If not supported: defer.
+No player-specific overreaction to one game. Commission v1.X calibration only
+with repeated prospective evidence plus validation that improves the relevant
+closure without breaking uncertainty or subsystem boundaries. Otherwise defer.
 
 ---
 
@@ -271,23 +197,15 @@ If not supported: defer.
 **Primary window:** Weeks 9-11
 **Target:** mature before Week 12
 
-Focus:
+Focus on ordered contingent waiver claims, actual league resolution mechanics,
+competing-manager behavior, dropped-player field response, ownership/market
+behavior, supported trade packages, utility change to both teams, and league
+state response.
 
-- ordered contingent waiver claims;
-- actual league resolution mechanics;
-- competing-manager behavior;
-- dropped-player field response;
-- ownership/market behavior;
-- supported trade-package structures;
-- utility change to both teams;
-- league-state response.
+Keep `football utility != manager behavior`.
 
-Keep:
-
-football utility != manager behavior.
-
-Acceptance: behavioral probabilities/transaction mechanics are closure-tested or
-explicitly classified as insufficient evidence.
+Acceptance: behavioral probabilities and transaction mechanics are closure-tested
+or explicitly classified as insufficient evidence.
 
 ---
 
@@ -296,17 +214,9 @@ explicitly classified as insufficient evidence.
 **Primary window:** Weeks 12-13
 **Hard operational gate:** before Week 14
 
-Purpose: switch from generic regular-season utility toward conditional playoff
-utility.
-
-Required:
-
-- actual playoff qualification/bracket state when known;
-- Week 14-17 future utility;
-- byes and replacement-level availability;
-- bench/injury contingency value;
-- specialist schedules;
-- win-now versus future-round value.
+Use actual playoff qualification/bracket state when known, Week 14-17 future
+utility, byes/replacement availability, bench/injury contingency value,
+specialist schedules, and win-now versus future-round value.
 
 By the end of Week 13, major empirical calibration freezes by default.
 
@@ -321,15 +231,10 @@ Acceptance: a commissioned playoff production baseline exists before Week 14.
 
 Week 14 is configured as playoff Round 1 and contains Arizona/Dallas byes.
 
-Rules:
-
-- use only decision-time information;
-- preserve all consequential action captures;
-- continue closure after outcomes;
-- no reactive broad retuning;
-- structural correctness fixes remain separately reviewable;
-- playoff observations normally enter postseason calibration rather than
-  immediate production tuning.
+Use only decision-time information, preserve consequential action captures,
+continue closure after outcomes, avoid reactive broad retuning, and reserve
+structural correctness fixes for separate review. Playoff observations normally
+enter postseason calibration rather than immediate production tuning.
 
 Acceptance: complete frozen playoff decisions/outcomes with no hindsight
 contamination.
@@ -338,24 +243,12 @@ contamination.
 
 # Phase 7 — NFL Week 18 / complete 2026 closure
 
-**Window:** after fantasy competition ends
-
 Week 18 is additional out-of-sample football-process evidence rather than a
 configured fantasy-playoff week.
 
-Build full-season closure by:
-
-- player;
-- position;
-- DST;
-- kicker;
-- availability;
-- matchup;
-- uncertainty;
-- waivers;
-- trades;
-- field response;
-- regular-season versus playoff segments.
+Build full-season closure by player, position, DST, kicker, availability,
+matchup, uncertainty, waivers, trades, field response, and regular-season versus
+playoff segments.
 
 Question:
 
@@ -370,22 +263,13 @@ Do not optimize retrospectively to make 2026 look better.
 
 **Primary window:** January-March 2027
 
-Use the complete prospective 2026 dataset to evaluate:
+Use the complete prospective 2026 dataset to evaluate alternate priors,
+uncertainty redesign, correlation structure, opportunity-process refinements,
+specialist-channel recalibration, manager-behavior kernels, roster utility,
+field response, runtime/performance simplification, and unnecessary complexity.
 
-- alternate priors;
-- uncertainty redesign;
-- correlation structure;
-- opportunity-process refinements;
-- specialist-channel recalibration;
-- manager-behavior kernels;
-- roster utility;
-- field response;
-- runtime/performance simplification;
-- unnecessary complexity.
-
-Prefer simpler models when evidence is equivalent.
-
-Negative results are architecture evidence.
+Prefer simpler models when evidence is equivalent. Negative results are
+architecture evidence.
 
 ---
 
@@ -393,17 +277,9 @@ Negative results are architecture evidence.
 
 **Primary window:** March-June 2027
 
-Incorporate new state:
-
-- free agency;
-- retirements;
-- coaching changes;
-- team changes;
-- NFL Draft;
-- schedule/byes;
-- role competition.
-
-Separate inherited 2026 evidence from new 2027 state and uncertainty.
+Incorporate free agency, retirements, coaching/team changes, the NFL Draft,
+schedule/byes, and role competition. Separate inherited 2026 evidence from new
+2027 state and uncertainty.
 
 ---
 
@@ -411,40 +287,22 @@ Separate inherited 2026 evidence from new 2027 state and uncertainty.
 
 **Primary window:** July-August 2027
 
-Refresh:
+Refresh player universe, rookie priors, depth-chart uncertainty, preseason
+availability, roster cuts, draft state, replacement pools, positional scarcity,
+and full draft/GUI regression.
 
-- player universe;
-- rookie priors;
-- depth-chart uncertainty;
-- preseason availability;
-- roster cuts;
-- draft state;
-- replacement pools;
-- positional scarcity;
-- full draft/GUI regression.
-
-Exit gate:
-
-`2027 A-PRIORI BASELINE COMMISSIONED`
-
-The prospective cycle then repeats.
+Exit gate: `2027 A-PRIORI BASELINE COMMISSIONED`.
 
 ---
 
 # Season success criteria
 
-The 2026 project is successful when:
-
-1. consequential decisions respect causal information boundaries;
-2. predictions/captures are frozen before outcomes;
-3. uncertainty is recorded;
-4. `P ⊕ D ⊕ K` is preserved;
-5. manager behavior stays separate from football physics;
-6. weekly Data/MC closure is retained;
-7. failures are diagnosable;
-8. calibration is evidence-supported;
-9. negative results are durable;
-10. the season yields a reproducible dataset that improves the next model.
+The 2026 project is successful when consequential decisions respect causal
+information boundaries, predictions/captures are frozen before outcomes,
+uncertainty is recorded, `P ⊕ D ⊕ K` is preserved, manager behavior stays
+separate from football physics, weekly Data/MC closure is retained, failures are
+diagnosable, calibration is evidence-supported, negative results are durable,
+and the season yields a reproducible dataset that improves the next model.
 
 A fantasy championship is a desirable stochastic outcome, not the sole
 scientific acceptance criterion.
