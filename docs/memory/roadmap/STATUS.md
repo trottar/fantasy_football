@@ -4,14 +4,12 @@
 
 - Authoritative runtime baseline: `v0.36-repack1` — **COMMISSIONED**
 - Internal version: `0.36`
-- Phase 0 final lineage: **COMPLETE**
-- Phase M repository/season-roadmap authority transition: **COMPLETE / PUSHED /
-  REMOTE VERIFIED**
 - Active engineering series: **v1.0A observability**
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
 - Phase 1B closure shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Phase 1C channel boundary audit: **COMPLETE**
-- Phase 1C DST shadow: **TARGETED PREFLIGHT NEXT**
+- Phase 1C channel boundary audit: **COMPLETE / DURABLE**
+- Phase 1C DST shadow: **FULLY SOURCE VALIDATED / LOCALLY APPLIED / STAGING NEXT**
+- Phase 1C DST runtime: **NOT SYNCHRONIZED**
 - Phase 1C K shadow: **DEFERRED BEHIND DST GATE**
 - Phase 1C player shadow: **BOUNDARY UNRESOLVED / OLD PLANNED POINT REJECTED**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
@@ -19,75 +17,64 @@
 - Persistent runtime sink: **DISABLED**
 - Week 3 week-open capture: **SECURED / VALID / PRE-KICKOFF**
 
-## Phase 1C Boundary Audit
+## Phase 1C DST Source Candidate
 
-The existing v1.0A integration map was checked against exact current production
-source.
-
-### Player
-
-Planned map point:
-
-`src/transaction_manager.py::evaluate_roster_predictive`
-
-Classification:
-
-`REJECT AS PLAYER-ONLY OBSERVABILITY BOUNDARY`
-
-Reason:
-
-- production calls pass complete `ctx.roster` and complete action `new_roster`;
-- transaction-manager roster positions include `K` and `DST`;
-- the predictive simulation explicitly handles DST component scoring.
-
-This is a complete-roster response/utility boundary. It may be useful at a
-future complete-roster observability layer, but naming it `subsystem.player` would
-violate `P ⊕ D ⊕ K`.
-
-A narrower player-only production boundary must be identified before player
-instrumentation.
-
-### DST
-
-Accepted outer channel point:
-
+Boundary:
 `src/specialist_policy_v032.py::evaluate_defense_channel`
 
-The public wrapper fixes `position="DST"` and routes into specialist policy
-machinery whose candidate/configuration comparisons remain within that selected
-specialist position. Cross-channel effects are used only at permitted
-complete-roster utility/state boundaries.
+Namespace:
+`subsystem.dst.channel`
 
-DST is selected as the first Phase 1C preflight because its current physical
-response already exposes explicit defensive components and therefore has the
-strongest immediate closure/diagnostic value.
+The source candidate adds a lazy bounded `dst_shadow` recorder and decorates
+only the DST public policy wrapper. The K wrapper remains unchanged and
+undecorated.
 
-### Kicker
+Validated exact technical scope:
 
-Accepted outer channel point:
+1. `src/specialist_policy_v032.py`
+2. `src/observability/dst_shadow.py`
+3. `tests/test_observability_dst_shadow_v10a.py`
+4. `tools/probe_observability_dst_shadow_v10a.py`
 
-`src/specialist_policy_v032.py::evaluate_kicker_channel`
+Validation:
 
-The wrapper fixes `position="K"` and remains a separately gated K channel.
+- targeted pytest: **6 passed in 1.03 s**;
+- corrected paired probe: PASS;
+- outputs/exception behavior/state: PASS;
+- success/error privacy: PASS;
+- K non-interference: PASS;
+- observer-failure fallthrough: PASS;
+- P/D/K cross-channel guard: PASS;
+- Python RNG / NumPy RNG / mutable state: preserved;
+- full pytest: **497 passed in 47.21 s**;
+- full compileall: PASS;
+- exact four-path bytes after validation: PASS;
+- candidate residue: NONE.
 
-K is deferred until the DST gate is complete. The current K model remains the
-deliberately simpler aggregate-yield/team-environment representation pending
-prospective kicker closure.
+Paired benchmark: baseline `7500 ns`, observed `79800 ns`, incremental `72300 ns`.
+The baseline is below the `1,000,000 ns` relative floor, so the relative factor is
+non-authoritative; the absolute `1,000,000 ns` limit passes.
 
-### Audit Result
+Two diagnostic-tooling defects were isolated without invalidating source:
 
-`PHASE1C_CHANNEL_BOUNDARY_AUDIT=COMPLETE`
+1. preflight v1 incorrectly rejected the staging-helper ownership sentinel;
+2. candidate-validation v1 performed an extra sequential RNG-consuming
+   comparison without restoring state, despite the canonical benchmark gate
+   already passing.
 
-No production or runtime source was modified.
+Current classification:
+
+`PHASE1C_DST_CANDIDATE_FULLY_SOURCE_VALIDATED / LOCALLY_APPLIED`
 
 Canonical evidence:
-`../evidence/PHASE1C_CHANNEL_BOUNDARY_AUDIT_2026-09-22.md`.
+`../evidence/PHASE1C_DST_SHADOW_SOURCE_VALIDATION_2026-09-22.md`.
 
 ## Boundary Conditions
 
 - Preserve `P ⊕ D ⊕ K`.
-- No observed 2026 outcome may retroactively tune a v0.X model.
+- DST instrumentation does not authorize K or player instrumentation.
+- No observed 2026 outcome may tune a v0.X model.
 - Diagnostics remain observers, not decision/control logic.
 - Persistent evidence requires a separate authorization gate.
-- Authenticated/raw capture material remains local.
-- Validation evidence is bound to the byte identity that produced it.
+- Validation evidence is bound to the exact candidate byte identity.
+- Runtime commissioning follows source publication; it does not precede it.

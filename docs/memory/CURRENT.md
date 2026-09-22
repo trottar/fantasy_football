@@ -5,7 +5,7 @@ state_updated: 2026-09-22
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: phase1c_dst_shadow_preflight
+active_workstream: phase1c_dst_shadow_source_checkpoint
 memory_refinement_step: M0_M7_complete_durable
 nfl_week: 3
 fantasy_stage: regular_season
@@ -14,73 +14,84 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Advance Phase 1C one channel at a time while preserving `P ⊕ D ⊕ K`.
+Checkpoint the exact fully source-validated Phase 1C DST observer candidate while
+preserving `P ⊕ D ⊕ K`.
 
-The read-only channel-boundary audit is complete. DST is the first narrow
-candidate. K remains separately gated. The previously planned player boundary is
-not authorized because it is complete-roster rather than player-channel pure.
+The control-root candidate is locally applied after exact candidate validation.
+Repository staging/publication and commissioned-runtime synchronization remain
+separate gates.
 
 ## Current Work Item
 
 **Phase 1B closure instrumentation: COMPLETE / SOURCE PUBLISHED / RUNTIME
 COMMISSIONED.**
 
-**Phase 1C channel boundary audit: COMPLETE.**
+**Phase 1C channel boundary audit: COMPLETE / DURABLE.**
 
-**Phase 1C DST shadow: TARGETED PREFLIGHT NEXT / NO SOURCE CHANGE YET.**
+**Phase 1C DST shadow: FULLY SOURCE VALIDATED / LOCALLY APPLIED / STAGING NEXT.**
+
+**Phase 1C K shadow: DEFERRED / UNCHANGED.**
+
+**Phase 1C player shadow: BOUNDARY UNRESOLVED / UNCHANGED.**
 
 The Week 3 week-open prospective capture remains
 **SECURED / VALID / PRE-KICKOFF**.
 
-Canonical Phase 1C audit:
-`evidence/PHASE1C_CHANNEL_BOUNDARY_AUDIT_2026-09-22.md`.
+Canonical Phase 1C DST validation record:
+`evidence/PHASE1C_DST_SHADOW_SOURCE_VALIDATION_2026-09-22.md`.
 
 ## Verified State
 
-- `v0.36-repack1` remains the commissioned 0.X runtime baseline with internal
+- `v0.36-repack1` remains the commissioned runtime baseline with internal
   `VERSION = 0.36`.
-- Phase 1A data-source season-sync shadow is
-  **COMPLETE / RUNTIME COMMISSIONED**.
-- Phase 1B closure-capture shadow is
-  **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**.
-- Phase 1B durable closure checkpoint:
-  `340a2b87a5e4b3fc5c04848dff1db03280f148c7`.
+- Remote source predecessor:
+  `37f841b7aec0280fa695f60e5285ff34646f9a10`.
+- Predecessor tree:
+  `e4ff60adc5db0559c57bb72e55f30b282a4b7337`.
+- DST observer boundary:
+  `src/specialist_policy_v032.py::evaluate_defense_channel`
+  at `subsystem.dst.channel`.
+- Only the DST wrapper is decorated. The K wrapper remains undecorated.
+- New bounded observer:
+  `src/observability/dst_shadow.py`.
 - Persistent runtime evidence remains **DISABLED**.
-- The v1.0A integration map proposes:
-  - player: `src/transaction_manager.py::evaluate_roster_predictive`;
-  - DST: `src/specialist_policy_v032.py::evaluate_defense_channel`;
-  - K: `src/specialist_policy_v032.py::evaluate_kicker_channel`.
-- The proposed player point is **NOT ACCEPTED** as a Phase 1C player-only
-  observability boundary:
-  - production calls evaluate it with `ctx.roster` and action `new_roster`;
-  - the complete-roster simulation includes K/DST positions;
-  - the predictive path explicitly executes DST component simulation.
-- Therefore `evaluate_roster_predictive` is a complete-roster utility/response
-  boundary, not a pure `P = QB/RB/WR/TE` boundary.
-- No player instrumentation is authorized until a narrower player-only production
-  boundary is identified from exact source.
-- The DST and K policy wrappers are acceptable outer channel boundaries:
-  - `evaluate_defense_channel` fixes `position="DST"`;
-  - `evaluate_kicker_channel` fixes `position="K"`;
-  - specialist candidate/configuration machinery filters within the selected
-    specialist position;
-  - permitted cross-channel coupling remains at complete-roster utility/state
-    boundaries rather than peer comparison.
-- DST is selected for the first Phase 1C targeted preflight because its physical
-  channel already exposes explicit component response (sacks, interceptions,
-  fumble recoveries, defensive TDs, points allowed, yards allowed).
-- K remains deferred behind the DST gate. Its current model is deliberately
-  simpler aggregate yield/team-environment response pending prospective kicker
-  closure.
-- This audit changed no production source, runtime source, football/model logic,
-  manager behavior, persistent sink, Git index/history, or remote source.
+- Corrected diagnostic preflight passed success/error equivalence, privacy,
+  observer-failure fallthrough, P/D/K cross-channel guard, Python/NumPy RNG, and
+  mutable-state preservation.
+- Candidate validation v1 passed targeted pytest (**6 passed in 1.03 s**) but
+  exposed an extra probe-harness comparison that failed to restore RNG/mutable
+  state between sequential calls. The canonical paired benchmark already passed.
+- Candidate validation continuation fixed only that harness, retained the DST
+  production/shadow/test payloads, and passed:
+  - paired probe: PASS;
+  - full pytest: **497 passed in 47.21 s**;
+  - full compileall: PASS;
+  - exact four-path bytes: PASS;
+  - candidate residue: NONE.
+- Validated technical SHA-256:
+  - `src/specialist_policy_v032.py`:
+    `6ce0392a71535acd0c8c673c198ba0ba98ff06f6d8274830265ae9391d6c6be2`;
+  - `src/observability/dst_shadow.py`:
+    `e05be60c597d592dbd16e91e546b8badb08175bb23841b7c3d616e08a7a927b9`;
+  - `tests/test_observability_dst_shadow_v10a.py`:
+    `d10c5dd486cad98ba2341e1c23b13dcbabd9c42ba5eaa2ba37bc51beb2cc5a31`;
+  - `tools/probe_observability_dst_shadow_v10a.py`:
+    `b6ef38d427f94f721fa1bf6cf54f5cc9bf8466ff0169e1fb3d6393607b98f08d`.
+- Paired candidate timing: baseline `7500 ns`, observed `79800 ns`, incremental
+  `72300 ns`. The baseline is below the `1,000,000 ns` relative floor, so the
+  relative factor is non-authoritative; the absolute gate passes.
+- This is observability only. Specialist football policy, DST physics, K policy,
+  player policy, scoring, manager behavior, and recommendation authority are
+  unchanged.
+- The commissioned runtime has **NOT** yet been synchronized with the DST
+  observer.
 
 ## Calendar / Evidence Gates
 
-- Weeks 1/2 count as prospective evidence only where a genuine frozen capture
-  already exists; never backfill.
-- Week 3 week-open capture gate is **SECURED**.
-- Preserve separate decision-time captures for consequential Week 3 actions.
+- Week 3 week-open capture remains **SECURED / VALID / PRE-KICKOFF**.
+- Preserve separate decision-time captures for consequential Week 3 lineup,
+  waiver, trade, and specialist actions.
+- No observed 2026 outcome may tune the v0.X model.
 - Broad empirical calibration remains blocked until sufficient clean prospective
   closure evidence exists.
 - Week 5 remains the preferred broader v1.0 observability commissioning target.
@@ -89,36 +100,23 @@ Canonical Phase 1C audit:
 
 - Preserve `P ⊕ D ⊕ K`.
 - Players compare only with players; DST only with DST; K only with K.
+- `evaluate_defense_channel` remains DST-only.
+- `evaluate_kicker_channel` remains undecorated and separately gated.
 - Cross-channel coupling belongs only at complete-roster utility/state boundaries.
-- Keep manager behavior separate from intrinsic football utility.
-- `screen != authority`.
-- Only decision-time information may influence prospective actions.
-- `0.X` remains a-priori; observed 2026 outcomes may tune only `1.X`.
 - Observability remains non-interfering and non-authoritative.
-- Authenticated/raw capture material remains local.
 - Persistent evidence requires a separate authorization gate.
 
 ## Exact Next Action
 
-Construct one **diagnostic-only targeted preflight** for the exact current
-`src/specialist_policy_v032.py::evaluate_defense_channel` boundary.
+Stage the exact four validated technical paths plus the five reviewed
+memory/evidence paths in an isolated checkpoint based on remote predecessor
+`37f841b7aec0280fa695f60e5285ff34646f9a10`.
 
-The preflight must not modify production source. It should establish the DST
-observer contract before instrumentation:
+Regenerate `docs/memory/manifest.json` from staged Git blob bytes and require the
+exact staged allowlist.
 
-- boundary identity: `subsystem.dst.channel`;
-- subsystem: `dst`;
-- bounded in-memory only;
-- no arguments, returned report payloads, private/authenticated data, or exception
-  messages retained;
-- production result/exception wins over observer behavior;
-- Python/NumPy stochastic state and relevant mutable input state are unchanged by
-  observation;
-- output/exception behavior is paired against the unobserved call;
-- overhead uses the existing benchmark-gate contract;
-- persistent sink remains disabled.
-
-Do not include K or player instrumentation in the DST preflight.
+Do not modify the commissioned runtime yet. Runtime synchronization is a later
+gate after source checkpoint publication and remote verification.
 
 ## Relevant References
 
@@ -126,11 +124,9 @@ Do not include K or player instrumentation in the DST preflight.
 - `MEMORY.md`
 - `handoffs/CURRENT_HANDOFF.md`
 - `USER.md`
-- `architecture/PLAYER_CHANNEL.md`
 - `architecture/SPECIALIST_CHANNELS.md`
 - `architecture/DIAGNOSTICS_OBSERVABILITY.md`
 - `evidence/PHASE1C_CHANNEL_BOUNDARY_AUDIT_2026-09-22.md`
-- `evidence/PHASE1B_CLOSURE_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
+- `evidence/PHASE1C_DST_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
 - `roadmap/STATUS.md`
-- `roadmap/SEASON_2026.md`
 - `patches/PATCH_PROTOCOL.md`
