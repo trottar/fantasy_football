@@ -59,17 +59,21 @@ A significant subsystem is not fully commissioned until its relevant structured 
 <!-- FANTASY_D009_PRIVYHUB_STYLE_CHECKPOINTS:BEGIN -->
 ## D-009 — PrivyHub-style checkpoint authorization and push workflow
 
-**Status:** ACTIVE
+**Status:** ACTIVE / DELIVERY MECHANICS SUPERSEDED BY D-025
 
-Fantasy Football adopts the PrivyHub-style checkpoint boundary:
+Standing parts of D-009 remain active:
 
-- durable memory is continuously maintained and pushed through the checkpoint ZIP;
-- diagnostic/probe/audit/observability tooling may advance and be pushed with the same standing authorization;
-- production football/model/application/business logic requires explicit user authorization at the end of the checkpoint;
-- repository writes use the ZIP/PowerShell checkpoint workflow with exact staging allowlists and remote verification;
-- direct GitHub connector writes are not used for project checkpoint pushes.
+- durable memory is continuously maintained with meaningful checkpoints;
+- diagnostic/probe/audit/observability tooling has standing authorization;
+- production football/model/application/business logic requires explicit user
+  authorization;
+- repository publication keeps a human-in-the-loop local-apply ->
+  review -> stage/commit/push -> remote-verification boundary;
+- direct GitHub connector writes are not project checkpoint pushes.
 
-This decision supersedes earlier generic collaboration wording where it conflicts.
+The former ZIP/PowerShell delivery wording is superseded. D-025 now owns generic
+text `.ffpkg` transport/execution and declarative isolated staging. Canonical
+checkpoint mechanics are in `patches/PATCH_PROTOCOL.md`.
 <!-- FANTASY_D009_PRIVYHUB_STYLE_CHECKPOINTS:END -->
 
 <!-- FANTASY_D015_MEMORY_MAINTENANCE_INDEX:BEGIN -->

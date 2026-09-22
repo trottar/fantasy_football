@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-21T21:07:07.003881-04:00",
+  "generated_at": "2026-09-21T21:33:07.338234-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -11,13 +11,13 @@
     },
     {
       "path": "COMMUNICATION.md",
-      "bytes": 3833,
-      "sha256": "18f141c022f6a3a3498f7119f4cd1957d315ab9233c964ca34db30581be6989a"
+      "bytes": 3513,
+      "sha256": "b403aa1de63b7866447704d029178ed1b48a96e63f9495119c401726aa73984f"
     },
     {
       "path": "CURRENT.md",
-      "bytes": 4389,
-      "sha256": "1c71cc872943746aa68a5bfaaa631db35d95a12485bf0129229f417800c9bb1e"
+      "bytes": 4154,
+      "sha256": "4e87a7ea3b7c2cefe600d00df88a14f8419820c6037fc0663039095421cebbea"
     },
     {
       "path": "LEARNINGS.md",
@@ -36,13 +36,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 4008,
-      "sha256": "d367108134ffee9ec6c9fb9e61a46166949d87f920398f86610f6a236c229257"
+      "bytes": 3628,
+      "sha256": "ac9b98f5af9ff97639f37230a2628f34a47ea066b9f061a9c07d3b7820f3a773"
     },
     {
       "path": "TOOLS.md",
-      "bytes": 7274,
-      "sha256": "1d41d173477ca3794e36fb13e20e71ea88f1e89817338568adafc90a4c65a284"
+      "bytes": 5000,
+      "sha256": "be0dd63305e61800a1f49e4cc4c79585f1f37ac15f468f66f946637d39401a99"
     },
     {
       "path": "USER.md",
@@ -186,8 +186,8 @@
     },
     {
       "path": "decisions/DECISION_LOG.md",
-      "bytes": 7096,
-      "sha256": "5e42034d1599be173aef3016c06cdc4a09224b02f76f8a05544b5db3953d7f80"
+      "bytes": 7174,
+      "sha256": "5079fec506ecdc8694db0d33e7f99f604597fbb8300c3f03e2c9449bc79610e7"
     },
     {
       "path": "evidence/GENERIC_CHECKPOINT_STAGING_REPRESENTATION_FIX_2026-09-21.md",
@@ -253,6 +253,11 @@
       "path": "evidence/MEMORY_HANDOFF_RECONCILIATION_V5_FAILURE_2026-09-20.md",
       "bytes": 1407,
       "sha256": "524fb3bfb01c73afb7bd22861a136e843afde3bf3c136261cc2b124a406d4e8e"
+    },
+    {
+      "path": "evidence/MEMORY_M3A_PROCEDURE_OWNERSHIP_CLEANUP_2026-09-21.md",
+      "bytes": 4936,
+      "sha256": "6f3f04ba7ada6dca2dd5b68d2a57e8849948ac81a9432db6ca935970561b0bbc"
     },
     {
       "path": "evidence/MEMORY_MAINTENANCE_AUDIT_2026-09-17.md",
@@ -381,8 +386,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 2317,
-      "sha256": "d81faa2aee33eea436dc4cce5f314dd5980a01daadb12683e80e02c27d4d1096"
+      "bytes": 2135,
+      "sha256": "989524ded1526ae20b6b38706c09e39c349a3ff46cba586c9efcfb0a0d5b7f74"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -506,8 +511,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3911,
-      "sha256": "34fc7b4111f281a2f7c0bc208ebe1c18e3367558858f6115b2ee9dc149ccf093"
+      "bytes": 3740,
+      "sha256": "52932fc0ca8e834611f9bc790e3c24b5111821030883667788ee732ff153b560"
     },
     {
       "path": "templates/DECISION.md",

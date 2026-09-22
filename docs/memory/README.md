@@ -3,9 +3,9 @@
 `docs/memory/` is the repository-backed continuity layer for the fantasy-football
 project. Development must not depend on chat history alone.
 
-## Mandatory Startup Contract
+## Current Startup Contract
 
-A fresh substantial work session must read:
+Until M5 explicitly changes it, a fresh substantial work session reads:
 
 1. `AGENTS.md`
 2. `CURRENT.md`
@@ -13,60 +13,52 @@ A fresh substantial work session must read:
 4. `handoffs/CURRENT_HANDOFF.md`
 5. `USER.md`
 
-Then read the task-relevant references named by those files or required by the
-affected subsystem.
+Then load only task-relevant canonical records/source/tests.
 
-`CURRENT.md` is authoritative active state. `MEMORY.md` supplies durable
-cross-phase scientific/project knowledge. `CURRENT_HANDOFF.md` is a compact
-resume and operational-warning surface; it cannot override `CURRENT.md`.
-
-Do not shorten this startup set from memory.
+`CURRENT.md` is authoritative active state. `MEMORY.md` supplies curated durable
+cross-phase knowledge. `CURRENT_HANDOFF.md` is compact transition metadata and
+cannot override `CURRENT.md`.
 
 ## Authority
 
-When sources conflict, prefer:
-1. exact current source plus fresh direct evidence;
-2. successful exact validation/commissioning/provenance records;
-3. `CURRENT.md`;
-4. canonical architecture/decision/investigation/evidence records;
-5. Git/checkpoint history;
-6. older summaries/history.
-
-Newer validated state supersedes older active summaries unless the user
-explicitly says otherwise. Never silently merge contradictions.
+When sources conflict, prefer exact current source/fresh direct evidence, exact
+validation/commissioning provenance, `CURRENT.md`, canonical deeper records,
+Git/checkpoint history, then older summaries/history.
 
 The validated local tree is authoritative between checkpoints. GitHub is the
 durable source/history layer and should match validated checkpoints.
 
 ## Core File Ownership
 
-- `AGENTS.md` — startup contract, authority, scientific/authorization guardrails.
-- `CURRENT.md` — sole authoritative active project frontier and next action.
+- `AGENTS.md` — startup, authority, scientific/authorization guardrails.
+- `CURRENT.md` — sole authoritative active frontier and next action.
 - `USER.md` — collaboration/environment preferences.
-- `MEMORY.md` — curated durable cross-phase scientific/project knowledge.
+- `MEMORY.md` — curated durable cross-phase knowledge.
 - `LEARNINGS.md` — reusable engineering/scientific lessons.
 - `COMMUNICATION.md` — work-session/checkpoint communication lifecycle.
-- `TOOLS.md` — environment/tooling and proven operational procedures.
+- `TOOLS.md` — environment/tool commands and proven operational facts.
 - `MAINTENANCE.md` — memory-health, cleanup, threshold, and rewrite policy.
 - `patches/PATCH_PROTOCOL.md` — canonical repository checkpoint mechanics.
-- `handoffs/CURRENT_HANDOFF.md` — compact resume pointer and critical
-  handoff/actor boundary.
+- `handoffs/CURRENT_HANDOFF.md` — compact resume/transition metadata.
+
+Detailed procedure should have one canonical owner. Other files point to it
+rather than reproducing it, except for brief safety boundaries needed to prevent
+an invalid transition.
 
 ## Planning Documents Outside `docs/memory/`
 
-- `../ROADMAP.md` — accepted long-range project phases and phase acceptance gates.
-- `../KNOWN_ISSUES.md` — open/deferred issues, blockers, debt, and explicit reopen
+- `../ROADMAP.md` — accepted long-range phases and phase acceptance gates.
+- `../KNOWN_ISSUES.md` — open/deferred issues, blockers, debt, and reopen/resolve
   conditions.
 
-These planning documents do not override `CURRENT.md`. `roadmap/STATUS.md`
-remains the compact current phase position, while `roadmap/SEASON_2026.md`
-owns the 2026 week-by-week calendar gates.
+These do not override `CURRENT.md`. `roadmap/STATUS.md` is the compact current
+roadmap position; `roadmap/SEASON_2026.md` owns weekly calendar gates.
 
 ## Typed Subdirectories
 
 - `architecture/` — stable scientific/software contracts.
 - `decisions/` — accepted/deferred/superseded decisions.
-- `investigations/` — bounded questions, probes, evidence, classifications.
+- `investigations/` — bounded questions, probes, classifications.
 - `evidence/` — measured/validated results and commissioning receipts.
 - `roadmap/` — implementation status and planned phases.
 - `repository/` — code maps/audits/technical debt.
@@ -81,18 +73,16 @@ owns the 2026 week-by-week calendar gates.
 Meaningful code/release/diagnostic checkpoints update durable memory in the same
 Git checkpoint.
 
-The default human-in-the-loop repository flow is:
+Canonical owners:
 
-`assistant package -> user local run -> returned log -> assistant verification -> separate push commands -> user push -> read-only remote verification`
+- repository checkpoint mechanics: `patches/PATCH_PROTOCOL.md`;
+- communication/evidence-return lifecycle: `COMMUNICATION.md`;
+- environment/tool commands: `TOOLS.md`;
+- memory health/cleanup: `MAINTENANCE.md`.
 
-Direct GitHub connector writes are not used for project checkpoint writes.
+Normal package transport uses deterministic text `.ffpkg` infrastructure under
+`tools/delivery/`. Direct GitHub connector writes are not project checkpoint
+writes. Raw/private evidence stays local unless deliberately sanitized.
 
-Raw/private evidence stays local unless deliberately sanitized.
-
-Active documents point to canonical evidence rather than copying complete
+Active documents point to canonical evidence instead of copying complete
 validation histories.
-
-Memory health and cleanup rules are defined in `MAINTENANCE.md`. Checkpoint
-surface/authority mechanics are defined in `patches/PATCH_PROTOCOL.md`; do not
-infer local-apply predecessor authority from the synchronized control root's own
-Git `HEAD`.

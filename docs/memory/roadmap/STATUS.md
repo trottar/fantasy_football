@@ -11,8 +11,8 @@
 - Generic `.ffpkg` delivery + declarative staging infrastructure: **PUSHED /
   REMOTE VERIFIED**
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
-- Memory-system refinement: **M0 COMPLETE / M1 COMPLETE / M2 CONTENT COMPLETE /
-  M3 AFTER DURABLE M2**
+- Memory-system refinement: **M0 COMPLETE / M1 COMPLETE / M2 COMPLETE /
+  M3A CONTENT COMPLETE / M3B NEXT AFTER DURABLE M3A**
 - Phase 1B closure instrumentation: **PREFLIGHT VALIDATED / RETAINED CANDIDATE /
   CHECKPOINT DEFERRED DURING MEMORY REFINEMENT**
 - Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
@@ -22,24 +22,21 @@
 
 ## Memory-System Refinement
 
-The M0 audit decomposed memory work into narrow checkpoints:
-
 - M0 — read-only audit: **COMPLETE / DURABLE**
 - M1 — active/planning reconciliation: **COMPLETE / DURABLE**
-- M2 — checkpoint identity semantics: **CONTENT COMPLETE**
-- M3 — procedure/ownership cleanup: **NEXT after M2 is durable**
+- M2 — checkpoint identity semantics: **COMPLETE / DURABLE**
+- M3A — procedure ownership / delivery wording cleanup: **CONTENT COMPLETE**
+- M3B — curated `MEMORY.md` cleanup: **NEXT after M3A is durable**
 - M4 — handoff contract: **PENDING**
 - M5 — startup contract decision: **PENDING**
 - M6 — memory-health enforcement: **PENDING**
 - M7 — fresh-session integration test: **PENDING**
 
-M2 deliberately does not hard-code the SHA of the checkpoint that will contain
-it. Determine whether M2 is durable from the Git/ref context containing the M2
-policy/evidence files. If they are on remote `main`, proceed to M3; if they are
-only local-applied, publish M2 first.
+M3 is deliberately split. M3A resolves procedure ownership/obsolete delivery
+wording without simultaneously rewriting curated durable knowledge. M3B performs
+that durable-knowledge cleanup separately.
 
-This maintenance work must not cause a missed prospective-capture window. The
-Week 3 capture gate has priority over nonessential M3-M7 progress.
+The Week 3 prospective-capture gate outranks nonessential M3B-M7 progress.
 
 ## Phase 1A — Commissioned Result
 
@@ -52,9 +49,9 @@ Canonical evidence:
 
 ## Phase 1B — Retained Candidate
 
-Closure instrumentation is the next technical surface after memory refinement.
-The retained candidate already passed its established source/test/probe gates and
-must remain frozen unless new evidence invalidates it.
+Closure instrumentation remains the next technical surface after memory
+refinement. The retained candidate already passed its established
+source/test/probe gates and remains frozen unless new evidence invalidates it.
 
 Phase 1B does not authorize P/D/K instrumentation, manager-behavior
 instrumentation, or persistent evidence.
@@ -82,8 +79,7 @@ instrumentation, or persistent evidence.
 ## Canonical References
 
 - active state: `../CURRENT.md`
-- M0 audit: `../evidence/MEMORY_SYSTEM_M0_AUDIT_2026-09-21.md`
-- M2 identity semantics: `../evidence/MEMORY_CHECKPOINT_IDENTITY_SEMANTICS_2026-09-21.md`
+- M3A evidence: `../evidence/MEMORY_M3A_PROCEDURE_OWNERSHIP_CLEANUP_2026-09-21.md`
 - long-range roadmap: `../../ROADMAP.md`
 - 2026 weekly map: `SEASON_2026.md`
 - known issues: `../../KNOWN_ISSUES.md`
