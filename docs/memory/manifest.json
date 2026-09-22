@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-21T21:46:40.322493-04:00",
+  "generated_at": "2026-09-21T22:14:17.046449-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 3861,
-      "sha256": "db3269e1b09ebfeba6304435660376800c5170b24a0019f4a66db1d1f0786e99"
+      "bytes": 3702,
+      "sha256": "1466d2bd3f5effe52dd09f51fd9b505c3f8cc9a25d7322c81a1d94f1fcff5968"
     },
     {
       "path": "LEARNINGS.md",
@@ -26,8 +26,8 @@
     },
     {
       "path": "MAINTENANCE.md",
-      "bytes": 14762,
-      "sha256": "572af5af7cb9465d22552b7dd4aa6d554774299d80e82056b77949ef651a47c0"
+      "bytes": 16422,
+      "sha256": "a1bd8f8dbb711194a317de2aa84c94eaa4608614015ac794fcb748b60ec67757"
     },
     {
       "path": "MEMORY.md",
@@ -265,6 +265,11 @@
       "sha256": "bba0048878ba41e03e70be0fac6ae16e8bd7dd6356d32e2911f11ba63222a1d9"
     },
     {
+      "path": "evidence/MEMORY_M4_HANDOFF_CONTRACT_2026-09-21.md",
+      "bytes": 4430,
+      "sha256": "fde17b14caf0acef256aaaae110fd1977f7b9a9740a30b4e6c8263de6eef5635"
+    },
+    {
       "path": "evidence/MEMORY_MAINTENANCE_AUDIT_2026-09-17.md",
       "bytes": 3693,
       "sha256": "2324ccc543b3137f77bb07f262e5c613fa42ff4173c54cb73aa20f0c948663cb"
@@ -391,8 +396,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 1936,
-      "sha256": "7fb1a6fa9c649bad54e3f071847964ed5af0c930e500b2b6abadef0b85377136"
+      "bytes": 545,
+      "sha256": "0d948e28e51c6dbaedf2c39562d94801d3b92cc48083582eef5d29fa4cf3b639"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -516,8 +521,13 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3829,
-      "sha256": "c477cfcebe16be2871222f872ef51a1f7f76cab4329510433ae1124ab142f444"
+      "bytes": 3801,
+      "sha256": "450b0d6ee258ee36d393496d5d1ec3622b73e33996a7ffe9fa730dc8734c63a6"
+    },
+    {
+      "path": "templates/CURRENT_HANDOFF.md",
+      "bytes": 913,
+      "sha256": "d3b1377f7f574bc691a43803a76264aed840fba4a18914d18b4435d1646224bc"
     },
     {
       "path": "templates/DECISION.md",

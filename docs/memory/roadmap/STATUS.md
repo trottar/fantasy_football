@@ -12,7 +12,7 @@
   REMOTE VERIFIED**
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
 - Memory-system refinement: **M0 COMPLETE / M1 COMPLETE / M2 COMPLETE /
-  M3A COMPLETE / M3B CONTENT COMPLETE / M4 NEXT AFTER DURABLE M3B**
+  M3 COMPLETE / M4 CONTENT COMPLETE / M5 NEXT AFTER DURABLE M4**
 - Phase 1B closure instrumentation: **PREFLIGHT VALIDATED / RETAINED CANDIDATE /
   CHECKPOINT DEFERRED DURING MEMORY REFINEMENT**
 - Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
@@ -26,17 +26,16 @@
 - M1 — active/planning reconciliation: **COMPLETE / DURABLE**
 - M2 — checkpoint identity semantics: **COMPLETE / DURABLE**
 - M3A — procedure ownership / delivery wording cleanup: **COMPLETE / DURABLE**
-- M3B — curated `MEMORY.md` cleanup: **CONTENT COMPLETE**
-- M4 — handoff contract: **NEXT after M3B is durable**
-- M5 — startup contract decision: **PENDING**
+- M3B — curated `MEMORY.md` cleanup: **COMPLETE / DURABLE**
+- M4 — handoff contract: **CONTENT COMPLETE**
+- M5 — startup contract decision: **NEXT after M4 is durable**
 - M6 — memory-health enforcement: **PENDING**
 - M7 — fresh-session integration test: **PENDING**
 
-M3 is complete when M3B is durable. The resulting role split is explicit:
-active frontier in `CURRENT.md`, curated cross-phase knowledge in `MEMORY.md`,
-procedure in canonical policy files, and detailed proof in evidence/history.
+M4 makes `CURRENT_HANDOFF.md` a small exceptional-transition note, not a second
+active-state document. Startup membership remains unchanged until M5.
 
-The Week 3 prospective-capture gate outranks nonessential M4-M7 progress.
+The Week 3 prospective-capture gate outranks nonessential M5-M7 progress.
 
 ## Phase 1A — Commissioned Result
 
@@ -79,8 +78,9 @@ instrumentation, or persistent evidence.
 ## Canonical References
 
 - active state: `../CURRENT.md`
-- curated memory: `../MEMORY.md`
-- M3B evidence: `../evidence/MEMORY_M3B_CURATED_DURABLE_MEMORY_CLEANUP_2026-09-21.md`
+- M4 evidence: `../evidence/MEMORY_M4_HANDOFF_CONTRACT_2026-09-21.md`
+- handoff contract: `../MAINTENANCE.md`
+- handoff template: `../templates/CURRENT_HANDOFF.md`
 - long-range roadmap: `../../ROADMAP.md`
 - 2026 weekly map: `SEASON_2026.md`
 - known issues: `../../KNOWN_ISSUES.md`

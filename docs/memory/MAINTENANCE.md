@@ -142,7 +142,7 @@ repository is in a safe checkpoint state.
 
 - soft: 6 KiB or 125 lines
 - hard: 10 KiB or 200 lines
-- desired steady state: 2–5 KiB maximum; smaller is preferred
+- desired steady state: 2 KiB or less and usually under 40 lines; smaller is preferred
 
 ### `MEMORY.md`
 
@@ -172,7 +172,7 @@ Maintenance is required when any of these is true:
 - a new authoritative baseline supersedes an old one;
 - procedural rules are copied inconsistently across bootstrap files;
 - bootstrap documents disagree about which files must be read;
-- the handoff does not make repository actor boundaries unambiguous.
+- the handoff duplicates routine active/project state already owned by `CURRENT.md`;\n- the handoff retains resolved/superseded transfer history;\n- the handoff does not make an exceptional repository actor/state boundary unambiguous.
 
 Also review procedural duplication when substantially identical detailed
 instructions appear in three or more policy files. Brief safety reminders may
@@ -252,23 +252,45 @@ Verify that `AGENTS.md`, `CURRENT.md`, `MEMORY.md`,
 `handoffs/CURRENT_HANDOFF.md`, and `USER.md` agree on authority and that a fresh
 session can recover the checkpoint workflow without chat history.
 
-## Handoff Policy
+## Handoff Contract
 
-Preferred model:
+`CURRENT.md` is the sole authoritative resumable project state.
 
-- `CURRENT.md` = complete authoritative resumable project state.
-- `CURRENT_HANDOFF.md` = compact transition metadata plus critical actor/safety
-  boundaries.
+`handoffs/CURRENT_HANDOFF.md` is a non-authoritative transfer note for
+**exceptional cross-session transition state only**. It must not become a second
+CURRENT.
 
-A handoff may contain:
-- last completed checkpoint;
-- temporary local-vs-remote condition;
-- unusual uncommitted state;
-- exact resume instruction;
-- checkpoint package/apply/commit/push state;
-- the mandatory actor sequence when needed for continuity.
+Allowed content is limited to information that a fresh session cannot safely
+recover from `CURRENT.md` and its canonical references, such as:
 
-Rewrite it at meaningful checkpoints. Do not append indefinitely.
+- local-applied but not yet staged/published state;
+- staged/committed but not yet pushed state;
+- repository publication completed while runtime synchronization or
+  commissioning is still incomplete;
+- an unusual temporary tool/access/operator condition that changes the normal
+  resume path;
+- one short temporary safety warning needed to prevent an invalid transition.
+
+Do not put routine project/phase status, commissioned-baseline summaries, roadmap
+state, scientific rules, validation matrices, completed-checkpoint chronology,
+superseded handoff history, or a duplicate ordinary next action in the live
+handoff.
+
+At a normal stable checkpoint, this is sufficient:
+
+`No exceptional transfer state is recorded.`
+
+plus a pointer to `CURRENT.md`.
+
+Update the handoff only when transfer-specific state changes. It does not need to
+change merely because the ordinary frontier in `CURRENT.md` changes. When an
+exception resolves, remove it; preserve chronology in dated memory, evidence, or
+patch records rather than appending history below the live handoff.
+
+If the handoff conflicts with `CURRENT.md`, `CURRENT.md` wins. Repair the handoff
+at the next safe checkpoint.
+
+The canonical template is `templates/CURRENT_HANDOFF.md`.
 
 ## Checkpoint Identity Semantics
 
@@ -409,10 +431,15 @@ Direct GitHub connector writes do not satisfy this process.
 ### Handoff
 
 - [ ] Handoff purpose is distinct from `CURRENT.md`.
-- [ ] Handoff is rewritten, not append-only.
-- [ ] Handoff cannot override `CURRENT.md`.
-- [ ] Handoff makes package/apply/commit/push state explicit.
-- [ ] Handoff makes the default actor sequence explicit.
+- [ ] Handoff is non-authoritative and cannot override `CURRENT.md`.
+- [ ] Handoff states either one exceptional transfer condition or explicitly
+  says no exceptional transfer state is recorded.
+- [ ] Routine active/project status is not duplicated from `CURRENT.md`.
+- [ ] Resolved/superseded handoff history is absent from the live file.
+- [ ] Resume text either points to `CURRENT.md` or names only the exact
+  exceptional transition operation required.
+- [ ] Any temporary actor/safety warning exists only because the normal
+  checkpoint path is currently interrupted.
 
 ### Procedures
 
