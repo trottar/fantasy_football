@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-22T17:17:55.180671-04:00",
+  "generated_at": "2026-09-22T17:47:49.050202-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5857,
-      "sha256": "12ccbb7a2b07766a5033874a541de68fc145aa17e92803cdb1b1642c9c1a1aff"
+      "bytes": 6426,
+      "sha256": "101f4f8886fc8f3efca85acb1b15d5772f708d89fa2d7f9665b6e2aba15f7e91"
     },
     {
       "path": "LEARNINGS.md",
@@ -456,8 +456,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 1370,
-      "sha256": "d0b214860ab86a273c1364d215f5326ba6e164495f20eb812c749a6e13a36d4b"
+      "bytes": 1133,
+      "sha256": "e23672a80b3cdd228d65b7fd63619eec843b5ef3820455524d5c6b2e4f06de65"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -556,8 +556,8 @@
     },
     {
       "path": "memory/2026-09-22.md",
-      "bytes": 10108,
-      "sha256": "e526d38f2ebbf60634e0851533411474b91b5ec28b840c72562617c485ef13b8"
+      "bytes": 11010,
+      "sha256": "abb04dd737c5fe5bd61a37eca2a01b3e6965c960e93e0945e64ea18245c5f0f3"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -586,8 +586,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 2479,
-      "sha256": "9578102aaf586b138fa4697b41faf69d838b345a5efc5604b05303a8eebd2773"
+      "bytes": 2566,
+      "sha256": "05b8df497f002f0e6430b9242923bea26b0523d475cffde2820baf10d898c6da"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

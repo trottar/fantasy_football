@@ -5,7 +5,7 @@ state_updated: 2026-09-22
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: phase1c_dst_runtime_memory_checkpoint
+active_workstream: phase1c_k_shadow_preflight
 memory_refinement_step: M0_M7_complete_durable
 nfl_week: 3
 fantasy_stage: regular_season
@@ -14,12 +14,13 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Close Phase 1C DST observability durably after source publication and runtime
-commissioning while preserving `P ⊕ D ⊕ K`.
+Advance the next separately gated Phase 1C specialist channel while
+preserving `P ⊕ D ⊕ K`.
 
-The source checkpoint is pushed and remote verified, and the commissioned
-`v0.36-repack1` runtime now contains the exact validated DST observer bytes.
-Durable-memory publication is the remaining closure gate.
+Phase 1C DST is complete, durable, source-published, runtime-commissioned, and
+remote verified. The next task is a diagnostic-only preflight for the accepted K
+outer channel boundary. Player instrumentation remains blocked pending a narrower
+QB/RB/WR/TE production boundary.
 
 ## Current Work Item
 
@@ -30,7 +31,7 @@ COMMISSIONED.**
 
 **Phase 1C DST shadow: COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED.**
 
-**Phase 1C K shadow: DEFERRED / UNCHANGED.**
+**Phase 1C K shadow: TARGETED PREFLIGHT NEXT / NO SOURCE CHANGE YET.**
 
 **Phase 1C player shadow: BOUNDARY UNRESOLVED / UNCHANGED.**
 
@@ -48,6 +49,9 @@ Canonical Phase 1C DST validation record:
   `9d174a25db3990f35dbf7a13b5421253c265baa9`.
 - Published source tree:
   `65a1a8fed7f24906047b9e575d3ce9171ff4a9d7`.
+- Phase 1C DST durable-memory closure commit:
+  `c5eaa69613ca00a85081b76e37ab03a0d7aacea3`, tree
+  `cfb22b38c6414535796cac0695033688a8398696`, pushed and remote verified.
 - DST observer boundary:
   `src/specialist_policy_v032.py::evaluate_defense_channel`
   at `subsystem.dst.channel`.
@@ -115,17 +119,25 @@ Canonical Phase 1C DST validation record:
 
 ## Exact Next Action
 
-Stage and publish this exact Phase 1C DST runtime-commissioning durable-memory
-checkpoint against source checkpoint
-`9d174a25db3990f35dbf7a13b5421253c265baa9`.
+Construct one diagnostic-only targeted preflight for the exact current
+`src/specialist_policy_v032.py::evaluate_kicker_channel` boundary.
 
-The reviewed memory scope is `CURRENT.md`, curated `MEMORY.md`,
-`handoffs/CURRENT_HANDOFF.md`, `roadmap/STATUS.md`, dated history, and the new
-canonical runtime-commissioning evidence record. Regenerate
-`docs/memory/manifest.json` from staged Git blob bytes.
+The preflight must not modify production source. It should establish the K
+observer contract before instrumentation:
 
-Do not modify runtime source during the memory checkpoint. K and player
-instrumentation remain separately gated.
+- boundary identity: `subsystem.k.channel`;
+- subsystem: `k`;
+- bounded in-memory only;
+- no arguments, returned policy payloads, private/authenticated data, or exception
+  messages retained;
+- production result/exception wins over observer behavior;
+- Python/NumPy stochastic state and relevant mutable input state remain unchanged;
+- output/exception behavior is paired against the unobserved call;
+- overhead uses the existing benchmark-gate contract;
+- persistent sink remains disabled;
+- DST observer behavior and player channel remain unchanged.
+
+Do not instrument K or player production source during this preflight.
 
 ## Relevant References
 

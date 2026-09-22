@@ -5,41 +5,30 @@ exceptional cross-session transfer state and cannot override `CURRENT.md`.
 
 ## Transfer State
 
-Phase 1C DST observability is source published, remote verified, and runtime
-commissioned.
+Phase 1C DST observability is complete and durable.
 
 Source checkpoint:
 `9d174a25db3990f35dbf7a13b5421253c265baa9`.
 
-Published tree:
-`65a1a8fed7f24906047b9e575d3ce9171ff4a9d7`.
+Runtime:
+`fantasy_season_v0_36_repack1`, internal `VERSION = 0.36`, DST shadow
+commissioned.
 
-Commissioned runtime:
-`fantasy_season_v0_36_repack1`, internal `VERSION = 0.36`.
+Durable runtime-commissioning closure:
+`c5eaa69613ca00a85081b76e37ab03a0d7aacea3`
+with tree `cfb22b38c6414535796cac0695033688a8398696`.
 
-Runtime validation passed:
+The closure commit is pushed and remote verified. Persistent evidence remains
+disabled. K and player instrumentation were not introduced by the DST workstream.
 
-- dedicated DST test: 6 passed;
-- paired outputs/exception/state/privacy/RNG/mutable-state: PASS;
-- K non-interference: PASS;
-- observer-failure fallthrough: PASS;
-- P/D/K cross-channel guard: PASS;
-- full runtime pytest: 353 passed;
-- compileall: PASS;
-- final runtime identities: PASS;
-- runtime validation residue: NONE;
-- persistent sink: false.
-
-Only `evaluate_defense_channel` is observed at `subsystem.dst.channel`.
-`evaluate_kicker_channel` remains undecorated and uninstrumented.
-
-Canonical evidence:
-`../evidence/PHASE1C_DST_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`.
+The accepted K outer boundary remains
+`specialist_policy_v032.evaluate_kicker_channel`; it is separately gated and is
+the next targeted diagnostic preflight. Player instrumentation remains blocked
+pending a narrower QB/RB/WR/TE production boundary.
 
 ## Resume
 
 Follow `../CURRENT.md`'s `Exact Next Action`.
 
-Durable-memory staging/publication is the remaining Phase 1C DST closure gate.
-K remains separately gated. Player instrumentation remains blocked until a
-narrower QB/RB/WR/TE production boundary is established.
+Resume with the diagnostic-only K targeted preflight. Do not modify K production
+source until that preflight is validated.

@@ -9,8 +9,8 @@
 - Phase 1B closure shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 - Phase 1C channel boundary audit: **COMPLETE / DURABLE**
 - Phase 1C DST shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Phase 1C DST durable-memory closure: **LOCAL UPDATE NEXT / PUBLICATION PENDING**
-- Phase 1C K shadow: **DEFERRED / SEPARATELY GATED**
+- Phase 1C DST durable-memory closure: **COMPLETE / PUSHED / REMOTE VERIFIED**
+- Phase 1C K shadow: **TARGETED PREFLIGHT NEXT / NO SOURCE CHANGE YET**
 - Phase 1C player shadow: **BOUNDARY UNRESOLVED / OLD PLANNED POINT REJECTED**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
@@ -30,6 +30,9 @@ Source checkpoint:
 
 Published tree:
 `65a1a8fed7f24906047b9e575d3ce9171ff4a9d7`
+
+Durable closure checkpoint:
+`c5eaa69613ca00a85081b76e37ab03a0d7aacea3`
 
 Only the DST wrapper is instrumented. The K wrapper remains unchanged and
 uninstrumented.
