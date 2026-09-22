@@ -12,7 +12,7 @@
   REMOTE VERIFIED**
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
 - Memory-system refinement: **M0 COMPLETE / M1 COMPLETE / M2 COMPLETE /
-  M3 COMPLETE / M4 CONTENT COMPLETE / M5 NEXT AFTER DURABLE M4**
+  M3 COMPLETE / M4 PUBLISHED / M4R1 CONTENT COMPLETE / M5 NEXT AFTER DURABLE M4R1**
 - Phase 1B closure instrumentation: **PREFLIGHT VALIDATED / RETAINED CANDIDATE /
   CHECKPOINT DEFERRED DURING MEMORY REFINEMENT**
 - Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
@@ -27,13 +27,15 @@
 - M2 — checkpoint identity semantics: **COMPLETE / DURABLE**
 - M3A — procedure ownership / delivery wording cleanup: **COMPLETE / DURABLE**
 - M3B — curated `MEMORY.md` cleanup: **COMPLETE / DURABLE**
-- M4 — handoff contract: **CONTENT COMPLETE**
-- M5 — startup contract decision: **NEXT after M4 is durable**
+- M4 — handoff contract: **PUBLISHED / REPAIR REQUIRED**
+- M4R1 — maintenance newline repair: **CONTENT COMPLETE**
+- M5 — startup contract decision: **NEXT after M4R1 is durable**
 - M6 — memory-health enforcement: **PENDING**
 - M7 — fresh-session integration test: **PENDING**
 
-M4 makes `CURRENT_HANDOFF.md` a small exceptional-transition note, not a second
-active-state document. Startup membership remains unchanged until M5.
+M4 defines `CURRENT_HANDOFF.md` as a small exceptional-transition note. M4R1
+repairs a published Markdown rendering defect in `MAINTENANCE.md`; the handoff
+contract itself is unchanged. Startup membership remains unchanged until M5.
 
 The Week 3 prospective-capture gate outranks nonessential M5-M7 progress.
 
@@ -79,6 +81,7 @@ instrumentation, or persistent evidence.
 
 - active state: `../CURRENT.md`
 - M4 evidence: `../evidence/MEMORY_M4_HANDOFF_CONTRACT_2026-09-21.md`
+- M4R1 evidence: `../evidence/MEMORY_M4R1_MAINTENANCE_NEWLINE_REPAIR_2026-09-21.md`
 - handoff contract: `../MAINTENANCE.md`
 - handoff template: `../templates/CURRENT_HANDOFF.md`
 - long-range roadmap: `../../ROADMAP.md`

@@ -9,7 +9,7 @@ This file owns open/deferred/blocker/debt state that should not clutter
 | --- | --- | --- | --- |
 | Memory-system refinement M0-M7 | ACTIVE MAINTENANCE | Blocks advancing the retained Phase 1B checkpoint while the current memory step is not durable; does not outrank the Week 3 capture | Complete each narrow M-step with its own validation; preserve prospective capture first |
 | Current memory-step durability gate | GATE CONDITION | Yes for the next M-step only when the current step exists only as local/unpublished state | Resolve from the repository context containing the current memory files; if remote `main` contains the current step, the gate is satisfied |
-| M4 handoff contract | CONTENT COMPLETE | Yes for M5 until M4 is durable | Publish the reviewed M4 handoff-policy/evidence scope; startup membership remains unchanged until M5 |
+| M4 handoff contract / M4R1 repair | M4 PUBLISHED / M4R1 CONTENT COMPLETE | Yes for M5 until M4R1 is durable | Publish the reviewed M4R1 maintenance-newline repair; startup membership remains unchanged until M5 |
 | Closure production instrumentation | NEXT TECHNICAL SLICE / RETAINED CANDIDATE | Deferred during M0-M7 memory refinement | Resume Phase 1B only after memory refinement gate chosen in CURRENT; do not rerun established candidate gates without new evidence |
 | Player/DST/K production instrumentation | PLANNED / SEPARATELY GATED | No | v1.0A Phase 1C |
 | Market/manager-behavior production instrumentation | PLANNED / SEPARATELY GATED | No | v1.0A Phase 1D |

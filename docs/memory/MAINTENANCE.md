@@ -172,7 +172,9 @@ Maintenance is required when any of these is true:
 - a new authoritative baseline supersedes an old one;
 - procedural rules are copied inconsistently across bootstrap files;
 - bootstrap documents disagree about which files must be read;
-- the handoff duplicates routine active/project state already owned by `CURRENT.md`;\n- the handoff retains resolved/superseded transfer history;\n- the handoff does not make an exceptional repository actor/state boundary unambiguous.
+- the handoff duplicates routine active/project state already owned by `CURRENT.md`;
+- the handoff retains resolved/superseded transfer history;
+- the handoff does not make an exceptional repository actor/state boundary unambiguous.
 
 Also review procedural duplication when substantially identical detailed
 instructions appear in three or more policy files. Brief safety reminders may

@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-21T22:14:17.046449-04:00",
+  "generated_at": "2026-09-21T22:26:53.928898-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 3702,
-      "sha256": "1466d2bd3f5effe52dd09f51fd9b505c3f8cc9a25d7322c81a1d94f1fcff5968"
+      "bytes": 3919,
+      "sha256": "105c1ef1ba6c904d0ef87de9bcc9a638bac475c1a218d232d370551426e6d618"
     },
     {
       "path": "LEARNINGS.md",
@@ -26,8 +26,8 @@
     },
     {
       "path": "MAINTENANCE.md",
-      "bytes": 16422,
-      "sha256": "a1bd8f8dbb711194a317de2aa84c94eaa4608614015ac794fcb748b60ec67757"
+      "bytes": 16420,
+      "sha256": "9fa5893b345c26bceabc5bb8b77c221b7096ffa59c61154f7d5c5a8b7202040e"
     },
     {
       "path": "MEMORY.md",
@@ -263,6 +263,11 @@
       "path": "evidence/MEMORY_M3B_CURATED_DURABLE_MEMORY_CLEANUP_2026-09-21.md",
       "bytes": 3973,
       "sha256": "bba0048878ba41e03e70be0fac6ae16e8bd7dd6356d32e2911f11ba63222a1d9"
+    },
+    {
+      "path": "evidence/MEMORY_M4R1_MAINTENANCE_NEWLINE_REPAIR_2026-09-21.md",
+      "bytes": 2435,
+      "sha256": "35862a3421b4447ba6754e64d6cb7adb4b342ec536940015571691651c9c5a80"
     },
     {
       "path": "evidence/MEMORY_M4_HANDOFF_CONTRACT_2026-09-21.md",
@@ -521,8 +526,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3801,
-      "sha256": "450b0d6ee258ee36d393496d5d1ec3622b73e33996a7ffe9fa730dc8734c63a6"
+      "bytes": 4060,
+      "sha256": "0b08afa43ae7b49f5c76f8af8247412c28f41440635354aa745855469db88539"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

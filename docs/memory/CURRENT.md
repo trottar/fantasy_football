@@ -6,7 +6,7 @@ authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
 active_workstream: memory_system_refinement
-memory_refinement_step: M4_content_complete_M5_after_durable_checkpoint
+memory_refinement_step: M4R1_content_complete_M5_after_durable_checkpoint
 nfl_week: 2
 fantasy_stage: regular_season
 maintenance_status: healthy
@@ -24,7 +24,7 @@ rather than a second copy of `CURRENT.md`.
 
 ## Current Work Item
 
-**M4 — handoff contract: CONTENT COMPLETE.**
+**M4R1 — maintenance newline repair: CONTENT COMPLETE.**
 
 The handoff contract now requires:
 
@@ -45,8 +45,9 @@ The handoff contract now requires:
 - Generic `.ffpkg` delivery and declarative staging infrastructure are **PUSHED /
   REMOTE VERIFIED**.
 - M0, M1, M2, M3A, and M3B are **PUSHED / REMOTE VERIFIED**.
-- M4 handoff-contract content is recorded at
-  `evidence/MEMORY_M4_HANDOFF_CONTRACT_2026-09-21.md`.
+- M4 is **PUSHED / REMOTE VERIFIED**, but read-only inspection found a
+  malformed literal `\\n` sequence in `MAINTENANCE.md`; M4R1 repairs that
+  structural defect without changing the handoff contract.
 - The retained Phase 1B closure-shadow candidate remains isolated and unchanged.
   Its established candidate/test/probe gates remain valid and must not be rerun
   without new evidence.
@@ -73,13 +74,13 @@ The handoff contract now requires:
 
 ## Exact Next Action
 
-Resolve M4 durability from the repository context containing these files. If
-remote `main` does not yet contain the exact M4 handoff-policy/evidence state,
-publish only the reviewed M4 checkpoint. If remote `main` already contains it,
-advance to **M5 — startup contract decision**.
+Resolve M4R1 durability from the repository context containing these files.
+If remote `main` does not yet contain the exact M4R1 repair/evidence state,
+publish only the reviewed M4R1 checkpoint. If remote `main` already contains
+it, advance to **M5 — startup contract decision**.
 
-M5 must explicitly decide the startup model; M4 does not silently alter the
-five-file startup set.
+M5 remains blocked until the committed M4 maintenance newline defect is repaired
+durably. Startup membership/order remains unchanged.
 
 ## Relevant References
 
@@ -87,6 +88,7 @@ five-file startup set.
 - `handoffs/CURRENT_HANDOFF.md`
 - `templates/CURRENT_HANDOFF.md`
 - `evidence/MEMORY_M4_HANDOFF_CONTRACT_2026-09-21.md`
+- `evidence/MEMORY_M4R1_MAINTENANCE_NEWLINE_REPAIR_2026-09-21.md`
 - `evidence/MEMORY_SYSTEM_M0_AUDIT_2026-09-21.md`
 - `roadmap/STATUS.md`
 - `../../KNOWN_ISSUES.md`
