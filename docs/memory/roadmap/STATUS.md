@@ -12,7 +12,7 @@
   REMOTE VERIFIED**
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
 - Memory-system refinement: **M0 COMPLETE / M1 COMPLETE / M2 COMPLETE /
-  M3A CONTENT COMPLETE / M3B NEXT AFTER DURABLE M3A**
+  M3A COMPLETE / M3B CONTENT COMPLETE / M4 NEXT AFTER DURABLE M3B**
 - Phase 1B closure instrumentation: **PREFLIGHT VALIDATED / RETAINED CANDIDATE /
   CHECKPOINT DEFERRED DURING MEMORY REFINEMENT**
 - Phase 1C player/DST/kicker observability: **NOT STARTED / SEPARATELY GATED**
@@ -25,18 +25,18 @@
 - M0 — read-only audit: **COMPLETE / DURABLE**
 - M1 — active/planning reconciliation: **COMPLETE / DURABLE**
 - M2 — checkpoint identity semantics: **COMPLETE / DURABLE**
-- M3A — procedure ownership / delivery wording cleanup: **CONTENT COMPLETE**
-- M3B — curated `MEMORY.md` cleanup: **NEXT after M3A is durable**
-- M4 — handoff contract: **PENDING**
+- M3A — procedure ownership / delivery wording cleanup: **COMPLETE / DURABLE**
+- M3B — curated `MEMORY.md` cleanup: **CONTENT COMPLETE**
+- M4 — handoff contract: **NEXT after M3B is durable**
 - M5 — startup contract decision: **PENDING**
 - M6 — memory-health enforcement: **PENDING**
 - M7 — fresh-session integration test: **PENDING**
 
-M3 is deliberately split. M3A resolves procedure ownership/obsolete delivery
-wording without simultaneously rewriting curated durable knowledge. M3B performs
-that durable-knowledge cleanup separately.
+M3 is complete when M3B is durable. The resulting role split is explicit:
+active frontier in `CURRENT.md`, curated cross-phase knowledge in `MEMORY.md`,
+procedure in canonical policy files, and detailed proof in evidence/history.
 
-The Week 3 prospective-capture gate outranks nonessential M3B-M7 progress.
+The Week 3 prospective-capture gate outranks nonessential M4-M7 progress.
 
 ## Phase 1A — Commissioned Result
 
@@ -79,7 +79,8 @@ instrumentation, or persistent evidence.
 ## Canonical References
 
 - active state: `../CURRENT.md`
-- M3A evidence: `../evidence/MEMORY_M3A_PROCEDURE_OWNERSHIP_CLEANUP_2026-09-21.md`
+- curated memory: `../MEMORY.md`
+- M3B evidence: `../evidence/MEMORY_M3B_CURATED_DURABLE_MEMORY_CLEANUP_2026-09-21.md`
 - long-range roadmap: `../../ROADMAP.md`
 - 2026 weekly map: `SEASON_2026.md`
 - known issues: `../../KNOWN_ISSUES.md`

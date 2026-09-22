@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-21T21:33:07.338234-04:00",
+  "generated_at": "2026-09-21T21:46:40.322493-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 4154,
-      "sha256": "4e87a7ea3b7c2cefe600d00df88a14f8419820c6037fc0663039095421cebbea"
+      "bytes": 3861,
+      "sha256": "db3269e1b09ebfeba6304435660376800c5170b24a0019f4a66db1d1f0786e99"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 13358,
-      "sha256": "c20bbd41fe07290887d13f3a93ccf707e00f47a67d2b5fc89be7e80467e859d9"
+      "bytes": 9963,
+      "sha256": "851a89554b73c78345498ccd0a2af1a03073cd2ea17e4954e62485e2bfc4ee11"
     },
     {
       "path": "README.md",
@@ -260,6 +260,11 @@
       "sha256": "6f3f04ba7ada6dca2dd5b68d2a57e8849948ac81a9432db6ca935970561b0bbc"
     },
     {
+      "path": "evidence/MEMORY_M3B_CURATED_DURABLE_MEMORY_CLEANUP_2026-09-21.md",
+      "bytes": 3973,
+      "sha256": "bba0048878ba41e03e70be0fac6ae16e8bd7dd6356d32e2911f11ba63222a1d9"
+    },
+    {
       "path": "evidence/MEMORY_MAINTENANCE_AUDIT_2026-09-17.md",
       "bytes": 3693,
       "sha256": "2324ccc543b3137f77bb07f262e5c613fa42ff4173c54cb73aa20f0c948663cb"
@@ -386,8 +391,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 2135,
-      "sha256": "989524ded1526ae20b6b38706c09e39c349a3ff46cba586c9efcfb0a0d5b7f74"
+      "bytes": 1936,
+      "sha256": "7fb1a6fa9c649bad54e3f071847964ed5af0c930e500b2b6abadef0b85377136"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -511,8 +516,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3740,
-      "sha256": "52932fc0ca8e834611f9bc790e3c24b5111821030883667788ee732ff153b560"
+      "bytes": 3829,
+      "sha256": "c477cfcebe16be2871222f872ef51a1f7f76cab4329510433ae1124ab142f444"
     },
     {
       "path": "templates/DECISION.md",

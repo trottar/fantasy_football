@@ -1,6 +1,15 @@
 # Durable Memory
 
-## Project purpose
+This file owns **curated durable cross-phase knowledge**. It preserves scientific
+invariants, stable architectural facts, commissioned baselines, and reusable
+project rules.
+
+It does not own the active frontier, startup membership, checkpoint procedure,
+session chronology, or raw validation detail. Those belong respectively to
+`CURRENT.md`, `AGENTS.md`/`MAINTENANCE.md`, `patches/PATCH_PROTOCOL.md`, dated
+history, and canonical evidence/investigation records.
+
+## Project Purpose
 
 Build a prospectively validated stochastic model of NFL fantasy production and
 use state-response dynamics to make roster decisions under uncertainty.
@@ -16,41 +25,43 @@ NFL process
   -> knowledge
 ```
 
-The target is not a permanently finished predictor. It is a validated adaptive
-system that learns where its assumptions, uncertainty, metadata, or subsystem
-representations are incomplete.
+The target is not a permanently finished predictor. It is an adaptive system
+whose assumptions, uncertainty, metadata, and subsystem representations are
+tested against prospective evidence.
 
-## Physics analogy
+## Physics Analogy
 
-Fantasy production is modeled as a response problem:
+Fantasy production is modeled as a stochastic response problem:
 
 `N_fantasy ~ L x sigma x A x epsilon`
 
-- `L` = opportunity/exposure
-- `sigma` = production/efficiency
-- `A` = matchup/kinematic acceptance
-- `epsilon` = fantasy scoring response
+- `L` = opportunity/exposure;
+- `sigma` = production/efficiency;
+- `A` = matchup/kinematic acceptance;
+- `epsilon` = fantasy scoring response.
 
 Fantasy points are downstream observables.
 
-The physics analogy is strongest for state representation, uncertainty
-propagation, measurement, residual analysis, perturbation analysis, and coupled
-subsystems. It is not a claim that football obeys deterministic universal laws,
-fixed constants, or equilibrium assumptions.
+The analogy is strongest for state representation, uncertainty propagation,
+measurement, residual analysis, perturbation analysis, and coupled subsystems.
+It is not a claim that football follows deterministic universal laws or fixed
+equilibrium constants.
 
-## Channel architecture
+## Specialist-Channel Architecture
+
+Preserve:
 
 `P ⊕ D ⊕ K`
 
-- P = QB/RB/WR/TE player channel
-- D = DST channel
-- K = kicker channel
+- P = QB/RB/WR/TE player channel;
+- D = DST channel;
+- K = kicker channel.
 
-Players compare only to players; defenses only to defenses; kickers only to
-kickers. Cross-channel coupling occurs only at complete-roster utility/state
+Players compare only to players, defenses only to defenses, and kickers only to
+kickers. Cross-channel coupling belongs only at complete-roster utility/state
 boundaries.
 
-## Counterfactual response and state
+## Counterfactual Response and Weekly State
 
 Roster decisions are perturbations:
 
@@ -60,8 +71,9 @@ Weekly state:
 
 `S_w = (P_w, D_w, K_w, M_w, I_w)`
 
-Use common random numbers where practical. Dropped players remain part of league
-state. Direct response, field response, and manager behavior remain distinct.
+Use common random numbers for paired comparisons where practical. Dropped players
+remain part of league state. Direct response, field response, and manager
+behavior remain distinct.
 
 Guiding question:
 
@@ -87,53 +99,16 @@ The MC is a microscope, not the theory. More samples cannot repair a wrong state
 representation, response mechanism, or uncertainty model.
 
 Priority:
+
 1. correct state representation;
 2. correct response mechanisms;
 3. correct uncertainty;
 4. computational sampling.
 
-## Observability as experimental infrastructure
+## Historical Evidence and Non-Stationarity
 
-Observability is not merely debugging or logging. It is the experimental
-measurement apparatus for the project.
-
-Pipeline:
-
-`raw observations -> structured evidence -> metadata assessment -> diagnostics -> model improvement -> better decisions`
-
-It exists to support:
-- measurement;
-- reproducibility;
-- hypothesis testing;
-- closure;
-- failure localization;
-- evidence-supported calibration and model evolution.
-
-Every major model addition should identify:
-- claim: what stochastic process is represented;
-- evidence: what observations support it;
-- assumption: what uncertainty or approximation exists;
-- failure mode: how the representation would be shown wrong.
-
-## Constructive disagreement
-
-Collaboration should optimize for scientific validity, not agreement.
-
-Architectural proposals are hypotheses. Challenge:
-- assumptions;
-- implementation choices;
-- analogies;
-- data requirements;
-- causal boundaries;
-- feasibility.
-
-Agreement is not validation.
-
-## Historical evidence and non-stationarity
-
-Historical football data is useful but dangerous because football is
-non-stationary: schemes, coaching, rules, player roles, strategy, and data
-quality change.
+Historical football data is useful but football is non-stationary: schemes,
+coaching, rules, player roles, strategy, and data quality change.
 
 Do not assume:
 
@@ -147,190 +122,165 @@ not:
 
 `historical data -> direct prediction`
 
-Historical comparability should account for era, scheme, coaching, role,
-opportunity profile, efficiency profile, injury context, opponent environment,
-and data quality. A smaller comparable sample can be more useful than a larger
-incompatible sample.
+Comparability should account for era, scheme, coaching, role, opportunity,
+efficiency, injury context, opponent environment, and data quality. A smaller
+comparable sample can be more useful than a larger incompatible sample.
 
-## Behavioral separation
+## Behavioral Separation
 
-Manager acquisition/trade behavior is a stochastic behavior kernel, not
-football physics. Popularity, ownership, trends, and perception may affect
-manager actions but do not change intrinsic football value.
+Manager acquisition/trade behavior is a stochastic behavior kernel, not football
+physics. Popularity, ownership, trends, and perception may affect manager
+actions but do not change intrinsic football value.
 
-## Scientific version boundary
+## Scientific Version Boundary
 
 - `v0.X` = a-priori architecture; observed 2026 outcomes do not tune it.
 - `v1.X` = prospective Data/MC closure and evidence-supported calibration.
 
 Structural representation defects may be fixed when the architecture cannot
 represent the real process. Empirical retuning requires accumulated evidence.
+One surprising game opens an investigation; it does not justify broad retuning.
 
-## Commissioned 0.X baseline
+## Commissioned 0.X Baseline
 
 The final commissioned 0.X runtime baseline is **v0.36-repack1** with internal
 `VERSION = 0.36`.
 
 Durable conclusions:
+
 - exact v0.36 source was reconciled and imported;
 - no historical exact `v0.36-fixed1` artifact/provenance was established;
-- the original v0.36 ZIP had a packaging-only omission of four public
-  mock-calibration fixtures;
-- fixture-only restoration closed both deterministic failures and the full
-  suite;
-- the repaired exact release passed automated source/runtime/GUI validation;
+- the original v0.36 release package omitted four public mock-calibration
+  fixtures;
+- fixture-only restoration closed the deterministic failures and full suite;
+- the repaired release passed automated source/runtime/GUI validation;
 - live GUI commissioning was operator-confirmed successful.
 
-Canonical details:
+Canonical records:
+
 - `decisions/D-010_PHASE0_FINAL_0X_AUTHORITY.md`
 - `decisions/D-011_V036_REPACK1_RELEASE_GATE.md`
 - `decisions/D-012_V036_REPACK1_COMMISSIONED_V10A_READY.md`
 - `evidence/V036_REPACK1_VALIDATION_2026-09-17.md`
 - `evidence/V036_REPACK1_LIVE_GUI_COMMISSIONING_2026-09-17.md`
 
-## First-class observability rule
+## Observability as Experimental Infrastructure
 
-Diagnostics/observability are a cross-cutting subsystem, not after-the-fact
-print statements.
+Observability is the project's measurement apparatus, not merely debugging or
+logging.
 
-Significant future subsystems should expose, where applicable:
-- structured events;
-- run/action provenance;
-- invariant checks;
-- bounded snapshots/failure bundles;
-- replay/diff support;
-- privacy/redaction;
-- enough context to reproduce or diagnose recommendation changes.
+```text
+raw observations
+  -> structured evidence
+  -> metadata assessment
+  -> diagnostics
+  -> model improvement
+  -> better decisions
+```
 
-GUI diagnostics are part of the same system from the beginning.
+It supports measurement, reproducibility, hypothesis testing, closure, failure
+localization, and evidence-supported calibration.
 
-Diagnostics must observe rather than alter physics, manager behavior, random
-draws, recommendation authority, or GUI business logic.
+Every major model addition should identify:
 
-## v1.0A durable observability state
+- claim: what stochastic process is represented;
+- evidence: what observations support it;
+- assumption: what uncertainty or approximation exists;
+- failure mode: how the representation would be shown wrong.
+
+Diagnostics must observe rather than alter football physics, manager behavior,
+random draws, recommendation authority, or GUI business logic.
+
+## v1.0A Durable Observability Architecture
 
 The v1.0A substrate has immutable run/action context, typed events, explicit
 sinks/provenance, privacy/redaction, local replay evidence, bounded structural
 diffs/failure bundles, subsystem adapters, correlation boundaries, and paired
-non-interference/overhead gating. Direct P/D/K cross-channel nesting is
-rejected; a root context may enter specialist channels independently. Default
-production integration remains shadow, non-auto-emitting, and non-persistent.
-Canonical detail lives in `architecture/DIAGNOSTICS_OBSERVABILITY.md`, D-013
-through D-022, and their evidence records.
+non-interference/overhead gating.
 
-The commissioned production-source pilots remain deliberately narrow: final CLI
+Direct P/D/K cross-channel nesting is rejected; a root context may enter
+specialist channels independently. Default production integration remains
+shadow, non-auto-emitting, and non-persistent.
+
+Commissioned production-source pilots remain deliberately narrow: final CLI
 dispatch, read-only `SeasonGuiService.source_health()`, selected-MC/progress-pump
 GUI task lifecycle, and page/connect/disconnect/delete correlation. They capture
 no arguments, returned values, authenticated payloads, raw client IDs, or
 exception messages. Observer failures/lifecycle evidence never authorize
 production cancellation, retry, suppression, or result replacement.
 
-## Durable development rules
+Canonical architecture/decisions:
+`architecture/DIAGNOSTICS_OBSERVABILITY.md` and D-013 through D-022.
 
-- Current source plus fresh evidence outranks summaries; raw measurements
-  outrank classifiers when they conflict.
-- Never reconstruct a release from memory or claim validation that did not run.
-- Preserve validated subsystem, causal, privacy, and information boundaries.
-- Use one narrow hypothesis/probe/patch-or-defer loop.
-- Keep secrets/authenticated raw data local.
-- Meaningful checkpoints update typed durable memory in the same Git checkpoint.
-- Read the complete `AGENTS.md` bootstrap; canonical decisions/evidence are
-  sources, not summaries to be recursively paraphrased.
-- Memory maintenance follows `MAINTENANCE.md`; detailed chronology belongs in
-  dated history/evidence/investigations rather than this file.
+## Phase 1A Commissioned Data-Source Shadow
 
-## Human-in-the-loop repository checkpoint / delivery rule
+The outer `sync_season_snapshot` boundary is commissioned in the
+`v0.36-repack1` runtime.
 
-Generic repository delivery uses deterministic **text `.ffpkg` carriers** built
-and executed by the permanent `tools/delivery/` infrastructure. Transport,
-integrity, extraction, subprocess execution, and exit propagation are generic;
-package-specific predecessor checks, rollback, idempotence, and domain validation
-remain in the package entrypoint.
+The observer retains only generated correlation, boundary identity, duration,
+and exception type in bounded memory. Arguments, credentials/authenticated
+payloads, returned snapshot/path data, exception messages, provider internals,
+and persistent sinks remain excluded.
 
-Default actor sequence:
+Phase 1A is complete. Persistent evidence remains disabled. Phase 1B closure,
+Phase 1C P/D/K, Phase 1D market/behavior, and Phase 1E persistence remain
+separately gated.
 
-`assistant .ffpkg -> user generic local run -> returned summary -> assistant verification -> separate push commands -> user push -> read-only remote verification`
+Canonical records:
 
-Prepared, local-apply, committed, pushed, remote-verified, and runtime-commissioned
-states are distinct. Control-root local apply uses target predecessor contracts;
-Git `HEAD`/index authority belongs to the isolated staging clone for commit/push.
-Direct GitHub connector writes are not project checkpoint writes.
+- `decisions/D-024_V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT.md`
+- `evidence/V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT_PREFLIGHT_2026-09-21.md`
+- `evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`
 
-## Memory / handoff reconciliation
+## 2026 Season-Gated Development Contract
 
-The mandatory substantial-session bootstrap is:
-`AGENTS -> CURRENT -> MEMORY -> CURRENT_HANDOFF -> USER`.
-`CURRENT.md` is sole active-state authority; `MEMORY.md` is curated cross-phase
-knowledge; the handoff is compact transition metadata and cannot override
-`CURRENT.md`. Canonical audit: `evidence/MEMORY_WORKFLOW_AUDIT_2026-09-18.md`.
+The season uses two independent clocks.
 
-## 2026 season-gated development contract
+**Calendar gates** protect irreversible prospective captures and operational
+opportunities. **Evidence gates** authorize diagnosis or calibration only when
+accumulated prospective closure supports it. `DEFER / COLLECT MORE DATA` is a
+valid result.
 
-The season uses two independent clocks. **Calendar gates** protect irreversible
-prospective captures/operational opportunities. **Evidence gates** authorize
-diagnosis or calibration only when accumulated prospective closure supports it;
-`DEFER / COLLECT MORE DATA` is a valid result. Never backfill a missed capture.
+Never backfill a missed prospective capture.
 
 For the configured 2026 league, Weeks 1-13 are the fantasy regular season and
-Weeks 14-17 are the playoff window; Week 14 is Round 1 and includes Arizona and
-Dallas byes. Commission the playoff production baseline before Week 14 and freeze
-major empirical calibration by default through the playoff window.
+Weeks 14-17 are the playoff window. Commission the playoff production baseline
+before Week 14 and freeze major empirical calibration by default through the
+playoff window.
 
 Preserve both a week-open reference capture and decision-time captures for
-consequential lineup/waiver/trade/specialist actions. Detailed phase intent lives
-in `docs/ROADMAP.md`, weekly dates/gates in `roadmap/SEASON_2026.md`, active
-position in `roadmap/STATUS.md`, and stable v1.X rules in
-`architecture/PHASE_V1_CONTEXT.md`.
+consequential lineup, waiver, trade, and specialist actions.
 
-<!-- FANTASY_MEMORY_V10A_DATA_SOURCE_SHADOW_20260921:BEGIN -->
-## v1.0A data-source season-sync shadow candidate
+Canonical planning/context:
 
-The active production-source observability candidate is limited to the outer
-`sync_season_snapshot` subsystem boundary. It retains only generated correlation,
-boundary identity, duration, and exception type in bounded memory. Arguments,
-credentials/authenticated payloads, returned snapshot/path data, and exception
-messages are excluded; provider internals and persistent sinks remain untouched.
+- `docs/ROADMAP.md`
+- `roadmap/SEASON_2026.md`
+- `roadmap/STATUS.md`
+- `architecture/PHASE_V1_CONTEXT.md`
 
-The source candidate was validated in an isolated exact-remote clone and is not
-copied into the memory/control root. It passed targeted tests, paired behavior /
-privacy / RNG / filesystem probing, full pytest, compileall, and candidate-local
-diff/allowlist inspection. The commissioned runtime tree remains unchanged.
-Canonical decision and evidence: D-024 and
-`evidence/V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT_PREFLIGHT_2026-09-21.md`.
-<!-- FANTASY_MEMORY_V10A_DATA_SOURCE_SHADOW_20260921:END -->
+## Durable Development Rules
 
-<!-- FANTASY_MEMORY_V10A_DATA_SOURCE_RUNTIME_COMMISSIONED_20260921:BEGIN -->
-## v1.0A data-source season-sync shadow commissioned
+- Current source plus fresh direct evidence outranks summaries.
+- Raw measurements outrank classifiers when they conflict.
+- Never reconstruct a release from memory or claim validation that did not run.
+- Preserve validated subsystem, causal, privacy, and information boundaries.
+- Use one narrow hypothesis -> targeted probe -> evidence -> coherent
+  patch/defer/close loop.
+- Keep secrets and authenticated raw data local.
+- Meaningful checkpoints update typed durable memory in the same Git checkpoint.
+- Canonical evidence/decision/investigation records are sources; do not build
+  summaries of summaries.
+- `CURRENT.md` owns active state. This file should not accumulate checkpoint
+  chronology or competing next actions.
+- Startup policy belongs to `AGENTS.md`/`MAINTENANCE.md`.
+- Repository checkpoint mechanics belong to `patches/PATCH_PROTOCOL.md`.
+- Communication lifecycle belongs to `COMMUNICATION.md`.
+- Environment/tool commands belong to `TOOLS.md`.
 
-The outer `sync_season_snapshot` shadow pilot is now commissioned in the
-`v0.36-repack1` runtime from remote-verified repository checkpoint
-`24a7e57794b0325510349ae163cd36b2f6c19070`. The runtime retained internal
-`VERSION = 0.36` and passed exact predecessor/target identity guards, dedicated
-runtime tests, the deterministic privacy/non-interference paired probe, full
-runtime pytest, compileall, and a final runtime/rollback identity gate.
+## Constructive Disagreement
 
-The runtime paired probe measured 2,028,200 ns baseline median, 2,201,600 ns
-observed median, 173,400 ns incremental overhead, and 0.08549452716694605
-relative overhead. No arguments, return values, or exception messages were
-captured; persistent evidence remains disabled. The deterministic probe used
-private-data-free stubs and did not perform a live authenticated ESPN request.
+Collaboration optimizes for scientific validity, not agreement. Architectural
+proposals are hypotheses.
 
-Phase 1A is complete. The next separately gated v1.0A surface is Phase 1B closure
-instrumentation. P/D/K, market/behavior, and persistent-sink expansion remain
-separate later gates.
-<!-- FANTASY_MEMORY_V10A_DATA_SOURCE_RUNTIME_COMMISSIONED_20260921:END -->
-
-<!-- FANTASY_MEMORY_GENERIC_STAGING_INFRASTRUCTURE_20260921:BEGIN -->
-## Generic repository staging infrastructure
-
-The reusable `.ffpkg` delivery layer is extended with declarative isolated
-repository staging. Raw control-root identities and Git index identities are
-treated as different representation layers: source packages authorize raw bytes,
-while staged equivalence is proven by applying the staging checkout's Git clean
-filters and comparing blob OIDs. Durable-memory manifest hashes remain staged
-Git-blob SHA-256 values.
-
-This corrects the staging preflight defect that compared raw `run_package.cmd`
-SHA-256 with its normalized staged bytes. The failed preflight did not commit or
-push and did not modify the control root or commissioned runtime.
-<!-- FANTASY_MEMORY_GENERIC_STAGING_INFRASTRUCTURE_20260921:END -->
+Challenge assumptions, implementation choices, analogies, data requirements,
+causal boundaries, and feasibility. Agreement is not validation.
