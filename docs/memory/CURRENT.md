@@ -5,8 +5,8 @@ state_updated: 2026-09-23
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: phase1c_player_shadow
-memory_refinement_step: workflow_hardening_after_phase1c_source_publication
+active_workstream: phase1d_market_manager_behavior_boundary_discovery
+memory_refinement_step: none
 nfl_week: 3
 fantasy_stage: regular_season
 maintenance_status: healthy
@@ -14,90 +14,86 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Make the 2026-09-23 workflow corrections durable without changing football,
-player-shadow source, or the commissioned runtime.
-
-After this memory-only hardening is remote verified, resume the separately gated
-Phase 1C player runtime synchronization/commissioning transition.
+Open Phase 1D with a read-only audit of market/manager-behavior boundaries after
+completing Phase 1C player/DST/kicker observability commissioning.
 
 ## Current Work Item
 
-**Workflow hardening after Phase 1C source publication: ACTIVE / MEMORY-ONLY.**
+**Phase 1D market/manager-behavior boundary discovery: ACTIVE / READ-ONLY.**
 
-The Phase 1C player recovery checkpoint is now source-published and remote
-verified. The publication sequence also produced reusable process evidence:
-
-- deterministic artifact expectations must come from exact inspectable
-  representations rather than guessed literals or invented semantics;
-- multi-step commit/push behavior should be delivered as a separate deterministic
-  publication `.ffpkg` around a generic/proven publisher, not reconstructed as a
-  long interactive PowerShell block;
-- the generic staging engine can encounter Windows read-only Git objects while
-  recreating an owned stage; that infrastructure defect is recorded for a
-  separate tooling fix and does not invalidate source publication.
-
-This checkpoint only makes those workflow rules durable.
+Phase 1C player observability is now source-published and runtime-commissioned.
+The separately gated next task is to identify the narrow production boundaries
+that represent manager response/market behavior without conflating them with
+intrinsic football utility or complete-roster response.
 
 ## Verified State
 
-- Phase 1C player source candidate: **FULLY SOURCE-VALIDATED / EXACT**.
-- Player local apply: **VALIDATED**.
-- Player source publication: **PUSHED / REMOTE VERIFIED**.
-- Remote source checkpoint:
+- Authoritative commissioned runtime: **v0.36-repack1**, internal
+  `VERSION = 0.36`.
+- Phase 1A data-source season-sync shadow: **RUNTIME COMMISSIONED**.
+- Phase 1B closure shadow: **SOURCE PUBLISHED / RUNTIME COMMISSIONED**.
+- Phase 1C DST shadow: **SOURCE PUBLISHED / RUNTIME COMMISSIONED**.
+- Phase 1C K shadow: **SOURCE PUBLISHED / RUNTIME COMMISSIONED**.
+- Phase 1C player shadow source checkpoint:
   `cb04abd9c574be735cd610748a998cff9c7138f2`.
-- Remote checkpoint parent:
-  `2b5515a3014925d737af51d03cfd934a3e72a939`.
-- Remote checkpoint tree:
-  `fd4339324c7530cea094820c4e0792611e0069ad`.
-- Published staging receipt: **14 exact staged paths**, schema-2 manifest
-  **133 entries**, raw/control and Git clean-filter/index identities PASS,
-  strict memory health PASS, both diff checks PASS, residue NONE.
-- Player source validation retained: targeted pytest **6 passed**, full pytest
-  **509 passed**, privacy/non-interference PASS, persistent sink disabled,
-  complete-roster evaluator uninstrumented.
-- Player runtime synchronization/commissioning: **NOT PERFORMED**.
-- Commissioned runtime: **UNCHANGED**.
+- Phase 1C player runtime commissioning:
+  **PASS / COMMISSIONED** via
+  `phase1c_player_shadow_runtime_commission_20260923_v2`.
+- Player runtime production identities: **PASS (3/3)**.
+- Player dedicated runtime pytest: **6 passed**.
+- Player paired probe:
+  both accepted player-only boundaries preserve outputs, exception behavior,
+  Python/NumPy RNG state, and mutable state; privacy and structure checks PASS.
+- Full commissioned-runtime pytest after player synchronization:
+  **353 passed**.
+- Runtime compileall: **PASS**.
+- Player validation residue: **NONE**.
 - Persistent observability sink: **DISABLED**.
-- Generic repository-owned publication engine: **NOT YET INSTALLED**.
-- Proven local `publish_staged_checkpoint.py` identity:
-  SHA-256
-  `e65c7579a766db1018551791ae24d764f4998d5dc3a8789e7adfa8f956c9acad`.
-- Windows owned-stage read-only cleanup defect:
-  **CLASSIFIED / TOOLING FIX DEFERRED**.
+- Phase 1C is therefore complete across player/DST/kicker shadow boundaries.
+- Phase 1D market/manager-behavior observability:
+  **NOT INSTRUMENTED / DISCOVERY ONLY**.
+- Generic repository-owned publication engine installation and the Windows
+  owned-stage read-only cleanup defect remain deferred infrastructure work.
 
 ## Calendar / Evidence Gates
 
-- Week 3 week-open prospective evidence remains secured and authoritative.
-- Do not backfill prediction state after outcomes.
-- No observed 2026 game result may tune v0.X.
-- Workflow hardening is procedural and does not authorize calibration or new
-  football/model behavior.
+- Week 3 prospective evidence remains causally protected; do not reconstruct
+  missed states after outcomes.
+- Do not let Phase 1D engineering displace an irreversible week-open or
+  decision-time capture.
+- No observed 2026 result may tune v0.X.
+- Manager-behavior observation may collect prospective evidence, but calibration
+  remains separately evidence-gated.
+- Persistent evidence remains a separate Phase 1E authorization gate.
 
 ## Scientific / Architectural Boundaries
 
 - Preserve `P ⊕ D ⊕ K`.
 - Players compare only with players; DST only with DST; K only with K.
 - Cross-channel coupling remains at complete-roster utility/state boundaries.
-- Accepted player-only surfaces remain CLI `transaction_manager.evaluate_actions`
-  and GUI `SeasonGuiService.evaluate_single_add_drop`.
-- `transaction_manager.evaluate_roster_predictive` remains rejected as a
-  player-only boundary because it is complete-roster P/D/K response machinery.
-- Do not invent a shared football-production wrapper for observability.
-- Persistent evidence remains separately gated.
+- Manager behavior is a separate stochastic response channel from football
+  utility.
+- Ownership, trend, market perception, waiver/trade response, and field behavior
+  may affect manager actions; they must not alter intrinsic football value.
+- `src/observability/integration_plan.py` proposes
+  `subsystem.trade.search` at `src/market_manager.py::search_trades`; this is a
+  discovery lead, not an already accepted production boundary.
+- Phase 1D must distinguish pure behavior surfaces from mixed football/roster
+  utility surfaces before any instrumentation.
+- Diagnostics remain shadow-only and non-persistent unless separately gated.
 
 ## Exact Next Action
 
-First make this workflow-hardening memory checkpoint durable through the normal
-package -> returned receipt -> declarative isolated staging -> verified stage ->
-separate publication-package -> remote-verification sequence.
+Perform one read-only Phase 1D boundary audit of `src/market_manager.py` and its
+direct call sites, starting from `search_trades` and the existing manager-response
+and market-perception paths. Classify candidate surfaces into intrinsic football
+utility, manager behavior/market response, and mixed complete-roster response;
+identify the narrowest behavior-only observability boundary or boundaries and
+record the result as canonical evidence.
 
-After that checkpoint is remote verified, resume Phase 1C player runtime
-synchronization/commissioning from the published source checkpoint
-`cb04abd9c574be735cd610748a998cff9c7138f2`.
-
-Do not rerun already-passed player source validation unless new evidence
-invalidates it. Do not bundle the deferred generic-publisher installation or
-Windows stage-cleanup tooling fix into runtime commissioning.
+Do not instrument production source, enable persistence, retune manager-response
+parameters, or reopen completed Phase 1C source/runtime validation unless new
+evidence invalidates it.
 
 ## Relevant References
 
@@ -105,12 +101,17 @@ Windows stage-cleanup tooling fix into runtime commissioning.
 - `MEMORY.md`
 - `handoffs/CURRENT_HANDOFF.md`
 - `USER.md`
-- `LEARNINGS.md`
 - `MAINTENANCE.md`
 - `COMMUNICATION.md`
 - `TOOLS.md`
 - `patches/PATCH_PROTOCOL.md`
-- `evidence/WORKFLOW_HARDENING_AFTER_PHASE1C_PUBLICATION_2026-09-23.md`
-- `evidence/PHASE1C_PLAYER_PUBLICATION_RECOVERY_2026-09-23.md`
+- `roadmap/STATUS.md`
+- `roadmap/SEASON_2026.md`
+- `architecture/DIAGNOSTICS_OBSERVABILITY.md`
+- `architecture/PHASE_V1_CONTEXT.md`
+- `evidence/PHASE1C_PLAYER_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`
 - `evidence/PHASE1C_PLAYER_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
+- `evidence/PHASE1C_PLAYER_PUBLICATION_RECOVERY_2026-09-23.md`
 - `memory/2026-09-23.md`
+- `../../src/observability/integration_plan.py`
+- `../../src/market_manager.py`

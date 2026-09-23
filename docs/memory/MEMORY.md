@@ -208,15 +208,23 @@ observation and persistent evidence disabled.
 player boundary because it carries complete-roster P/D/K response machinery.
 
 Read-only discovery found no single production-wide shared QB/RB/WR/TE wrapper
-spanning CLI and GUI action evaluation. Two clean player-only perturbation
-surfaces are established:
+spanning CLI and GUI action evaluation. The accepted player-only perturbation
+surfaces are:
 
-- CLI: `transaction_manager.evaluate_actions`;
-- GUI: `SeasonGuiService.evaluate_single_add_drop`.
+- CLI: `transaction_manager.evaluate_actions`
+  at `subsystem.player.evaluate_actions`;
+- GUI: `SeasonGuiService.evaluate_single_add_drop`
+  at `subsystem.player.evaluate_single_add_drop`.
 
-This discovery does not itself authorize a new shared football wrapper. Shared
-observability support may be reused, but production boundaries remain dictated
-by the football/application architecture.
+Both player surfaces are now source-published and runtime-commissioned with the
+same bounded in-memory, fail-open, privacy-preserving shadow contract. Paired
+runtime probing confirmed output/exception equivalence, Python/NumPy RNG and
+mutable-state non-interference, structure/privacy gates, and bounded overhead.
+Persistent evidence remains disabled.
+
+No shared football-production wrapper was introduced. Shared observability
+support may be reused, but production boundaries remain dictated by the
+football/application architecture.
 
 Canonical records:
 
@@ -227,6 +235,9 @@ Canonical records:
 - `evidence/PHASE1C_K_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
 - `evidence/PHASE1C_K_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
 - `evidence/PHASE1C_PLAYER_BOUNDARY_DISCOVERY_2026-09-22.md`
+- `evidence/PHASE1C_PLAYER_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
+- `evidence/PHASE1C_PLAYER_PUBLICATION_RECOVERY_2026-09-23.md`
+- `evidence/PHASE1C_PLAYER_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`
 
 ## 2026 Season-Gated Development Contract
 

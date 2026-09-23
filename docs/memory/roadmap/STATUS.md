@@ -11,13 +11,15 @@
 - Phase 1C DST shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 - Phase 1C K shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 - Phase 1C player boundary discovery: **COMPLETE / READ-ONLY**
-- Phase 1C player shadow: **SOURCE-VALIDATED / RECOVERY-AUDITED / PUBLICATION DURABILITY RESOLVES FROM CONTAINING GIT / RUNTIME NOT COMMISSIONED**
-- Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
+- Phase 1C player shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
+- Phase 1C P/D/K observability: **COMPLETE**
+- Phase 1D market/manager-behavior observability:
+  **ACTIVE / READ-ONLY BOUNDARY DISCOVERY**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
 - Persistent runtime sink: **DISABLED**
-- Week 3 week-open capture: **SECURED / VALID / PRE-KICKOFF**
+- Week 3 prospective evidence: **SECURED / CAUSALLY PROTECTED**
 
-## Phase 1C Specialist State
+## Phase 1C Commissioned State
 
 DST boundary:
 `src/specialist_policy_v032.py::evaluate_defense_channel`
@@ -27,58 +29,52 @@ K boundary:
 `src/specialist_policy_v032.py::evaluate_kicker_channel`
 at `subsystem.k.channel`.
 
-Both specialist shadows are source-published and runtime-commissioned. Their
-observers remain bounded and in-memory only.
+Player boundaries:
 
-Canonical runtime evidence:
+- CLI: `transaction_manager.evaluate_actions`
+  at `subsystem.player.evaluate_actions`;
+- GUI: `SeasonGuiService.evaluate_single_add_drop`
+  at `subsystem.player.evaluate_single_add_drop`.
 
-- `../evidence/PHASE1C_DST_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
-- `../evidence/PHASE1C_K_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
+All four accepted Phase 1C shadow boundaries are source-published and
+runtime-commissioned with bounded in-memory observation and persistent evidence
+disabled.
 
-## Phase 1C Player Boundary State
+The player runtime gate passed exact source/runtime identity checks, dedicated
+pytest, paired output/exception/RNG/state/privacy/overhead probing, full runtime
+pytest, compileall, and residue checks.
 
-Rejected as player-only:
-
-`transaction_manager.evaluate_roster_predictive`
-
-Reason: it is complete-roster P/D/K response machinery and therefore cannot be
-treated as a pure player-channel boundary.
-
-Accepted and fully source-validated player-only shadow boundaries remain:
-
-- CLI: `transaction_manager.evaluate_actions` at `subsystem.player.evaluate_actions`;
-- GUI: `SeasonGuiService.evaluate_single_add_drop` at
-  `subsystem.player.evaluate_single_add_drop`.
-
-The five technical player files remain exact to the validated candidate.
-Fresh-chat recovery audits established that canonical delivery tooling and
-handoff authority are exact and that the failed publication-infrastructure
-attempt caused no canonical drift.
-
-The historical v2 isolated stage passed its representation, manifest, health,
-and allowlist gates and remains exact evidence. It is not the successor
-publication authority because its predecessor predates the current remote
-checkpoint. A later read-only semantics audit also exposed a truncated final
-sentence in its `roadmap/STATUS.md`; this recovery checkpoint repairs that text.
-
-Publication durability is intentionally resolved from the containing Git/ref
-rather than hard-coded into this file. If this exact recovery checkpoint is on
-remote `main`, source publication is complete; otherwise the permanent generic
-declarative staging path is the publication route. Runtime commissioning remains
-a separate later gate.
-
-Canonical evidence:
+Canonical Phase 1C player evidence:
 
 - `../evidence/PHASE1C_PLAYER_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
-- `../evidence/PHASE1C_PLAYER_SHADOW_PUBLICATION_STATE_REPAIR_2026-09-22.md`
 - `../evidence/PHASE1C_PLAYER_PUBLICATION_RECOVERY_2026-09-23.md`
+- `../evidence/PHASE1C_PLAYER_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`
+
+## Phase 1D Frontier
+
+Manager behavior remains separate from football physics.
+
+The existing integration plan names
+`src/market_manager.py::search_trades` as proposed
+`subsystem.trade.search`, but this is not yet an accepted Phase 1D production
+boundary. `market_manager.py` also contains explicit manager-perception and
+manager-response logic, so the next gate is a read-only boundary audit that
+separates:
+
+- intrinsic football/roster utility;
+- manager perception and market response;
+- waiver/trade behavior;
+- mixed complete-roster response.
+
+Only after that classification may a narrow shadow instrumentation candidate be
+proposed. No manager-response parameter calibration is authorized by discovery.
 
 ## Boundary Conditions
 
 - Preserve `P ⊕ D ⊕ K`.
-- Players compare only with players.
 - Diagnostics remain observers, not decision/control logic.
-- Player instrumentation must preserve output/exception semantics, RNG, mutable
-  state, privacy, and the established overhead gate.
+- Football utility remains separate from manager behavior.
+- Ownership, trend, and perception may affect behavior kernels but not intrinsic
+  football value.
 - Persistent evidence requires a separate authorization gate.
 - No observed 2026 outcome may tune a v0.X model.

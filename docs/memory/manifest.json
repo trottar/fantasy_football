@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-23T04:20:59.730714-04:00",
+  "generated_at": "2026-09-23T08:47:12.549656-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 4787,
-      "sha256": "021b3386b4bf273e671bb200831953ff5fffca3db7dcbc5dd6286370c8987e0d"
+      "bytes": 4886,
+      "sha256": "d32364cdcacec8431dc42d3e5ee058b8d2521af78b096971d25fb9d47d8212c9"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 10374,
-      "sha256": "e92f3fcc208eaccbb823aa69ea25c99b4c4b75cd2abb2059af64b16690d9dbd7"
+      "bytes": 10991,
+      "sha256": "baa620c4165ba01e3da8a9f1be1c415027255fc11c53c5aed0f4d753a736d565"
     },
     {
       "path": "README.md",
@@ -390,6 +390,11 @@
       "sha256": "c3ef7af00cc0e100b15e202b0970a1996442a5213286924c365be4a19e1057d5"
     },
     {
+      "path": "evidence/PHASE1C_PLAYER_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md",
+      "bytes": 4856,
+      "sha256": "7e89b07d31d2f53a2e02704f0da3e63aa74dc70fbcf6c5a50fba522f8a5b9f8e"
+    },
+    {
       "path": "evidence/PHASE1C_PLAYER_SHADOW_SOURCE_VALIDATION_2026-09-22.md",
       "bytes": 4093,
       "sha256": "12f1887a53b15c5cdaf038b0f2725c1be8690ec42bfc9109a85decc942287950"
@@ -611,8 +616,8 @@
     },
     {
       "path": "memory/2026-09-23.md",
-      "bytes": 4768,
-      "sha256": "7e22214b534d5d5d355c3be911a17bc44365c8948cf0b283ab50804d2a390f52"
+      "bytes": 7048,
+      "sha256": "6f3911f437c41c94764acd87dda8ea02be90a51613e1dc0be8c68a668f264ab9"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -641,8 +646,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3670,
-      "sha256": "4c61335ff7b5a6364a76b39e1cc85cbb9cf704731f7ad41e5f8dd078c129e0ab"
+      "bytes": 3172,
+      "sha256": "855c4bc49abe39dbaa4ab463ba23ff746dc66a7d8119d6113af8f83b8b72e0e2"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",
