@@ -10,6 +10,7 @@ from typing import Any, Callable
 import numpy as np
 import pandas as pd
 
+from .observability.player_shadow import shadow_player_call
 from .season_utility import week_weights
 from .weekly_yield import build_weekly_yield_state, sample_conditional_points
 from .matchup_model import simulate_dst_component_points
@@ -2588,6 +2589,7 @@ def _run_action_mc_stage(
     return baseline, baseline_scenario, baseline_weekly, evaluated
 
 
+@shadow_player_call("subsystem.player.evaluate_actions")
 def evaluate_actions(
     snapshot: dict[str, Any],
     league: dict[str, Any],

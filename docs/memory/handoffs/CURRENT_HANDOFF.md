@@ -5,39 +5,24 @@ exceptional cross-session transfer state and cannot override `CURRENT.md`.
 
 ## Transfer State
 
-The 2026-09-23 chat ended because the assistant repeatedly misaligned with the
-project's established repository/delivery workflow. The user explicitly requested
-a memory-only checkpoint, remote push, and then a fresh-chat restart.
+Fresh-chat recovery has resolved the unknown local state from the failed
+2026-09-23 publication workflow: canonical delivery tooling and authority files
+are exact, the validated player candidate is exact, and no canonical drift from
+the failed infrastructure attempt was detected.
 
-Do not continue from bespoke publication machinery generated in this chat.
+The historical v2 stage
+`ff8aa263ac95075e096084399176053bb71d6fdb` remains evidence only. It must not be
+used as the successor publication stage because its predecessor is older than the
+current remote checkpoint and its roadmap-status bytes contain a truncated
+sentence repaired by the recovery checkpoint.
 
-Superseded / do not run:
-
-- `phase1c_player_shadow_publish_v1_20260922.py`
-- `generic_checkpoint_publication_infrastructure_v1_20260922.ffpkg`
-
-Valid technical state to preserve:
-
-- player candidate source validation remains valid;
-- five player technical files remain unchanged;
-- publication-state repair local apply passed;
-- fresh isolated staging v2 passed;
-- staged tree:
-  `ff8aa263ac95075e096084399176053bb71d6fdb`;
-- player source is not committed/pushed;
-- runtime is unchanged / not commissioned.
-
-The attempted generic publication-infrastructure package returned failure and has
-no successful apply receipt. Its exact local modification state must be audited
-in the fresh chat; do not assume either successful application or complete
-absence without inspection.
-
-The older tree
-`4215991f4faa42b57bd2f88b78f8d59648398be6`
-is superseded and must not be committed.
+Do not run the superseded publication artifacts. Publication durability must be
+resolved from the containing Git/ref using the permanent declarative staging and
+human commit/push boundary described by `CURRENT.md`.
 
 ## Resume
 
-Follow `../CURRENT.md`'s `Exact Next Action`. Start a new chat after this
-memory-only checkpoint is remote verified, read the complete bootstrap set, and
-inspect exact local state before any further publication or runtime work.
+Use `../CURRENT.md` as authority. If the exact recovery state is not yet on remote
+`main`, continue the generic declarative publication path from the current remote
+head; if it is already remote, treat source publication as satisfied and proceed
+only to the separately gated runtime synchronization/commissioning step.

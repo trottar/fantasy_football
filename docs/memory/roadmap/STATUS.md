@@ -11,7 +11,7 @@
 - Phase 1C DST shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 - Phase 1C K shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 - Phase 1C player boundary discovery: **COMPLETE / READ-ONLY**
-- Phase 1C player shadow: **NOT YET INSTRUMENTED / DUAL-SURFACE CANDIDATE NEXT**
+- Phase 1C player shadow: **SOURCE-VALIDATED / RECOVERY-AUDITED / PUBLICATION DURABILITY RESOLVES FROM CONTAINING GIT / RUNTIME NOT COMMISSIONED**
 - Phase 1D market/manager-behavior observability: **NOT STARTED / SEPARATELY GATED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
 - Persistent runtime sink: **DISABLED**
@@ -44,23 +44,34 @@ Rejected as player-only:
 Reason: it is complete-roster P/D/K response machinery and therefore cannot be
 treated as a pure player-channel boundary.
 
-Read-only discovery found no single production-wide shared player wrapper.
+Accepted and fully source-validated player-only shadow boundaries remain:
 
-Accepted player-only perturbation surfaces:
+- CLI: `transaction_manager.evaluate_actions` at `subsystem.player.evaluate_actions`;
+- GUI: `SeasonGuiService.evaluate_single_add_drop` at
+  `subsystem.player.evaluate_single_add_drop`.
 
-- CLI: `transaction_manager.evaluate_actions`
-- GUI: `SeasonGuiService.evaluate_single_add_drop`
+The five technical player files remain exact to the validated candidate.
+Fresh-chat recovery audits established that canonical delivery tooling and
+handoff authority are exact and that the failed publication-infrastructure
+attempt caused no canonical drift.
 
-Classification:
+The historical v2 isolated stage passed its representation, manifest, health,
+and allowlist gates and remains exact evidence. It is not the successor
+publication authority because its predecessor predates the current remote
+checkpoint. A later read-only semantics audit also exposed a truncated final
+sentence in its `roadmap/STATUS.md`; this recovery checkpoint repairs that text.
 
-`PHASE1C_PLAYER_SINGLE_SHARED_BOUNDARY_NOT_FOUND`
+Publication durability is intentionally resolved from the containing Git/ref
+rather than hard-coded into this file. If this exact recovery checkpoint is on
+remote `main`, source publication is complete; otherwise the permanent generic
+declarative staging path is the publication route. Runtime commissioning remains
+a separate later gate.
 
 Canonical evidence:
-`../evidence/PHASE1C_PLAYER_BOUNDARY_DISCOVERY_2026-09-22.md`.
 
-The next candidate should observe both accepted surfaces while sharing only
-observability support where appropriate. Do not invent a new football-production
-wrapper merely to simplify instrumentation.
+- `../evidence/PHASE1C_PLAYER_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
+- `../evidence/PHASE1C_PLAYER_SHADOW_PUBLICATION_STATE_REPAIR_2026-09-22.md`
+- `../evidence/PHASE1C_PLAYER_PUBLICATION_RECOVERY_2026-09-23.md`
 
 ## Boundary Conditions
 

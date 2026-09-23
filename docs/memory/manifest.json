@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-23T00:29:59.853674-04:00",
+  "generated_at": "2026-09-23T03:35:10.219779-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5075,
-      "sha256": "391a1b77cc5b1a5312e53e293f0159f1400ab3e07d65c0604801cc441ff9d0ee"
+      "bytes": 6615,
+      "sha256": "75f02cb99806b645170c6d5b686ade50a9eabd6bf41c11a5eb445d6327bc4e0b"
     },
     {
       "path": "LEARNINGS.md",
@@ -380,6 +380,21 @@
       "sha256": "b268b523628573e6bdf483e5808b55a1f44265bd889d907a1c4f373b71b17d44"
     },
     {
+      "path": "evidence/PHASE1C_PLAYER_PUBLICATION_RECOVERY_2026-09-23.md",
+      "bytes": 5031,
+      "sha256": "ae901b8eebbb737d653748a744193368c7738fbf8b257e21c584ffbdb952ec65"
+    },
+    {
+      "path": "evidence/PHASE1C_PLAYER_SHADOW_PUBLICATION_STATE_REPAIR_2026-09-22.md",
+      "bytes": 4238,
+      "sha256": "c3ef7af00cc0e100b15e202b0970a1996442a5213286924c365be4a19e1057d5"
+    },
+    {
+      "path": "evidence/PHASE1C_PLAYER_SHADOW_SOURCE_VALIDATION_2026-09-22.md",
+      "bytes": 4093,
+      "sha256": "12f1887a53b15c5cdaf038b0f2725c1be8690ec42bfc9109a85decc942287950"
+    },
+    {
       "path": "evidence/README.md",
       "bytes": 492,
       "sha256": "2a28cca0bb2223b3ffe824e257a77626bc675adbefb8afe782a88fc274953f38"
@@ -486,8 +501,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 1615,
-      "sha256": "6a6685ded502008d97d3419363232aa6766ef3cab1299e5e154eab204e83cb4c"
+      "bytes": 1330,
+      "sha256": "cb09b3abf64a2a868fcc181d75bf1d75ef43e9016309cd77da13b2abbe59d361"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -586,13 +601,13 @@
     },
     {
       "path": "memory/2026-09-22.md",
-      "bytes": 15973,
-      "sha256": "0f7bcd060d210ba235ed90b5efb2118f3859dbe0813b04ca9401f9525fc28009"
+      "bytes": 18347,
+      "sha256": "4449dcb3709a39a2187ea365b1b4a8cce4e63c1cd940be6b11cb1767001e0767"
     },
     {
       "path": "memory/2026-09-23.md",
-      "bytes": 2033,
-      "sha256": "bea244405bdb6a6d32a8a71a59189c0d8d360dcf02478468ff24592039f35d4d"
+      "bytes": 3629,
+      "sha256": "311fdb6694c3b8311b263bcc963c1681efc20415e185aa252305fbddce5a6858"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
@@ -621,8 +636,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 2697,
-      "sha256": "d6a15a19291eca5ea30c433099c5b3183307b5e33239c4bdab2beb2494e8d96f"
+      "bytes": 3670,
+      "sha256": "4c61335ff7b5a6364a76b39e1cc85cbb9cf704731f7ad41e5f8dd078c129e0ab"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

@@ -31,6 +31,7 @@ from ..transaction_manager import (
 )
 
 from ..specialist_policy_v032 import evaluate_defense_channel, evaluate_kicker_channel
+from ..observability.player_shadow import shadow_player_call
 
 from ..market_manager import (
     evaluate_trade,
@@ -939,6 +940,7 @@ class SeasonGuiService:
         rows.sort(key=lambda r: float(r.get("operational_mean") or 0))
         return rows
 
+    @shadow_player_call("subsystem.player.evaluate_single_add_drop")
     def evaluate_single_add_drop(
         self, add_espn_id: int, drop_espn_id: int,
         progress_callback: Callable[[int, int, str], None] | None = None,
