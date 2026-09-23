@@ -1,13 +1,11 @@
 # Durable Memory
 
-This file owns **curated durable cross-phase knowledge**. It preserves scientific
-invariants, stable architectural facts, commissioned baselines, and reusable
-project rules.
+This file owns curated durable cross-phase knowledge: scientific invariants,
+stable architecture, commissioned baselines, and reusable project rules.
 
-It does not own the active frontier, startup membership, checkpoint procedure,
-session chronology, or raw validation detail. Those belong respectively to
-`CURRENT.md`, `AGENTS.md`/`MAINTENANCE.md`, `patches/PATCH_PROTOCOL.md`, dated
-history, and canonical evidence/investigation records.
+It does not own active state, transfer state, checkpoint procedure, or detailed
+chronology. Those belong to `CURRENT.md`, `handoffs/CURRENT_HANDOFF.md`,
+`patches/PATCH_PROTOCOL.md`, canonical evidence/investigations, and dated memory.
 
 ## Project Purpose
 
@@ -25,9 +23,8 @@ NFL process
   -> knowledge
 ```
 
-The target is not a permanently finished predictor. It is an adaptive system
-whose assumptions, uncertainty, metadata, and subsystem representations are
-tested against prospective evidence.
+The target is an adaptive system whose assumptions, uncertainty, metadata, and
+subsystem representations are tested against prospective evidence.
 
 ## Physics Analogy
 
@@ -38,14 +35,11 @@ Fantasy production is modeled as a stochastic response problem:
 - `L` = opportunity/exposure;
 - `sigma` = production/efficiency;
 - `A` = matchup/kinematic acceptance;
-- `epsilon` = fantasy scoring response.
+- `epsilon` = fantasy-scoring response.
 
-Fantasy points are downstream observables.
-
-The analogy is strongest for state representation, uncertainty propagation,
-measurement, residual analysis, perturbation analysis, and coupled subsystems.
-It is not a claim that football follows deterministic universal laws or fixed
-equilibrium constants.
+Fantasy points are downstream observables. The analogy is strongest for state
+representation, uncertainty propagation, measurement, residual analysis,
+perturbation analysis, and coupled subsystems.
 
 ## Specialist-Channel Architecture
 
@@ -71,9 +65,9 @@ Weekly state:
 
 `S_w = (P_w, D_w, K_w, M_w, I_w)`
 
-Use common random numbers for paired comparisons where practical. Dropped players
-remain part of league state. Direct response, field response, and manager
-behavior remain distinct.
+Use common random numbers for paired comparisons where practical. Dropped
+players remain part of league state. Direct response, field response, and
+manager behavior remain distinct.
 
 Guiding question:
 
@@ -83,8 +77,6 @@ Guiding question:
 ## Causality and Data/MC
 
 Predictions are frozen before outcomes are observed.
-
-Use:
 
 `MC -> Data -> closure -> diagnosis -> calibration`
 
@@ -96,35 +88,16 @@ Raw observations are immutable evidence. Derived/calibrated state remains
 separate.
 
 The MC is a microscope, not the theory. More samples cannot repair a wrong state
-representation, response mechanism, or uncertainty model.
-
-Priority:
-
-1. correct state representation;
-2. correct response mechanisms;
-3. correct uncertainty;
-4. computational sampling.
+representation, response mechanism, or uncertainty model. Priority is correct
+state, response, uncertainty, then sampling.
 
 ## Historical Evidence and Non-Stationarity
 
-Historical football data is useful but football is non-stationary: schemes,
-coaching, rules, player roles, strategy, and data quality change.
-
-Do not assume:
-
-`P(Y|X)_past ~= P(Y|X)_current`
-
-Historical data should contribute:
-
-`historical evidence -> contextual prior -> current evidence update`
-
-not:
-
-`historical data -> direct prediction`
+Football is non-stationary. Historical evidence contributes as contextual prior
+information rather than direct current truth.
 
 Comparability should account for era, scheme, coaching, role, opportunity,
-efficiency, injury context, opponent environment, and data quality. A smaller
-comparable sample can be more useful than a larger incompatible sample.
+efficiency, injury context, opponent environment, and data quality.
 
 ## Behavioral Separation
 
@@ -167,64 +140,41 @@ Canonical records:
 ## Observability as Experimental Infrastructure
 
 Observability is the project's measurement apparatus, not merely debugging or
-logging.
+logging. It supports measurement, reproducibility, hypothesis testing, closure,
+failure localization, and evidence-supported calibration.
 
-```text
-raw observations
-  -> structured evidence
-  -> metadata assessment
-  -> diagnostics
-  -> model improvement
-  -> better decisions
-```
-
-It supports measurement, reproducibility, hypothesis testing, closure, failure
-localization, and evidence-supported calibration.
-
-Every major model addition should identify:
-
-- claim: what stochastic process is represented;
-- evidence: what observations support it;
-- assumption: what uncertainty or approximation exists;
-- failure mode: how the representation would be shown wrong.
+Every major model addition should identify its claim, evidence, assumptions, and
+failure mode.
 
 Diagnostics must observe rather than alter football physics, manager behavior,
 random draws, recommendation authority, or GUI business logic.
 
 ## v1.0A Durable Observability Architecture
 
-The v1.0A substrate has immutable run/action context, typed events, explicit
+The substrate has immutable run/action context, typed events, explicit
 sinks/provenance, privacy/redaction, local replay evidence, bounded structural
 diffs/failure bundles, subsystem adapters, correlation boundaries, and paired
 non-interference/overhead gating.
 
 Direct P/D/K cross-channel nesting is rejected; a root context may enter
-specialist channels independently. Default production integration remains
-shadow, non-auto-emitting, and non-persistent.
+specialist channels independently. Production integration remains shadow and
+non-persistent unless separately authorized.
 
-Commissioned production-source pilots remain deliberately narrow: final CLI
-dispatch, read-only `SeasonGuiService.source_health()`, selected-MC/progress-pump
-GUI task lifecycle, and page/connect/disconnect/delete correlation. They capture
-no arguments, returned values, authenticated payloads, raw client IDs, or
-exception messages. Observer failures/lifecycle evidence never authorize
-production cancellation, retry, suppression, or result replacement.
+Existing narrow production observers capture correlation/boundary/timing and
+exception type only where applicable; they do not retain arguments, returned
+values, authenticated payloads, raw client IDs, or exception messages. Observer
+failure never authorizes cancellation, retry, suppression, or result
+replacement.
 
-Canonical architecture/decisions:
-`architecture/DIAGNOSTICS_OBSERVABILITY.md` and D-013 through D-022.
+Canonical architecture: `architecture/DIAGNOSTICS_OBSERVABILITY.md`.
 
-## Phase 1A Commissioned Data-Source Shadow
+## Commissioned v1.0A Slices
 
-The outer `sync_season_snapshot` boundary is commissioned in the
-`v0.36-repack1` runtime.
+### Phase 1A — data-source season sync
 
-The observer retains only generated correlation, boundary identity, duration,
-and exception type in bounded memory. Arguments, credentials/authenticated
-payloads, returned snapshot/path data, exception messages, provider internals,
-and persistent sinks remain excluded.
-
-Phase 1A is complete and runtime commissioned. Persistent evidence remains
-disabled. Phase 1C P/D/K, Phase 1D market/behavior, and Phase 1E persistence
-remain separately gated.
+The outer `sync_season_snapshot` boundary is runtime commissioned. The observer
+is bounded and in-memory only. Authenticated inputs, returned snapshot/path
+content, provider internals, and persistent sinks remain excluded.
 
 Canonical records:
 
@@ -232,52 +182,41 @@ Canonical records:
 - `evidence/V10A_DATA_SOURCE_SEASON_SYNC_SHADOW_PILOT_PREFLIGHT_2026-09-21.md`
 - `evidence/V10A_DATA_SOURCE_SEASON_SYNC_RUNTIME_COMMISSIONING_2026-09-21.md`
 
-## Phase 1B Commissioned Closure Shadow
+### Phase 1B — closure capture
 
-The final v0.34 `build_pregame_capture_from_context` public override is
-commissioned in the `v0.36-repack1` runtime at
-`subsystem.closure.capture`.
-
-The observer reuses the bounded in-memory `ShadowRecorder`; it captures boundary
-identity/correlation, duration, and exception type only. It does not retain
-arguments, returned capture payloads, authenticated/private data, or exception
-messages. The inherited pre-v0.34 closure implementation remains uninstrumented,
-persistent evidence remains disabled, and football/model/P-D-K/manager behavior
-semantics are unchanged.
-
-Repository source checkpoint:
-`29b0635218b06a9d4abe203128d426402cb1ebc8`.
+The final v0.34 `build_pregame_capture_from_context` public override is runtime
+commissioned at `subsystem.closure.capture`. The inherited pre-v0.34
+implementation remains uninstrumented. Persistent evidence remains disabled.
 
 Canonical records:
 
 - `evidence/PHASE1B_CLOSURE_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
 - `evidence/PHASE1B_CLOSURE_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
 
-Phase 1C player/DST/kicker observability remains separately gated.
-
-## Phase 1C Specialist-Channel Observability
-
-The Phase 1C audit rejected `transaction_manager.evaluate_roster_predictive` as a
-pure player boundary because it carries complete-roster state and specialist
-handling. Player instrumentation remains blocked pending a narrower QB/RB/WR/TE
-production boundary.
+### Phase 1C — specialist and player-channel boundaries
 
 The outer specialist wrappers in `specialist_policy_v032.py` are the accepted
-separate DST and K channel boundaries. DST is source-published and runtime
-commissioned at `subsystem.dst.channel`; K is source-published and runtime
-commissioned at `subsystem.k.channel`. Player instrumentation remains blocked
-pending a narrower QB/RB/WR/TE-only production boundary.
+separate DST and K boundaries:
 
-DST source checkpoint:
-`9d174a25db3990f35dbf7a13b5421253c265baa9`.
+- DST: `evaluate_defense_channel` at `subsystem.dst.channel`;
+- K: `evaluate_kicker_channel` at `subsystem.k.channel`.
 
-K source checkpoint:
-`2d28adf926c8da22dcb695c03f7945bd361d13d2`.
+Both are source-published and runtime-commissioned with bounded in-memory
+observation and persistent evidence disabled.
 
-The commissioned DST observer is bounded and in-memory only. It retains no
-arguments, returned policy payloads, authenticated/private data, or exception
-messages. Production behavior remains authoritative, `P ⊕ D ⊕ K` is preserved,
-and persistent evidence remains disabled.
+`transaction_manager.evaluate_roster_predictive` is durably rejected as a pure
+player boundary because it carries complete-roster P/D/K response machinery.
+
+Read-only discovery found no single production-wide shared QB/RB/WR/TE wrapper
+spanning CLI and GUI action evaluation. Two clean player-only perturbation
+surfaces are established:
+
+- CLI: `transaction_manager.evaluate_actions`;
+- GUI: `SeasonGuiService.evaluate_single_add_drop`.
+
+This discovery does not itself authorize a new shared football wrapper. Shared
+observability support may be reused, but production boundaries remain dictated
+by the football/application architecture.
 
 Canonical records:
 
@@ -287,27 +226,24 @@ Canonical records:
 - `evidence/PHASE1C_K_TARGETED_PREFLIGHT_2026-09-22.md`
 - `evidence/PHASE1C_K_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
 - `evidence/PHASE1C_K_SHADOW_RUNTIME_COMMISSIONING_2026-09-22.md`
+- `evidence/PHASE1C_PLAYER_BOUNDARY_DISCOVERY_2026-09-22.md`
 
 ## 2026 Season-Gated Development Contract
 
-The season uses two independent clocks.
-
-**Calendar gates** protect irreversible prospective captures and operational
-opportunities. **Evidence gates** authorize diagnosis or calibration only when
+Calendar gates protect irreversible prospective captures and operational
+opportunities. Evidence gates authorize diagnosis or calibration only when
 accumulated prospective closure supports it. `DEFER / COLLECT MORE DATA` is a
 valid result.
 
-Never backfill a missed prospective capture.
+Never backfill a missed prospective capture. Preserve both a week-open reference
+capture and decision-time captures for consequential lineup, waiver, trade, and
+specialist actions.
 
-For the configured 2026 league, Weeks 1-13 are the fantasy regular season and
-Weeks 14-17 are the playoff window. Commission the playoff production baseline
-before Week 14 and freeze major empirical calibration by default through the
-playoff window.
+For the configured league, Weeks 1-13 are the fantasy regular season and Weeks
+14-17 are the playoff window. Major empirical calibration is frozen by default
+through the playoff window.
 
-Preserve both a week-open reference capture and decision-time captures for
-consequential lineup, waiver, trade, and specialist actions.
-
-Canonical planning/context:
+Canonical planning:
 
 - `docs/ROADMAP.md`
 - `roadmap/SEASON_2026.md`
@@ -324,10 +260,10 @@ Canonical planning/context:
   patch/defer/close loop.
 - Keep secrets and authenticated raw data local.
 - Meaningful checkpoints update typed durable memory in the same Git checkpoint.
-- Canonical evidence/decision/investigation records are sources; do not build
-  summaries of summaries.
-- `CURRENT.md` owns active state. This file should not accumulate checkpoint
-  chronology or competing next actions.
+- Canonical evidence/decision/investigation records are sources; avoid summaries
+  of summaries.
+- `CURRENT.md` owns active state.
+- Detailed checkpoint chronology belongs in dated memory/evidence, not here.
 - Startup policy belongs to `AGENTS.md`/`MAINTENANCE.md`.
 - Repository checkpoint mechanics belong to `patches/PATCH_PROTOCOL.md`.
 - Communication lifecycle belongs to `COMMUNICATION.md`.
@@ -336,7 +272,5 @@ Canonical planning/context:
 ## Constructive Disagreement
 
 Collaboration optimizes for scientific validity, not agreement. Architectural
-proposals are hypotheses.
-
-Challenge assumptions, implementation choices, analogies, data requirements,
-causal boundaries, and feasibility. Agreement is not validation.
+proposals are hypotheses; challenge assumptions, implementation choices,
+analogies, data requirements, causal boundaries, and feasibility.
