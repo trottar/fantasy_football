@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-22T21:04:42.390165-04:00",
+  "generated_at": "2026-09-23T00:29:59.853674-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 4713,
-      "sha256": "635f11a90a986bf7418655361dbe40e7bc1038e3edd388a9b9311860637c14f7"
+      "bytes": 5075,
+      "sha256": "391a1b77cc5b1a5312e53e293f0159f1400ab3e07d65c0604801cc441ff9d0ee"
     },
     {
       "path": "LEARNINGS.md",
@@ -188,6 +188,11 @@
       "path": "decisions/DECISION_LOG.md",
       "bytes": 7174,
       "sha256": "5079fec506ecdc8694db0d33e7f99f604597fbb8300c3f03e2c9449bc79610e7"
+    },
+    {
+      "path": "evidence/ASSISTANT_WORKFLOW_MISALIGNMENT_2026-09-23.md",
+      "bytes": 4583,
+      "sha256": "a3606be8d65d84a2ce4c9040a6ba80c383bf5c8e9929a6d1874c710baa79ab59"
     },
     {
       "path": "evidence/GENERIC_CHECKPOINT_STAGING_REPRESENTATION_FIX_2026-09-21.md",
@@ -481,8 +486,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 432,
-      "sha256": "86cf42bfa2244751b1d642a4ad6be548aada1667ba3cb0c62bb0fb87c80d74db"
+      "bytes": 1615,
+      "sha256": "6a6685ded502008d97d3419363232aa6766ef3cab1299e5e154eab204e83cb4c"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -583,6 +588,11 @@
       "path": "memory/2026-09-22.md",
       "bytes": 15973,
       "sha256": "0f7bcd060d210ba235ed90b5efb2118f3859dbe0813b04ca9401f9525fc28009"
+    },
+    {
+      "path": "memory/2026-09-23.md",
+      "bytes": 2033,
+      "sha256": "bea244405bdb6a6d32a8a71a59189c0d8d360dcf02478468ff24592039f35d4d"
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
