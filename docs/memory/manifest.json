@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-23T15:37:01.121626-04:00",
+  "generated_at": "2026-09-23T16:01:37.561724-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5832,
-      "sha256": "8abfb0f98946013088a0fc34a04da6cea3231b0f4c3856dd0d382e6e7c62a2ff"
+      "bytes": 6857,
+      "sha256": "e4513994b20ee789a5caa8b777846d63237b7786d53703a9c067536b8d96328c"
     },
     {
       "path": "LEARNINGS.md",
@@ -400,6 +400,11 @@
       "sha256": "12f1887a53b15c5cdaf038b0f2725c1be8690ec42bfc9109a85decc942287950"
     },
     {
+      "path": "evidence/PHASE1D_MARKET_MANAGER_BOUNDARY_DISCOVERY_2026-09-23.md",
+      "bytes": 8875,
+      "sha256": "0f6365e2fc9f06601448ba0825091f4d0fe45506f7c352a0d84ee6943e2e7fd8"
+    },
+    {
       "path": "evidence/README.md",
       "bytes": 492,
       "sha256": "2a28cca0bb2223b3ffe824e257a77626bc675adbefb8afe782a88fc274953f38"
@@ -646,13 +651,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 5321,
-      "sha256": "77bf6a05c4f1b3c016fb3e8c6be7bffcb633b3d7accf5a62e5b6036405cec867"
+      "bytes": 6092,
+      "sha256": "50288ae912c555a29b828bf789c821146a4ffbc31bec194c71a4e3881838aa69"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3973,
-      "sha256": "e214789b3091bc185d734d171307a4cfa0892ef6f491bccd22253c66bc2486e4"
+      "bytes": 5001,
+      "sha256": "8e65a76037f9962f84ef322b19751b6ebdbae9b7547f11f48367079ea2e5e1b1"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

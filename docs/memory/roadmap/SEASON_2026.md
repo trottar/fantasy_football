@@ -1,6 +1,6 @@
 # 2026 Season Calendar / Development Gates
 
-**Planning state:** 2026-09-21
+**Planning state:** 2026-09-23
 **Configured fantasy regular season:** Weeks 1-13
 **Configured fantasy playoffs:** Weeks 14-17
 **Configured playoff Round 1:** Week 14
@@ -24,9 +24,9 @@ A date can trigger an evidence review. It cannot force the evidence gate to pass
 | Week | NFL window | Bye teams from league config | Project posture / deadline |
 | --- | --- | --- | --- |
 | 1 | Sep 9-14 | none | Closed. Use as prospective evidence only if a genuine frozen capture already exists. Never backfill. |
-| 2 | Sep 17-21 | none | Closing. Phase 1A is already commissioned. Preserve any genuine frozen W2 evidence and classify gaps explicitly. |
-| 3 | Sep 24-28 | none | **First future hard capture gate.** Freeze week-open state before the first game using the commissioned baseline. Do not delay this capture for M2-M7 memory work or Phase 1B. Begin fully versioned weekly closure from whatever causally valid instrumentation is commissioned at capture time. |
-| 4 | Oct 1-5 | none | Continue prospective closure. Resume/commission Phase 1B and later observability slices only through their separate gates. |
+| 2 | Sep 17-21 | none | Closed. Preserve any genuine frozen W2 evidence and classify gaps explicitly. Never backfill. |
+| 3 | Sep 24-28 | none | **Active hard capture gate.** Week-open and Wednesday decision-time state are secured. Preserve them. Refresh prospectively on material injury/status change or before relevant lineup locks. Calendar capture outranks nonessential Phase 1D development. |
+| 4 | Oct 1-5 | none | Continue prospective closure. **Preferred operational target: trade-search path validated and ready for a prospective Week 4 search before consequential trade decisions.** This is an operational target, not an empirical-calibration authorization. |
 | 5 | Oct 8-12 | CAR, KC | Preferred broader v1.0 observability commissioning target and first bye-week operational stress. |
 | 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks (W3-W5 if valid). Open calibration investigations only; no automatic tuning. |
 | 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow candidate calibration only when justified. |
@@ -83,6 +83,24 @@ Preserve a separate prospective capture for each consequential lineup change,
 waiver/add/drop, trade evaluation, DST/kicker stream, and injury replacement.
 A Sunday decision may use information unavailable Thursday; both remain
 prospective if their information times are explicit.
+
+## Trade-Search Operational Target
+
+The Week 4 trade-search target is deliberately separate from empirical model
+calibration.
+
+Readiness means:
+
+- the runtime/data dependency is explicit and validated;
+- league-wide one-for-one screening can run on a current prospective snapshot;
+- screened candidates advance to uncertainty-aware predictive MC;
+- football value for both managers remains separate from the manager-response
+  probability layer;
+- any consequential offer is frozen in a decision-time capture before action.
+
+The trade-response probability model may remain uncalibrated while the search is
+used, provided its provisional status is explicit and it does not alter intrinsic
+football value.
 
 ## Calibration Evidence Ladder
 

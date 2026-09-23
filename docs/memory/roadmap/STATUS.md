@@ -7,22 +7,17 @@
 - Active engineering series: **v1.0A observability**
 - Phase 1A data-source season-sync shadow: **COMPLETE / RUNTIME COMMISSIONED**
 - Phase 1B closure shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Phase 1C channel boundary audit: **COMPLETE / DURABLE**
-- Phase 1C DST shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Phase 1C K shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Phase 1C player boundary discovery: **COMPLETE / READ-ONLY**
-- Phase 1C player shadow: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Phase 1C P/D/K observability: **COMPLETE**
+- Phase 1C P/D/K observability: **COMPLETE / SOURCE PUBLISHED / RUNTIME
+  COMMISSIONED**
 - Phase 1D market/manager-behavior observability:
-  **READY / READ-ONLY BOUNDARY DISCOVERY / SECONDARY TO WEEK 3 CALENDAR GATE**
+  **BOUNDARY DISCOVERY COMPLETE / NARROW BEHAVIOR PROBE NEXT**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
 - Persistent runtime sink: **DISABLED**
-- Week 3 week-open prospective evidence: **SECURED / CAUSALLY PROTECTED**
-- Week 3 Sep 23 decision-time state: **SECURED / OPERATIONAL DECISIONS COMPLETE**
+- Week 3 prospective evidence: **SECURED / CAUSALLY PROTECTED**
 - Week 3 current P/D/K transaction posture: **HOLD / HOLD / HOLD**
 - Week 3 planning FLEX: **MARK ANDREWS**
-- Week 3 next calendar gate: **STATUS/INJURY REFRESH BEFORE CONSEQUENTIAL
-  LINEUP CHANGE OR RELEVANT SUNDAY LOCK**
+- Trade-search operational target:
+  **PREFERRED BEFORE WEEK 4 / SUBORDINATE TO WEEK 3 CALENDAR GATES**
 
 ## Phase 1C Commissioned State
 
@@ -41,51 +36,96 @@ Player boundaries:
 - GUI: `SeasonGuiService.evaluate_single_add_drop`
   at `subsystem.player.evaluate_single_add_drop`.
 
-All four accepted Phase 1C shadow boundaries are source-published and
-runtime-commissioned with bounded in-memory observation and persistent evidence
-disabled.
-
-Canonical Phase 1C player evidence:
-
-- `../evidence/PHASE1C_PLAYER_SHADOW_SOURCE_VALIDATION_2026-09-22.md`
-- `../evidence/PHASE1C_PLAYER_PUBLICATION_RECOVERY_2026-09-23.md`
-- `../evidence/PHASE1C_PLAYER_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`
+All accepted Phase 1C boundaries are source-published and runtime-commissioned
+with bounded in-memory observation and persistent evidence disabled.
 
 ## Week 3 Operational Gate
 
-The Sep 22 week-open reference remains immutable and a separate Sep 23
-decision-time capture was frozen before outcomes.
+The Sep 22 week-open reference remains immutable and the separate Sep 23
+decision-time capture is frozen before outcomes.
 
 Wednesday operational classification:
 
-- player channel: HOLD; 72 paired SCREEN1 actions completed at 1,024 universes
-  and none survived the league-state plausibility gate;
+- player add/drop channel: HOLD;
 - DST: HOLD Lions D/ST;
 - K: HOLD Harrison Butker;
-- expected-value lineup FLEX: Mark Andrews;
-- principal live status uncertainty: Puka Nacua;
-- Puka OUT contingency: Carnell Tate + Rashid Shaheed at WR, J.K. Dobbins at
-  FLEX.
+- expected-value FLEX: Mark Andrews;
+- principal live status uncertainty: Puka Nacua.
 
-The next football gate is a fresh decision-time sync/capture when material status
-information changes or before the relevant Sunday lineup locks. Wednesday
-evidence must not be overwritten.
+The waiver/free-agent search is complete for the Wednesday state. The Week 3
+league-wide trade search was intentionally deferred because it is a more complex
+decision surface.
+
+The next football gate remains a fresh decision-time sync/capture when material
+status information changes or before the relevant Sunday lineup locks.
 
 Canonical evidence:
 `../evidence/WEEK3_DECISION_TIME_CHECKPOINT_2026-09-23.md`.
 
-## Phase 1D Frontier
+## Phase 1D Boundary Discovery
 
-Manager behavior remains separate from football physics.
+Read-only source audit classified the current trade path into distinct layers.
 
-The existing integration plan names
-`src/market_manager.py::search_trades` as proposed
-`subsystem.trade.search`, but this is not yet an accepted Phase 1D production
-boundary. `market_manager.py` also contains explicit manager-perception and
-manager-response logic.
+**Football/roster response**
 
-Phase 1D remains read-only discovery only and may proceed between calendar gates.
-It must yield immediately when a prospective Week 3 decision capture is needed.
+- `evaluate_roster_season_scenarios`;
+- roster legality and post-trade automatic release/fill machinery;
+- `_need_multiplier`;
+- `_coarse_trade_score`;
+- `screen_one_for_one_trades`.
+
+**Manager perception / market feature**
+
+- `_espn_market_ppg`;
+- `perceived_market_value`.
+
+**Manager behavior**
+
+- `trade_response_probabilities`.
+
+**Mixed complete trade response / orchestration**
+
+- `evaluate_trade`;
+- `search_trades`.
+
+The integration-plan proposal `subsystem.trade.search` at `search_trades` is
+therefore rejected as a behavior-only Phase 1D boundary. It joins the football
+screen, both managers' predictive roster response, market perception, the
+acceptance kernel, and offer ranking.
+
+The preferred first Phase 1D behavior candidate is
+`src/market_manager.py::trade_response_probabilities`. It is the narrow shared
+accept/counter/reject response kernel used beneath both manual trade evaluation
+and league-wide search. Its model remains explicitly
+`UNCALIBRATED_TRADE_RESPONSE_V030`.
+
+`perceived_market_value` remains a separate candidate for later market-perception
+observation if evidence shows that a second boundary is useful. It is not part of
+the first probe.
+
+Canonical evidence:
+`../evidence/PHASE1D_MARKET_MANAGER_BOUNDARY_DISCOVERY_2026-09-23.md`.
+
+## Trade Search Before Week 4
+
+The trade engine already exists and is covered by market-manager tests. The
+automatic search:
+
+1. screens league-wide one-for-one QB/RB/WR/TE offers;
+2. runs predictive MC on the screened frontier;
+3. keeps both managers' football deltas separate;
+4. adds the uncalibrated manager-response layer;
+5. ranks offers by expected offer value.
+
+Operational readiness still requires an explicit data-dependency check because
+the commissioned repack is known to lack its default
+`data/processed/player_values_2026.csv`. The Week 3 recovery established an exact
+predecessor artifact, but that should not be silently assumed as a permanent
+runtime dependency.
+
+Preferred target: resolve/validate that operational dependency and perform the
+first prospective trade search before the Week 4 decision window, without
+displacing Week 3 capture obligations.
 
 ## Boundary Conditions
 
@@ -94,6 +134,6 @@ It must yield immediately when a prospective Week 3 decision capture is needed.
 - Football utility remains separate from manager behavior.
 - Ownership, trend, and perception may affect behavior kernels but not intrinsic
   football value.
+- `screen != authority`.
 - Persistent evidence requires a separate authorization gate.
 - No observed 2026 outcome may tune a v0.X model.
-- `screen != authority`.
