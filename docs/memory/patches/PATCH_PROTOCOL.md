@@ -20,6 +20,43 @@ Release notes should explicitly state:
 
 `durable_memory_updated: true`
 
+## Deterministic artifact derivation
+
+For deterministic checkpoint artifacts, derive expected literals, semantic
+markers, paths, hashes, object identities, and assertions from the exact
+source/package/result representation whenever that representation can be
+inspected.
+
+Do not invent an expected value that can be inspected. Validate the final
+rendered/extracted artifact itself before delivery. The operator must not be the
+first validator of deterministic generated content.
+
+If a required safety assertion cannot be grounded in an inspectable exact
+representation, stop, classify the uncertainty, or narrow the assertion rather
+than substituting a guessed value.
+
+## Publication-package boundary
+
+A publication package is distinct from a local-update package. It is permitted
+to commit/push only after an isolated stage has already passed its own validation
+gate and the user explicitly runs the publication carrier.
+
+The publication package/proven publisher must, at minimum:
+
+1. verify exact stage ownership/sentinel where applicable;
+2. verify expected base commit and exact staged tree;
+3. validate cached diff/allowlist and schema-2 manifest;
+4. re-check remote movement before commit;
+5. verify resulting commit parent and committed tree;
+6. re-check remote movement immediately before push;
+7. push only the exact validated commit;
+8. verify the remote branch resolves to that exact commit;
+9. leave the control root and commissioned runtime untouched unless a separate
+   transition explicitly authorizes them.
+
+Do not create a phase-specific publisher when a generic/proven publisher can be
+invoked through the package boundary.
+
 ## Human-in-the-loop checkpoint boundary
 
 This section is the canonical project repository-write workflow.
@@ -27,34 +64,30 @@ This section is the canonical project repository-write workflow.
 Default sequence:
 
 1. assistant performs read-only audit/reconciliation;
-2. assistant constructs and validates a deterministic text `.ffpkg` carrier with
-   `tools/delivery/build_package.py`;
+2. assistant constructs and validates a deterministic text `.ffpkg` local-update
+   carrier with `tools/delivery/build_package.py`;
 3. assistant delivers the carrier with exact scope, hashes, and validation claims;
 4. user runs it through `tools\delivery\run_package.cmd` locally;
 5. user returns the concise success summary, or the complete failure output;
 6. assistant verifies the returned local evidence;
-7. assistant supplies separate staging/manifest/commit/push commands;
-8. user executes those commands;
-9. assistant may verify remote state read-only afterward.
+7. assistant provides the declarative isolated-staging invocation/spec;
+8. user runs staging and returns the concise staging receipt;
+9. assistant verifies the exact staged tree, manifest, allowlist, and residue
+   state;
+10. assistant constructs and validates a separate deterministic publication
+    `.ffpkg` that invokes a generic/proven publisher under exact stage/base/tree
+    guards;
+11. user runs that publication carrier, explicitly authorizing commit/push for
+    that validated stage;
+12. assistant verifies the remote state read-only afterward.
 
-Default delivered packages must stop before staging, commit, and push.
+Local-update packages stop before staging, commit, and push. Publication is a
+separate package and state transition after independent staging validation. Do
+not replace this multi-step publication transition with a long interactive
+PowerShell block when the same guards can be carried by the package/proven
+publisher boundary.
 
 Direct GitHub connector writes are not permitted as project checkpoint writes.
-
-Do not collapse these states:
-- package built;
-- package validated;
-- local preflight passed;
-- local apply passed;
-- staged;
-- committed;
-- pushed;
-- remote verified;
-- runtime synchronized;
-- commissioned.
-
-A different actor sequence requires explicit user authorization for that specific
-checkpoint.
 
 ## Generic `.ffpkg` delivery boundary
 

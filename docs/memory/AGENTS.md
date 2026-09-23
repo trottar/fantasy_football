@@ -55,6 +55,13 @@ Raw measurements outrank derived classifiers when they conflict. Never claim
 inspection, testing, validation, runtime acceptance, commissioning, commit, or
 push that did not actually occur.
 
+For deterministic checkpoint artifacts, derive expected literals, semantic
+markers, paths, hashes, object identities, and assertions from exact
+source/package/result representations whenever they are inspectable. Do not guess
+an inspectable deterministic value. Validate the final rendered/extracted
+artifact before delivery; the operator must not be the first validator of
+deterministic generated content.
+
 Before restating what a decision, gate, classification, deadline, or architectural
 constraint says, open the canonical record that defines it. Do not propagate a
 summary of a summary when the source record is available.
@@ -141,9 +148,14 @@ Default actor sequence:
 3. user runs the carrier through `tools\delivery\run_package.cmd` locally;
 4. user returns the concise success summary, or the full log on failure;
 5. assistant verifies the returned evidence;
-6. assistant supplies separate staging/manifest/commit/push commands;
-7. user performs the push;
-8. assistant may then verify the remote state read-only.
+6. assistant provides the declarative isolated-staging step/spec and the user
+   runs it;
+7. assistant verifies the exact staged tree/manifest;
+8. assistant delivers a separate deterministic publication `.ffpkg` that invokes
+   a generic/proven publisher under exact base/tree/allowlist guards;
+9. user runs that publication carrier, which is the explicit authorization for
+   commit/push at that already-validated stage;
+10. assistant verifies the remote state read-only.
 
 Transport, integrity, extraction, subprocess execution, and exit propagation are
 owned by `tools/delivery/`. Package-specific predecessor checks, rollback,
@@ -151,9 +163,12 @@ idempotence, and domain validation remain inside each package entrypoint. Do not
 create phase-specific launch wrappers when the generic runner can execute the
 package contract.
 
-Do not use direct GitHub connector writes for this project. Do not commit or push
-from a delivered installer unless the user explicitly overrides this rule for
-that specific checkpoint.
+Do not use direct GitHub connector writes for this project. Local-apply packages
+stop before staging/commit/push. A distinct publication package may commit/push
+only after the isolated stage has been separately validated and only when the
+user runs that publication package. Do not replace such a multi-step publication
+operation with a wall of interactive PowerShell when a package/proven generic
+publisher can carry the same guards.
 
 If repository-write behavior is relevant to the task, `patches/PATCH_PROTOCOL.md`
 is mandatory reading before constructing or proposing the checkpoint.

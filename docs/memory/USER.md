@@ -60,13 +60,22 @@ Default checkpoint actor sequence:
 2. user runs `tools\delivery\run_package.cmd <package.ffpkg>` locally;
 3. user returns the concise success summary, or full failure output;
 4. assistant verifies the result;
-5. assistant then provides separate staging/manifest/commit/push commands;
-6. user performs the push;
-7. assistant may verify the remote read-only afterward.
+5. assistant provides the short declarative isolated-staging invocation/spec;
+6. user runs staging and returns its concise success summary;
+7. assistant verifies the exact staged tree/manifest;
+8. assistant provides a separate deterministic publication `.ffpkg` that wraps
+   the generic/proven publisher with exact stage/base/tree guards;
+9. user runs that publication package;
+10. assistant verifies the remote read-only afterward.
 
-Do not directly write to GitHub through a connector. Do not silently make a
-delivered installer commit/push unless the user explicitly requests that behavior
-for that specific checkpoint.
+Do not directly write to GitHub through a connector. Do not make a local-apply
+package commit/push. For an already validated isolated stage, running the
+separate publication package is the user's explicit authorization for that
+checkpoint's guarded commit/push.
+
+Do not send long interactive PowerShell commit/push blocks when the same
+multi-step operation can be expressed through the generic `.ffpkg`/publisher
+workflow.
 
 ## Publication Boundary
 

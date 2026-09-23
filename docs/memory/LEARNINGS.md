@@ -437,3 +437,64 @@ Permanent rule:
 
 Never compare a raw worktree SHA-256 directly with staged bytes.
 <!-- FANTASY_LEARNING_STAGE_FILTER_REPRESENTATION_20260921:END -->
+
+<!-- FANTASY_DETERMINISTIC_ARTIFACT_DERIVATION_20260923:BEGIN -->
+## Derive deterministic artifact facts; do not guess them
+
+Several 2026-09-23 workflow failures came from adding constraints or expected
+values that were not derived from the exact representation being validated.
+
+Permanent rule:
+
+- derive literals, semantic markers, paths, hashes, object identities, path-set
+  semantics, and assertions from exact source/package/result representations
+  whenever they are inspectable;
+- do not guess a deterministic value that can be measured;
+- do not impose a stronger semantic constraint than the canonical tool actually
+  owns, such as treating an unordered allowlist as an order-sensitive sequence;
+- validate the final rendered/extracted artifact, not only its generator;
+- the operator must not be the first validator of deterministic generated
+  content.
+
+When exact evidence is unavailable, narrow the assertion or stop for a targeted
+probe rather than filling the gap from recollection.
+<!-- FANTASY_DETERMINISTIC_ARTIFACT_DERIVATION_20260923:END -->
+
+<!-- FANTASY_PACKAGED_PUBLICATION_WORKFLOW_20260923:BEGIN -->
+## Multi-step publication belongs behind the package/proven-publisher boundary
+
+After a staged checkpoint has been separately validated, do not hand the operator
+a wall of interactive PowerShell to reproduce commit, remote-movement, push, and
+verification logic.
+
+Use a separate deterministic publication `.ffpkg` that invokes a generic/proven
+publisher with exact stage/base/tree/manifest/allowlist guards. The user's act of
+running that publication carrier is the explicit authorization for commit/push
+at that validated checkpoint.
+
+Keep local-update packages, isolated staging, publication, runtime sync, and
+commissioning as distinct states even though each operator action should be
+compact and packaged where multi-step logic is required.
+<!-- FANTASY_PACKAGED_PUBLICATION_WORKFLOW_20260923:END -->
+
+<!-- FANTASY_WINDOWS_OWNED_STAGE_READONLY_CLEANUP_20260923:BEGIN -->
+## Owned-stage recreation must account for Windows read-only Git objects
+
+On Windows, an isolated Git clone can contain object files carrying the read-only
+attribute. A plain `shutil.rmtree()` of an otherwise correctly owned stage can
+therefore fail with `WinError 5`.
+
+Before destructive cleanup of an existing staging directory:
+
+1. verify the exact checkpoint ownership sentinel first;
+2. never relax permissions on an unowned path;
+3. if cleanup is blocked by read-only files, clear only the read-only attribute
+   inside that verified owned stage (or use an equivalent guarded rmtree
+   callback);
+4. then recreate the stage from the validated remote predecessor;
+5. do not treat this filesystem failure as evidence against the staged source
+   semantics.
+
+This is a delivery-infrastructure defect to fix separately; it does not justify
+mixing unrelated football/application changes into the checkpoint.
+<!-- FANTASY_WINDOWS_OWNED_STAGE_READONLY_CLEANUP_20260923:END -->
