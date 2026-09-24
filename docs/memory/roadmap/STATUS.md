@@ -16,8 +16,8 @@
 - Week 3 prospective evidence: **SECURED / CAUSALLY PROTECTED**
 - Week 3 current P/D/K transaction posture: **HOLD / HOLD / HOLD**
 - Week 3 planning FLEX: **MARK ANDREWS**
-- Trade-search operational target:
-  **PREFERRED BEFORE WEEK 4 / SUBORDINATE TO WEEK 3 CALENDAR GATES**
+- Trade-search operational dependency:
+  **READY / FIRST PROSPECTIVE SEARCH PENDING FRESH DECISION-TIME CAPTURE**
 
 ## Phase 1C Commissioned State
 
@@ -231,16 +231,25 @@ automatic search:
 4. adds the uncalibrated manager-response layer;
 5. ranks offers by expected offer value.
 
-Operational readiness still requires an explicit data-dependency check because
-the commissioned repack is known to lack its default
-`data/processed/player_values_2026.csv`. The Week 3 recovery established an exact
-predecessor artifact, but that should not be silently assumed as a permanent
-runtime dependency.
+Dependency inventory on 2026-09-24 measured the exact automatic default as
+`data/processed/player_values_2026.csv`. The commissioned repack target was
+absent, while the control root, `v0.35-fixed1`, and `v0.36` each contained the
+same 361778-byte, 939-row artifact with SHA-256
+`4fd32728f43aab9f10182a942e4147d774c1f45ef3a3021f032dd6a519c7183d`.
 
-Preferred target: after the Phase 1D observer is source-published/runtime
-commissioned, resolve or explicitly route that dependency and perform the first
-prospective trade search before the Week 4 decision window, unless a Week 3
-calendar gate preempts it.
+That exact artifact has now been synchronized from the control root into the
+commissioned `v0.36-repack1` runtime under hash and schema guards and loaded
+through the runtime's own `transaction_manager` and `weekly_manager` value
+loaders. This is an operational dependency repair only; no source/model formula
+changed and no trade search was executed during synchronization.
+
+Trade-search dependency readiness is therefore **READY**. The first
+league-wide search remains prospectively gated: obtain a fresh decision-time
+season state/capture immediately before using its output for a consequential
+trade decision.
+
+Canonical dependency evidence:
+`../evidence/TRADE_SEARCH_PLAYER_VALUES_RUNTIME_SYNC_2026-09-24.md`.
 
 ## Boundary Conditions
 

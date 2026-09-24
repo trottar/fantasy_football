@@ -1,7 +1,7 @@
 # Current Project State
 
 ---
-state_updated: 2026-09-23
+state_updated: 2026-09-24
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
@@ -14,72 +14,73 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Publish and commission the source-validated Phase 1D manager-behavior shadow at
-`trade_response_probabilities`, while preserving Week 3 prospective evidence
-gates. Trade-search operational readiness remains a preferred pre-Week-4 target.
+Make the existing automatic trade search operationally ready without changing
+football/model logic, then run the first prospective league-wide search only
+from a fresh decision-time state.
 
 ## Current Work Item
 
-**Phase 1D behavior shadow: COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED.**
+**Trade-search processed-player-values dependency: RUNTIME SYNCHRONIZED /
+VALIDATED.**
 
-Accepted boundary:
-`src/market_manager.py::trade_response_probabilities` at
-`subsystem.behavior.trade_response_probabilities`.
+The commissioned runtime's automatic trade-search path remains unchanged:
+`SeasonGuiService` defaults to `data/processed/player_values_2026.csv`, forwards
+`self.values_path` into `search_trades`, and `market_manager.search_trades`
+requires that path explicitly.
 
-The candidate adds bounded, in-memory, fail-open observation only at this narrow
-behavior kernel. `search_trades`, `evaluate_trade`, and
-`perceived_market_value` remain uninstrumented. No football value, trade-response
-formula, recommendation authority, or persistent sink is changed.
+A bounded read-only inventory proved the commissioned
+`fantasy_season_v0_36_repack1` runtime alone lacked that default artifact, while
+the control root, `fantasy_season_v0_35_fixed1`, and `fantasy_season_v0_36`
+contained byte-identical copies with SHA-256
+`4fd32728f43aab9f10182a942e4147d774c1f45ef3a3021f032dd6a519c7183d`.
+
+The dependency is now made explicit by a hash-guarded synchronization of that
+exact control-root artifact into the commissioned runtime. No football,
+manager-response, trade-ranking, observability, or calibration code changed.
 
 ## Verified State
 
 - Commissioned runtime remains **v0.36-repack1**, internal `VERSION = 0.36`.
-- Phase 1A, 1B, and 1C observability are runtime commissioned; Phase 1C preserves
-  separate player/DST/K boundaries.
+- Phase 1A, 1B, 1C, and 1D observability are source-published and runtime
+  commissioned.
 - Persistent observability sink remains **DISABLED**.
-- Phase 1D boundary discovery rejected mixed `search_trades` and
-  `evaluate_trade` as behavior-only surfaces.
-- Non-modifying Phase 1D paired runtime probe passed output/error equivalence,
-  Python/NumPy RNG and mutable-state non-interference, privacy/correlation,
-  fail-open behavior, and absolute-overhead gates. Response model remains
-  `UNCALIBRATED_TRADE_RESPONSE_V030`.
-- Isolated source preflight at predecessor
-  `c9ad2b383522038d03343ba04989ea206f1d8931` passed 46 targeted tests,
-  retained paired probe, 517 full-suite tests, `compileall`, strict memory
-  health, exact six-path identities, and cleanup with no residue.
+- Phase 1D boundary remains only
+  `subsystem.behavior.trade_response_probabilities`; `search_trades`,
+  `evaluate_trade`, and `perceived_market_value` remain uninstrumented.
 - Source checkpoint `7a3bf1503b5d32be9846d9f7ad110fcff3cff179`
-  is **PUSHED / REMOTE VERIFIED** with exact Phase 1D behavior-shadow source.
-- Runtime commissioning v1 failed only because pytest selected a user-profile
-  root and encountered inaccessible `C:\\Users\\papatrott\\privateGPT`; the
-  package explicitly rolled back to the exact predecessor.
-- Corrected runtime commissioning v2 constrained pytest to the commissioned
-  runtime and passed: behavior test `8 passed`, targeted integration/market
-  tests `38 passed`, full runtime suite `353 passed`, retained paired behavior
-  probe, `compileall`, exact production/substrate identities, and zero residue.
-- Phase 1D runtime boundary is now commissioned at
-  `subsystem.behavior.trade_response_probabilities`; response model remains
-  `UNCALIBRATED_TRADE_RESPONSE_V030`, persistent sink remains disabled, and
-  mixed trade surfaces remain uninstrumented.
+  remains **PUSHED / REMOTE VERIFIED**.
+- Runtime Phase 1D commissioning remains validated: dedicated behavior test
+  `8 passed`, targeted integration/market tests `38 passed`, full runtime suite
+  `353 passed`, retained paired probe PASS, and `compileall` PASS.
+- Trade-search dependency inventory confirmed the automatic default path is
+  `data/processed/player_values_2026.csv` and the commissioned runtime target
+  was absent before synchronization.
+- Three available source artifacts were identical: control root,
+  `v0.35-fixed1`, and `v0.36`; each was 361778 bytes, 939 CSV rows, and SHA-256
+  `4fd32728f43aab9f10182a942e4147d774c1f45ef3a3021f032dd6a519c7183d`.
+- Required columns `espn_id` and `latent_mean_ppg` are present; optional model
+  columns `latent_mean_sd_ppg` and `predictive_weekly_sd_ppg` are also present.
+- The exact artifact is now present at
+  `fantasy_season_v0_36_repack1/data/processed/player_values_2026.csv`.
+- Runtime validation loaded the synchronized artifact through the exact
+  `transaction_manager` and `weekly_manager` model-value loaders.
+- No trade search was executed by the dependency synchronization.
 - Week 3 operational posture remains player HOLD / Lions DST HOLD / Butker K
   HOLD / planning FLEX Mark Andrews. Puka Nacua remains the principal live
   status uncertainty.
-- No Week 3 league-wide trade search has been run. Automatic trade search still
-  has a known processed-player-values dependency that must be made explicit
-  before Week 4 prospective use.
 - No observed 2026 outcome has tuned v0.X.
 
-Canonical Phase 1D records:
-- `evidence/PHASE1D_MARKET_MANAGER_BOUNDARY_DISCOVERY_2026-09-23.md`;
-- `evidence/PHASE1D_BEHAVIOR_SHADOW_SOURCE_VALIDATION_2026-09-23.md`.
+Canonical dependency record:
+- `evidence/TRADE_SEARCH_PLAYER_VALUES_RUNTIME_SYNC_2026-09-24.md`.
 
 ## Calendar / Evidence Gates
 
 - Preserve the Sep 22 week-open and Sep 23 decision-time Week 3 captures.
 - A material Puka/Dobbins status change or relevant lineup lock preempts
   nonessential engineering and requires a fresh prospective decision-time state.
-- Trade-search readiness before Week 4 is an operational target, not permission
-  to tune v0.X or backfill evidence.
 - Consequential future trade decisions require their own prospective capture.
+- The synchronized player-values artifact is an operational dependency only; it
+  is not new outcome evidence and does not authorize v0.X tuning.
 - Manager-response probabilities remain explicitly uncalibrated until
   prospective behavior evidence supports calibration.
 - Persistent evidence remains separately gated.
@@ -92,23 +93,19 @@ Canonical Phase 1D records:
 - Ownership/trend/perception may affect behavior but not intrinsic football
   value.
 - `screen != authority`.
-- The Phase 1D shadow may observe only the narrow response kernel; mixed trade
-  orchestration remains outside this observer.
-- Diagnostics must remain non-interfering, fail-open, privacy-preserving, and
-  non-persistent unless separately authorized.
+- Diagnostics and dependency synchronization must not alter football/model
+  formulas or prospective evidence.
 - No observed 2026 result may tune v0.X.
 
 ## Exact Next Action
 
-Resolve the trade-search processed-player-values dependency explicitly before
-the Week 4 decision window. Inspect the commissioned runtime's automatic
-trade-search input path and the exact available predecessor/sibling artifact;
-choose an explicit, provenance-preserving routing or synchronization mechanism
-rather than silently copying `data/processed/player_values_2026.csv`.
+Before the first prospective league-wide trade search, obtain a fresh
+decision-time season state and freeze the corresponding prospective capture.
+Then run the existing league-wide trade search against that frozen state using
+the now-explicit commissioned runtime dependency.
 
-After that dependency is made explicit and validated, perform the first
-prospective league-wide trade search only from a fresh decision-time state.
-Week 3 calendar/status gates still preempt nonessential engineering.
+Do not reuse the Sep 23 decision-time state for a later consequential trade
+decision. Week 3 calendar/status gates still preempt nonessential work.
 
 ## Relevant References
 
@@ -121,9 +118,7 @@ Week 3 calendar/status gates still preempt nonessential engineering.
 - `roadmap/SEASON_2026.md`
 - `architecture/DIAGNOSTICS_OBSERVABILITY.md`
 - `evidence/WEEK3_DECISION_TIME_CHECKPOINT_2026-09-23.md`
-- `evidence/PHASE1D_MARKET_MANAGER_BOUNDARY_DISCOVERY_2026-09-23.md`
-- `evidence/PHASE1D_BEHAVIOR_SHADOW_SOURCE_VALIDATION_2026-09-23.md`
 - `evidence/PHASE1D_BEHAVIOR_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`
+- `evidence/TRADE_SEARCH_PLAYER_VALUES_RUNTIME_SYNC_2026-09-24.md`
 - `../../src/market_manager.py`
-- `../../src/observability/behavior_shadow.py`
-- `../../src/observability/integration_plan.py`
+- `../../src/gui/season_service.py`
