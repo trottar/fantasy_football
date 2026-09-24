@@ -19,35 +19,35 @@ from fresh decision-time state when material status information changes.
 
 ## Current Work Item
 
-**First prospective league-wide trade search: COMPLETE / NO ACTION.**
+**Week 3 fresh status/lineup gate: CAPTURED / HOLD.**
 
-A fresh authenticated Week 3 snapshot was synchronized, frozen in the final
-v0.34 prospective-capture contract, integrity-verified, and then used for the
-existing one-for-one player-channel trade search.
+A fresh authenticated Week 3 state was synchronized on Sep 24, frozen in the
+final v0.34 prospective-capture contract, integrity-verified, and reconciled
+through the exact commissioned lineup path.
 
-The predictive MC returned six candidates. Only two had positive mean football
-delta for our roster, and both were weak/near-coin-flip improvements with
-substantial modeled partner loss and very low uncalibrated acceptance
-probability:
+The fresh state showed:
 
-- Mark Andrews -> Matthew Golden: `+0.104` season PPG, `P(better)=51.5%`,
-  partner `-0.490`, `P(accept)=8.0%`;
-- George Kittle -> Emeka Egbuka: `+0.196` season PPG,
-  `P(better)=52.1%`, partner `-1.387`, `P(accept)=1.3%`.
+- roster availability/practice state changes: `0`;
+- expected-lineup identity change: `false`;
+- expected lineup projection: `123.30`;
+- availability-weighted expected lineup: `118.02`;
+- Puka Nacua, Jakobi Meyers, and J.K. Dobbins remain QUESTIONABLE at provisional
+  `P(active)=75%` with no captured practice sequence;
+- Josh Jacobs remains hard-unavailable: EXEMPT,
+  `P(active)=0%`, bench.
 
-The other four candidates were negative for our roster. No trade was submitted.
-The operational classification is **HOLD / NO ACTION**.
+The initial package classifier set `decision_relevant=true` only because Josh
+Jacobs' Thursday kickoff was within 12 hours. That was a diagnostic classifier
+false positive: Jacobs is bench, hard-unavailable, and not needed by the current
+planned lineup or any captured one-player contingency.
 
-The cheap screen and predictive MC diverged materially on several candidates,
-providing a direct prospective example of the architectural rule
-`screen != authority`.
+A bounded recovery against the exact frozen snapshot/capture/audit reclassified
+the gate:
 
-A package-only renderer defect initially omitted partner/player identities from
-the decision audit because `search_trades` returns flat fields while the
-serializer expected nested objects. A guarded replay against the exact frozen
-snapshot/capture reproduced all six scalar result vectors within `1e-12`,
-recovered the identities, wrote a new corrected audit, and left the original
-evidence immutable. No application/model source changed.
+**HOLD / NO HEAVY CHANNEL RERUN**
+
+No add/drop, DST, kicker, or trade MC was rerun. No transaction was submitted.
+No football/model/application source changed.
 
 ## Verified State
 
@@ -83,7 +83,18 @@ evidence immutable. No application/model source changed.
 - Corrected identity-recovery audit:
   SHA-256 `9eaafcfe4bb7e003f5622a5d8c901c286b7ddcb9139a82cd898a7ccbd1259e32`.
 - First league-wide one-for-one trade search: **NO ACTION / HOLD**.
-- No trade was submitted.
+- Fresh Sep 24 status-gate snapshot:
+  SHA-256 `440e061603867ce59192709c22cefdf52a6eb2f437b2a10ab08ee359b2980644`.
+- Fresh Sep 24 status-gate capture:
+  SHA-256 `721331684b8f354e9d534545190bfdd6c20acdbbb24e5664086e475f13a828f0`,
+  integrity PASS.
+- Status/lineup decision audit:
+  SHA-256 `c944b29ff05e83b7116d224c69cf7997217d43b5cad4b0e98e49a15a830ed817`.
+- Relevance-recovery audit:
+  SHA-256 `cb1752c1bbe88c3f750198ad059602b3cb2e69c87d2cf77d018836222207c317`.
+- Recovered status-gate classification:
+  **HOLD / NO HEAVY CHANNEL RERUN**.
+- No trade or other transaction was submitted.
 - Week 3 operational posture remains player HOLD / Lions DST HOLD / Butker K
   HOLD / planning FLEX Mark Andrews. Puka Nacua remains the principal live
   status uncertainty.
@@ -118,15 +129,21 @@ Canonical dependency record:
 
 ## Exact Next Action
 
-Do not submit any of the six one-for-one trade candidates from the frozen
-Sep 24 search.
+Maintain the current Week 3 HOLD state.
 
-The next gate is fresh material Week 3 status/lineup evidence. If Puka Nacua,
-J.K. Dobbins, Jakobi Meyers, or another consequential roster status changes, or
-a relevant lineup lock approaches, run a fresh decision-time sync/capture before
-making the lineup/transaction decision.
+Trigger the next decision cycle only when:
 
-Do not rerun or reinterpret the Sep 24 trade search as a later decision state.
+1. Puka Nacua, J.K. Dobbins, Jakobi Meyers, or another consequential roster
+   status/practice observation materially changes; or
+2. a player who is actually in the planned lineup or a captured contingency
+   approaches a consequential lock/reveal window.
+
+At that gate, perform a fresh decision-time sync/capture before changing the
+lineup or rerunning a decision-relevant player/DST/K channel.
+
+A hard-unavailable bench player's approaching kickoff alone is not a decision
+trigger. Do not rerun or reinterpret prior frozen trade/status states as later
+decision-time evidence.
 
 ## Relevant References
 
@@ -142,5 +159,6 @@ Do not rerun or reinterpret the Sep 24 trade search as a later decision state.
 - `evidence/PHASE1D_BEHAVIOR_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`
 - `evidence/TRADE_SEARCH_PLAYER_VALUES_RUNTIME_SYNC_2026-09-24.md`
 - `evidence/WEEK3_PROSPECTIVE_TRADE_SEARCH_2026-09-24.md`
+- `evidence/WEEK3_STATUS_LINEUP_GATE_2026-09-24.md`
 - `../../src/market_manager.py`
 - `../../src/gui/season_service.py`

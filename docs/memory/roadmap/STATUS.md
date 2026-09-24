@@ -67,13 +67,33 @@ cheap screen, but none is actionable:
 
 Operational classification: **HOLD / NO TRADE ACTION**.
 
+A later Sep 24 fresh status/lineup gate then found no roster status/practice
+change and no expected-lineup identity change. The lineup remained Mark Andrews
+at FLEX with `123.30` nominal projected points and `118.02` availability-weighted
+expected points.
+
+The first gate classifier escalated only because bench RB Josh Jacobs was within
+12 hours of kickoff. Jacobs was EXEMPT, hard-unavailable, and modeled at
+`P(active)=0%`. A bounded replay/reclassification against the same frozen
+snapshot/capture/audit proved this was a package-only relevance-classifier false
+positive.
+
+Recovered operational classification:
+
+**HOLD / NO HEAVY CHANNEL RERUN**
+
+A near lock is consequential only when it belongs to the captured planned lineup
+or a captured contingency and the player is not already hard-unavailable.
+
 The next football gate remains a fresh decision-time sync/capture when material
-status information changes or before the relevant lineup locks.
+status/practice information changes or a consequential lineup/contingency lock
+approaches.
 
 Canonical evidence:
 
 - `../evidence/WEEK3_DECISION_TIME_CHECKPOINT_2026-09-23.md`;
-- `../evidence/WEEK3_PROSPECTIVE_TRADE_SEARCH_2026-09-24.md`.
+- `../evidence/WEEK3_PROSPECTIVE_TRADE_SEARCH_2026-09-24.md`;
+- `../evidence/WEEK3_STATUS_LINEUP_GATE_2026-09-24.md`.
 
 ## Phase 1D Accepted Boundary
 
