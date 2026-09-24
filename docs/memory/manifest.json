@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-23T16:01:37.561724-04:00",
+  "generated_at": "2026-09-23T20:06:09.081246-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6857,
-      "sha256": "e4513994b20ee789a5caa8b777846d63237b7786d53703a9c067536b8d96328c"
+      "bytes": 5791,
+      "sha256": "630a4e9cdaf2129d40d073972a2f981a10b176342e7fa98a1fb12f2f401c7e31"
     },
     {
       "path": "LEARNINGS.md",
@@ -400,6 +400,11 @@
       "sha256": "12f1887a53b15c5cdaf038b0f2725c1be8690ec42bfc9109a85decc942287950"
     },
     {
+      "path": "evidence/PHASE1D_BEHAVIOR_SHADOW_SOURCE_VALIDATION_2026-09-23.md",
+      "bytes": 12437,
+      "sha256": "ffa26be45b109c2b42f226ab74535c325e5402ba7d773347a2e7bdf4ea0a52c9"
+    },
+    {
       "path": "evidence/PHASE1D_MARKET_MANAGER_BOUNDARY_DISCOVERY_2026-09-23.md",
       "bytes": 8875,
       "sha256": "0f6365e2fc9f06601448ba0825091f4d0fe45506f7c352a0d84ee6943e2e7fd8"
@@ -656,8 +661,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 5001,
-      "sha256": "8e65a76037f9962f84ef322b19751b6ebdbae9b7547f11f48367079ea2e5e1b1"
+      "bytes": 7537,
+      "sha256": "25c5b1460bec23d57f8bada90d7fbe1deff4fecfff36e462dc9368f545548d90"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

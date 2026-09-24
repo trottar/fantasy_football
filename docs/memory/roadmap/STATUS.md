@@ -10,7 +10,7 @@
 - Phase 1C P/D/K observability: **COMPLETE / SOURCE PUBLISHED / RUNTIME
   COMMISSIONED**
 - Phase 1D market/manager-behavior observability:
-  **BOUNDARY DISCOVERY COMPLETE / NARROW BEHAVIOR PROBE NEXT**
+  **SOURCE CANDIDATE VALIDATED / LOCAL-APPLIED / STAGING NEXT**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
 - Persistent runtime sink: **DISABLED**
 - Week 3 prospective evidence: **SECURED / CAUSALLY PROTECTED**
@@ -62,9 +62,9 @@ status information changes or before the relevant Sunday lineup locks.
 Canonical evidence:
 `../evidence/WEEK3_DECISION_TIME_CHECKPOINT_2026-09-23.md`.
 
-## Phase 1D Boundary Discovery
+## Phase 1D Accepted Boundary
 
-Read-only source audit classified the current trade path into distinct layers.
+Read-only discovery classified the trade path into distinct layers.
 
 **Football/roster response**
 
@@ -88,23 +88,89 @@ Read-only source audit classified the current trade path into distinct layers.
 - `evaluate_trade`;
 - `search_trades`.
 
-The integration-plan proposal `subsystem.trade.search` at `search_trades` is
-therefore rejected as a behavior-only Phase 1D boundary. It joins the football
-screen, both managers' predictive roster response, market perception, the
-acceptance kernel, and offer ranking.
+The former integration-plan proposal `subsystem.trade.search` at `search_trades`
+is rejected as a behavior-only Phase 1D boundary.
 
-The preferred first Phase 1D behavior candidate is
-`src/market_manager.py::trade_response_probabilities`. It is the narrow shared
-accept/counter/reject response kernel used beneath both manual trade evaluation
-and league-wide search. Its model remains explicitly
-`UNCALIBRATED_TRADE_RESPONSE_V030`.
+The accepted first Phase 1D behavior boundary is:
 
-`perceived_market_value` remains a separate candidate for later market-perception
-observation if evidence shows that a second boundary is useful. It is not part of
-the first probe.
+`src/market_manager.py::trade_response_probabilities`
+at `subsystem.behavior.trade_response_probabilities`.
 
-Canonical evidence:
+Its model remains explicitly `UNCALIBRATED_TRADE_RESPONSE_V030`.
+
+`perceived_market_value` remains a separate later market-perception candidate and
+is not instrumented in the first behavior checkpoint.
+
+Canonical discovery evidence:
 `../evidence/PHASE1D_MARKET_MANAGER_BOUNDARY_DISCOVERY_2026-09-23.md`.
+
+## Phase 1D Source Validation
+
+The non-modifying commissioned-runtime paired probe passed across favorable,
+neutral-boundary, adverse/complex, and controlled-error cases.
+
+Validated properties:
+
+- output and exception-type equivalence;
+- Python and NumPy RNG non-interference;
+- mutable-config non-interference;
+- bounded behavior correlation/event structure;
+- privacy markers absent;
+- observer fail-open behavior;
+- no persistent sink;
+- runtime source unchanged.
+
+The isolated source candidate then passed:
+
+- 46 targeted tests;
+- 517 full-suite tests;
+- retained paired behavior probe;
+- `compileall`;
+- strict memory health;
+- `git diff --check`;
+- `git diff --cached --check`;
+- exact six-path candidate allowlist;
+- temporary-clone cleanup with no residue.
+
+The first local-apply carrier (`..._v1`) failed before any write because the
+partial control root does not contain `src/market_manager.py`. A read-only
+inventory confirmed the split source/runtime layout and no unexpected (`OTHER`)
+identity.
+
+Corrected carrier `..._v2` then used the exact runtime predecessor read-only,
+wrote and identity-checked all nine targets, but failed because it attempted to
+run source-suite pytest from the intentionally partial control root. Independent
+audit proved exact rollback and no residue.
+
+Carrier `..._v3` preserved the isolated source-preflight authority and passed
+post-write identity/semantic gates, but strict memory health rejected an
+oversized `CURRENT.md` (`8465` bytes / `191` lines). The package therefore did
+not reach an accepted local checkpoint.
+
+Carrier `..._v4` kept `CURRENT.md` below both soft limits but contained an
+invalid installer assertion requiring the carrier package ID inside
+`CURRENT.md`. It failed after exact target identity validation and rolled back.
+
+Final corrected carrier `..._v5` removes carrier-ID coupling from active memory,
+accepts only the exact predecessor or exact v5 target, and self-tests the same
+rendered-memory semantic predicates used after installation. The isolated
+46-targeted/517-full-suite source-validation authority remains unchanged.
+
+The source candidate changes observability only:
+
+1. add `src/observability/behavior_shadow.py`;
+2. decorate only `trade_response_probabilities`;
+3. update the integration plan to the accepted behavior boundary;
+4. add dedicated behavior-shadow tests;
+5. update the existing integration-plan test;
+6. add the retained behavior-shadow probe.
+
+`search_trades`, `evaluate_trade`, and `perceived_market_value` remain
+uninstrumented. No football, trade-value, acceptance-probability, recommendation,
+or calibration formula changes.
+
+Canonical validation evidence:
+`../evidence/PHASE1D_BEHAVIOR_SHADOW_SOURCE_VALIDATION_2026-09-23.md`.
 
 ## Trade Search Before Week 4
 
@@ -123,9 +189,10 @@ the commissioned repack is known to lack its default
 predecessor artifact, but that should not be silently assumed as a permanent
 runtime dependency.
 
-Preferred target: resolve/validate that operational dependency and perform the
-first prospective trade search before the Week 4 decision window, without
-displacing Week 3 capture obligations.
+Preferred target: after the Phase 1D observer is source-published/runtime
+commissioned, resolve or explicitly route that dependency and perform the first
+prospective trade search before the Week 4 decision window, unless a Week 3
+calendar gate preempts it.
 
 ## Boundary Conditions
 

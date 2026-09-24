@@ -254,11 +254,11 @@ DEFAULT_INTEGRATION_PLAN = IntegrationPlan(
             BoundaryKind.SUBSYSTEM,
         ),
         _point(
-            "subsystem.trade.search",
+            "subsystem.behavior.trade_response_probabilities",
             IntegrationSurface.SUBSYSTEM,
-            "trade",
+            "behavior",
             "src/market_manager.py",
-            "search_trades",
+            "trade_response_probabilities",
             BoundaryKind.SUBSYSTEM,
         ),
         _point(

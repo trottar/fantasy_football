@@ -10,6 +10,7 @@ from typing import Any, Callable, Iterable
 
 import numpy as np
 
+from .observability.behavior_shadow import shadow_behavior_call
 from .season_utility import week_weights
 from .transaction_manager import (
     POSITIONS,
@@ -310,6 +311,7 @@ def perceived_market_value(player: dict[str, Any], ctx: UtilityContext) -> float
     )
 
 
+@shadow_behavior_call("subsystem.behavior.trade_response_probabilities")
 def trade_response_probabilities(
     *,
     partner_delta_season_ppg: float,

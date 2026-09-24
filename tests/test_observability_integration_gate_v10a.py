@@ -47,7 +47,7 @@ def test_default_plan_is_shadow_observer_only_and_names_real_surfaces():
         "subsystem.player.predictive",
         "subsystem.dst.channel",
         "subsystem.k.channel",
-        "subsystem.trade.search",
+        "subsystem.behavior.trade_response_probabilities",
         "subsystem.closure.capture",
     }.issubset(set(plan.names))
     for name in plan.names:
