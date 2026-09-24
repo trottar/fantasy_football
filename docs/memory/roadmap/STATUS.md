@@ -10,7 +10,7 @@
 - Phase 1C P/D/K observability: **COMPLETE / SOURCE PUBLISHED / RUNTIME
   COMMISSIONED**
 - Phase 1D market/manager-behavior observability:
-  **SOURCE CANDIDATE VALIDATED / LOCAL-APPLIED / STAGING NEXT**
+  **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 - Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
 - Persistent runtime sink: **DISABLED**
 - Week 3 prospective evidence: **SECURED / CAUSALLY PROTECTED**
@@ -171,6 +171,54 @@ or calibration formula changes.
 
 Canonical validation evidence:
 `../evidence/PHASE1D_BEHAVIOR_SHADOW_SOURCE_VALIDATION_2026-09-23.md`.
+
+## Phase 1D Runtime Commissioning
+
+Published source checkpoint:
+
+`7a3bf1503b5d32be9846d9f7ad110fcff3cff179`
+
+Runtime:
+
+`L:\Projects\fantasy_football\fantasy_season_v0_36_repack1`
+
+Commissioned boundary:
+
+`src/market_manager.py::trade_response_probabilities`
+at `subsystem.behavior.trade_response_probabilities`.
+
+Attempt 1 (`phase1d_behavior_shadow_runtime_commission_20260923_v1`) applied
+the exact three production targets, then pytest selected a user-profile root
+and failed on inaccessible `C:\Users\papatrott\privateGPT`. The package
+reported `ROLLBACK_PERFORMED=true` and restored the exact predecessor.
+
+Corrected attempt 2
+(`phase1d_behavior_shadow_runtime_commission_20260923_v2`) constrained temporary
+validation files, pytest rootdir/confcutdir, and full-suite scope to the
+commissioned runtime. Measured result:
+
+- published source identities: `PASS (6/6)`;
+- runtime production identities: `PASS (3/3)`;
+- observability substrate identities: `PASS (7/7)`;
+- dedicated behavior test: `8 passed in 8.55s`;
+- targeted integration/market tests: `38 passed in 7.41s`;
+- retained paired behavior probe: `PASS`;
+- full runtime pytest: `353 passed in 45.35s`;
+- `compileall src`: `PASS`;
+- validation residue: `NONE`;
+- rollback performed: `false`.
+
+Paired incremental overhead medians were 82.0-82.95 us for success cases and
+78.4 us for the controlled-error case; all absolute/relative gates passed.
+Output, exception, Python/NumPy RNG, mutable config, privacy, and correlation
+contracts passed.
+
+No football/model/trade-response formula changed. `search_trades`,
+`evaluate_trade`, and `perceived_market_value` remain uninstrumented. Persistent
+sink remains disabled.
+
+Canonical evidence:
+`../evidence/PHASE1D_BEHAVIOR_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`.
 
 ## Trade Search Before Week 4
 

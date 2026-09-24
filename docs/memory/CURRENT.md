@@ -5,7 +5,7 @@ state_updated: 2026-09-23
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: phase1d_behavior_shadow_source_checkpoint
+active_workstream: trade_search_dependency_readiness
 memory_refinement_step: none
 nfl_week: 3
 fantasy_stage: regular_season
@@ -20,8 +20,7 @@ gates. Trade-search operational readiness remains a preferred pre-Week-4 target.
 
 ## Current Work Item
 
-**Phase 1D behavior shadow: SOURCE CANDIDATE VALIDATED / LOCAL-APPLIED /
-ISOLATED STAGING NEXT.**
+**Phase 1D behavior shadow: COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED.**
 
 Accepted boundary:
 `src/market_manager.py::trade_response_probabilities` at
@@ -48,20 +47,19 @@ formula, recommendation authority, or persistent sink is changed.
   `c9ad2b383522038d03343ba04989ea206f1d8931` passed 46 targeted tests,
   retained paired probe, 517 full-suite tests, `compileall`, strict memory
   health, exact six-path identities, and cleanup with no residue.
-- Local-apply v1 failed before write because the partial control root lacks
-  `src/market_manager.py`.
-- Inventory proved the split layout: the control root has only selected source
-  surfaces while commissioned runtime carries the exact `market_manager.py`
-  predecessor.
-- Local-apply v2 wrote and identity-checked all targets, then failed because it
-  attempted source-suite pytest from the partial control root. Independent audit
-  proved exact rollback and no backup residue.
-- Local-apply v3 wrote and identity-checked all targets but failed strict memory
-  health on an oversized `CURRENT.md`; rollback restored the predecessor.
-- Local-apply v4 used a healthy compressed `CURRENT.md` but its installer
-  incorrectly required the carrier package ID to appear inside active memory.
-  It failed after target identity validation and rolled back. The source
-  candidate remains unchanged; v5 removes that invalid carrier-ID coupling.
+- Source checkpoint `7a3bf1503b5d32be9846d9f7ad110fcff3cff179`
+  is **PUSHED / REMOTE VERIFIED** with exact Phase 1D behavior-shadow source.
+- Runtime commissioning v1 failed only because pytest selected a user-profile
+  root and encountered inaccessible `C:\\Users\\papatrott\\privateGPT`; the
+  package explicitly rolled back to the exact predecessor.
+- Corrected runtime commissioning v2 constrained pytest to the commissioned
+  runtime and passed: behavior test `8 passed`, targeted integration/market
+  tests `38 passed`, full runtime suite `353 passed`, retained paired behavior
+  probe, `compileall`, exact production/substrate identities, and zero residue.
+- Phase 1D runtime boundary is now commissioned at
+  `subsystem.behavior.trade_response_probabilities`; response model remains
+  `UNCALIBRATED_TRADE_RESPONSE_V030`, persistent sink remains disabled, and
+  mixed trade surfaces remain uninstrumented.
 - Week 3 operational posture remains player HOLD / Lions DST HOLD / Butker K
   HOLD / planning FLEX Mark Andrews. Puka Nacua remains the principal live
   status uncertainty.
@@ -102,15 +100,15 @@ Canonical Phase 1D records:
 
 ## Exact Next Action
 
-Use the generic isolated-staging workflow to stage the exact locally applied
-Phase 1D technical + durable-memory checkpoint, regenerate the schema-2 memory
-manifest from staged Git blobs, and validate tree/allowlist/health/diff gates.
-Stop before commit/push.
+Resolve the trade-search processed-player-values dependency explicitly before
+the Week 4 decision window. Inspect the commissioned runtime's automatic
+trade-search input path and the exact available predecessor/sibling artifact;
+choose an explicit, provenance-preserving routing or synchronization mechanism
+rather than silently copying `data/processed/player_values_2026.csv`.
 
-After source publication is remote verified, runtime synchronization and
-commissioning remain a separate guarded step. Trade-search dependency readiness
-should then be resolved before the Week 4 decision window if Week 3 calendar
-gates permit.
+After that dependency is made explicit and validated, perform the first
+prospective league-wide trade search only from a fresh decision-time state.
+Week 3 calendar/status gates still preempt nonessential engineering.
 
 ## Relevant References
 
@@ -125,6 +123,7 @@ gates permit.
 - `evidence/WEEK3_DECISION_TIME_CHECKPOINT_2026-09-23.md`
 - `evidence/PHASE1D_MARKET_MANAGER_BOUNDARY_DISCOVERY_2026-09-23.md`
 - `evidence/PHASE1D_BEHAVIOR_SHADOW_SOURCE_VALIDATION_2026-09-23.md`
+- `evidence/PHASE1D_BEHAVIOR_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`
 - `../../src/market_manager.py`
 - `../../src/observability/behavior_shadow.py`
 - `../../src/observability/integration_plan.py`
