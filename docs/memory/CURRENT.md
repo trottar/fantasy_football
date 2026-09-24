@@ -5,7 +5,7 @@ state_updated: 2026-09-24
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: trade_search_dependency_readiness
+active_workstream: week3_status_gate
 memory_refinement_step: none
 nfl_week: 3
 fantasy_stage: regular_season
@@ -14,29 +14,40 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Make the existing automatic trade search operationally ready without changing
-football/model logic, then run the first prospective league-wide search only
-from a fresh decision-time state.
+Protect Week 3 prospective evidence and make lineup/transaction decisions only
+from fresh decision-time state when material status information changes.
 
 ## Current Work Item
 
-**Trade-search processed-player-values dependency: RUNTIME SYNCHRONIZED /
-VALIDATED.**
+**First prospective league-wide trade search: COMPLETE / NO ACTION.**
 
-The commissioned runtime's automatic trade-search path remains unchanged:
-`SeasonGuiService` defaults to `data/processed/player_values_2026.csv`, forwards
-`self.values_path` into `search_trades`, and `market_manager.search_trades`
-requires that path explicitly.
+A fresh authenticated Week 3 snapshot was synchronized, frozen in the final
+v0.34 prospective-capture contract, integrity-verified, and then used for the
+existing one-for-one player-channel trade search.
 
-A bounded read-only inventory proved the commissioned
-`fantasy_season_v0_36_repack1` runtime alone lacked that default artifact, while
-the control root, `fantasy_season_v0_35_fixed1`, and `fantasy_season_v0_36`
-contained byte-identical copies with SHA-256
-`4fd32728f43aab9f10182a942e4147d774c1f45ef3a3021f032dd6a519c7183d`.
+The predictive MC returned six candidates. Only two had positive mean football
+delta for our roster, and both were weak/near-coin-flip improvements with
+substantial modeled partner loss and very low uncalibrated acceptance
+probability:
 
-The dependency is now made explicit by a hash-guarded synchronization of that
-exact control-root artifact into the commissioned runtime. No football,
-manager-response, trade-ranking, observability, or calibration code changed.
+- Mark Andrews -> Matthew Golden: `+0.104` season PPG, `P(better)=51.5%`,
+  partner `-0.490`, `P(accept)=8.0%`;
+- George Kittle -> Emeka Egbuka: `+0.196` season PPG,
+  `P(better)=52.1%`, partner `-1.387`, `P(accept)=1.3%`.
+
+The other four candidates were negative for our roster. No trade was submitted.
+The operational classification is **HOLD / NO ACTION**.
+
+The cheap screen and predictive MC diverged materially on several candidates,
+providing a direct prospective example of the architectural rule
+`screen != authority`.
+
+A package-only renderer defect initially omitted partner/player identities from
+the decision audit because `search_trades` returns flat fields while the
+serializer expected nested objects. A guarded replay against the exact frozen
+snapshot/capture reproduced all six scalar result vectors within `1e-12`,
+recovered the identities, wrote a new corrected audit, and left the original
+evidence immutable. No application/model source changed.
 
 ## Verified State
 
@@ -64,7 +75,15 @@ manager-response, trade-ranking, observability, or calibration code changed.
   `fantasy_season_v0_36_repack1/data/processed/player_values_2026.csv`.
 - Runtime validation loaded the synchronized artifact through the exact
   `transaction_manager` and `weekly_manager` model-value loaders.
-- No trade search was executed by the dependency synchronization.
+- First prospective trade-search snapshot:
+  SHA-256 `3a300ecd1971795888847d7fada1f2702f9e5afd1d3e7640d17ca3cbc081cd38`.
+- Frozen prospective capture:
+  SHA-256 `5b05e1cd0e62b74df8a3a68b66c41dbc3dfb6be0e40cd424d3d161d891cd8bda`,
+  contract `A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034`, integrity PASS.
+- Corrected identity-recovery audit:
+  SHA-256 `9eaafcfe4bb7e003f5622a5d8c901c286b7ddcb9139a82cd898a7ccbd1259e32`.
+- First league-wide one-for-one trade search: **NO ACTION / HOLD**.
+- No trade was submitted.
 - Week 3 operational posture remains player HOLD / Lions DST HOLD / Butker K
   HOLD / planning FLEX Mark Andrews. Puka Nacua remains the principal live
   status uncertainty.
@@ -99,13 +118,15 @@ Canonical dependency record:
 
 ## Exact Next Action
 
-Before the first prospective league-wide trade search, obtain a fresh
-decision-time season state and freeze the corresponding prospective capture.
-Then run the existing league-wide trade search against that frozen state using
-the now-explicit commissioned runtime dependency.
+Do not submit any of the six one-for-one trade candidates from the frozen
+Sep 24 search.
 
-Do not reuse the Sep 23 decision-time state for a later consequential trade
-decision. Week 3 calendar/status gates still preempt nonessential work.
+The next gate is fresh material Week 3 status/lineup evidence. If Puka Nacua,
+J.K. Dobbins, Jakobi Meyers, or another consequential roster status changes, or
+a relevant lineup lock approaches, run a fresh decision-time sync/capture before
+making the lineup/transaction decision.
+
+Do not rerun or reinterpret the Sep 24 trade search as a later decision state.
 
 ## Relevant References
 
@@ -120,5 +141,6 @@ decision. Week 3 calendar/status gates still preempt nonessential work.
 - `evidence/WEEK3_DECISION_TIME_CHECKPOINT_2026-09-23.md`
 - `evidence/PHASE1D_BEHAVIOR_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`
 - `evidence/TRADE_SEARCH_PLAYER_VALUES_RUNTIME_SYNC_2026-09-24.md`
+- `evidence/WEEK3_PROSPECTIVE_TRADE_SEARCH_2026-09-24.md`
 - `../../src/market_manager.py`
 - `../../src/gui/season_service.py`

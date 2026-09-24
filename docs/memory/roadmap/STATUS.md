@@ -16,8 +16,9 @@
 - Week 3 prospective evidence: **SECURED / CAUSALLY PROTECTED**
 - Week 3 current P/D/K transaction posture: **HOLD / HOLD / HOLD**
 - Week 3 planning FLEX: **MARK ANDREWS**
-- Trade-search operational dependency:
-  **READY / FIRST PROSPECTIVE SEARCH PENDING FRESH DECISION-TIME CAPTURE**
+- Trade-search operational dependency: **READY**
+- First prospective league-wide trade search:
+  **COMPLETE / NO ACTION / FROZEN EVIDENCE PRESERVED**
 
 ## Phase 1C Commissioned State
 
@@ -52,15 +53,27 @@ Wednesday operational classification:
 - expected-value FLEX: Mark Andrews;
 - principal live status uncertainty: Puka Nacua.
 
-The waiver/free-agent search is complete for the Wednesday state. The Week 3
-league-wide trade search was intentionally deferred because it is a more complex
-decision surface.
+The waiver/free-agent search is complete for the Wednesday state.
+
+The first prospective league-wide one-for-one trade search is also complete from
+a fresh Sep 24 decision-time state. Six predictive-MC candidates survived the
+cheap screen, but none is actionable:
+
+- Andrews -> Matthew Golden: small positive mean delta (`+0.104` PPG),
+  `P(better)=51.5%`, partner loss `-0.490`, `P(accept)=8.0%`;
+- Kittle -> Emeka Egbuka: small positive mean delta (`+0.196` PPG),
+  `P(better)=52.1%`, partner loss `-1.387`, `P(accept)=1.3%`;
+- the remaining four candidates are negative for our roster.
+
+Operational classification: **HOLD / NO TRADE ACTION**.
 
 The next football gate remains a fresh decision-time sync/capture when material
-status information changes or before the relevant Sunday lineup locks.
+status information changes or before the relevant lineup locks.
 
 Canonical evidence:
-`../evidence/WEEK3_DECISION_TIME_CHECKPOINT_2026-09-23.md`.
+
+- `../evidence/WEEK3_DECISION_TIME_CHECKPOINT_2026-09-23.md`;
+- `../evidence/WEEK3_PROSPECTIVE_TRADE_SEARCH_2026-09-24.md`.
 
 ## Phase 1D Accepted Boundary
 
@@ -243,13 +256,21 @@ through the runtime's own `transaction_manager` and `weekly_manager` value
 loaders. This is an operational dependency repair only; no source/model formula
 changed and no trade search was executed during synchronization.
 
-Trade-search dependency readiness is therefore **READY**. The first
-league-wide search remains prospectively gated: obtain a fresh decision-time
-season state/capture immediately before using its output for a consequential
-trade decision.
+Trade-search dependency readiness is **READY**.
 
-Canonical dependency evidence:
-`../evidence/TRADE_SEARCH_PLAYER_VALUES_RUNTIME_SYNC_2026-09-24.md`.
+The first prospective league-wide search was then run from a fresh authenticated
+Sep 24 Week 3 snapshot and immutable v0.34 prospective capture. The cheap screen
+produced candidates that predictive MC subsequently rejected or reduced to
+near-noise, directly demonstrating `screen != authority`.
+
+No one-for-one candidate justified action. No transaction was submitted. The
+search state and corrected identity-recovery audit are preserved as prospective
+evidence and must not be reused as a later decision-time state.
+
+Canonical evidence:
+
+- `../evidence/TRADE_SEARCH_PLAYER_VALUES_RUNTIME_SYNC_2026-09-24.md`;
+- `../evidence/WEEK3_PROSPECTIVE_TRADE_SEARCH_2026-09-24.md`.
 
 ## Boundary Conditions
 
