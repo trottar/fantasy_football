@@ -11,7 +11,7 @@
   COMMISSIONED**
 - Phase 1D market/manager-behavior observability:
   **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Phase 1E redacting persistence primitive: **SOURCE CHECKPOINT PREPARED / RUNTIME PENDING / PERSISTENCE DISABLED**
+- Phase 1E redacting persistence primitive: **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED / PERSISTENCE DISABLED**
 - Persistent runtime sink: **DISABLED**
 - Week 3 prospective evidence: **SECURED / CAUSALLY PROTECTED**
 - Week 3 current P/D/K transaction posture: **HOLD / HOLD / HOLD**
@@ -22,47 +22,57 @@
 
 ## Phase 1E Redacting Persistence Primitive
 
-The first Phase 1E slice is a safety primitive, not persistence activation.
+The first Phase 1E slice is complete as a safety primitive and remains distinct
+from persistence activation.
 
-Read-only audit found that the existing raw `JsonlSink` writes
-`StructuredEvent.to_json()` verbatim while redaction is caller-owned. The
-accepted candidate therefore adds an explicit `RedactingJsonlSink` that performs
-mandatory redaction before every file write.
+Source checkpoint:
 
-The non-modifying source preflight passed:
+`f35651c54092c07384356b203a7cbb7732b47e63`
 
-- `22` targeted privacy/persistence tests;
-- `143` observability tests;
-- `522` full-suite tests;
-- `compileall src`;
-- exact three-file source/test allowlist;
-- commissioned-runtime nonmutation.
+Runtime:
 
-Exact candidate blobs:
+`L:\Projects\fantasy_football\fantasy_season_v0_36_repack1`
+
+Commissioned primitive:
+
+`src/observability/sinks.py::RedactingJsonlSink`
+
+Exact production blobs:
 
 - `src/observability/sinks.py`:
   `110b50f101f05a77a2b4879c913067bdd8d083b3`;
 - `src/observability/__init__.py`:
-  `b872c6bc963dc2c41b3d206a59a31112b953068c`;
-- `tests/test_observability_persistent_sink_v10a.py`:
-  `b53afdeaa29e0fb4a67bc68dc1dd8ef8ae76728a`.
+  `b872c6bc963dc2c41b3d206a59a31112b953068c`.
 
-A disposable-clone cleanup defect left only an orphaned Git pack triplet. A
-read-only inventory proved no candidate working-tree source or usable repository
-metadata remained; a guarded successor cleanup removed the exact residue without
-touching the project/runtime.
+Runtime commissioning attempt 1 failed before mutation because the validation
+harness incorrectly required source-repository tests inside the runtime.
 
-Current source-checkpoint boundary:
+Corrected attempt 2 passed:
 
-**SOURCE CHECKPOINT PREPARED / RUNTIME NOT COMMISSIONED**
+- runtime pre-state: `PREDECESSOR_MATCH`;
+- published source/test identities: `PASS (6/6)`;
+- runtime production identities: `PASS (2/2)`;
+- observability substrate identities: `PASS (6/6)`;
+- dedicated Phase 1E test: `5 passed in 0.25s`;
+- targeted privacy/persistence tests: `22 passed in 0.27s`;
+- full runtime pytest: `353 passed in 55.46s`;
+- `compileall src`: PASS;
+- validation residue: NONE;
+- rollback performed: false.
 
-If the checkpoint is not yet remote-verified, complete guarded publication.
-After remote verification, runtime synchronization/commissioning is the next
-engineering gate. Persistent evidence remains disabled; production wiring,
-persistence path, retention policy, and activation remain separately gated.
+Current boundary:
+
+**COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED / PERSISTENCE DISABLED**
+
+The raw `JsonlSink` remains unchanged. Production shadow wiring, persistence
+path, retention policy, and persistent-evidence activation remain separately
+gated and unauthorized.
 
 Canonical evidence:
-`../evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_PREFLIGHT_2026-09-24.md`.
+
+- `../evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_PREFLIGHT_2026-09-24.md`;
+- `../evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_RUNTIME_COMMISSIONING_2026-09-27.md`.
+
 
 ## Phase 1C Commissioned State
 

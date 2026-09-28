@@ -1,7 +1,7 @@
 # Current Project State
 
 ---
-state_updated: 2026-09-24
+state_updated: 2026-09-27
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
@@ -19,32 +19,29 @@ from fresh decision-time state when material status information changes.
 
 ## Current Work Item
 
-**Phase 1E redacting persistence primitive: SOURCE CHECKPOINT PREPARED / RUNTIME PENDING.**
+**Phase 1E redacting persistence primitive: SOURCE PUBLISHED / RUNTIME COMMISSIONED / PERSISTENCE DISABLED.**
 
-Read-only audit showed the existing raw `JsonlSink` persists complete structured
-events while redaction is caller-owned, so it is not an acceptable production
-persistence boundary by itself.
+Source checkpoint `f35651c54092c07384356b203a7cbb7732b47e63` is
+**PUSHED / REMOTE VERIFIED**. The exact `RedactingJsonlSink` primitive is now
+also commissioned in `v0.36-repack1`.
 
-A disposable-clone preflight validated an explicit `RedactingJsonlSink` that
-redacts before every JSONL write and leaves the raw sink unchanged:
+Runtime commissioning attempt 1 failed before mutation because the harness
+incorrectly expected source-repository tests inside the runtime. Corrected
+attempt 2 preserved those tests as temporary validation inputs and passed:
 
-- targeted privacy/persistence tests: `22 passed`;
-- observability family: `143 passed`;
-- full source suite: `522 passed`;
+- dedicated Phase 1E test: `5 passed`;
+- targeted privacy/persistence set: `22 passed`;
+- full runtime suite: `353 passed`;
 - `compileall src`: PASS;
-- source/test allowlist: `3 / EXACT`;
-- commissioned runtime unchanged.
+- validation residue: NONE;
+- rollback performed: false.
 
-The cleanup defect was separately closed as an orphaned partial Git pack only;
-the exact residue was removed after read-only inventory and pack-header guards.
-
-The exact source checkpoint is prepared with durable memory. Repository
-publication and commissioned-runtime synchronization remain distinct gates.
-Production wiring, path/retention policy, and persistence activation remain
+The raw `JsonlSink` is unchanged. Production shadow wiring, persistence
+path/retention policy, and persistent evidence activation remain disabled and
 separately gated.
 
-Week 3 remains **HOLD / NO HEAVY CHANNEL RERUN** and preempts engineering if
-material consequential status/lock evidence appears.
+Week 3 remains **HOLD / NO HEAVY CHANNEL RERUN** and any material consequential
+football status/lock change preempts nonessential engineering.
 
 ## Verified State
 
@@ -52,8 +49,9 @@ material consequential status/lock evidence appears.
 - Phase 1A, 1B, 1C, and 1D observability are source-published and runtime
   commissioned.
 - Persistent observability sink remains **DISABLED**.
-- Phase 1E redacting persistence primitive is control-root local-applied only; publication/runtime commissioning remain pending. Exact candidate blobs: `110b50f...83b3` (`sinks.py`), `b872c6...068c` (`__init__.py`), `b53afd...728a` (test).
-- Phase 1E preflight passed 22 targeted, 143 observability, 522 full-suite tests and `compileall`; runtime remained unchanged.
+- Phase 1E `RedactingJsonlSink` primitive is source-published at `f35651c54092c07384356b203a7cbb7732b47e63` and runtime-commissioned in `v0.36-repack1`.
+- Phase 1E runtime commissioning passed 5 dedicated, 22 privacy/persistence, and 353 full-runtime tests plus `compileall`; residue NONE and rollback false.
+- Production shadow wiring, persistence path/retention policy, and persistent evidence activation remain separately gated and unauthorized.
 - Phase 1D boundary remains only
   `subsystem.behavior.trade_response_probabilities`; `search_trades`,
   `evaluate_trade`, and `perceived_market_value` remain uninstrumented.
@@ -132,18 +130,20 @@ Preserve the Week 3 HOLD state. Any material consequential roster
 status/practice/lock change preempts engineering and requires a fresh prospective
 decision-time sync/capture.
 
-Absent that football preemption:
+Phase 1E primitive source publication and runtime commissioning are complete.
+Do **not** automatically activate persistent evidence.
 
-1. if this source checkpoint is not yet **PUSHED / REMOTE VERIFIED**, complete
-   isolated staging/publication under exact remote/base/tree/allowlist guards;
-2. once source publication is remote-verified, perform the separate commissioned
-   runtime synchronization/commissioning transition;
-3. only after runtime commissioning may later work consider the separately gated
-   persistence path/retention/production-wiring authorization.
+The next Phase 1E production-persistence step is a separate authorization gate.
+Only when explicitly authorized should work proceed to a read-only design/audit
+of:
 
-Do **not** activate persistent evidence, choose a persistence directory, establish
-retention policy, or wire production shadow observers to disk before that later
-authorization gate.
+1. local-only persistence path ownership and Git exclusion;
+2. retention/rotation/deletion policy;
+3. production shadow-recorder fail-open wiring;
+4. privacy/redaction invariants and disk-failure behavior;
+5. a distinct activation/commissioning plan.
+
+Until then, persistent evidence remains **DISABLED**.
 
 ## Relevant References
 
@@ -161,6 +161,7 @@ authorization gate.
 - `evidence/WEEK3_PROSPECTIVE_TRADE_SEARCH_2026-09-24.md`
 - `evidence/WEEK3_STATUS_LINEUP_GATE_2026-09-24.md`
 - `evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_PREFLIGHT_2026-09-24.md`
+- `evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_RUNTIME_COMMISSIONING_2026-09-27.md`
 - `../../src/market_manager.py`
 - `../../src/gui/season_service.py`
 - `../../src/observability/sinks.py`
