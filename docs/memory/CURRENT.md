@@ -5,7 +5,7 @@ state_updated: 2026-09-24
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: week3_status_gate
+active_workstream: phase1e_persistence_primitive
 memory_refinement_step: none
 nfl_week: 3
 fantasy_stage: regular_season
@@ -19,35 +19,32 @@ from fresh decision-time state when material status information changes.
 
 ## Current Work Item
 
-**Week 3 fresh status/lineup gate: CAPTURED / HOLD.**
+**Phase 1E redacting persistence primitive: SOURCE CHECKPOINT PREPARED / RUNTIME PENDING.**
 
-A fresh authenticated Week 3 state was synchronized on Sep 24, frozen in the
-final v0.34 prospective-capture contract, integrity-verified, and reconciled
-through the exact commissioned lineup path.
+Read-only audit showed the existing raw `JsonlSink` persists complete structured
+events while redaction is caller-owned, so it is not an acceptable production
+persistence boundary by itself.
 
-The fresh state showed:
+A disposable-clone preflight validated an explicit `RedactingJsonlSink` that
+redacts before every JSONL write and leaves the raw sink unchanged:
 
-- roster availability/practice state changes: `0`;
-- expected-lineup identity change: `false`;
-- expected lineup projection: `123.30`;
-- availability-weighted expected lineup: `118.02`;
-- Puka Nacua, Jakobi Meyers, and J.K. Dobbins remain QUESTIONABLE at provisional
-  `P(active)=75%` with no captured practice sequence;
-- Josh Jacobs remains hard-unavailable: EXEMPT,
-  `P(active)=0%`, bench.
+- targeted privacy/persistence tests: `22 passed`;
+- observability family: `143 passed`;
+- full source suite: `522 passed`;
+- `compileall src`: PASS;
+- source/test allowlist: `3 / EXACT`;
+- commissioned runtime unchanged.
 
-The initial package classifier set `decision_relevant=true` only because Josh
-Jacobs' Thursday kickoff was within 12 hours. That was a diagnostic classifier
-false positive: Jacobs is bench, hard-unavailable, and not needed by the current
-planned lineup or any captured one-player contingency.
+The cleanup defect was separately closed as an orphaned partial Git pack only;
+the exact residue was removed after read-only inventory and pack-header guards.
 
-A bounded recovery against the exact frozen snapshot/capture/audit reclassified
-the gate:
+The exact source checkpoint is prepared with durable memory. Repository
+publication and commissioned-runtime synchronization remain distinct gates.
+Production wiring, path/retention policy, and persistence activation remain
+separately gated.
 
-**HOLD / NO HEAVY CHANNEL RERUN**
-
-No add/drop, DST, kicker, or trade MC was rerun. No transaction was submitted.
-No football/model/application source changed.
+Week 3 remains **HOLD / NO HEAVY CHANNEL RERUN** and preempts engineering if
+material consequential status/lock evidence appears.
 
 ## Verified State
 
@@ -55,6 +52,8 @@ No football/model/application source changed.
 - Phase 1A, 1B, 1C, and 1D observability are source-published and runtime
   commissioned.
 - Persistent observability sink remains **DISABLED**.
+- Phase 1E redacting persistence primitive is control-root local-applied only; publication/runtime commissioning remain pending. Exact candidate blobs: `110b50f...83b3` (`sinks.py`), `b872c6...068c` (`__init__.py`), `b53afd...728a` (test).
+- Phase 1E preflight passed 22 targeted, 143 observability, 522 full-suite tests and `compileall`; runtime remained unchanged.
 - Phase 1D boundary remains only
   `subsystem.behavior.trade_response_probabilities`; `search_trades`,
   `evaluate_trade`, and `perceived_market_value` remain uninstrumented.
@@ -129,21 +128,22 @@ Canonical dependency record:
 
 ## Exact Next Action
 
-Maintain the current Week 3 HOLD state.
+Preserve the Week 3 HOLD state. Any material consequential roster
+status/practice/lock change preempts engineering and requires a fresh prospective
+decision-time sync/capture.
 
-Trigger the next decision cycle only when:
+Absent that football preemption:
 
-1. Puka Nacua, J.K. Dobbins, Jakobi Meyers, or another consequential roster
-   status/practice observation materially changes; or
-2. a player who is actually in the planned lineup or a captured contingency
-   approaches a consequential lock/reveal window.
+1. if this source checkpoint is not yet **PUSHED / REMOTE VERIFIED**, complete
+   isolated staging/publication under exact remote/base/tree/allowlist guards;
+2. once source publication is remote-verified, perform the separate commissioned
+   runtime synchronization/commissioning transition;
+3. only after runtime commissioning may later work consider the separately gated
+   persistence path/retention/production-wiring authorization.
 
-At that gate, perform a fresh decision-time sync/capture before changing the
-lineup or rerunning a decision-relevant player/DST/K channel.
-
-A hard-unavailable bench player's approaching kickoff alone is not a decision
-trigger. Do not rerun or reinterpret prior frozen trade/status states as later
-decision-time evidence.
+Do **not** activate persistent evidence, choose a persistence directory, establish
+retention policy, or wire production shadow observers to disk before that later
+authorization gate.
 
 ## Relevant References
 
@@ -160,5 +160,7 @@ decision-time evidence.
 - `evidence/TRADE_SEARCH_PLAYER_VALUES_RUNTIME_SYNC_2026-09-24.md`
 - `evidence/WEEK3_PROSPECTIVE_TRADE_SEARCH_2026-09-24.md`
 - `evidence/WEEK3_STATUS_LINEUP_GATE_2026-09-24.md`
+- `evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_PREFLIGHT_2026-09-24.md`
 - `../../src/market_manager.py`
 - `../../src/gui/season_service.py`
+- `../../src/observability/sinks.py`

@@ -7,6 +7,7 @@ import threading
 from typing import Iterable, Protocol, TextIO
 
 from .events import StructuredEvent
+from .redaction import RedactionPolicy, redacted_event_json
 
 
 class EventSink(Protocol):
@@ -96,6 +97,43 @@ class JsonlSink:
     def emit(self, event: StructuredEvent) -> None:
         event = _require_event(event)
         line = event.to_json() + "\n"
+        with self._lock:
+            if self.create_parents:
+                self.path.parent.mkdir(parents=True, exist_ok=True)
+            with self.path.open("a", encoding="utf-8", newline="\n") as handle:
+                handle.write(line)
+                if self.flush:
+                    handle.flush()
+
+
+class RedactingJsonlSink:
+    """Thread-safe JSONL sink that enforces redaction before persistence.
+
+    Construction and emission are explicit and caller-owned. This primitive does
+    not activate persistence in any production shadow recorder. Production
+    retention/path policy and fail-open wiring remain separate commissioning gates.
+    """
+
+    def __init__(
+        self,
+        path: str | Path,
+        *,
+        policy: RedactionPolicy | None = None,
+        create_parents: bool = True,
+        flush: bool = True,
+    ) -> None:
+        active = RedactionPolicy() if policy is None else policy
+        if not isinstance(active, RedactionPolicy):
+            raise TypeError("policy must be a RedactionPolicy or None")
+        self.path = Path(path)
+        self.policy = active
+        self.create_parents = bool(create_parents)
+        self.flush = bool(flush)
+        self._lock = threading.Lock()
+
+    def emit(self, event: StructuredEvent) -> None:
+        event = _require_event(event)
+        line = redacted_event_json(event, policy=self.policy) + "\n"
         with self._lock:
             if self.create_parents:
                 self.path.parent.mkdir(parents=True, exist_ok=True)

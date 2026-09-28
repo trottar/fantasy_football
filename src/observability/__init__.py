@@ -104,6 +104,7 @@ from .sinks import (
     HumanTextSink,
     JsonlSink,
     MemorySink,
+    RedactingJsonlSink,
     emit_all,
     format_human_event,
 )
@@ -162,6 +163,7 @@ __all__ = [
     "InvariantStatus",
     "JsonlSink",
     "MemorySink",
+    "RedactingJsonlSink",
     "OMITTED_EXCEPTION_MESSAGE",
     "RedactionPolicy",
     "RedactionResult",

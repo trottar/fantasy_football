@@ -11,7 +11,7 @@
   COMMISSIONED**
 - Phase 1D market/manager-behavior observability:
   **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Phase 1E persistent evidence authorization: **NOT STARTED / SEPARATELY GATED**
+- Phase 1E redacting persistence primitive: **SOURCE CHECKPOINT PREPARED / RUNTIME PENDING / PERSISTENCE DISABLED**
 - Persistent runtime sink: **DISABLED**
 - Week 3 prospective evidence: **SECURED / CAUSALLY PROTECTED**
 - Week 3 current P/D/K transaction posture: **HOLD / HOLD / HOLD**
@@ -19,6 +19,50 @@
 - Trade-search operational dependency: **READY**
 - First prospective league-wide trade search:
   **COMPLETE / NO ACTION / FROZEN EVIDENCE PRESERVED**
+
+## Phase 1E Redacting Persistence Primitive
+
+The first Phase 1E slice is a safety primitive, not persistence activation.
+
+Read-only audit found that the existing raw `JsonlSink` writes
+`StructuredEvent.to_json()` verbatim while redaction is caller-owned. The
+accepted candidate therefore adds an explicit `RedactingJsonlSink` that performs
+mandatory redaction before every file write.
+
+The non-modifying source preflight passed:
+
+- `22` targeted privacy/persistence tests;
+- `143` observability tests;
+- `522` full-suite tests;
+- `compileall src`;
+- exact three-file source/test allowlist;
+- commissioned-runtime nonmutation.
+
+Exact candidate blobs:
+
+- `src/observability/sinks.py`:
+  `110b50f101f05a77a2b4879c913067bdd8d083b3`;
+- `src/observability/__init__.py`:
+  `b872c6bc963dc2c41b3d206a59a31112b953068c`;
+- `tests/test_observability_persistent_sink_v10a.py`:
+  `b53afdeaa29e0fb4a67bc68dc1dd8ef8ae76728a`.
+
+A disposable-clone cleanup defect left only an orphaned Git pack triplet. A
+read-only inventory proved no candidate working-tree source or usable repository
+metadata remained; a guarded successor cleanup removed the exact residue without
+touching the project/runtime.
+
+Current source-checkpoint boundary:
+
+**SOURCE CHECKPOINT PREPARED / RUNTIME NOT COMMISSIONED**
+
+If the checkpoint is not yet remote-verified, complete guarded publication.
+After remote verification, runtime synchronization/commissioning is the next
+engineering gate. Persistent evidence remains disabled; production wiring,
+persistence path, retention policy, and activation remain separately gated.
+
+Canonical evidence:
+`../evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_PREFLIGHT_2026-09-24.md`.
 
 ## Phase 1C Commissioned State
 
