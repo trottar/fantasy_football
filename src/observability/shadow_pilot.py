@@ -11,6 +11,7 @@ from .adapters import CORE_ADAPTER_REGISTRY
 from .context import RunContext
 from .correlation import begin_cli_action, begin_service_action
 from .events import StructuredEvent
+from .persistence import persist_shadow_event
 
 
 DEFAULT_SHADOW_MAX_EVENTS = 256
@@ -80,6 +81,12 @@ class ShadowRecorder:
             raise TypeError("event must be a StructuredEvent")
         with self._lock:
             self._events.append(event)
+        try:
+            persisted = persist_shadow_event(event)
+        except Exception:
+            persisted = False
+        if persisted is False:
+            self._note_observer_failure()
 
     def _parent(self) -> RunContext:
         return self._current_context.get() or self.root_context

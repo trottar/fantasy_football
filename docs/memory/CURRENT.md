@@ -1,11 +1,11 @@
 # Current Project State
 
 ---
-state_updated: 2026-09-27
+state_updated: 2026-09-28
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: phase1e_persistence_primitive
+active_workstream: phase1e_persistence_controller
 memory_refinement_step: none
 nfl_week: 3
 fantasy_stage: regular_season
@@ -14,136 +14,104 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Protect Week 3 prospective evidence and make lineup/transaction decisions only
-from fresh decision-time state when material status information changes.
+Finish the Phase 1 measurement apparatus without changing football/model
+semantics or activating persistent evidence. Calendar-sensitive prospective
+football work still preempts nonessential engineering.
 
 ## Current Work Item
 
-**Phase 1E redacting persistence primitive: SOURCE PUBLISHED / RUNTIME COMMISSIONED / PERSISTENCE DISABLED.**
+**Phase 1E persistence controller: SOURCE CANDIDATE LOCAL-APPLIED /
+PERSISTENCE DISABLED.**
 
-Source checkpoint `f35651c54092c07384356b203a7cbb7732b47e63` is
-**PUSHED / REMOTE VERIFIED**. The exact `RedactingJsonlSink` primitive is now
-also commissioned in `v0.36-repack1`.
+The previously commissioned `RedactingJsonlSink` primitive remains unchanged.
+The Phase 1E.2 controller candidate has now passed isolated-source preflight and
+is installed only on the control-root checkpoint surface.
 
-Runtime commissioning attempt 1 failed before mutation because the harness
-incorrectly expected source-repository tests inside the runtime. Corrected
-attempt 2 preserved those tests as temporary validation inputs and passed:
+Validated isolated preflight:
 
-- dedicated Phase 1E test: `5 passed`;
-- targeted privacy/persistence set: `22 passed`;
-- full runtime suite: `353 passed`;
+- predecessor: `4833361b045cdc7c7bd97c6fd297560518de8e8b`;
+- exact changed scope: 5 paths;
+- targeted: `34 passed`;
+- observability: `152 passed`;
+- full source: `531 passed`;
 - `compileall src`: PASS;
-- validation residue: NONE;
-- rollback performed: false.
+- strict memory health: HEALTHY;
+- `git diff --check`: PASS;
+- `git diff --cached --check`: PASS;
+- Git exclusion for `logs/observability/`: PASS;
+- temporary-clone cleanup: PASS;
+- production persistence active: false.
 
-The raw `JsonlSink` is unchanged. Production shadow wiring, persistence
-path/retention policy, and persistent evidence activation remain disabled and
-separately gated.
+The controller is observability-owned, explicitly disabled by default, and can
+persist only through `RedactingJsonlSink`. It rotates by UTC event day or
+16 MiB, stops accepting new writes at a 256 MiB total ceiling, performs no
+automatic deletion, and fails open by disabling future persistence after a
+disk/redaction/path failure.
 
-Week 3 remains **HOLD / NO HEAVY CHANNEL RERUN** and any material consequential
-football status/lock change preempts nonessential engineering.
+This local apply does not alter the commissioned runtime and does not activate
+persistent evidence.
 
 ## Verified State
 
-- Commissioned runtime remains **v0.36-repack1**, internal `VERSION = 0.36`.
-- Phase 1A, 1B, 1C, and 1D observability are source-published and runtime
-  commissioned.
-- Persistent observability sink remains **DISABLED**.
-- Phase 1E `RedactingJsonlSink` primitive is source-published at `f35651c54092c07384356b203a7cbb7732b47e63` and runtime-commissioned in `v0.36-repack1`.
-- Phase 1E runtime commissioning passed 5 dedicated, 22 privacy/persistence, and 353 full-runtime tests plus `compileall`; residue NONE and rollback false.
-- Production shadow wiring, persistence path/retention policy, and persistent evidence activation remain separately gated and unauthorized.
-- Phase 1D boundary remains only
-  `subsystem.behavior.trade_response_probabilities`; `search_trades`,
-  `evaluate_trade`, and `perceived_market_value` remain uninstrumented.
-- Source checkpoint `7a3bf1503b5d32be9846d9f7ad110fcff3cff179`
-  remains **PUSHED / REMOTE VERIFIED**.
-- Runtime Phase 1D commissioning remains validated: dedicated behavior test
-  `8 passed`, targeted integration/market tests `38 passed`, full runtime suite
-  `353 passed`, retained paired probe PASS, and `compileall` PASS.
-- Trade-search dependency inventory confirmed the automatic default path is
-  `data/processed/player_values_2026.csv` and the commissioned runtime target
-  was absent before synchronization.
-- Three available source artifacts were identical: control root,
-  `v0.35-fixed1`, and `v0.36`; each was 361778 bytes, 939 CSV rows, and SHA-256
-  `4fd32728f43aab9f10182a942e4147d774c1f45ef3a3021f032dd6a519c7183d`.
-- Required columns `espn_id` and `latent_mean_ppg` are present; optional model
-  columns `latent_mean_sd_ppg` and `predictive_weekly_sd_ppg` are also present.
-- The exact artifact is now present at
-  `fantasy_season_v0_36_repack1/data/processed/player_values_2026.csv`.
-- Runtime validation loaded the synchronized artifact through the exact
-  `transaction_manager` and `weekly_manager` model-value loaders.
-- First prospective trade-search snapshot:
-  SHA-256 `3a300ecd1971795888847d7fada1f2702f9e5afd1d3e7640d17ca3cbc081cd38`.
-- Frozen prospective capture:
-  SHA-256 `5b05e1cd0e62b74df8a3a68b66c41dbc3dfb6be0e40cd424d3d161d891cd8bda`,
-  contract `A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034`, integrity PASS.
-- Corrected identity-recovery audit:
-  SHA-256 `9eaafcfe4bb7e003f5622a5d8c901c286b7ddcb9139a82cd898a7ccbd1259e32`.
-- First league-wide one-for-one trade search: **NO ACTION / HOLD**.
-- Fresh Sep 24 status-gate snapshot:
-  SHA-256 `440e061603867ce59192709c22cefdf52a6eb2f437b2a10ab08ee359b2980644`.
-- Fresh Sep 24 status-gate capture:
-  SHA-256 `721331684b8f354e9d534545190bfdd6c20acdbbb24e5664086e475f13a828f0`,
-  integrity PASS.
-- Status/lineup decision audit:
-  SHA-256 `c944b29ff05e83b7116d224c69cf7997217d43b5cad4b0e98e49a15a830ed817`.
-- Relevance-recovery audit:
-  SHA-256 `cb1752c1bbe88c3f750198ad059602b3cb2e69c87d2cf77d018836222207c317`.
-- Recovered status-gate classification:
-  **HOLD / NO HEAVY CHANNEL RERUN**.
-- No trade or other transaction was submitted.
-- Week 3 operational posture remains player HOLD / Lions DST HOLD / Butker K
-  HOLD / planning FLEX Mark Andrews. Puka Nacua remains the principal live
-  status uncertainty.
+- Commissioned runtime remains `v0.36-repack1`, internal `VERSION = 0.36`.
+- Phase 1A-1D observability remain source-published and runtime-commissioned.
+- Phase 1E redacting persistence primitive remains source-published and
+  runtime-commissioned.
+- Phase 1E.2 controller source preflight is validated and the candidate is now
+  local-applied on the control-root checkpoint surface only.
+- Persistent runtime sink remains **DISABLED**.
+- No production activation call or local activation policy has been installed.
+- No retention deletion is enabled; existing evidence is never deleted by the
+  controller.
+- No football/model/manager-behavior formula or recommendation authority changed.
+- `P ⊕ D ⊕ K`, `screen != authority`, and football/behavior separation remain
+  unchanged.
+- Last frozen Week 3 football evidence remains preserved. Sep 24 operational
+  state is historical evidence, not current decision-time authority for a new
+  consequential action.
 - No observed 2026 outcome has tuned v0.X.
 
-Canonical dependency record:
-- `evidence/TRADE_SEARCH_PLAYER_VALUES_RUNTIME_SYNC_2026-09-24.md`.
+Canonical validation:
+`evidence/PHASE1E_PERSISTENCE_CONTROLLER_SOURCE_VALIDATION_2026-09-28.md`.
 
 ## Calendar / Evidence Gates
 
-- Preserve the Sep 22 week-open and Sep 23 decision-time Week 3 captures.
-- A material Puka/Dobbins status change or relevant lineup lock preempts
-  nonessential engineering and requires a fresh prospective decision-time state.
-- Consequential future trade decisions require their own prospective capture.
-- The synchronized player-values artifact is an operational dependency only; it
-  is not new outcome evidence and does not authorize v0.X tuning.
-- Manager-response probabilities remain explicitly uncalibrated until
-  prospective behavior evidence supports calibration.
-- Persistent evidence remains separately gated.
+- Preserve the existing Week 3 frozen captures and closure lineage.
+- Any new consequential lineup/transaction decision requires a fresh
+  decision-time sync/capture; do not reuse the Sep 24 state as current.
+- A material consequential football status/lock gate preempts nonessential
+  engineering.
+- Phase 2 prospective Data/MC collection continues independently of Phase 1E;
+  persistent telemetry cannot be backfilled for earlier weeks.
+- Persistent evidence activation remains a separate explicit authorization and
+  commissioning gate.
 
 ## Scientific / Architectural Boundaries
 
 - Preserve `P ⊕ D ⊕ K`.
-- Football utility, market perception, and manager behavior remain separate
-  response layers.
-- Ownership/trend/perception may affect behavior but not intrinsic football
-  value.
+- Football utility, market perception, and manager behavior remain separate.
 - `screen != authority`.
-- Diagnostics and dependency synchronization must not alter football/model
-  formulas or prospective evidence.
-- No observed 2026 result may tune v0.X.
+- Diagnostics observe; they do not become decision/control logic.
+- Persistence may retain only redacted observability events.
+- Raw authenticated/private evidence remains local and outside Git.
+- No observed 2026 result may tune v0.X without the v1 evidence/calibration gate.
 
 ## Exact Next Action
 
-Preserve the Week 3 HOLD state. Any material consequential roster
-status/practice/lock change preempts engineering and requires a fresh prospective
-decision-time sync/capture.
+After verifying this local-apply receipt, prepare the normal declarative isolated
+stage with `tools/delivery/prepare_checkpoint_stage.py` for the reviewed
+nine-path checkpoint plus regenerated `docs/memory/manifest.json`.
 
-Phase 1E primitive source publication and runtime commissioning are complete.
-Do **not** automatically activate persistent evidence.
+Then:
 
-The next Phase 1E production-persistence step is a separate authorization gate.
-Only when explicitly authorized should work proceed to a read-only design/audit
-of:
+1. validate the staged tree/manifest/allowlist and zero residue;
+2. publish through the separate guarded `.ffpkg` publication boundary;
+3. verify remote `main` read-only;
+4. only after source publication, commission the controller into
+   `v0.36-repack1` with persistence still **OFF**;
+5. treat persistent activation as a later, separately authorized gate.
 
-1. local-only persistence path ownership and Git exclusion;
-2. retention/rotation/deletion policy;
-3. production shadow-recorder fail-open wiring;
-4. privacy/redaction invariants and disk-failure behavior;
-5. a distinct activation/commissioning plan.
-
-Until then, persistent evidence remains **DISABLED**.
+Do not activate persistence during source publication or runtime synchronization.
 
 ## Relevant References
 
@@ -155,13 +123,10 @@ Until then, persistent evidence remains **DISABLED**.
 - `roadmap/STATUS.md`
 - `roadmap/SEASON_2026.md`
 - `architecture/DIAGNOSTICS_OBSERVABILITY.md`
-- `evidence/WEEK3_DECISION_TIME_CHECKPOINT_2026-09-23.md`
-- `evidence/PHASE1D_BEHAVIOR_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`
-- `evidence/TRADE_SEARCH_PLAYER_VALUES_RUNTIME_SYNC_2026-09-24.md`
-- `evidence/WEEK3_PROSPECTIVE_TRADE_SEARCH_2026-09-24.md`
-- `evidence/WEEK3_STATUS_LINEUP_GATE_2026-09-24.md`
 - `evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_PREFLIGHT_2026-09-24.md`
 - `evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_RUNTIME_COMMISSIONING_2026-09-27.md`
-- `../../src/market_manager.py`
-- `../../src/gui/season_service.py`
-- `../../src/observability/sinks.py`
+- `evidence/PHASE1E_PERSISTENCE_CONTROLLER_SOURCE_VALIDATION_2026-09-28.md`
+- `../../docs/ROADMAP.md`
+- `../../src/observability/persistence.py`
+- `../../src/observability/shadow_pilot.py`
+- `../../src/observability/gui_shadow.py`

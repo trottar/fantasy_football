@@ -11,6 +11,7 @@ from typing import Any, Awaitable
 from .context import RunContext, new_correlation_id
 from .correlation import CorrelationBoundary, begin_background_task
 from .events import StructuredEvent, make_event
+from .persistence import persist_shadow_event
 
 
 DEFAULT_GUI_SHADOW_MAX_EVENTS = 512
@@ -65,6 +66,12 @@ class GuiShadowRecorder:
             raise TypeError("event must be a StructuredEvent")
         with self._lock:
             self._events.append(event)
+        try:
+            persisted = persist_shadow_event(event)
+        except Exception:
+            persisted = False
+        if persisted is False:
+            self._note_observer_failure()
 
     def emit(
         self,

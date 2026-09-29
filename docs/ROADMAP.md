@@ -86,9 +86,9 @@ The season roadmap, calendar, known-issue register, v1.X context, causal capture
 rules, memory/handoff policy, and human-in-the-loop checkpoint boundary were
 established and published before Phase 1A commissioning.
 
-The later M0-M7 memory-system refinement is maintenance of that continuity layer;
-it does not roll Phase M back to an active gate and does not invalidate completed
-football/observability work.
+The later M0-M7 memory-system refinement is maintenance of that continuity
+layer; it does not roll Phase M back to an active gate and does not invalidate
+completed football/observability work.
 
 ---
 
@@ -106,40 +106,71 @@ football/model semantics.
 
 The outer season-sync boundary is commissioned with behavior/exception
 non-interference, privacy/redaction, bounded overhead, fail-open observation, and
-no authenticated payload/credential capture. Persistent evidence remains disabled.
+no authenticated payload/credential capture. Persistent evidence remains
+disabled.
 
 ## 1B — Closure instrumentation
 
-**Status: PREFLIGHT VALIDATED / RETAINED CANDIDATE / NOT YET CHECKPOINTED**
+**Status: COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 
-Add immutable provenance around release/commit/config/input identity, NFL week,
-prediction time, `data_as_of`, channel, RNG/CRN identity where applicable,
-recommendation/action identity, and later outcome linkage.
-
-The retained candidate remains frozen during M0-M7 memory refinement unless new
-evidence invalidates its established gates.
+The final prospective capture boundary is commissioned with immutable provenance
+around release/config/input identity, NFL week, prediction time, `data_as_of`,
+channel/correlation identity, and later closure linkage. Persistent evidence
+remains disabled.
 
 ## 1C — Player / DST / kicker observability
 
-**Status: NOT STARTED / SEPARATELY GATED**
+**Status: COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 
-Instrument each specialist channel separately. Do not create a generic
-cross-channel ranking authority.
+Player, DST, and kicker production boundaries are instrumented separately.
+`P ⊕ D ⊕ K` remains intact and no generic cross-channel ranking authority was
+created. Persistent evidence remains disabled.
 
 ## 1D — Market / manager-behavior observability
 
-**Status: NOT STARTED / SEPARATELY GATED**
+**Status: COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
 
-Observe waiver/trade/ownership/field response without feeding perception into
-intrinsic football value.
+The accepted first behavior boundary is
+`subsystem.behavior.trade_response_probabilities`. Football utility, market
+perception, and manager behavior remain separate response layers. Persistent
+evidence remains disabled.
 
 ## 1E — Persistent evidence authorization
 
-**Status: NOT STARTED / SEPARATELY GATED**
+**Status: IN PROGRESS / REDACTION PRIMITIVE COMMISSIONED /
+CONTROLLER SOURCE CANDIDATE LOCAL-APPLIED / PERSISTENCE DISABLED**
 
-Persistence requires a separate privacy/non-interference gate. Raw
-authenticated/private evidence remains local; sanitized durable conclusions may
-enter Git.
+Phase 1E is the final commissioning gate for the Phase 1 measurement apparatus.
+
+Completed:
+
+- mandatory-redaction persistence primitive source-published and
+  runtime-commissioned;
+- production-persistence design/audit completed;
+- disabled-by-default persistence-controller source candidate passed isolated
+  source preflight;
+- controller candidate is local-applied on the checkpoint surface only.
+
+Accepted controller design:
+
+- fixed local root `logs/observability/`;
+- explicit activation only;
+- `RedactingJsonlSink` is mandatory for production persistence;
+- rotation at UTC day boundary or 16 MiB;
+- 256 MiB storage ceiling;
+- no automatic deletion during the season;
+- reaching the ceiling stops new persistence while retaining existing evidence;
+- disk/redaction/path failure disables later persistence but cannot change the
+  wrapped production result or exception.
+
+Still pending:
+
+1. isolated staging and guarded source publication;
+2. separate runtime synchronization/commissioning with persistence off;
+3. a later explicit activation commissioning gate.
+
+Raw authenticated/private evidence remains local. Persistent telemetry cannot be
+retroactively backfilled for earlier weeks.
 
 ### Phase 1 acceptance
 
@@ -151,6 +182,9 @@ enter Git.
 - non-interference and privacy proven;
 - production football semantics unchanged.
 
+Phase 1 remains open until the persistent local evidence item is actually
+authorized and commissioned.
+
 ---
 
 # Phase 2 — Prospective Data/MC closure baseline
@@ -158,13 +192,17 @@ enter Git.
 **Collection:** continuous
 **Primary clean review window:** Weeks 3-5
 
+Phase 2 collection runs concurrently with the final Phase 1E engineering gate;
+it does not wait for persistent telemetry.
+
 Track at minimum residuals `r_i = D_i - M_i`, pulls
 `z_i = (D_i - M_i) / sigma_i`, MAE, RMSE, pull mean/width, interval coverage,
 availability Brier score, matchup outcomes, opportunity/efficiency/scoring,
 transaction/lineup regret, and manager-behavior outcomes.
 
 Weeks 1-2 count only where genuine frozen captures already exist. Never
-reconstruct them after the fact.
+reconstruct them after the fact. Missing Phase 1E telemetry before activation is
+also missing evidence and is not backfilled.
 
 Exit gate: enough clean prospective weekly cycles to open serious calibration
 investigations. Three weeks may justify investigation; they do not automatically
@@ -182,8 +220,8 @@ whether the input was correct, whether the architecture could represent the
 process, whether expectation/uncertainty is biased, and whether the observation
 is consistent with fluctuation.
 
-Candidate areas include availability, workload/opportunity, efficiency
-dispersion, matchup acceptance, variance/correlation, player temporal
+Candidate areas include availability, workload/opportunity,
+efficiency dispersion, matchup acceptance, variance/correlation, player temporal
 transitions, DST component distributions, and kicker opportunity/yield.
 
 No player-specific overreaction to one game. Commission v1.X calibration only
@@ -204,8 +242,8 @@ state response.
 
 Keep `football utility != manager behavior`.
 
-Acceptance: behavioral probabilities and transaction mechanics are closure-tested
-or explicitly classified as insufficient evidence.
+Acceptance: behavioral probabilities and transaction mechanics are
+closure-tested or explicitly classified as insufficient evidence.
 
 ---
 
