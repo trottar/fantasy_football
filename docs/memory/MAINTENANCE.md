@@ -411,6 +411,31 @@ authoritative for those questions.
 A dedicated `tests/test_memory_health.py` covers the enforced semantic branches,
 and `--self-test` provides a dependency-light regression gate.
 
+## Weekly Decision / Health Memory Gate
+
+At every weekly decision checkpoint, memory review must verify that any
+roster-wide `COMPLETE`, `HOLD`, or `NO ACTION` statement points to the current
+receipt matrix in `architecture/WEEKLY_DECISION_COMPLETION.md`.
+
+Required manual semantic checks:
+
+- every required decision channel has a receipt or an explicit blocking gap;
+- channel-specific HOLD language names its scope;
+- user examples did not narrow the production search;
+- weekly operational health is fresh;
+- any source/tool/runtime change has its source/change health receipts;
+- stale/failed diagnostics that invalidate the active decision are not hidden by
+  later summaries;
+- historical raw evidence is preserved when a broader interpretation is
+  withdrawn.
+
+`tools/check_memory_health.py` remains structural and must not be misrepresented
+as proof of football/decision completeness. Strict memory health is one required
+receipt, not the entire operational-health gate.
+
+A missing operational-health or coverage receipt is itself a maintenance trigger
+and must be reflected in `CURRENT.md` before opening another major work item.
+
 ## Checkpoint Integration
 
 Memory maintenance uses the normal repository checkpoint process. Local apply

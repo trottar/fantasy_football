@@ -1,38 +1,38 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-29T22:32:16.673161-04:00",
+  "generated_at": "2026-09-29T23:48:08.207128-04:00",
   "durable_memory_updated": true,
   "files": [
     {
       "path": "AGENTS.md",
-      "bytes": 8231,
-      "sha256": "b8d00b10a275ec7acc9223ef118db41d284be6a59f0e853b5aa0c245deae112d"
+      "bytes": 9047,
+      "sha256": "9bf93f7963cb2537570f2cbcb6f101c347afc891d6d80c10d1d64d6cccb5cb27"
     },
     {
       "path": "COMMUNICATION.md",
-      "bytes": 3513,
-      "sha256": "b403aa1de63b7866447704d029178ed1b48a96e63f9495119c401726aa73984f"
+      "bytes": 4294,
+      "sha256": "8f826ed7fa52f89f7de5b2e03e04728661596e069f8e53af6160477c27c5954e"
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6278,
-      "sha256": "8e464cd57bd5afe3d3b612d5cb21484f4421969298384d9238a9ad714003f9fd"
+      "bytes": 5088,
+      "sha256": "89c7da13a3eb777c65a81d9926cb57c8603a345818938be110049b83f797131c"
     },
     {
       "path": "LEARNINGS.md",
-      "bytes": 23921,
-      "sha256": "15d7ab198e25037a144fbadfa50832b3afc247f70cfa574f919e086473e4191d"
+      "bytes": 24979,
+      "sha256": "13e0d2ce8418d7c991532e10c2742f1bde8aa46d9b257c9ebd65bed1b4307cb2"
     },
     {
       "path": "MAINTENANCE.md",
-      "bytes": 18229,
-      "sha256": "ca8392113da80889d5d572ac3fdc2d5e0c0000f81174a1aa8a1f77b5682dcd84"
+      "bytes": 19369,
+      "sha256": "0f2014d0e64ee40552f6d52f0182040c251cb0e0159f577e44ef3d688dcd4802"
     },
     {
       "path": "MEMORY.md",
-      "bytes": 10991,
-      "sha256": "baa620c4165ba01e3da8a9f1be1c415027255fc11c53c5aed0f4d753a736d565"
+      "bytes": 11856,
+      "sha256": "7987ab0ff1b483b6af37ab41a27b950873de39bbb655482d9c74859c47e202bc"
     },
     {
       "path": "README.md",
@@ -41,13 +41,13 @@
     },
     {
       "path": "TOOLS.md",
-      "bytes": 5000,
-      "sha256": "be0dd63305e61800a1f49e4cc4c79585f1f37ac15f468f66f946637d39401a99"
+      "bytes": 6112,
+      "sha256": "e07732d55ee2be1b1fad59b604aab883d72f60be74714cb1dd20c6b1f38e9f49"
     },
     {
       "path": "USER.md",
-      "bytes": 4691,
-      "sha256": "f4e98ed4c008719929fb496ac4a7483d02631c4f1904a583c9ae27d6ad421ac7"
+      "bytes": 5078,
+      "sha256": "0a5fa9e574320ac2034551c34e982181112d1978c6c478585f8209c9322e9748"
     },
     {
       "path": "architecture/DATA_MC_CLOSURE.md",
@@ -91,13 +91,18 @@
     },
     {
       "path": "architecture/SPECIALIST_CHANNELS.md",
-      "bytes": 690,
-      "sha256": "d0ed46d7271d4a615e63d2bdb8fb81c365dd2ee683b5f7da004e242ea194a2f4"
+      "bytes": 2111,
+      "sha256": "4b837d5c2a369efe601b3f61d81905fe46c0d15d9082673901c66055725b3438"
     },
     {
       "path": "architecture/STATE_MODEL.md",
       "bytes": 675,
       "sha256": "67e17b1a6a067ca867b8ed382008e349e9b243f662a1e859cd2a6afa1d96beb0"
+    },
+    {
+      "path": "architecture/WEEKLY_DECISION_COMPLETION.md",
+      "bytes": 7177,
+      "sha256": "0c10104d1d444e7f0f81146290579b80c03591a428eb2021d257ab203511ff4d"
     },
     {
       "path": "chats/README.md",
@@ -560,9 +565,19 @@
       "sha256": "1fcda3bd036d25035da8c9ddf8dc2e6d1de5a650af43dca52f37655924016cf9"
     },
     {
+      "path": "evidence/WEEK4_PRELOCK_STATUS_GATE_2026-09-29.md",
+      "bytes": 4464,
+      "sha256": "78d171ebf2bce4f73d5d21600e2af2f84607960b10cfa3be493e2b0f37cc211e"
+    },
+    {
       "path": "evidence/WEEK4_PROSPECTIVE_CAPTURE_AND_DECISION_2026-09-29.md",
-      "bytes": 5266,
-      "sha256": "9804c8c121b3c57f7ab193ee7454a922b4335f9779aecedceea008e91f94dd1d"
+      "bytes": 6004,
+      "sha256": "c0ea4f96aae216a07914ff8fe3382bf9c52496f8271b5456c8173198bf8f6ff1"
+    },
+    {
+      "path": "evidence/WEEKLY_DECISION_ORCHESTRATION_FAILURE_AUDIT_2026-09-29.md",
+      "bytes": 5912,
+      "sha256": "2167592e33e1841371c49d5f17ffd0dfe972c8b39d302ecb59aa8ffcb7ab7de7"
     },
     {
       "path": "evidence/WORKFLOW_HARDENING_AFTER_PHASE1C_PUBLICATION_2026-09-23.md",
@@ -645,6 +660,11 @@
       "sha256": "ace98c4a116a856d87654333402412ca7e3d85c55282699f9b586f80e41c5d88"
     },
     {
+      "path": "investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md",
+      "bytes": 3227,
+      "sha256": "5fb58c4c92f2e18f1bc290ff5caaa8043972621f2b48ecf6107ac7f286abcd4c"
+    },
+    {
       "path": "memory/2026-09-16.md",
       "bytes": 2616,
       "sha256": "d1104238d4c541d8b9b338f774b59ea4043af18914ddc749f4ecb8976d5023e9"
@@ -701,13 +721,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6092,
-      "sha256": "50288ae912c555a29b828bf789c821146a4ffbc31bec194c71a4e3881838aa69"
+      "bytes": 6805,
+      "sha256": "2a491072859e04daef81972cc6f9b8d475c5f7fe8382a721a61b4027e6cb35f4"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3781,
-      "sha256": "ba3750544250d0efd85d7750b20fbdee57ea9be8c5ac4d44070a22b0dab9f400"
+      "bytes": 3907,
+      "sha256": "9ed2176540296538d4aea7093eaa3b84b70a0e82327b58db3bf6507dda67c701"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

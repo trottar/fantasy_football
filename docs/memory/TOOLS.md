@@ -101,6 +101,36 @@ Keep these states distinct:
 - runtime synchronized;
 - commissioned.
 
+## Weekly Operational Health Receipts
+
+The weekly decision contract distinguishes two validation classes.
+
+### Weekly operational health
+
+Required before roster-wide decision completion:
+
+- current repository/checkpoint identity;
+- commissioned runtime `VERSION` and expected source/config/data identities;
+- live provider/source health;
+- prospective capture integrity / pre-data firewall;
+- relevant persistence/non-interference state;
+- strict memory health;
+- required decision-channel receipt inventory;
+- no unresolved failed diagnostic that invalidates current authority.
+
+This receipt is state-bound. Material state/source changes invalidate affected
+parts of it.
+
+### Source / change health
+
+Whenever source, runtime, decision orchestration, diagnostic tooling, or health
+tooling changes, additionally require the applicable targeted tests, full pytest,
+compileall, generated-artifact/package validation, diff checks, staging
+allowlist/manifest checks, runtime commissioning, and remote verification.
+
+Do not call an omitted check PASS. Record it as missing, not applicable with a
+reason, or blocking.
+
 ## Git / Manifest Representation
 
 `docs/memory/manifest.json` represents staged/committed Git blob bytes, not

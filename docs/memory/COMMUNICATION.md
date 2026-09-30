@@ -50,6 +50,27 @@ console transcript. Request full logs only when a step fails, a summary omits
 evidence needed for classification, or a specific diagnostic line must be
 inspected.
 
+## Weekly Decision Communication Contract
+
+Never communicate roster-wide `HOLD`, `NO ACTION`, or `DECISION CYCLE COMPLETE`
+without the current completion matrix required by
+`architecture/WEEKLY_DECISION_COMPLETION.md`.
+
+When a result is narrow, label it narrowly: player-waiver hold, DST hold, kicker
+hold, one-for-one trade hold, lineup hold, etc.
+
+Weekly decision summaries must state:
+
+- decision-channel coverage;
+- unsupported/missing action families;
+- weekly operational-health status;
+- whether state is `COMPLETE`, `INCOMPLETE_COVERAGE`, `BLOCKED_HEALTH`, or
+  `CAPTURE_REQUIRED`;
+- any action that still requires transaction authorization.
+
+A user-named player or example may explain why an audit was opened, but must not
+be presented as the scope of the system search.
+
 ## Meaningful Checkpoint Memory Update
 
 At a meaningful checkpoint:

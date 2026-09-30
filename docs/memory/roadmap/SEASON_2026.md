@@ -1,6 +1,6 @@
 # 2026 Season Calendar / Development Gates
 
-**Planning state:** 2026-09-23
+**Planning state:** 2026-09-29
 **Configured fantasy regular season:** Weeks 1-13
 **Configured fantasy playoffs:** Weeks 14-17
 **Configured playoff Round 1:** Week 14
@@ -26,7 +26,7 @@ A date can trigger an evidence review. It cannot force the evidence gate to pass
 | 1 | Sep 9-14 | none | Closed. Use as prospective evidence only if a genuine frozen capture already exists. Never backfill. |
 | 2 | Sep 17-21 | none | Closed. Preserve any genuine frozen W2 evidence and classify gaps explicitly. Never backfill. |
 | 3 | Sep 24-28 | none | **Active hard capture gate.** Week-open and Wednesday decision-time state are secured. Preserve them. Refresh prospectively on material injury/status change or before relevant lineup locks. Calendar capture outranks nonessential Phase 1D development. |
-| 4 | Oct 1-5 | none | Continue prospective closure. **Preferred operational target: trade-search path validated and ready for a prospective Week 4 search before consequential trade decisions.** This is an operational target, not an empirical-calibration authorization. |
+| 4 | Oct 1-5 | none | **Blocking operational correction:** make the weekly completion/health contract durable, repair the orchestrator, then rerun a fresh complete Week 4 decision cycle before roster-wide HOLD/NO-ACTION authority. Prospective capture deadlines still preempt deferrable engineering. |
 | 5 | Oct 8-12 | CAR, KC | Preferred broader v1.0 observability commissioning target and first bye-week operational stress. |
 | 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks (W3-W5 if valid). Open calibration investigations only; no automatic tuning. |
 | 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow candidate calibration only when justified. |
@@ -83,6 +83,21 @@ Preserve a separate prospective capture for each consequential lineup change,
 waiver/add/drop, trade evaluation, DST/kicker stream, and injury replacement.
 A Sunday decision may use information unavailable Thursday; both remain
 prospective if their information times are explicit.
+
+### Weekly decision completion gate
+
+Before the weekly roster cycle may be called complete, require the current
+receipt matrix in `architecture/WEEKLY_DECISION_COMPLETION.md`.
+
+Required domains include lineup/availability, broad player waiver/free-agent
+search, commissioned DST and kicker policy, IR/injury-replacement state, required
+trade families, prospective provenance, and weekly operational health.
+
+Missing/unsupported coverage is `INCOMPLETE_COVERAGE`. Missing/stale required
+health is `BLOCKED_HEALTH`. Neither may be translated to HOLD.
+
+The search scope is system-defined across the full relevant roster/market, not
+restricted to players or examples named by the user.
 
 ## Trade-Search Operational Target
 

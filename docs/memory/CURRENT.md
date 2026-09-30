@@ -4,171 +4,110 @@
 state_updated: 2026-09-29
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
-active_phase: week4_prospective_operations
-active_workstream: week4_prelock_availability
-memory_refinement_step: none
+active_phase: weekly_decision_orchestration_recovery
+active_workstream: memory_contract_hardening
+memory_refinement_step: weekly_decision_completion_contract
 nfl_week: 4
 fantasy_stage: regular_season
-maintenance_status: healthy
+maintenance_status: blocking_workflow_failure
 ---
 
 ## Active Objective
 
-Protect Week 4 prospective causality and make only decision-time-authorized roster moves.
-The Week 4 week-open capture and first trade-search cycle are complete; the immediate calendar gate is a fresh pre-lock availability check for the current expected lineup, especially Puka Nacua.
+Correct the durable operating contract before any infrastructure or football
+source work resumes. A weekly fantasy decision cycle may not be called complete,
+HOLD, or no-action unless every required roster-action channel and required
+health gate has an explicit current receipt.
 
 ## Current Work Item
 
-**Week 4 prospective state: CAPTURED / TRADE SEARCH EVALUATED / HOLD.**
+**WEEKLY DECISION ORCHESTRATION / COMPLETION-GATE FAILURE — BLOCKING.**
 
-The accepted Week 4 snapshot is:
+The Week 4 prospective captures remain valid frozen measurements. The prior
+one-for-one player-trade HOLD remains valid only for that narrow search scope.
+Any broader interpretation that the Week 4 roster decision cycle was complete is
+withdrawn.
 
-`data/season_snapshots/20260930T014535Z/snapshot.json`
-
-SHA-256:
-`9c0270713a2c902b2a9e13004fe9b4b655250dfa7b88df82b86d79045e76a367`
-
-The accepted enriched prospective capture is:
-
-`data/season_predictions/closure/pregame_2026_w04_20260930T014558Z.json`
-
-SHA-256:
-`4bc538cc935ab878b918bbadc8726e6408e2e6e79c9f69d651715a3ecd244734`
-
-Canonical payload SHA-256:
-`c262f5e0831ca035f356f19c33446365b4a03ea1f71a43bba42da0f129091aa5`
-
-Capture status:
-
-- live source health: `6/6 PASS`;
-- measurement contract: `A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034`;
-- capture integrity: PASS;
-- pre-data firewall: PASS;
-- matchup players: 32;
-- all-league players: 174;
-- specialists: 64 (`DST=32`, `K=32`);
-- behavior teams: 12;
-- market players: 851;
-- bounded cascade: depth 3 / 64 N2+ scenarios;
-- Week 3 captures preserved: `4/4`;
-- persistence remained disabled.
-
+This memory checkpoint is intentionally first. Do not resume Week 3 closure,
+Phase 1E activation, roster transactions, or production-source repair until this
+memory audit is remote-durable.
 
 ## Verified State
 
-- Week 4 week-open snapshot/capture: **VALID / FROZEN**.
-- Week 4 first player-channel trade cycle: **EVALUATED / HOLD / NO TRADE**.
-- Trade search authority: predictive MC; screen remained candidate generation only.
-- Availability recovery classification:
-  `PACKAGE_RENDERER_REPRESENTATION_DEFECT_ONLY`.
-- Current recovered sub-95% roster states: Baker Mayfield 0%, Josh Jacobs 0%, Mark Andrews 75%, Puka Nacua 75%.
-- Puka Nacua is the only recovered sub-95% player in the current expected starting lineup.
-- Runtime remains `v0.36-repack1`; persistence remains **DISABLED**.
-- No transaction, football/model tuning, production-source write, persistence activation, commit, or push occurred.
-
-## Week 4 Decision Result
-
-Pinned decision audit:
-
-`data/season_decisions/week4_pinned_lineup_trade_search_20260930T020844Z.json`
-
-SHA-256:
-`24807320c6e9dd0f2b87c94464efbfff24e8e4b211fad2525a607a2b49f87ca8`
-
-Expected lineup was complete at 125.78 nominal / 120.12 availability-weighted points.
-
-The league-wide one-for-one player-channel trade search used 4096 predictive MC scenarios per screened candidate and returned:
-
-- actionable offers: 0;
-- mutual-model-gain offers: 0;
-- top six results: all `OUR_EDGE_PARTNER_LOSS`;
-- transaction submitted: false.
-
-**Decision: HOLD / NO TRADE.**
-
-The cheap screen remains candidate generation only; predictive MC remains football authority.
-`UNCALIBRATED_TRADE_RESPONSE_V030` remains a separate manager-behavior layer and does not alter football value.
-
-## Availability Recovery
-
-The original decision carrier had a reporting-only defect: its helper treated a
-missing roster `active_probability` field as 1.0, while the lineup optimizer
-correctly falls back to the status-derived prior. The original trade and lineup
-calculations remain valid.
-
-Corrective audit:
-
-`data/season_decisions/week4_roster_uncertainty_recovery_20260930T021530Z.json`
-
-SHA-256:
-`953fdd0ada043f1770220ed09f02123db009439cc91afb44f004d8b7a79d3a8a`
-
-Recovered roster states below 95% active probability:
-
-- Baker Mayfield — OUT — 0%;
-- Josh Jacobs — EXEMPT — 0%;
-- Mark Andrews — QUESTIONABLE — 75%;
-- Puka Nacua — QUESTIONABLE — 75%.
-
-Puka is the only recovered sub-95% player in the current expected starting lineup.
-Mark Andrews is not in that lineup because George Kittle is the expected TE starter.
-
-Classification:
-`PACKAGE_RENDERER_REPRESENTATION_DEFECT_ONLY`.
-
-No trade search rerun, transaction, football tuning, production-source write,
-repository write, persistence activation, or observability-log mutation occurred
-during recovery.
-
-## Observability / Engineering State
-
-- Runtime: `v0.36-repack1`, internal `VERSION = 0.36`.
-- Persistence controller source: published.
-- Persistence controller runtime: commissioned.
-- Persistence: **DISABLED**.
-- Phase 1E.4 activation: **SEPARATELY GATED / NOT AUTHORIZED**.
-- No automatic retention deletion is enabled.
-- No football/model/manager-behavior formula changed.
+- Week 3 evidence shows the broad player add/drop engine and separate DST/K
+  evaluations were actually exercised; the capability existed.
+- Week 4 week-open and fresh pre-lock captures remain causally valid and
+  integrity-checked.
+- Week 4 automated trade search evaluated one-for-one QB/RB/WR/TE trades only.
+- Week 4 did not run the full player waiver/free-agent channel before the earlier
+  roster-level HOLD interpretation.
+- Week 4 did not run the commissioned DST and kicker policy channels before that
+  interpretation.
+- Player waiver/free-agent, DST, and kicker subsystems already existed; the
+  failure was missing orchestration/completion enforcement.
+- `search_trades` is automated one-for-one player search. The underlying player
+  trade evaluator can represent up to two assets per side, but automated
+  multi-asset search is absent.
+- Specialist assets are rejected by the current player trade evaluator; no
+  specialist-aware trade evaluator is commissioned.
+- The commissioned specialist dynamic policy starts from guaranteed current
+  FREEAGENTs and excludes current WAIVERS from its authoritative dynamic pool.
+- IR-move-plus-add is not an explicit ordinary action, and explicit multiweek
+  injury-duration propagation is not represented as a roster-action state.
+- Validation/health tools exist, but the weekly operating contract did not
+  require a fresh health receipt before declaring decision completeness.
+- No football/model/application source is changed by this checkpoint.
 
 ## Calendar / Evidence Gates
 
-- Week 4 week-open capture is causally valid and immutable evidence.
-- Any consequential new lineup/waiver/trade/specialist action requires fresh
-  decision-time information.
-- A material pre-lock status change preempts Week 3 closure or persistence work.
-- Do not rerun the trade search merely because time passed; rerun only after a
-  material state change that could alter the decision.
-- Missing earlier telemetry remains missing and is not backfilled.
-- No observed 2026 outcome may tune v0.X.
+- Week 4 prospective evidence already captured remains immutable evidence.
+- A material Week 4 status/practice change before an affected player's lock still
+  preempts deferrable memory/publication work for a fresh causal capture.
+- Missing action-channel coverage is not reconstructed as if it had been run.
+- Week 3 Data/MC closure is blocked until the weekly decision completion contract
+  is durable and the production orchestration gap is repaired.
+- Phase 1E.4 persistence activation remains separately gated and unauthorized.
 
 ## Scientific / Architectural Boundaries
 
-- Preserve `P ⊕ D ⊕ K`.
-- Football utility, market perception, and manager behavior remain separate.
+- Preserve `P ⊕ D ⊕ K` for valuation and response; this is not a prohibition on
+  DST/K participation in league-legal transactions.
+- Cross-channel transaction effects combine only at complete-roster utility/state
+  boundaries.
+- User-named examples never define search scope; the system must scan the whole
+  relevant roster, market, and supported action family.
 - `screen != authority`.
-- Common-random-number paired response remains preferred where practical.
-- Diagnostics/reporting defects do not authorize football retuning.
-- Raw authenticated/private evidence remains local and outside Git.
+- Missing channel receipt means `INCOMPLETE_COVERAGE`, never implicit HOLD.
+- Missing/stale required health receipt means `BLOCKED_HEALTH`, never implicit
+  operational readiness.
+- Observed 2026 outcomes still may not tune v0.X.
 
 ## Exact Next Action
 
-Before the first Week 4 game, perform a **fresh decision-time status sync/capture**
-focused on the expected lineup and Puka Nacua's availability evidence.
+If this memory-audit state is not yet remote-durable, publish this exact
+memory-only checkpoint through the normal isolated staging/publication workflow.
 
-If Puka's status/evidence materially changes, re-evaluate the lineup from that
-fresh state before lock. Do not automatically rerun the trade search.
+Once remote `main` contains this state, perform a read-only source/design audit
+for the weekly decision orchestrator and health gate. Do not modify production
+source until that design is reconciled against
+`architecture/WEEKLY_DECISION_COMPLETION.md`.
 
-After the Week 4 pre-lock status gate is secured, resume the deferred Week 3
-Data/MC closure. Phase 1E.4 persistence activation remains behind separate
-explicit authorization.
+The first repaired weekly cycle must run from fresh decision-time state and
+produce explicit receipts for every required channel and health gate before any
+roster-wide HOLD/NO-ACTION conclusion.
 
 ## Relevant References
 
 - `AGENTS.md`
 - `MEMORY.md`
-- `handoffs/CURRENT_HANDOFF.md`
+- `MAINTENANCE.md`
 - `USER.md`
-- `roadmap/STATUS.md`
-- `roadmap/SEASON_2026.md`
+- `architecture/WEEKLY_DECISION_COMPLETION.md`
+- `architecture/SPECIALIST_CHANNELS.md`
+- `investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`
+- `evidence/WEEKLY_DECISION_ORCHESTRATION_FAILURE_AUDIT_2026-09-29.md`
 - `evidence/WEEK4_PROSPECTIVE_CAPTURE_AND_DECISION_2026-09-29.md`
-- `evidence/PHASE1E_PERSISTENCE_CONTROLLER_RUNTIME_COMMISSIONING_2026-09-29.md`
+- `evidence/WEEK4_PRELOCK_STATUS_GATE_2026-09-29.md`
+- `roadmap/SEASON_2026.md`
+- `roadmap/STATUS.md`
+- `../KNOWN_ISSUES.md`

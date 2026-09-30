@@ -124,6 +124,25 @@ Detailed method:
 - Diagnostics/observability must remain non-interfering.
 - Observability is experimental measurement infrastructure, not merely logging.
 
+## Weekly decision completion invariant
+
+A weekly fantasy decision cycle is not complete merely because one optimizer or
+channel returned HOLD.
+
+Before communicating roster-wide `COMPLETE`, `HOLD`, or `NO ACTION`, require the
+current receipt matrix defined by
+`architecture/WEEKLY_DECISION_COMPLETION.md`. Missing/unsupported action coverage
+is `INCOMPLETE_COVERAGE`; missing/stale required health evidence is
+`BLOCKED_HEALTH`.
+
+The required scope is system-defined, not user-example-defined. Evaluate the
+whole relevant roster/market/action family. Preserve `P ⊕ D ⊕ K` inside
+valuation, but do not misread channel separation as a ban on DST/K participation
+in league-legal transactions.
+
+A prior narrow result may be restated only with its explicit scope, for example
+`CHANNEL_HOLD:ONE_FOR_ONE_PLAYER_TRADE`.
+
 ## Authorization boundary
 
 Standing authorization covers:

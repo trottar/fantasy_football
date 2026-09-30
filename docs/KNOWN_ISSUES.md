@@ -1,6 +1,6 @@
 # Known Issues and Deferred Work
 
-**As of:** 2026-09-22
+**As of:** 2026-09-29
 
 This file owns open/deferred/blocker/debt state that should not clutter
 `docs/memory/CURRENT.md`. It does not override current authority.
@@ -20,6 +20,22 @@ This file owns open/deferred/blocker/debt state that should not clutter
 | Midseason calibration | DEFERRED PENDING EVIDENCE | No | Authorize only from repeated prospective residual/coverage evidence |
 | Playoff production baseline | PLANNED | Becomes blocking before Week 14 | Commission before Week 14 |
 | Season-readiness checker | PLANNED TOOLING | No | Implement after memory/observability foundations are stable |
+
+## Blocking Weekly Decision-Orchestration Issues — 2026-09-29
+
+| Item | Status | Blocks current work? | Owner / resolve condition |
+| --- | --- | --- | --- |
+| Weekly decision completion orchestrator | OPEN / BLOCKING SYSTEMIC | Yes | Commission one cycle that requires every channel/health receipt before COMPLETE/HOLD |
+| Weekly operational health receipt | OPEN / BLOCKING | Yes | Add enforced fresh health gate defined by `architecture/WEEKLY_DECISION_COMPLETION.md` |
+| Specialist current-WAIVER authority | OPEN / COVERAGE GAP | Yes for roster-wide completion when relevant waiver specialists exist | Extend commissioned specialist acquisition policy beyond guaranteed FREEAGENT-only authority |
+| Automated multi-asset player trade search | OPEN / COVERAGE GAP | Yes for roster-wide trade completion | Search supported package families rather than one-for-one only |
+| Specialist-inclusive trade evaluation | OPEN / COVERAGE GAP | Yes when league rules permit | Preserve P/D/K internal valuation and compose complete-roster trade utility |
+| IR-move-plus-add action | OPEN / COVERAGE GAP | Yes when IR/roster capacity is decision-relevant | Represent league-legal IR transition plus acquisition |
+| Multiweek injury-duration roster state | OPEN / COVERAGE GAP | Yes when known absence horizon affects marginal roster value | Propagate decision-time absence evidence without empirical v0.X tuning |
+| Season-readiness checker | RECLASSIFIED / BLOCKING OPERABILITY | Yes | Replace/extend planned checker with enforced weekly completion + health receipt |
+
+Canonical investigation:
+`docs/memory/investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`.
 
 ## Standing scientific non-issues
 

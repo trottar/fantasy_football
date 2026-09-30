@@ -498,3 +498,26 @@ Before destructive cleanup of an existing staging directory:
 This is a delivery-infrastructure defect to fix separately; it does not justify
 mixing unrelated football/application changes into the checkpoint.
 <!-- FANTASY_WINDOWS_OWNED_STAGE_READONLY_CLEANUP_20260923:END -->
+
+## 2026-09-29 — Weekly decision completeness must be enforced
+
+Incident: Week 3 had already exercised broad player actions and separate DST/K
+evaluation, but Week 4 regressed to a partial decision cycle because subsystem
+existence was mistaken for guaranteed weekly execution.
+
+Durable lessons:
+
+- subsystem existence is not orchestration;
+- prior successful execution is not a future receipt;
+- roster-wide HOLD requires an explicit complete coverage matrix;
+- channel separation (`P ⊕ D ⊕ K`) is valuation architecture, not transaction
+  exclusion;
+- user-named examples may trigger an audit but never define production search
+  scope;
+- lower-level diagnostics cannot substitute for commissioned authority;
+- a check that exists but is not required/run is not a health gate;
+- missing/stale health evidence is a blocking state, not implicit PASS;
+- preserve raw prospective evidence when withdrawing an overbroad
+  interpretation;
+- weekly completeness must be mechanically difficult to bypass before closure or
+  nonessential development resumes.

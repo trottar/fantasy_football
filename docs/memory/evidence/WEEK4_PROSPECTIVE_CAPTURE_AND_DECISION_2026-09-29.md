@@ -12,6 +12,22 @@ persistence_active: false
 football_model_tuning: false
 ---
 
+## Coverage Qualification — 2026-09-29
+
+The raw Week 4 prospective evidence remains valid.
+
+The player trade result in this record is now explicitly scoped to the automated
+one-for-one QB/RB/WR/TE search. It does not establish roster-wide HOLD or weekly
+decision completeness.
+
+Later workflow audit found that the Week 4 cycle had not required current
+receipts from the broad player waiver/free-agent channel, commissioned DST/K
+policy, IR/injury-replacement state, all required trade families, and weekly
+operational health.
+
+Any broader prior interpretation is superseded by
+`WEEKLY_DECISION_ORCHESTRATION_FAILURE_AUDIT_2026-09-29.md`.
+
 ## Purpose
 
 Record the causally valid Week 4 week-open state, first player-channel trade
@@ -157,8 +173,9 @@ byte-identical. The trade search was not rerun. No observability logs changed.
 ## Current Decision Boundary
 
 - Week 4 week-open prospective capture: VALID.
-- Trade decision: HOLD.
-- Current expected lineup: complete.
+- One-for-one player trade channel: HOLD.
+- Weekly roster decision completion: INCOMPLETE_COVERAGE.
+- Current expected lineup from this checkpoint: complete.
 - Immediate starting-lineup availability risk: Puka Nacua, 75% active.
 - Mark Andrews is also 75% but is not the expected TE starter.
 - Baker Mayfield and Josh Jacobs are currently modeled unavailable.

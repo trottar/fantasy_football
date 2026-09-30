@@ -58,6 +58,23 @@ Advance diagnostics, model changes, behavior kernels, and calibration only from
 classified evidence. Development may slip rather than contaminate a prospective
 window.
 
+## Blocking production-operability correction — 2026-09-29
+
+The commissioned football baseline remains the scientific 0.X authority, but
+weekly **decision orchestration completeness** is reopened as a blocking
+structural workflow defect.
+
+A weekly production decision is not accepted unless the completion/health
+contract in
+`docs/memory/architecture/WEEKLY_DECISION_COMPLETION.md`
+has current receipts for all required action families.
+
+This correction is structural rather than empirical. It does not authorize v0.X
+retuning.
+
+Week 3 closure and nonessential development remain behind this repair until the
+memory contract is durable and the production orchestrator is commissioned.
+
 ---
 
 # Phase 0 — A-priori physics/model baseline

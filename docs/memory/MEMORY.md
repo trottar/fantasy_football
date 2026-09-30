@@ -74,6 +74,25 @@ Guiding question:
 > What is the state, what is the response, what information is available, and
 > what uncertainty must be propagated?
 
+## Weekly Decision Completeness
+
+Subsystem availability is not weekly operational completeness.
+
+A roster-wide decision state requires the explicit channel/health receipt matrix
+owned by `architecture/WEEKLY_DECISION_COMPLETION.md`. At minimum this includes
+lineup/availability, broad player waiver/free-agent search, DST, kicker,
+IR/injury-replacement state, required trade families, decision-time provenance,
+and weekly operational health.
+
+Missing coverage is `INCOMPLETE_COVERAGE`, not HOLD. Missing/stale health evidence
+is `BLOCKED_HEALTH`, not PASS.
+
+`P ⊕ D ⊕ K` governs internal valuation/response. It does not forbid a
+league-legal trade from containing assets from multiple channels; such a
+transaction is composed only at the complete-roster utility/state boundary.
+
+User examples may trigger investigation but never define production search scope.
+
 ## Causality and Data/MC
 
 Predictions are frozen before outcomes are observed.

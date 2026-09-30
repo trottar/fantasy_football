@@ -25,6 +25,12 @@
   rerun already-passed gates unless new evidence invalidates them.
 - Do not ask for information already available from source, logs, durable
   memory, evidence, or project chat context.
+- The user should not have to enumerate obvious weekly fantasy operations,
+  weak/injured roster assets, specialist streaming, trade families, IR state, or
+  health checks. The system must proactively execute/audit the complete weekly
+  contract and surface unsupported gaps itself.
+- User examples trigger investigation but must never narrow exhaustive roster or
+  market search scope.
 - For longer work, provide concise progress updates when findings materially
   change direction.
 - When sources conflict, use the newest validated state unless the user says
