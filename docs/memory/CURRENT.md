@@ -1,90 +1,101 @@
 # Current Project State
 
 ---
-state_updated: 2026-09-28
+state_updated: 2026-09-29
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: v1.0A_observability
-active_workstream: phase1e_persistence_controller
+active_workstream: phase1e_persistent_activation
 memory_refinement_step: none
-nfl_week: 3
+nfl_week: 4
 fantasy_stage: regular_season
 maintenance_status: healthy
 ---
 
 ## Active Objective
 
-Finish the Phase 1 measurement apparatus without changing football/model
-semantics or activating persistent evidence. Calendar-sensitive prospective
-football work still preempts nonessential engineering.
+Close the final Phase 1 measurement-apparatus gate without changing
+football/model semantics. The persistence controller is now source-published and
+runtime-commissioned with persistence still disabled. Calendar-sensitive
+prospective football work preempts nonessential engineering.
 
 ## Current Work Item
 
-**Phase 1E persistence controller: SOURCE CANDIDATE LOCAL-APPLIED /
+**Phase 1E persistence controller: SOURCE PUBLISHED / RUNTIME COMMISSIONED /
 PERSISTENCE DISABLED.**
 
-The previously commissioned `RedactingJsonlSink` primitive remains unchanged.
-The Phase 1E.2 controller candidate has now passed isolated-source preflight and
-is installed only on the control-root checkpoint surface.
+Source checkpoint `444900861d07e6ba910d81ce2d147d96e98d2d93` is
+**PUSHED / REMOTE VERIFIED**. The exact controller is commissioned in
+`v0.36-repack1` with no activation policy installed.
 
-Validated isolated preflight:
+Successful runtime commissioning used
+`phase1e2_persistence_controller_runtime_commission_20260929_v4.ffpkg` and
+validated:
 
-- predecessor: `4833361b045cdc7c7bd97c6fd297560518de8e8b`;
-- exact changed scope: 5 paths;
-- targeted: `34 passed`;
-- observability: `152 passed`;
-- full source: `531 passed`;
+- exact published production identities: `4/4`;
+- exact temporary validation-test identities: `7/7`;
+- dedicated controller test: `9 passed`;
+- targeted privacy/persistence/recorder set: `51 passed`;
+- full runtime suite: `404 passed`;
 - `compileall src`: PASS;
-- strict memory health: HEALTHY;
-- `git diff --check`: PASS;
-- `git diff --cached --check`: PASS;
-- Git exclusion for `logs/observability/`: PASS;
-- temporary-clone cleanup: PASS;
-- production persistence active: false.
+- temporary validation tests restored to exact prestate;
+- runtime residue: NONE;
+- rollback performed: false;
+- persistence state:
+  `enabled=False; failed=False; failures=0; active_path=None`.
 
-The controller is observability-owned, explicitly disabled by default, and can
-persist only through `RedactingJsonlSink`. It rotates by UTC event day or
-16 MiB, stops accepting new writes at a 256 MiB total ceiling, performs no
-automatic deletion, and fails open by disabling future persistence after a
-disk/redaction/path failure.
+Three earlier commissioning carriers were superseded pre-mutation harness
+failures:
 
-This local apply does not alter the commissioned runtime and does not activate
-persistent evidence.
+1. v1 assumed the split-layout control root had an `origin` remote;
+2. v2 compared raw Windows worktree bytes with repository Git-blob identity;
+3. v3 contained one incorrect `shadow_pilot.py` SHA-256 literal.
+
+Read-only audits established the correct runtime representation before v4:
+`redaction.py` differs from the repository only by CRLF line endings and matches
+after LF normalization with identical AST and zero normalized diff; the remaining
+predecessor observability files also match their expected normalized identities.
+
+The controller remains explicitly disabled by default. No persistent evidence
+has yet been written or authorized.
 
 ## Verified State
 
 - Commissioned runtime remains `v0.36-repack1`, internal `VERSION = 0.36`.
 - Phase 1A-1D observability remain source-published and runtime-commissioned.
-- Phase 1E redacting persistence primitive remains source-published and
+- Phase 1E mandatory-redaction primitive remains source-published and
   runtime-commissioned.
-- Phase 1E.2 controller source preflight is validated and the candidate is now
-  local-applied on the control-root checkpoint surface only.
-- Persistent runtime sink remains **DISABLED**.
+- Phase 1E.2 persistence controller source is published at
+  `444900861d07e6ba910d81ce2d147d96e98d2d93`.
+- Phase 1E.3 controller runtime commissioning is complete in `v0.36-repack1`.
+- Persistent runtime evidence remains **DISABLED**.
 - No production activation call or local activation policy has been installed.
 - No retention deletion is enabled; existing evidence is never deleted by the
   controller.
 - No football/model/manager-behavior formula or recommendation authority changed.
 - `P ⊕ D ⊕ K`, `screen != authority`, and football/behavior separation remain
   unchanged.
+- Runtime commissioning validated 9 dedicated, 51 targeted, and 404 full-runtime
+  tests plus `compileall`; residue NONE and rollback false.
+- The three failed commissioning carriers caused no runtime mutation.
 - Last frozen Week 3 football evidence remains preserved. Sep 24 operational
-  state is historical evidence, not current decision-time authority for a new
-  consequential action.
+  state is historical evidence and is not current decision-time authority.
+- Week 4 prospective decisions require fresh decision-time information.
 - No observed 2026 outcome has tuned v0.X.
 
-Canonical validation:
-`evidence/PHASE1E_PERSISTENCE_CONTROLLER_SOURCE_VALIDATION_2026-09-28.md`.
+Canonical commissioning evidence:
+`evidence/PHASE1E_PERSISTENCE_CONTROLLER_RUNTIME_COMMISSIONING_2026-09-29.md`.
 
 ## Calendar / Evidence Gates
 
-- Preserve the existing Week 3 frozen captures and closure lineage.
-- Any new consequential lineup/transaction decision requires a fresh
-  decision-time sync/capture; do not reuse the Sep 24 state as current.
-- A material consequential football status/lock gate preempts nonessential
-  engineering.
-- Phase 2 prospective Data/MC collection continues independently of Phase 1E;
-  persistent telemetry cannot be backfilled for earlier weeks.
-- Persistent evidence activation remains a separate explicit authorization and
-  commissioning gate.
+- Preserve existing prospective captures and closure lineage.
+- Week 4 prospective collection is active; do not reconstruct missed evidence.
+- Any consequential lineup/waiver/trade/specialist decision requires a fresh
+  decision-time sync/capture.
+- A material football lock/status gate preempts nonessential engineering.
+- Persistent telemetry begins only after an explicit future activation gate and
+  cannot be backfilled for earlier weeks.
+- Activation remains separate from source publication and runtime commissioning.
 
 ## Scientific / Architectural Boundaries
 
@@ -98,20 +109,16 @@ Canonical validation:
 
 ## Exact Next Action
 
-After verifying this local-apply receipt, prepare the normal declarative isolated
-stage with `tools/delivery/prepare_checkpoint_stage.py` for the reviewed
-nine-path checkpoint plus regenerated `docs/memory/manifest.json`.
+Checkpoint this runtime-commissioning result into durable memory using the normal
+local-apply -> declarative isolated staging -> guarded publication workflow.
 
-Then:
+After that checkpoint is remote-verified, stop at the Phase 1E.4 activation gate.
+Do not activate persistence without separate explicit authorization.
 
-1. validate the staged tree/manifest/allowlist and zero residue;
-2. publish through the separate guarded `.ffpkg` publication boundary;
-3. verify remote `main` read-only;
-4. only after source publication, commission the controller into
-   `v0.36-repack1` with persistence still **OFF**;
-5. treat persistent activation as a later, separately authorized gate.
-
-Do not activate persistence during source publication or runtime synchronization.
+The later activation commissioning must prove the Git-excluded local path,
+mandatory redacted bytes on disk, rotation/storage-cap behavior, fail-open disk
+failure, privacy/non-interference, zero football/model/behavior change, and exact
+rollback/disable semantics.
 
 ## Relevant References
 
@@ -123,10 +130,8 @@ Do not activate persistence during source publication or runtime synchronization
 - `roadmap/STATUS.md`
 - `roadmap/SEASON_2026.md`
 - `architecture/DIAGNOSTICS_OBSERVABILITY.md`
-- `evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_PREFLIGHT_2026-09-24.md`
 - `evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_RUNTIME_COMMISSIONING_2026-09-27.md`
 - `evidence/PHASE1E_PERSISTENCE_CONTROLLER_SOURCE_VALIDATION_2026-09-28.md`
+- `evidence/PHASE1E_PERSISTENCE_CONTROLLER_RUNTIME_COMMISSIONING_2026-09-29.md`
 - `../../docs/ROADMAP.md`
 - `../../src/observability/persistence.py`
-- `../../src/observability/shadow_pilot.py`
-- `../../src/observability/gui_shadow.py`

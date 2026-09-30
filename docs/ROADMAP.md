@@ -137,8 +137,8 @@ evidence remains disabled.
 
 ## 1E — Persistent evidence authorization
 
-**Status: IN PROGRESS / REDACTION PRIMITIVE COMMISSIONED /
-CONTROLLER SOURCE CANDIDATE LOCAL-APPLIED / PERSISTENCE DISABLED**
+**Status: IN PROGRESS / CONTROLLER SOURCE PUBLISHED / RUNTIME COMMISSIONED /
+PERSISTENCE DISABLED / ACTIVATION SEPARATELY GATED**
 
 Phase 1E is the final commissioning gate for the Phase 1 measurement apparatus.
 
@@ -147,9 +147,11 @@ Completed:
 - mandatory-redaction persistence primitive source-published and
   runtime-commissioned;
 - production-persistence design/audit completed;
-- disabled-by-default persistence-controller source candidate passed isolated
-  source preflight;
-- controller candidate is local-applied on the checkpoint surface only.
+- disabled-by-default persistence-controller source published at
+  `444900861d07e6ba910d81ce2d147d96e98d2d93`;
+- controller runtime-commissioned in `v0.36-repack1` with persistence off;
+- runtime commissioning passed 9 dedicated, 51 targeted, and 404 full-runtime
+  tests plus `compileall`, with temporary tests restored and no residue.
 
 Accepted controller design:
 
@@ -165,9 +167,9 @@ Accepted controller design:
 
 Still pending:
 
-1. isolated staging and guarded source publication;
-2. separate runtime synchronization/commissioning with persistence off;
-3. a later explicit activation commissioning gate.
+1. explicit authorization for persistent activation;
+2. activation commissioning proving real redacted local bytes, path exclusion,
+   rotation/cap behavior, fail-open semantics, privacy, and non-interference.
 
 Raw authenticated/private evidence remains local. Persistent telemetry cannot be
 retroactively backfilled for earlier weeks.
@@ -182,8 +184,8 @@ retroactively backfilled for earlier weeks.
 - non-interference and privacy proven;
 - production football semantics unchanged.
 
-Phase 1 remains open until the persistent local evidence item is actually
-authorized and commissioned.
+Phase 1 remains open until persistent local evidence is explicitly authorized
+and commissioned.
 
 ---
 
@@ -192,8 +194,8 @@ authorized and commissioned.
 **Collection:** continuous
 **Primary clean review window:** Weeks 3-5
 
-Phase 2 collection runs concurrently with the final Phase 1E engineering gate;
-it does not wait for persistent telemetry.
+Phase 2 collection runs concurrently with the final Phase 1E activation gate; it
+does not wait for persistent telemetry.
 
 Track at minimum residuals `r_i = D_i - M_i`, pulls
 `z_i = (D_i - M_i) / sigma_i`, MAE, RMSE, pull mean/width, interval coverage,
