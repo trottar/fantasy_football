@@ -9,7 +9,9 @@
 - Week 4 roster-wide decision completion: **INCOMPLETE_COVERAGE**
 - Weekly decision orchestration/completion gate: **BLOCKING FAILURE**
 - Weekly operational health receipt gate: **NOT ENFORCED / BLOCKING**
-- Memory-contract hardening: **ACTIVE / MUST PRECEDE SOURCE REPAIR**
+- Memory-contract hardening: **PUSHED / REMOTE VERIFIED**
+- Read-only source/design audit: **COMPLETE / MEMORY CHECKPOINT PENDING**
+- Production orchestration repair: **DESIGNED / NOT YET AUTHORIZED**
 - Week 3 Data/MC closure: **BLOCKED BY ORCHESTRATION RECOVERY**
 - Phase 1E persistence controller: **RUNTIME COMMISSIONED / PERSISTENCE DISABLED**
 - Phase 1E activation: **SEPARATELY GATED / NOT AUTHORIZED**
@@ -81,11 +83,36 @@ orchestration changes.
 
 Missing health evidence is `BLOCKED_HEALTH`, not PASS.
 
+## Read-Only Source / Design Audit
+
+The production surface is fragmented by command rather than governed by a
+weekly completion state machine. `fantasy.py` and the GUI/service expose
+lineup, player actions, DST, kicker, and trade functions independently.
+
+The repair must reuse the commissioned authorities rather than replace them:
+
+- player actions: `transaction_manager.evaluate_actions`;
+- DST/K: `specialist_policy_v032`;
+- lineup/availability: `weekly_manager` plus `UtilityContext` evidence state;
+- provenance: prospective capture integrity/firewall;
+- roster-state facts: ESPN lineup slot / eligible slot normalization;
+- non-interference: observability persistence state.
+
+New production control-plane requirements:
+
+1. fail-closed weekly decision receipt/state machine;
+2. weekly operational-health receipt;
+3. specialist current-WAIVER acquisition authority;
+4. automated supported multi-asset trade package search;
+5. specialist-inclusive trade evaluation with `P ⊕ D ⊕ K` composition;
+6. explicit IR/open-slot/injury-replacement transitions;
+7. decision-time multiweek absence state where authoritative evidence exists;
+8. one authoritative CLI/service path for roster-wide completion language.
+
 ## Next Gate
 
-Publish the memory-only failure audit and completion contract first. After remote
-verification, audit/design the production orchestrator against that contract
-before modifying source.
+Publish the source/design audit memory checkpoint. After remote verification,
+production source repair requires explicit user authorization.
 
 Week 3 closure and nonessential Phase 1E work remain deferred behind this repair.
 

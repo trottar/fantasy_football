@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-29T23:48:08.207128-04:00",
+  "generated_at": "2026-09-30T17:58:40.964358-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5088,
-      "sha256": "89c7da13a3eb777c65a81d9926cb57c8603a345818938be110049b83f797131c"
+      "bytes": 5898,
+      "sha256": "ae3981fb4ddcf170ecaa2b6f3b44aabe16016cef369b5c2c3663f68d4fb28796"
     },
     {
       "path": "LEARNINGS.md",
@@ -193,6 +193,11 @@
       "path": "decisions/DECISION_LOG.md",
       "bytes": 7174,
       "sha256": "5079fec506ecdc8694db0d33e7f99f604597fbb8300c3f03e2c9449bc79610e7"
+    },
+    {
+      "path": "decisions/WEEKLY_DECISION_ORCHESTRATOR_DESIGN_2026-09-29.md",
+      "bytes": 6955,
+      "sha256": "ff65e6a1487d88ad9c0198b1b17f4e40706436f25f3ba96af1e9f59a405460a8"
     },
     {
       "path": "evidence/ASSISTANT_WORKFLOW_MISALIGNMENT_2026-09-23.md",
@@ -580,6 +585,11 @@
       "sha256": "2167592e33e1841371c49d5f17ffd0dfe972c8b39d302ecb59aa8ffcb7ab7de7"
     },
     {
+      "path": "evidence/WEEKLY_DECISION_SOURCE_DESIGN_AUDIT_2026-09-29.md",
+      "bytes": 3355,
+      "sha256": "7e2707d826328bd748c46977cf50f4e4a48a799d54b66e5050d1dd7655c1ef5e"
+    },
+    {
       "path": "evidence/WORKFLOW_HARDENING_AFTER_PHASE1C_PUBLICATION_2026-09-23.md",
       "bytes": 4300,
       "sha256": "bd578d774eb8a1f6ae88f4eb2a99efa504665708357e5b4abc3d65f570307b14"
@@ -661,8 +671,8 @@
     },
     {
       "path": "investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md",
-      "bytes": 3227,
-      "sha256": "5fb58c4c92f2e18f1bc290ff5caaa8043972621f2b48ecf6107ac7f286abcd4c"
+      "bytes": 6746,
+      "sha256": "233fc1e22d4387b8809b0ed4dc185dc319444aa4d0c915f9b177a37a7fb46e78"
     },
     {
       "path": "memory/2026-09-16.md",
@@ -726,8 +736,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3907,
-      "sha256": "9ed2176540296538d4aea7093eaa3b84b70a0e82327b58db3bf6507dda67c701"
+      "bytes": 5210,
+      "sha256": "92d714460d7371e79cbd6fa8f25a225c31afb9242ea621d8bef633588004190f"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

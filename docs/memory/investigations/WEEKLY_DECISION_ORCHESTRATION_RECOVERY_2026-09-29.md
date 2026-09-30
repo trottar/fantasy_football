@@ -75,3 +75,93 @@ guaranteed future weekly execution.
 This investigation closes only after the repaired weekly orchestration is
 source-published, runtime-commissioned, and a fresh decision cycle proves all
 required coverage and health receipts without user prompting.
+## Read-Only Source / Design Audit
+
+Source checkpoint audited:
+`c21bfce9a5dd94f9269b7749ea10ea916d7c91e3`.
+
+No production file was modified.
+
+### Orchestration
+
+`fantasy.py` exposes `week-lineup`, `roster-actions`, `defense-channel`,
+`kicker-channel`, `trade-eval`, and `trade-search` independently. The GUI/service
+likewise exposes independent player, specialist, and trade methods.
+
+There is no production object that inventories required channel receipts and
+fails closed before roster-wide completion language.
+
+### Player actions
+
+The broad player action engine already owns the required player-channel
+counterfactual mechanics: legal add/drop enumeration, paired predictive MC,
+waiver-acquisition behavior, released-player league-state response, and final
+classification.
+
+Reuse it; do not create a second player optimizer.
+
+### Specialists
+
+`specialist_policy_v032` is the commissioned DST/K authority and composes
+same-channel policy effects into complete-state utility. Its current initial
+dynamic market includes guaranteed FREEAGENT specialists while explicitly
+excluding current WAIVERS.
+
+The repair must add a distinct current-waiver acquisition state/behavior layer;
+WAIVERS must not be fabricated as guaranteed FREEAGENTs.
+
+### Trades
+
+`evaluate_trade` can evaluate up to the configured two assets per side and
+already handles unequal player packages with modeled legal post-trade release/fill
+effects. Automated `search_trades` nevertheless enumerates only one-for-one
+player offers.
+
+Specialist assets are explicitly rejected. A complete repair therefore needs a
+package-search frontier broader than one-for-one plus specialist-inclusive trade
+composition that preserves `P ⊕ D ⊕ K` internally.
+
+### IR / injury state
+
+The ESPN normalized league snapshot already preserves `lineup_slot_id`,
+normalized `IR`, `eligible_slots`, and team `move_to_ir` transaction counts.
+League config has one IR slot.
+
+The repair should model legal roster-state transitions from these direct facts,
+not from a player name or injury-label heuristic alone.
+
+Current-week availability has explicit evidence/timing state. Future weeks retain
+the generic commissioned availability approximation, so known decision-time
+multiweek absence horizon is not yet an explicit roster-action state.
+
+### Health
+
+Reusable health primitives exist but are fragmented:
+
+- provider/source status in the snapshot/service;
+- `verify_capture_integrity` plus the pre-data firewall;
+- `shadow_persistence_state`;
+- strict structural durable-memory health;
+- runtime `VERSION` and exact dependency identities used by commissioning/
+  diagnostics.
+
+There is no unified weekly operational-health receipt. Strict memory health must
+remain only one component, never a substitute for runtime/data/decision health.
+
+## Repair Design
+
+Canonical design record:
+`../decisions/WEEKLY_DECISION_ORCHESTRATOR_DESIGN_2026-09-29.md`.
+
+Implementation must be fail-closed from the first source patch:
+
+1. add the completion/health receipt state machine;
+2. wire existing commissioned authorities into it;
+3. report unsupported families as `INCOMPLETE_COVERAGE`;
+4. add missing capabilities behind that gate;
+5. prohibit roster-wide COMPLETE/NO_ACTION until every required receipt passes;
+6. expose the same authoritative receipt through CLI, GUI/service, and chat;
+7. commission with targeted tests, full pytest, compileall, exact package QA,
+   runtime synchronization, and a fresh complete decision-time cycle.
+
+Production source remains not yet authorized.

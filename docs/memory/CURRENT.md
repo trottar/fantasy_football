@@ -5,8 +5,8 @@ state_updated: 2026-09-29
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: weekly_decision_orchestration_recovery
-active_workstream: memory_contract_hardening
-memory_refinement_step: weekly_decision_completion_contract
+active_workstream: source_design_audit_complete
+memory_refinement_step: weekly_decision_source_design_audit
 nfl_week: 4
 fantasy_stage: regular_season
 maintenance_status: blocking_workflow_failure
@@ -28,9 +28,10 @@ one-for-one player-trade HOLD remains valid only for that narrow search scope.
 Any broader interpretation that the Week 4 roster decision cycle was complete is
 withdrawn.
 
-This memory checkpoint is intentionally first. Do not resume Week 3 closure,
-Phase 1E activation, roster transactions, or production-source repair until this
-memory audit is remote-durable.
+The systemic memory audit is now remote-durable and the required read-only
+source/design audit is complete. Week 3 closure, Phase 1E activation, roster
+transactions, and production-source repair remain blocked. Production source
+change is not yet authorized.
 
 ## Verified State
 
@@ -56,7 +57,15 @@ memory audit is remote-durable.
   injury-duration propagation is not represented as a roster-action state.
 - Validation/health tools exist, but the weekly operating contract did not
   require a fresh health receipt before declaring decision completeness.
-- No football/model/application source is changed by this checkpoint.
+- Read-only source audit confirms the production CLI/GUI expose lineup,
+  player actions, DST, kicker, and trade operations as independent entry points
+  with no fail-closed weekly completion receipt above them.
+- Existing authorities can be reused: player paired-MC actions, commissioned
+  specialist policy, ESPN roster-slot/eligible-slot state, capture integrity,
+  provider health state, and persistence state.
+- The repair design requires a unified weekly decision state machine plus a
+  weekly operational-health receipt before any roster-wide COMPLETE/NO_ACTION.
+- Production-source modification remains unperformed and unauthorized.
 
 ## Calendar / Evidence Gates
 
@@ -84,17 +93,17 @@ memory audit is remote-durable.
 
 ## Exact Next Action
 
-If this memory-audit state is not yet remote-durable, publish this exact
-memory-only checkpoint through the normal isolated staging/publication workflow.
+Publish this read-only source/design audit as a memory-only checkpoint through
+the normal isolated staging/publication workflow.
 
-Once remote `main` contains this state, perform a read-only source/design audit
-for the weekly decision orchestrator and health gate. Do not modify production
-source until that design is reconciled against
-`architecture/WEEKLY_DECISION_COMPLETION.md`.
+After remote verification, stop at the explicit source-change authorization
+boundary. If production repair is authorized, implement the fail-closed weekly
+orchestrator/health receipt first, then close the missing action-family gaps
+under the same blocking workstream. Until all required receipts pass, the cycle
+must remain `INCOMPLETE_COVERAGE` or `BLOCKED_HEALTH`.
 
-The first repaired weekly cycle must run from fresh decision-time state and
-produce explicit receipts for every required channel and health gate before any
-roster-wide HOLD/NO-ACTION conclusion.
+Week 3 closure remains blocked until the repaired orchestration is
+source-published, runtime-commissioned, and proven by a fresh complete cycle.
 
 ## Relevant References
 
@@ -104,6 +113,8 @@ roster-wide HOLD/NO-ACTION conclusion.
 - `USER.md`
 - `architecture/WEEKLY_DECISION_COMPLETION.md`
 - `architecture/SPECIALIST_CHANNELS.md`
+- `decisions/WEEKLY_DECISION_ORCHESTRATOR_DESIGN_2026-09-29.md`
+- `evidence/WEEKLY_DECISION_SOURCE_DESIGN_AUDIT_2026-09-29.md`
 - `investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`
 - `evidence/WEEKLY_DECISION_ORCHESTRATION_FAILURE_AUDIT_2026-09-29.md`
 - `evidence/WEEK4_PROSPECTIVE_CAPTURE_AND_DECISION_2026-09-29.md`
