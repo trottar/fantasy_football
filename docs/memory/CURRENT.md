@@ -4,8 +4,8 @@
 state_updated: 2026-09-29
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
-active_phase: v1.0A_observability
-active_workstream: phase1e_persistent_activation
+active_phase: week4_prospective_operations
+active_workstream: week4_prelock_availability
 memory_refinement_step: none
 nfl_week: 4
 fantasy_stage: regular_season
@@ -14,111 +14,153 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Close the final Phase 1 measurement-apparatus gate without changing
-football/model semantics. The persistence controller is now source-published and
-runtime-commissioned with persistence still disabled. Calendar-sensitive
-prospective football work preempts nonessential engineering.
+Protect Week 4 prospective causality and make only decision-time-authorized roster moves.
+The Week 4 week-open capture and first trade-search cycle are complete; the immediate calendar gate is a fresh pre-lock availability check for the current expected lineup, especially Puka Nacua.
 
 ## Current Work Item
 
-**Phase 1E persistence controller: SOURCE PUBLISHED / RUNTIME COMMISSIONED /
-PERSISTENCE DISABLED.**
+**Week 4 prospective state: CAPTURED / TRADE SEARCH EVALUATED / HOLD.**
 
-Source checkpoint `444900861d07e6ba910d81ce2d147d96e98d2d93` is
-**PUSHED / REMOTE VERIFIED**. The exact controller is commissioned in
-`v0.36-repack1` with no activation policy installed.
+The accepted Week 4 snapshot is:
 
-Successful runtime commissioning used
-`phase1e2_persistence_controller_runtime_commission_20260929_v4.ffpkg` and
-validated:
+`data/season_snapshots/20260930T014535Z/snapshot.json`
 
-- exact published production identities: `4/4`;
-- exact temporary validation-test identities: `7/7`;
-- dedicated controller test: `9 passed`;
-- targeted privacy/persistence/recorder set: `51 passed`;
-- full runtime suite: `404 passed`;
-- `compileall src`: PASS;
-- temporary validation tests restored to exact prestate;
-- runtime residue: NONE;
-- rollback performed: false;
-- persistence state:
-  `enabled=False; failed=False; failures=0; active_path=None`.
+SHA-256:
+`9c0270713a2c902b2a9e13004fe9b4b655250dfa7b88df82b86d79045e76a367`
 
-Three earlier commissioning carriers were superseded pre-mutation harness
-failures:
+The accepted enriched prospective capture is:
 
-1. v1 assumed the split-layout control root had an `origin` remote;
-2. v2 compared raw Windows worktree bytes with repository Git-blob identity;
-3. v3 contained one incorrect `shadow_pilot.py` SHA-256 literal.
+`data/season_predictions/closure/pregame_2026_w04_20260930T014558Z.json`
 
-Read-only audits established the correct runtime representation before v4:
-`redaction.py` differs from the repository only by CRLF line endings and matches
-after LF normalization with identical AST and zero normalized diff; the remaining
-predecessor observability files also match their expected normalized identities.
+SHA-256:
+`4bc538cc935ab878b918bbadc8726e6408e2e6e79c9f69d651715a3ecd244734`
 
-The controller remains explicitly disabled by default. No persistent evidence
-has yet been written or authorized.
+Canonical payload SHA-256:
+`c262f5e0831ca035f356f19c33446365b4a03ea1f71a43bba42da0f129091aa5`
+
+Capture status:
+
+- live source health: `6/6 PASS`;
+- measurement contract: `A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034`;
+- capture integrity: PASS;
+- pre-data firewall: PASS;
+- matchup players: 32;
+- all-league players: 174;
+- specialists: 64 (`DST=32`, `K=32`);
+- behavior teams: 12;
+- market players: 851;
+- bounded cascade: depth 3 / 64 N2+ scenarios;
+- Week 3 captures preserved: `4/4`;
+- persistence remained disabled.
+
 
 ## Verified State
 
-- Commissioned runtime remains `v0.36-repack1`, internal `VERSION = 0.36`.
-- Phase 1A-1D observability remain source-published and runtime-commissioned.
-- Phase 1E mandatory-redaction primitive remains source-published and
-  runtime-commissioned.
-- Phase 1E.2 persistence controller source is published at
-  `444900861d07e6ba910d81ce2d147d96e98d2d93`.
-- Phase 1E.3 controller runtime commissioning is complete in `v0.36-repack1`.
-- Persistent runtime evidence remains **DISABLED**.
-- No production activation call or local activation policy has been installed.
-- No retention deletion is enabled; existing evidence is never deleted by the
-  controller.
-- No football/model/manager-behavior formula or recommendation authority changed.
-- `P ⊕ D ⊕ K`, `screen != authority`, and football/behavior separation remain
-  unchanged.
-- Runtime commissioning validated 9 dedicated, 51 targeted, and 404 full-runtime
-  tests plus `compileall`; residue NONE and rollback false.
-- The three failed commissioning carriers caused no runtime mutation.
-- Last frozen Week 3 football evidence remains preserved. Sep 24 operational
-  state is historical evidence and is not current decision-time authority.
-- Week 4 prospective decisions require fresh decision-time information.
-- No observed 2026 outcome has tuned v0.X.
+- Week 4 week-open snapshot/capture: **VALID / FROZEN**.
+- Week 4 first player-channel trade cycle: **EVALUATED / HOLD / NO TRADE**.
+- Trade search authority: predictive MC; screen remained candidate generation only.
+- Availability recovery classification:
+  `PACKAGE_RENDERER_REPRESENTATION_DEFECT_ONLY`.
+- Current recovered sub-95% roster states: Baker Mayfield 0%, Josh Jacobs 0%, Mark Andrews 75%, Puka Nacua 75%.
+- Puka Nacua is the only recovered sub-95% player in the current expected starting lineup.
+- Runtime remains `v0.36-repack1`; persistence remains **DISABLED**.
+- No transaction, football/model tuning, production-source write, persistence activation, commit, or push occurred.
 
-Canonical commissioning evidence:
-`evidence/PHASE1E_PERSISTENCE_CONTROLLER_RUNTIME_COMMISSIONING_2026-09-29.md`.
+## Week 4 Decision Result
+
+Pinned decision audit:
+
+`data/season_decisions/week4_pinned_lineup_trade_search_20260930T020844Z.json`
+
+SHA-256:
+`24807320c6e9dd0f2b87c94464efbfff24e8e4b211fad2525a607a2b49f87ca8`
+
+Expected lineup was complete at 125.78 nominal / 120.12 availability-weighted points.
+
+The league-wide one-for-one player-channel trade search used 4096 predictive MC scenarios per screened candidate and returned:
+
+- actionable offers: 0;
+- mutual-model-gain offers: 0;
+- top six results: all `OUR_EDGE_PARTNER_LOSS`;
+- transaction submitted: false.
+
+**Decision: HOLD / NO TRADE.**
+
+The cheap screen remains candidate generation only; predictive MC remains football authority.
+`UNCALIBRATED_TRADE_RESPONSE_V030` remains a separate manager-behavior layer and does not alter football value.
+
+## Availability Recovery
+
+The original decision carrier had a reporting-only defect: its helper treated a
+missing roster `active_probability` field as 1.0, while the lineup optimizer
+correctly falls back to the status-derived prior. The original trade and lineup
+calculations remain valid.
+
+Corrective audit:
+
+`data/season_decisions/week4_roster_uncertainty_recovery_20260930T021530Z.json`
+
+SHA-256:
+`953fdd0ada043f1770220ed09f02123db009439cc91afb44f004d8b7a79d3a8a`
+
+Recovered roster states below 95% active probability:
+
+- Baker Mayfield — OUT — 0%;
+- Josh Jacobs — EXEMPT — 0%;
+- Mark Andrews — QUESTIONABLE — 75%;
+- Puka Nacua — QUESTIONABLE — 75%.
+
+Puka is the only recovered sub-95% player in the current expected starting lineup.
+Mark Andrews is not in that lineup because George Kittle is the expected TE starter.
+
+Classification:
+`PACKAGE_RENDERER_REPRESENTATION_DEFECT_ONLY`.
+
+No trade search rerun, transaction, football tuning, production-source write,
+repository write, persistence activation, or observability-log mutation occurred
+during recovery.
+
+## Observability / Engineering State
+
+- Runtime: `v0.36-repack1`, internal `VERSION = 0.36`.
+- Persistence controller source: published.
+- Persistence controller runtime: commissioned.
+- Persistence: **DISABLED**.
+- Phase 1E.4 activation: **SEPARATELY GATED / NOT AUTHORIZED**.
+- No automatic retention deletion is enabled.
+- No football/model/manager-behavior formula changed.
 
 ## Calendar / Evidence Gates
 
-- Preserve existing prospective captures and closure lineage.
-- Week 4 prospective collection is active; do not reconstruct missed evidence.
-- Any consequential lineup/waiver/trade/specialist decision requires a fresh
-  decision-time sync/capture.
-- A material football lock/status gate preempts nonessential engineering.
-- Persistent telemetry begins only after an explicit future activation gate and
-  cannot be backfilled for earlier weeks.
-- Activation remains separate from source publication and runtime commissioning.
+- Week 4 week-open capture is causally valid and immutable evidence.
+- Any consequential new lineup/waiver/trade/specialist action requires fresh
+  decision-time information.
+- A material pre-lock status change preempts Week 3 closure or persistence work.
+- Do not rerun the trade search merely because time passed; rerun only after a
+  material state change that could alter the decision.
+- Missing earlier telemetry remains missing and is not backfilled.
+- No observed 2026 outcome may tune v0.X.
 
 ## Scientific / Architectural Boundaries
 
 - Preserve `P ⊕ D ⊕ K`.
 - Football utility, market perception, and manager behavior remain separate.
 - `screen != authority`.
-- Diagnostics observe; they do not become decision/control logic.
-- Persistence may retain only redacted observability events.
+- Common-random-number paired response remains preferred where practical.
+- Diagnostics/reporting defects do not authorize football retuning.
 - Raw authenticated/private evidence remains local and outside Git.
-- No observed 2026 result may tune v0.X without the v1 evidence/calibration gate.
 
 ## Exact Next Action
 
-Checkpoint this runtime-commissioning result into durable memory using the normal
-local-apply -> declarative isolated staging -> guarded publication workflow.
+Before the first Week 4 game, perform a **fresh decision-time status sync/capture**
+focused on the expected lineup and Puka Nacua's availability evidence.
 
-After that checkpoint is remote-verified, stop at the Phase 1E.4 activation gate.
-Do not activate persistence without separate explicit authorization.
+If Puka's status/evidence materially changes, re-evaluate the lineup from that
+fresh state before lock. Do not automatically rerun the trade search.
 
-The later activation commissioning must prove the Git-excluded local path,
-mandatory redacted bytes on disk, rotation/storage-cap behavior, fail-open disk
-failure, privacy/non-interference, zero football/model/behavior change, and exact
-rollback/disable semantics.
+After the Week 4 pre-lock status gate is secured, resume the deferred Week 3
+Data/MC closure. Phase 1E.4 persistence activation remains behind separate
+explicit authorization.
 
 ## Relevant References
 
@@ -126,12 +168,7 @@ rollback/disable semantics.
 - `MEMORY.md`
 - `handoffs/CURRENT_HANDOFF.md`
 - `USER.md`
-- `patches/PATCH_PROTOCOL.md`
 - `roadmap/STATUS.md`
 - `roadmap/SEASON_2026.md`
-- `architecture/DIAGNOSTICS_OBSERVABILITY.md`
-- `evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_RUNTIME_COMMISSIONING_2026-09-27.md`
-- `evidence/PHASE1E_PERSISTENCE_CONTROLLER_SOURCE_VALIDATION_2026-09-28.md`
+- `evidence/WEEK4_PROSPECTIVE_CAPTURE_AND_DECISION_2026-09-29.md`
 - `evidence/PHASE1E_PERSISTENCE_CONTROLLER_RUNTIME_COMMISSIONING_2026-09-29.md`
-- `../../docs/ROADMAP.md`
-- `../../src/observability/persistence.py`

@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-29T21:24:44.491441-04:00",
+  "generated_at": "2026-09-29T22:32:16.673161-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5818,
-      "sha256": "3c5954f820611e8d1f34669dcbdd08e48797ae2367b35b238ed4727440380a39"
+      "bytes": 6278,
+      "sha256": "8e464cd57bd5afe3d3b612d5cb21484f4421969298384d9238a9ad714003f9fd"
     },
     {
       "path": "LEARNINGS.md",
@@ -560,6 +560,11 @@
       "sha256": "1fcda3bd036d25035da8c9ddf8dc2e6d1de5a650af43dca52f37655924016cf9"
     },
     {
+      "path": "evidence/WEEK4_PROSPECTIVE_CAPTURE_AND_DECISION_2026-09-29.md",
+      "bytes": 5266,
+      "sha256": "9804c8c121b3c57f7ab193ee7454a922b4335f9779aecedceea008e91f94dd1d"
+    },
+    {
       "path": "evidence/WORKFLOW_HARDENING_AFTER_PHASE1C_PUBLICATION_2026-09-23.md",
       "bytes": 4300,
       "sha256": "bd578d774eb8a1f6ae88f4eb2a99efa504665708357e5b4abc3d65f570307b14"
@@ -701,8 +706,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 5080,
-      "sha256": "7bb92548e47393d03067f57145be5f27a5da3636001a734ec9fbbceaa9b41837"
+      "bytes": 3781,
+      "sha256": "ba3750544250d0efd85d7750b20fbdee57ea9be8c5ac4d44070a22b0dab9f400"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

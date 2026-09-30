@@ -4,133 +4,99 @@
 
 - Authoritative runtime baseline: `v0.36-repack1` — **COMMISSIONED**
 - Internal version: `0.36`
-- Active engineering series: **v1.0A observability**
-- Phase 1A data-source season-sync shadow:
-  **COMPLETE / RUNTIME COMMISSIONED**
-- Phase 1B closure observability:
-  **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Phase 1C P/D/K observability:
-  **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Phase 1D market/manager-behavior observability:
-  **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
-- Phase 1E redacting persistence primitive:
-  **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
+- Week 4 prospective week-open capture:
+  **COMPLETE / VALID**
+- Week 4 first player-channel trade-search cycle:
+  **COMPLETE / HOLD / NO ACTIONABLE OR MUTUAL-GAIN OFFER**
+- Week 4 immediate calendar gate:
+  **PRE-LOCK AVAILABILITY RECHECK**
 - Phase 1E persistence controller:
   **COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED / PERSISTENCE DISABLED**
 - Phase 1E persistent activation:
   **SEPARATELY GATED / NOT AUTHORIZED**
 - Persistent runtime evidence: **DISABLED**
 - Phase 2 prospective Data/MC collection: **ACTIVE / CONCURRENT**
+- Week 3 closure: **PENDING / DEFERRED BEHIND WEEK 4 CALENDAR GATE**
 - No observed 2026 outcome has tuned v0.X.
+
+## Week 4 Prospective Operations
+
+The accepted week-open snapshot is
+`data/season_snapshots/20260930T014535Z/snapshot.json`
+with SHA-256
+`9c0270713a2c902b2a9e13004fe9b4b655250dfa7b88df82b86d79045e76a367`.
+
+The accepted prospective capture is
+`data/season_predictions/closure/pregame_2026_w04_20260930T014558Z.json`
+with SHA-256
+`4bc538cc935ab878b918bbadc8726e6408e2e6e79c9f69d651715a3ecd244734`.
+
+Acceptance:
+
+- live source health `6/6`;
+- measurement contract `A_PRIORI_PRE_DATA_PROSPECTIVE_CAPTURE_V034`;
+- integrity PASS;
+- pre-data firewall PASS;
+- Week 3 captures preserved `4/4`;
+- persistence remained disabled.
+
+The pinned Week 4 trade search used the accepted frozen state, kept the trade
+channel player-only, and evaluated screened one-for-one candidates with 4096
+predictive MC scenarios. It returned zero `ACTIONABLE_OFFER` and zero
+`MUTUAL_MODEL_GAIN` results. The top six were all
+`OUR_EDGE_PARTNER_LOSS`.
+
+**Current trade decision: HOLD / NO TRADE.**
+
+Manager response remains
+`UNCALIBRATED_TRADE_RESPONSE_V030` and is separate from football utility.
+
+## Week 4 Availability Gate
+
+A targeted reporting recovery established four roster players below 95% modeled
+active probability:
+
+- Baker Mayfield: OUT, 0%;
+- Josh Jacobs: EXEMPT, 0%;
+- Mark Andrews: QUESTIONABLE, 75%;
+- Puka Nacua: QUESTIONABLE, 75%.
+
+Puka is the only one in the current expected starting lineup. The original
+decision package's zero uncertainty count was a package-renderer representation
+defect caused by treating missing raw `active_probability` as 1.0 instead of
+using the optimizer's status-prior fallback.
+
+The football calculations and trade MC were not rerun and remain accepted.
+
+**Next calendar action:** fresh pre-lock Week 4 decision-time status sync/capture,
+with Puka's availability evidence as the primary starting-lineup uncertainty.
 
 ## Phase 1E — Measurement-Apparatus Closure
 
-Phase 1E is the final commissioning gate for the Phase 1 measurement apparatus,
-not an independent logging feature.
+The redacting persistence primitive and disabled-by-default persistence
+controller are source-published and runtime-commissioned.
 
-### 1E.1 — mandatory-redaction primitive
+Persistent evidence remains **DISABLED**. Phase 1E.4 activation is separately
+gated and has not been authorized.
 
-**COMPLETE / SOURCE PUBLISHED / RUNTIME COMMISSIONED**
+Activation must still prove the exact Git-excluded local path, real redacted
+bytes on disk, rotation/storage-cap behavior, fail-open disk behavior,
+privacy/non-interference, and no football/model/behavior change.
 
-`src/observability/sinks.py::RedactingJsonlSink` applies redaction before bytes
-reach disk. The raw `JsonlSink` remains unchanged and is not an authorized
-production persistence path.
+## Phase 2 / Closure
 
-Canonical evidence:
+Prospective `MC -> Data -> closure` collection continues concurrently. Week 3
+Data/MC closure remains required, but the Week 4 pre-lock calendar gate outranks
+that deferrable analysis.
 
-- `../evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_PREFLIGHT_2026-09-24.md`
-- `../evidence/PHASE1E_REDACTING_PERSISTENCE_PRIMITIVE_RUNTIME_COMMISSIONING_2026-09-27.md`
-
-### 1E.2 — persistence controller source
-
-**COMPLETE / SOURCE PUBLISHED / REMOTE VERIFIED**
-
-The accepted controller is observability-owned and adds no football, market,
-manager-behavior, Monte Carlo, or recommendation authority.
-
-Contract:
-
-- fixed runtime-local root: `logs/observability/`;
-- source default: disabled;
-- activation requires explicit `configure_shadow_persistence(...)`;
-- persistence path uses only `RedactingJsonlSink`;
-- segment rotation: UTC event day or 16 MiB;
-- total storage ceiling: 256 MiB;
-- no automatic retention deletion;
-- at the storage ceiling, stop new persistence and preserve existing evidence;
-- disk/redaction/path failures fail open and disable later writes;
-- in-memory observation continues if disk persistence fails.
-
-Published checkpoint:
-`444900861d07e6ba910d81ce2d147d96e98d2d93`.
-
-Canonical source evidence:
-`../evidence/PHASE1E_PERSISTENCE_CONTROLLER_SOURCE_VALIDATION_2026-09-28.md`.
-
-### 1E.3 — runtime commissioning with persistence off
-
-**COMPLETE / RUNTIME COMMISSIONED / PERSISTENCE DISABLED**
-
-Commissioned runtime:
-`L:\Projects\fantasy_football\fantasy_season_v0_36_repack1`.
-
-Accepted v4 receipt:
-
-- production identities: `4/4`;
-- temporary validation-test identities: `7/7`;
-- dedicated controller: `9 passed`;
-- targeted privacy/persistence/recorder: `51 passed`;
-- full runtime: `404 passed`;
-- `compileall`: PASS;
-- temporary tests restored: true;
-- runtime residue: NONE;
-- rollback: false;
-- persistence state:
-  `enabled=False; failed=False; failures=0; active_path=None`.
-
-Three earlier packages were pre-mutation harness failures and are superseded:
-control-root remote assumption, raw-vs-normalized Git identity comparison, and one
-incorrect deterministic SHA-256 literal.
-
-Canonical runtime evidence:
-`../evidence/PHASE1E_PERSISTENCE_CONTROLLER_RUNTIME_COMMISSIONING_2026-09-29.md`.
-
-### 1E.4 — persistent activation
-
-**SEPARATELY GATED / NOT AUTHORIZED**
-
-Activation must prove the exact Git-excluded local path, real redacted bytes on
-disk, privacy invariants, rotation/storage-cap behavior, disk-failure fail-open
-semantics, and no football/model/behavior change.
-
-Phase 1 remains open until persistent local evidence is explicitly authorized
-and commissioned.
-
-## Relationship to Phase 2
-
-Phase 2 prospective `MC -> Data -> closure` collection is active and does not
-wait for Phase 1E activation. Persistent observability evidence begins only when
-it is actually commissioned and activated; earlier weeks must not be backfilled
-as if telemetry had existed prospectively.
-
-Week 4 prospective decisions require fresh decision-time state. The first formal
-multi-week diagnosis/calibration review remains evidence-gated.
-
-## Football / Calendar Gate
-
-Existing frozen captures remain immutable. Sep 24 operational state is historical
-evidence and is not valid as a new decision-time state.
-
-Any consequential new lineup, waiver, trade, or specialist action requires a
-fresh prospective sync/capture. A material football lock/status gate preempts
-nonessential engineering.
+No missed prospective evidence may be reconstructed after outcomes.
 
 ## Boundary Conditions
 
 - Preserve `P ⊕ D ⊕ K`.
-- Diagnostics remain observers, not decision/control logic.
-- Football utility remains separate from market perception and manager behavior.
 - `screen != authority`.
-- Persistent activation requires separate authorization and commissioning.
+- Diagnostics/reporting defects do not become decision logic.
+- Football utility remains separate from market perception and manager behavior.
+- Persistent activation requires separate authorization.
 - Raw authenticated/private evidence remains local.
 - No observed 2026 outcome may tune v0.X.
