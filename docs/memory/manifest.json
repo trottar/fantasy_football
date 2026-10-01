@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-01T12:04:07.340048-04:00",
+  "generated_at": "2026-10-01T18:28:42.888683-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7654,
-      "sha256": "c768752de3c714073cd09f4e00efe26f5a8469a3dcac01d7aa734ad6a855db1f"
+      "bytes": 6460,
+      "sha256": "b0ef53a166e78ee850c941a0c7410493d96a0c0c80bf3d0d98594bdaef4f3b0f"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 13883,
-      "sha256": "2c31c148d324e537a6d34ad9ffb1f54bcbf4aff8317463615d44f97c3b3b015e"
+      "bytes": 14362,
+      "sha256": "ea7114fa2740e52e705aec684f46a29d44d6432025abef50428f7cc925ff5fff"
     },
     {
       "path": "README.md",
@@ -630,6 +630,11 @@
       "sha256": "e82f4dcc75835c25b5dc18ef610d0e8d237b36596e67eaf60e438b0a2ade01e2"
     },
     {
+      "path": "evidence/WEEKLY_DECISION_GATE_B3_MULTI_ASSET_PLAYER_TRADE_SEARCH_RUNTIME_COMMISSIONING_2026-10-01.md",
+      "bytes": 7262,
+      "sha256": "e085def9f7fa17df23b3b589dae662aed0f2d1bbe6e645984eaec4629f6ac508"
+    },
+    {
       "path": "evidence/WEEKLY_DECISION_GATE_B3_MULTI_ASSET_PLAYER_TRADE_SEARCH_SOURCE_VALIDATION_2026-10-01.md",
       "bytes": 9058,
       "sha256": "24bc624c5b11adbcc9b67aca47ffeb4d35727e4a72597180aac0a930acb8e8be"
@@ -786,13 +791,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6767,
-      "sha256": "0a7556de83b7a8069ca859924399349c5c08f09c8d4b8340d76069cf7fa2ff2a"
+      "bytes": 6722,
+      "sha256": "005d1b3ec7ead514b671106ea77a3312d78299dd8cab18299cb03641754db88f"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 4637,
-      "sha256": "ffd53358ef7daa6d34edbd7301a0cd8f3cf4c741880326e1112f53174480893b"
+      "bytes": 4527,
+      "sha256": "9e69747b5e5c01f867811b802b70249c8f679d0de086d017e4493808ca9652f5"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

@@ -260,7 +260,7 @@ Canonical records:
 
 ## Weekly Decision Gate Recovery — Commissioned Slices
 
-Gate A, B1, and B2a are source-published and runtime-commissioned in
+Gate A, B1, B2a, and B3 are source-published and runtime-commissioned in
 `v0.36-repack1`.
 
 - **Gate A — fail-closed control plane:** one shared weekly receipt/state machine
@@ -276,12 +276,18 @@ Gate A, B1, and B2a are source-published and runtime-commissioned in
   `eligible_slots` remains generic compatibility rather than current eligibility.
   B2a does not infer recovery duration or authorize future roster-capacity value
   without B2b's explicit decision-time absence/return horizon.
+- **Gate B3 — automated multi-asset player trade search:** bounded player-only
+  1x1, 1x2, 2x1, and 2x2 package enumeration is family-balanced before entering
+  paired `evaluate_trade` predictive MC. The screen remains non-authoritative;
+  unequal-package drops/fills remain explicit; DST/K-inclusive composition is a
+  separate complete-roster problem.
 
 Canonical commissioning evidence:
 
 - `evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md`
 - `evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_RUNTIME_COMMISSIONING_2026-10-01.md`
 - `evidence/WEEKLY_DECISION_GATE_B2A_IR_ROSTER_STATE_RUNTIME_COMMISSIONING_2026-10-01.md`
+- `evidence/WEEKLY_DECISION_GATE_B3_MULTI_ASSET_PLAYER_TRADE_SEARCH_RUNTIME_COMMISSIONING_2026-10-01.md`
 
 B2b horizon discovery found quantified ESPN `seasonOutlook` /
 `outlooksByWeek` narrative signals, but the fresh Week 4 semantic/freshness audit
@@ -290,9 +296,9 @@ until fresh decision-time evidence satisfies current-status, freshness,
 quantification, and binding guards; narrative text is not stored as raw durable
 state.
 
-The remaining active Gate B frontier is broader automated multi-asset/unequal
-player trade search and specialist-inclusive trade composition preserving
-`P ⊕ D ⊕ K`. B2b may reopen only with new qualifying evidence.
+The remaining active Gate B frontier is specialist-inclusive trade composition
+preserving `P ⊕ D ⊕ K` internally and composing only at the complete-roster
+utility/state boundary. B2b may reopen only with new qualifying evidence.
 
 ## 2026 Season-Gated Development Contract
 

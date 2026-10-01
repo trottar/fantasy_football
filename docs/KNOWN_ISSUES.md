@@ -12,11 +12,11 @@ This file owns open/deferred/blocker/debt state that should not clutter
 | Weekly decision completion orchestrator | RESOLVED / GATE A SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts the shared fail-closed receipt contract |
 | Weekly operational health receipt | RESOLVED / GATE A RUNTIME-COMMISSIONED | No | Reopen only if the shared health interface fails its required contract |
 | Specialist current-WAIVER authority | RESOLVED / B1 SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts the commissioned uncertain-acquisition response; WAIVERS remain distinct from guaranteed FREEAGENTs |
-| Automated multi-asset player trade search | SOURCE-VALIDATED / LOCAL-APPLIED / RUNTIME PENDING | Yes until published/runtime-commissioned | Publish and commission the validated bounded 1x1/1x2/2x1/2x2 player-package search; predictive authority remains `evaluate_trade`, not the screen |
+| Automated multi-asset player trade search | RESOLVED / B3 SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh source/runtime/weekly evidence contradicts the commissioned bounded 1x1/1x2/2x1/2x2 player-package search; `evaluate_trade` remains predictive authority |
 | Specialist-inclusive trade evaluation | OPEN / COVERAGE GAP | Yes when league rules permit | Preserve P/D/K internal valuation and compose at the complete-roster utility boundary |
 | Current IR/open-slot roster-state representation | RESOLVED / B2A SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts current ESPN-status-qualified IR legality or active/IR capacity representation |
 | IR replacement / multiweek temporal roster state | DEFERRED / B2B FAIL-CLOSED / CURRENT NARRATIVES NOT AUTHORITATIVE | Yes when known absence horizon affects replacement or future capacity value | Fresh ESPN narratives can contain quantified return language, but current Week 4 claims fail hard-unavailable/freshness/current-binding guards. Reopen only with fresh qualifying decision-time evidence; do not infer from stale prose, injury type/start date, generic slot compatibility, or outcomes |
-| Fresh complete Week 4 cycle | BLOCKED PENDING GATE B COMMISSIONING | Yes | Run only after required Gate B capabilities are commissioned; do not backfill missing earlier searches |
+| Fresh complete Week 4 cycle | BLOCKED PENDING SPECIALIST TRADE COVERAGE | Yes | Run only after specialist-inclusive trade composition is commissioned or explicitly proven not applicable under the completion contract; do not backfill missing earlier searches |
 
 Canonical investigation:
 `docs/memory/investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`.
@@ -45,6 +45,7 @@ Canonical investigation:
 | Gate B3 source-preflight v1 legacy expectation mismatch | SUPERSEDED TEST-HARNESS FAILURE / NO MODIFICATION | No | Candidate closed the multi-asset blocker correctly; legacy Gate A regression expectation was updated and v2 preflight passed |
 | Gate B3 source local-apply v1 clone-head guard | SUPERSEDED PACKAGING FAILURE / FAILED BEFORE SOURCE WRITE | No | Fresh-clone `HEAD:<path>` checks were invalid on the synchronized control root; v2 removed only that redundant guard |
 | Gate B3 source local-apply v2 sparse-test validation | SUPERSEDED VALIDATION-HARNESS FAILURE / ROLLED BACK | No | Control root lacks the full repository test inventory; v3 preserved exact local guards and validated the applied four-file result in a fresh remote-clone overlay |
+| Gate B3 runtime commissioning v1 control-root remote assumption | SUPERSEDED COMMISSIONING HARNESS FAILURE / FAILED BEFORE MODIFICATION | No | v1 incorrectly assumed the synchronized control root had a usable Git `origin`; corrected v2 queries the canonical repository URL directly and commissioned successfully |
 
 ## Standing Scientific Non-Issues
 
