@@ -16,7 +16,7 @@ from .weekly_operational_health import (
 )
 
 
-CONTRACT = "WEEKLY_DECISION_COMPLETION_GATE_B1_SPECIALIST_WAIVERS_V001"
+CONTRACT = "WEEKLY_DECISION_COMPLETION_GATE_B2A_IR_ROSTER_STATE_V001"
 SCHEMA_VERSION = 1
 
 STATE_ACTION = "COMPLETE / ACTION_REQUIRED"
@@ -111,6 +111,7 @@ class WeeklyAuthorities:
     kicker: Callable[..., Mapping[str, Any]]
     trade_search: Callable[..., Sequence[Mapping[str, Any]]]
     persistence_state: Callable[[], Any]
+    ir_state: Callable[..., Mapping[str, Any]] | None = None
 
 
 def utc_now() -> str:
@@ -207,6 +208,7 @@ def _default_lineup(
 
 
 def default_authorities() -> WeeklyAuthorities:
+    from .ir_roster_state import evaluate_ir_roster_state
     from .market_manager import search_trades
     from .observability.persistence import shadow_persistence_state
     from .specialist_policy_v032 import evaluate_defense_channel, evaluate_kicker_channel
@@ -219,6 +221,7 @@ def default_authorities() -> WeeklyAuthorities:
         kicker=evaluate_kicker_channel,
         trade_search=search_trades,
         persistence_state=shadow_persistence_state,
+        ir_state=evaluate_ir_roster_state,
     )
 
 
@@ -388,15 +391,49 @@ def _trade_receipt(rows: Sequence[Mapping[str, Any]]) -> ChannelReceipt:
     )
 
 
-def _gate_b_receipts() -> list[ChannelReceipt]:
-    return [
-        ChannelReceipt(
+def _legacy_ir_receipt() -> ChannelReceipt:
+    return ChannelReceipt(
+        IR,
+        "IR / reserve / open-slot / injury replacement",
+        "INCOMPLETE_COVERAGE:GATE_B_IR_AND_INJURY_STATE",
+        "Gate A capability inventory",
+        gap="explicit IR-move-plus-add and decision-time multiweek absence state are not commissioned",
+    )
+
+
+def _ir_receipt(report: Mapping[str, Any]) -> ChannelReceipt:
+    evidence = dict(report)
+    if str(report.get("status") or "").upper() != "PASS":
+        blockers = [str(item) for item in (report.get("blockers") or [])]
+        return ChannelReceipt(
             IR,
             "IR / reserve / open-slot / injury replacement",
-            "INCOMPLETE_COVERAGE:GATE_B_IR_AND_INJURY_STATE",
-            "Gate A capability inventory",
-            gap="explicit IR-move-plus-add and decision-time multiweek absence state are not commissioned",
+            "INCOMPLETE_COVERAGE:GATE_B_IR_ROSTER_STATE_BLOCKED",
+            "ir_roster_state.evaluate_ir_roster_state",
+            evidence=evidence,
+            scope="current ESPN roster-capacity and IR-legality state",
+            gap=(
+                "current IR/open-slot state is invalid or incomplete"
+                + (": " + ", ".join(blockers) if blockers else "")
+            ),
+        )
+    return ChannelReceipt(
+        IR,
+        "IR / reserve / open-slot / injury replacement",
+        "INCOMPLETE_COVERAGE:GATE_B_IR_REPLACEMENT_VALUE_AND_ABSENCE_HORIZON",
+        "ir_roster_state.evaluate_ir_roster_state",
+        evidence=evidence,
+        scope="current ESPN roster capacity, IR eligibility, and move-to-IR-plus-add legality",
+        gap=(
+            "IR/open-slot legality is represented, but authoritative replacement value, "
+            "specialist capacity coupling, and decision-time multiweek absence/capacity propagation "
+            "are not yet commissioned"
         ),
+    )
+
+
+def _gate_b_receipts() -> list[ChannelReceipt]:
+    return [
         ChannelReceipt(
             TRADE_MULTI,
             "Supported multi-player / unequal trades",
@@ -501,6 +538,23 @@ def run_weekly_decision_cycle(
             channels.append(ChannelReceipt(
                 key, label, f"INCOMPLETE_COVERAGE:{key.upper()}_AUTHORITY_ERROR", authority,
                 evidence={"error_type": type(exc).__name__}, gap=f"{label} authority failed",
+            ))
+
+    if authorities.ir_state is None:
+        channels.append(_legacy_ir_receipt())
+    else:
+        try:
+            ir_report = authorities.ir_state(
+                snapshot, league, team_name=team_name, team_id=team_id
+            )
+            channels.append(_ir_receipt(ir_report))
+        except Exception as exc:
+            channels.append(ChannelReceipt(
+                IR, "IR / reserve / open-slot / injury replacement",
+                "INCOMPLETE_COVERAGE:GATE_B_IR_ROSTER_STATE_ERROR",
+                "ir_roster_state.evaluate_ir_roster_state",
+                evidence={"error_type": type(exc).__name__},
+                gap="IR/open-slot roster-state authority failed",
             ))
 
     try:

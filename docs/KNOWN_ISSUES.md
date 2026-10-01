@@ -14,7 +14,7 @@ This file owns open/deferred/blocker/debt state that should not clutter
 | Specialist current-WAIVER authority | RESOLVED / B1 SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts the commissioned uncertain-acquisition response; WAIVERS remain distinct from guaranteed FREEAGENTs |
 | Automated multi-asset player trade search | OPEN / COVERAGE GAP | Yes for roster-wide trade completion | Enumerate supported package families rather than one-for-one only |
 | Specialist-inclusive trade evaluation | OPEN / COVERAGE GAP | Yes when league rules permit | Preserve P/D/K internal valuation and compose at the complete-roster utility boundary |
-| IR-move-plus-add action | OPEN / B2A REPRESENTATION PATCHABLE / SOURCE PREFLIGHT PENDING | Yes when IR/roster capacity is relevant | Use ESPN injury-status rule input plus direct IR/active-slot capacity facts; do not treat generic `eligible_slots` as current IR eligibility |
+| IR-move-plus-add action | OPEN / B2A SOURCE-VALIDATED / LOCAL-APPLIED / RUNTIME PENDING | Yes when IR/roster capacity is relevant | Publish/commission the exact B2a roster-state representation; replacement valuation remains fail-closed until B2b supplies explicit temporal capacity evidence |
 | Multiweek injury-duration roster state | OPEN / B2B EXPLICIT HORIZON FIELD ABSENT | Yes when known absence horizon affects value | Capture/represent an explicit decision-time return/absence horizon; do not infer one from injury type/start date or observed outcomes |
 | Fresh complete Week 4 cycle | BLOCKED PENDING GATE B COMMISSIONING | Yes | Run only after required Gate B capabilities are commissioned; do not backfill missing earlier searches |
 
@@ -41,7 +41,7 @@ Canonical investigation:
 | Failed hardening carrier v1 | SUPERSEDED FAILURE | No | Preserved in semantic-integrity audit evidence; do not reuse marker payload |
 | Failed hardening carrier v2 | SUPERSEDED FAILURE / FAILED BEFORE MODIFICATION | No | Preserved in semantic-integrity audit evidence; do not reuse fabricated anchor |
 | Gate A local-apply carrier v1 | SUPERSEDED PACKAGING FAILURE / FAILED BEFORE MODIFICATION | No | Root-layout guard incorrectly required full application source on the sparse control root; corrected v2 was published successfully |
-| B2a source-preflight v1 memory-health stop | CLASSIFIED / FAILED BEFORE MODIFICATION | No after this maintenance checkpoint; blocks rerunning B2a until memory is durable | Strict memory health correctly stopped on prior `CURRENT.md` soft-size state; compact active state, preserve audit evidence, then regenerate B2a preflight against successor remote head |
+| B2a source-preflight v1 memory-health stop | SUPERSEDED FAILURE / FAILED BEFORE MODIFICATION | No | Strict memory health correctly stopped the threshold-edge state; memory was compacted and v2 source preflight subsequently passed against the successor remote head |
 
 ## Standing Scientific Non-Issues
 

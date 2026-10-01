@@ -10,7 +10,7 @@
 - Gate B capability closure: **AUTHORIZED / ACTIVE**
 - Gate B1 specialist current-WAIVER coverage: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B2 audit: **COMPLETE / SPLIT INTO B2A + B2B**
-- Gate B2a current IR/open-slot representation: **PATCHABLE / SOURCE PREFLIGHT PENDING**
+- Gate B2a current IR/open-slot representation: **SOURCE-VALIDATED / LOCAL-APPLIED / PUBLICATION PENDING**
 - Gate B2b multiweek absence horizon: **BLOCKED / EXPLICIT HORIZON FIELD ABSENT**
 - Automated multi-asset/unequal trade search: **OPEN / COVERAGE GAP**
 - Specialist-inclusive trade composition: **OPEN / COVERAGE GAP**
@@ -26,32 +26,30 @@ actions, DST, kicker, IR/injury-replacement state, required trade families,
 prospective provenance, and weekly operational health. Unsupported coverage is
 `INCOMPLETE_COVERAGE`; stale/missing health is `BLOCKED_HEALTH`.
 
-## Gate B2 Audit Classification
+## Gate B2a Source Boundary
 
-The Week 4 sanitized audits found one configured/open IR slot, no current IR
-occupant, and one ESPN `OUT` player. Normalized `injury_status` matches raw ESPN
-`player.injuryStatus` for all 16 roster rows. All 16 players advertise IR in
-`eligibleSlots`, including active players, so that field is generic slot
-compatibility rather than current IR eligibility.
+B2a represents current IR/open-slot state only. The source-preflight v2 package
+`weekly_decision_gate_b2a_ir_roster_state_source_preflight_v2_20261001`
+passed against predecessor `f6900878c97ef4dd9148b924fa41167337086a2c`
+with targeted regressions, full repository pytest, `compileall`, strict memory
+health, diff checks, and exact result identities.
 
-No normalized or raw ESPN field provides an explicit multiweek absence/return
-horizon. B2 therefore splits:
+The validated candidate changes exactly:
 
-- **B2a:** represent current ESPN-status-qualified IR/open-slot transitions and
-  resulting immediate capacity state;
-- **B2b:** remain fail-closed for multiweek capacity/replacement valuation until
-  explicit decision-time horizon evidence exists.
+- `src/ir_roster_state.py`;
+- `src/weekly_decision_cycle.py`;
+- `tests/test_weekly_decision_gate_b2a_ir_roster_state.py`.
 
-The B2a source candidate changes exactly three source/test paths and preserves
-commissioned B1/player/specialist physics. Source-preflight v1 failed before
-modification only because the prior `CURRENT.md` crossed strict memory-health's
-soft-size threshold on Windows; no operator full B2a source validation completed.
+It preserves commissioned player/DST/K football physics and does not authorize a
+replacement recommendation without temporal capacity evidence. This local
+checkpoint does not publish or commission the runtime.
 
-Canonical audit evidence:
-`evidence/WEEKLY_DECISION_GATE_B2_IR_ABSENCE_AUDIT_2026-10-01.md`.
+Canonical source-validation evidence:
+`evidence/WEEKLY_DECISION_GATE_B2A_IR_ROSTER_STATE_SOURCE_VALIDATION_2026-10-01.md`.
 
 ## Known Capability Gaps
 
+- B2a source publication and runtime commissioning;
 - B2b explicit decision-time multiweek absence/return horizon and temporal
   roster-capacity propagation;
 - automated player trade package search beyond one-for-one;
@@ -59,14 +57,13 @@ Canonical audit evidence:
 
 ## Next Gate
 
-After this active-memory maintenance checkpoint is durable, regenerate and run
-the unchanged B2a source preflight against the new remote predecessor. Do not
-advance to B2a local apply unless targeted/full tests, compileall, strict memory
-health, diff checks, and exact result identities all pass.
+Stage and publish the exact B2a source-validation checkpoint. After remote
+verification, run a separate non-mutating runtime preflight and explicit runtime
+commissioning against `v0.36-repack1`.
 
-Do not run a fresh roster-wide Week 4 cycle until the remaining Gate B coverage
-is commissioned or explicitly not applicable. Week 3 closure remains blocked
-until a later fresh complete receipt matrix passes.
+Do not reopen the passed B2 audits or source preflight without new evidence. Do
+not run a fresh roster-wide Week 4 cycle until remaining Gate B coverage is
+commissioned or explicitly not applicable.
 
 ## Boundary Conditions
 
