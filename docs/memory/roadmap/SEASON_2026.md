@@ -26,7 +26,7 @@ A date can trigger an evidence review. It cannot force the evidence gate to pass
 | 1 | Sep 9-14 | none | Closed. Use as prospective evidence only if a genuine frozen capture already exists. Never backfill. |
 | 2 | Sep 17-21 | none | Closed. Preserve any genuine frozen W2 evidence and classify gaps explicitly. Never backfill. |
 | 3 | Sep 24-28 | none | Closed calendar window. Preserve secured week-open/decision-time evidence; Week 3 closure remains deferred behind orchestration recovery. |
-| 4 | Oct 1-5 | none | **Active blocking operational correction.** Preserve valid frozen captures, make memory/decision-completion governance durable, repair the orchestrator only after authorization, and require a fresh complete cycle before roster-wide HOLD/NO-ACTION authority. |
+| 4 | Oct 1-5 | none | **Active blocking operational correction.** Preserve valid frozen captures. Gate A fail-closed orchestration/health source is locally applied on the sparse checkpoint surface and source-validated but not yet published or runtime-commissioned; Gate B capability gaps remain blocking. Require a fresh complete cycle before roster-wide HOLD/NO-ACTION authority. |
 | 5 | Oct 8-12 | CAR, KC | Preferred broader observability/operability target after Week 4 recovery; first bye-week operational stress. |
 | 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks if evidence quality supports it. Open calibration investigations only; no automatic tuning. |
 | 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow calibration only when justified. |

@@ -1085,6 +1085,49 @@ class SeasonGuiService:
             team_id=int(self.team.get("team_id")), mc_scenarios=mc_scenarios or self.mc_scenarios,
         )
 
+    def weekly_decision_cycle(
+        self,
+        *,
+        capture: dict[str, Any] | None = None,
+        commissioning_identity: dict[str, Any] | None = None,
+        memory_health: dict[str, Any] | None = None,
+        unresolved_diagnostics: list[str] | tuple[str, ...] = (),
+        material_state_change: bool = False,
+        player_mc_scenarios: int | None = None,
+        specialist_mc_scenarios: int | None = None,
+        trade_mc_scenarios: int | None = None,
+        trade_limit: int = 6,
+        version_path: str | Path = "VERSION",
+    ) -> dict[str, Any]:
+        """Return the shared authoritative weekly completion/health receipt.
+
+        The GUI/service does not maintain a second classifier. Missing Gate B
+        capabilities remain explicit INCOMPLETE_COVERAGE rows from the canonical
+        weekly-decision service.
+        """
+        from ..weekly_decision_cycle import run_weekly_decision_cycle
+
+        receipt = run_weekly_decision_cycle(
+            self.snapshot,
+            self.league,
+            self.model,
+            values_path=self.values_path,
+            league_path=self.league_path,
+            model_path=self.model_path,
+            version_path=version_path,
+            team_id=int(self.team.get("team_id")),
+            player_mc_scenarios=player_mc_scenarios or self.mc_scenarios,
+            specialist_mc_scenarios=specialist_mc_scenarios,
+            trade_mc_scenarios=trade_mc_scenarios,
+            trade_limit=trade_limit,
+            capture=capture,
+            commissioning_identity=commissioning_identity,
+            memory_health=memory_health,
+            unresolved_diagnostics=unresolved_diagnostics,
+            material_state_change=material_state_change,
+        )
+        return receipt.to_dict()
+
     def trade_partners(self) -> list[dict[str, Any]]:
         assert self.ctx is not None
         rows = []

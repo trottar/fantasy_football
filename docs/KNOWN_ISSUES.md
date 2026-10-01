@@ -9,14 +9,14 @@ This file owns open/deferred/blocker/debt state that should not clutter
 
 | Item | Status | Blocks current work? | Owner / resolve condition |
 | --- | --- | --- | --- |
-| Weekly decision completion orchestrator | OPEN / BLOCKING SYSTEMIC | Yes | Commission one cycle that requires every mandatory channel/health receipt before roster-wide completion |
-| Weekly operational health receipt | OPEN / BLOCKING | Yes | Add and commission the enforced health gate defined by `architecture/WEEKLY_DECISION_COMPLETION.md` |
+| Weekly decision completion orchestrator | GATE A LOCAL-APPLIED / NOT PUBLISHED OR COMMISSIONED | Yes | Publish and runtime-commission the fail-closed receipt/state machine, then prove it in a fresh complete cycle |
+| Weekly operational health receipt | GATE A LOCAL-APPLIED / NOT PUBLISHED OR COMMISSIONED | Yes | Publish and runtime-commission the shared health interface defined by `architecture/WEEKLY_DECISION_COMPLETION.md` |
 | Specialist current-WAIVER authority | OPEN / COVERAGE GAP | Yes when actionable waiver specialists exist | Extend specialist acquisition behavior without treating WAIVERS as guaranteed FREEAGENTs |
 | Automated multi-asset player trade search | OPEN / COVERAGE GAP | Yes for roster-wide trade completion | Enumerate supported package families rather than one-for-one only |
 | Specialist-inclusive trade evaluation | OPEN / COVERAGE GAP | Yes when league rules permit | Preserve P/D/K internal valuation and compose at the complete-roster utility boundary |
 | IR-move-plus-add action | OPEN / COVERAGE GAP | Yes when IR/roster capacity is relevant | Represent league-legal IR transition plus acquisition from direct roster-slot facts |
 | Multiweek injury-duration roster state | OPEN / COVERAGE GAP | Yes when known absence horizon affects value | Propagate decision-time absence evidence without empirical v0.X tuning |
-| Fresh complete Week 4 cycle | BLOCKED PENDING REPAIR | Yes | Run only after required orchestration/capabilities are commissioned; do not backfill missing earlier searches |
+| Fresh complete Week 4 cycle | BLOCKED PENDING GATE A/B COMMISSIONING | Yes | Run only after required orchestration/capabilities are commissioned; do not backfill missing earlier searches |
 
 Canonical investigation:
 `docs/memory/investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`.
@@ -37,9 +37,10 @@ Canonical investigation:
 
 | Item | Status | Blocks current work? | Owner / resolve condition |
 | --- | --- | --- | --- |
-| Active-memory semantic-integrity gap | HARDENING CHECKPOINT IN PROGRESS | Yes for opening another major work item | Publish D-026/checker/template hardening and verify remote state |
+| Active-memory semantic-integrity gap | RESOLVED / PUSHED / REMOTE VERIFIED | No | Reopen only if fresh deterministic repository-state contradictions appear |
 | Failed hardening carrier v1 | SUPERSEDED FAILURE | No | Preserved in semantic-integrity audit evidence; do not reuse marker payload |
 | Failed hardening carrier v2 | SUPERSEDED FAILURE / FAILED BEFORE MODIFICATION | No | Preserved in semantic-integrity audit evidence; do not reuse fabricated anchor |
+| Gate A local-apply carrier v1 | SUPERSEDED PACKAGING FAILURE / FAILED BEFORE MODIFICATION | No | Root-layout guard incorrectly required full application source on the sparse control root; v2 reconstructs exact validated source from the remote predecessor before writing |
 
 ## Standing Scientific Non-Issues
 

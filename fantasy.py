@@ -1446,6 +1446,53 @@ def cmd_trade_search(args):
         )
 
 
+def cmd_weekly_cycle(args):
+    """Run the authoritative fail-closed weekly decision receipt cycle."""
+    from src.weekly_decision_cycle import (
+        load_json_evidence,
+        run_weekly_decision_cycle,
+        save_weekly_decision_receipt,
+    )
+    from src.weekly_manager import load_snapshot
+
+    snapshot = load_snapshot(args.snapshot)
+    league = load_league(args.league)
+    model = json.loads(Path(args.model).read_text(encoding="utf-8"))
+    team_name = args.team or _configured_user_team(args.league)
+    capture = load_json_evidence(args.capture)
+    commissioning_identity = load_json_evidence(args.commissioning_identity)
+    memory_health = load_json_evidence(args.memory_health)
+    receipt = run_weekly_decision_cycle(
+        snapshot,
+        league,
+        model,
+        values_path=args.values,
+        league_path=args.league,
+        model_path=args.model,
+        version_path=args.version,
+        team_name=team_name,
+        team_id=args.team_id,
+        player_mc_scenarios=args.player_mc,
+        specialist_mc_scenarios=args.specialist_mc,
+        trade_mc_scenarios=args.trade_mc,
+        trade_limit=args.trade_limit,
+        capture=capture,
+        commissioning_identity=commissioning_identity,
+        memory_health=memory_health,
+        unresolved_diagnostics=args.diagnostic_blocker or (),
+        material_state_change=bool(args.material_state_change),
+    )
+    path = save_weekly_decision_receipt(receipt, args.out)
+    print(f"WEEKLY DECISION CYCLE {receipt.contract}")
+    print(f"Season/week: {receipt.season}/{receipt.week}  team={receipt.team_name or receipt.team_id or '-'}")
+    for row in receipt.channels:
+        print(f"  {row.key}: {row.status}")
+    print(f"Operational health: {receipt.operational_health.status}")
+    print(f"Overall state: {receipt.overall_state}")
+    print(f"Reason: {receipt.reason}")
+    print(f"Receipt: {path}")
+
+
 def cmd_chat_report(args):
     """Print and persist a compact diagnosis using the exact GUI service layer."""
     from src.gui.season_service import SeasonGuiError, SeasonGuiService
@@ -1921,6 +1968,26 @@ def build_parser():
     s.add_argument("--limit", type=int, default=6)
     s.add_argument("--mc", type=int, help="Search-stage predictive universes; defaults to market_manager.trade_search_mc_scenarios")
     s.set_defaults(func=cmd_trade_search)
+
+    s = sub.add_parser("weekly-cycle", help="Run the fail-closed weekly decision completion/health receipt over all required channels")
+    s.add_argument("--snapshot", default=str(SEASON_SNAPSHOTS / "latest.json"))
+    s.add_argument("--league", default=str(DEFAULT_LEAGUE))
+    s.add_argument("--model", default=str(DEFAULT_MODEL))
+    s.add_argument("--values", default=str(PROCESSED / "player_values_2026.csv"))
+    s.add_argument("--version", default="VERSION")
+    s.add_argument("--team")
+    s.add_argument("--team-id", type=int)
+    s.add_argument("--player-mc", type=int, help="Player-channel predictive universes")
+    s.add_argument("--specialist-mc", type=int, help="DST/K specialist-channel universes")
+    s.add_argument("--trade-mc", type=int, help="One-for-one trade-search universes")
+    s.add_argument("--trade-limit", type=int, default=6)
+    s.add_argument("--capture", help="Current immutable prospective capture JSON; omission yields CAPTURE_REQUIRED")
+    s.add_argument("--commissioning-identity", help="Machine-readable commissioned runtime/source/dependency identity JSON")
+    s.add_argument("--memory-health", help="Fresh strict durable-memory health evidence JSON")
+    s.add_argument("--diagnostic-blocker", action="append", default=[], help="Unresolved invalidating diagnostic; may be repeated")
+    s.add_argument("--material-state-change", action="store_true", help="Force CAPTURE_REQUIRED after a material decision-time state change")
+    s.add_argument("--out", default=str(Path("data/season_decisions")))
+    s.set_defaults(func=cmd_weekly_cycle)
 
     s = sub.add_parser("closure-capture", help="Persist an immutable pregame v0.29 component/yield prediction state for later Data/MC closure")
     s.add_argument("--snapshot", default=str(SEASON_SNAPSHOTS / "latest.json"))
