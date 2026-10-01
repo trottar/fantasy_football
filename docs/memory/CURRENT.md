@@ -5,156 +5,125 @@ state_updated: 2026-10-01
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: weekly_decision_gate_b_capability_closure
-active_workstream: gate_b1_specialist_current_waivers_runtime_commissioning_closure
-memory_refinement_step: none
+active_workstream: gate_b2_ir_open_slot_and_absence_state
+memory_refinement_step: soft_threshold_compaction
 nfl_week: 4
 fantasy_stage: regular_season
-maintenance_status: semantic_integrity_hardened
+maintenance_status: active_state_compacted_for_b2
 ---
 
 ## Active Objective
 
-Close Gate B capability gaps behind the commissioned Gate A fail-closed control
-plane through independently validated and commissioned sub-gates. Gate B1 current
-specialist-WAIVER acquisition-state coverage is now source-published and
-runtime-commissioned; the immediate task is to record that commissioning durably
-before advancing to the next already-authorized Gate B capability sub-gate.
+Close the remaining Gate B capability gaps behind the commissioned Gate A control
+plane without weakening causal or channel boundaries. Gate B1 is source-published
+and runtime-commissioned. Gate B2 is now split by direct evidence into a current
+IR/open-slot representation slice (B2a) and a decision-time multiweek absence
+horizon slice (B2b).
 
 ## Current Work Item
 
-**WEEKLY DECISION GATE B1 — RUNTIME COMMISSIONING CLOSURE.**
+**WEEKLY DECISION GATE B2 — IR/OPEN-SLOT + ABSENCE STATE.**
 
-Gate A remains source-published and runtime-commissioned in `v0.36-repack1`.
-Gate B production-source work was explicitly authorized by the user. B1 closes
-the current specialist-WAIVER acquisition-state coverage gap for DST and kicker
-without changing intrinsic football physics: current WAIVERS remain uncertain
-acquisitions, while the existing manager behavior kernel supplies acquisition
-probability and the specialist channel supplies conditional football response.
+The sanitized Week 4 audits establish that this league has one IR slot, no
+current IR occupant, and one roster player tagged `OUT` by ESPN. Normalized
+`injury_status` matches raw ESPN `player.injuryStatus` for all 16 roster rows.
+All 16 players advertise IR in `eligibleSlots`, including 12 `ACTIVE` players,
+so `eligibleSlots` is generic slot compatibility and is not current IR-eligibility
+authority.
 
-The exact B1 source checkpoint is now published and remote-verified, and the two
-B1 production paths have been synchronized into the commissioned runtime and
-passed explicit runtime commissioning. This checkpoint records that state
-durably; it does not close the remaining Gate B IR/absence or trade-family gaps.
+No normalized or raw ESPN field supplies an explicit return week,
+absence-through week, or other multiweek absence horizon. Therefore B2a may
+represent current legal IR/open-slot state, but it may not treat the resulting
+extra active-roster capacity as permanently available for season valuation.
+B2b remains fail-closed until explicit decision-time horizon evidence exists.
 
 ## Verified State
 
-- Gate A repository source checkpoint:
-  `a49f824a4d5d18879314f7c08eb0997a5d47c008` — **PUSHED / REMOTE VERIFIED**.
-- Gate A commissioning-memory checkpoint:
-  `d80ed56a75f034516b8d5387894b4899375d61f7` — **PUSHED / REMOTE VERIFIED**.
-- B1 repository source checkpoint:
-  `10106dfc6fed609e9ed9a42961e6d0ebfb71e465` — **PUSHED / REMOTE VERIFIED**.
-- Published B1 staged tree:
-  `781777a736d90f8e376d976ee85216c209978786`.
-- Commissioned runtime remains
-  `L:\Projects\fantasy_football\fantasy_season_v0_36_repack1`, internal
-  `VERSION = 0.36`.
-- B1 source preflight
-  `weekly_decision_gate_b1_specialist_waivers_source_preflight_v1_20261001`
-  and runtime preflight
-  `weekly_decision_gate_b1_specialist_waivers_runtime_preflight_v1_20261001`
-  both passed against exact published/predecessor identities. The runtime
-  preflight classified the installed tree `PREDECESSOR_MATCH`, validated the
-  candidate in a disposable runtime copy and left runtime untouched.
-- B1 runtime commissioning package
-  `weekly_decision_gate_b1_specialist_waivers_runtime_commission_v1_20261001`
-  completed successfully with `STATE=COMMISSIONED / VALIDATED`.
-- Runtime commissioning synchronized exactly two production paths:
-  `src/specialist_policy_v032.py` and `src/weekly_decision_cycle.py`.
-- Commissioned B1 production blobs match the published source exactly:
-  `specialist_policy_v032.py` -> `f5755dea7c2c5cea8b43ef4cd90c5c976d909c84` and
-  `weekly_decision_cycle.py` -> `6c5e968a876bae3c94870c0417d86bcb149e39a5`.
-- The B1 regression test was validation-only in the runtime and was removed after
-  validation.
-- Runtime validation passed compileall, targeted B1 pytest, the full runtime
-  pytest suite, runtime import-root smoke, and exact result identities.
-- Validation residue is `NONE`; rollback backup identities passed; rollback was
-  not performed.
-- B1 preserves current WAIVERS as uncertain acquisitions and never converts them
-  into guaranteed FREEAGENT state.
-- Specialist football value remains inside the DST/K authority. Acquisition
-  probability remains a separate manager-behavior layer and scales expected
-  action utility rather than intrinsic football value.
-- DST current-waiver coverage includes one-slot actions and the existing
-  carry-two complete-state / player-slot-release response boundary.
-- The weekly receipt adapter remains fail-closed for legacy/partial specialist
-  reports that exclude waivers but lack explicit B1 acquisition-state coverage.
-- The remaining Gate B capability gaps are still blocking: explicit
-  IR/reserve/open-slot/injury-replacement transitions, decision-time multiweek
-  absence propagation, broader automated multi-asset/unequal trade search, and
-  specialist-inclusive trade composition.
-- Roster-wide Week 4 completion remains `INCOMPLETE_COVERAGE`; B1 commissioning
-  does not make the remaining unsupported Gate B families complete.
-- No football-model tuning, observed-2026 empirical calibration, persistence
-  activation, or unrelated subsystem change occurred in B1.
+- Runtime baseline: `v0.36-repack1`, internal `VERSION = 0.36` — **COMMISSIONED**.
+- Gate A fail-closed weekly control plane — **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
+- Gate B1 specialist current-WAIVER coverage — **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
+  Canonical commissioning evidence:
+  `evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_RUNTIME_COMMISSIONING_2026-10-01.md`.
+- B1 commissioning-memory checkpoint is remote-durable at predecessor role
+  `6363ded2a3c6b4fa09de6a8b7b274ebb076ebfea`; read the containing Git ref for
+  the current checkpoint identity.
+- B2 audit v1
+  `weekly_decision_gate_b2_ir_absence_state_audit_v1_20261001` passed and proved
+  one configured/open IR slot plus no explicit absence-horizon field. Its initial
+  `eligible_slots`-based IR-eligibility interpretation is **SUPERSEDED** by the
+  raw measurement that all 16 roster players expose IR slot compatibility.
+- B2 audit v2
+  `weekly_decision_gate_b2_ir_eligibility_rule_audit_v2_20261001` passed and
+  established ESPN `injuryStatus` as the preserved platform-rule input: one
+  `OUT` player is currently status-rule eligible for IR, with one open IR slot;
+  normalized/raw player status matched 16/16.
+- B2 classification:
+  `B2_IR_MOVE_PLUS_ADD_PATCHABLE_ABSENCE_HORIZON_STILL_MISSING`.
+- B2a source candidate is intentionally representation-only. It adds a pure IR
+  roster-state authority plus the weekly-cycle adapter/test surface; it does not
+  alter commissioned player/DST/K football physics or authorize a replacement
+  recommendation without temporal capacity evidence.
+- B2a source-preflight v1 failed **before modification** because strict memory
+  health classified the prior `CURRENT.md` as `SOFT` on the Windows worktree.
+  Control root and commissioned runtime remained untouched. No operator full
+  B2a source validation was completed by that failed run.
+- This maintenance checkpoint compacts active state and preserves the B2 audit
+  lineage in
+  `evidence/WEEKLY_DECISION_GATE_B2_IR_ABSENCE_AUDIT_2026-10-01.md`.
+- Week 4 roster-wide completion remains `INCOMPLETE_COVERAGE` for B2b and the
+  remaining trade families.
+- No observed 2026 outcome has tuned v0.X. Phase 1E persistence remains disabled.
 
 ## Calendar / Evidence Gates
 
-- Week 4 prospective captures remain immutable evidence and must not be backfilled.
-- A material Week 4 status/practice/roster/market change before an affected lock
-  requires a fresh decision-time capture before consequential action.
-- Missing historical Week 4 action-channel execution remains missing; it is not
-  reconstructed as contemporaneous evidence.
-- B1 is now operational in the commissioned runtime, but a fresh roster-wide
-  complete weekly cycle remains blocked until the remaining required Gate B
-  capability gaps are commissioned or explicitly not applicable under the
-  completion contract.
-- Week 3 Data/MC closure remains blocked behind the weekly-decision capability
-  recovery and a later fresh complete cycle.
-- Phase 1E persistence activation remains separately gated and unauthorized.
+- Week 4 prospective captures are immutable; never backfill a missed state.
+- A material status/practice/roster/market change before an affected lock requires
+  a fresh decision-time capture before consequential action.
+- The B2 audits are decision-time structural evidence, not permission to infer an
+  unobserved return date or recovery horizon.
+- Do not run a fresh roster-wide Week 4 completion cycle until required Gate B
+  families are commissioned or explicitly not applicable under the completion
+  contract.
+- Week 3 Data/MC closure remains blocked until a later fresh complete weekly
+  receipt matrix passes.
 
 ## Scientific / Architectural Boundaries
 
-- Preserve `P ⊕ D ⊕ K` for internal valuation: players compare to players, DST to
-  DST, and kickers to kickers.
-- Channel separation is not a prohibition on DST/K participation in league-legal
-  transactions; cross-channel composition occurs only at complete-roster utility
+- Preserve `P ⊕ D ⊕ K` inside valuation; compose only at complete-roster state
   boundaries.
-- Manager acquisition probability is behavior state, not football physics.
-- Current WAIVERS remain uncertain acquisition states, never guaranteed
-  FREEAGENTs.
-- User examples may open an investigation but never define production search
-  scope.
-- `screen != authority`.
-- Missing decision coverage is `INCOMPLETE_COVERAGE`, never implicit HOLD.
+- ESPN `injury_status` supplies current platform IR-rule input. Generic
+  `eligible_slots` must not be interpreted as current IR eligibility.
+- Current IR/open-slot legality is distinct from future roster-capacity value.
+  Without explicit decision-time absence/return horizon, do not propagate an IR
+  opening as permanent season capacity.
+- Manager acquisition behavior remains separate from intrinsic football value.
+- `screen != authority`; raw measurements outrank derived classifiers.
+- Missing action coverage is `INCOMPLETE_COVERAGE`, never implicit HOLD.
 - Missing/stale required health is `BLOCKED_HEALTH`, never implicit PASS.
 - `v0.X` remains a-priori; observed 2026 outcomes may not tune it.
-- The memory-health checker may enforce deterministic repository-state semantic
-  contracts, but it may not infer football truth or substitute for weekly
-  decision/operational-health receipts.
 
 ## Exact Next Action
 
-Complete this B1 runtime-commissioning memory checkpoint through the normal
-human-in-the-loop local apply -> isolated staging -> guarded publication ->
-read-only remote verification sequence. Source and runtime are already validated;
-do not rerun those passed gates unless new evidence invalidates them.
+Regenerate the unchanged B2a IR roster-state source-preflight carrier against the
+remote checkpoint containing this maintenance result, then run the operator
+source preflight. Require exact three-path result identities, targeted B2a/Gate A/
+B1 regressions, full repository `pytest`, `compileall`, strict memory health, and
+diff checks before any B2a local apply.
 
-After this memory checkpoint is remote-durable, begin the next already-authorized
-Gate B sub-gate with a narrow source audit of the **IR/reserve/open-slot plus
-decision-time multiweek absence state**. Establish exact existing roster/status
-representations and league-slot facts before implementing B2. Preserve B1 and all
-commissioned Gate A behavior unchanged.
-
-Do not run a fresh roster-wide Week 4 completion cycle until all remaining
-required Gate B action families are commissioned or explicitly not applicable.
-Week 3 closure remains blocked until a later fresh complete weekly cycle proves
-the full receipt matrix.
+Do not rerun the passed B2 audit probes or any Gate A/B1 source/runtime gates
+unless new evidence invalidates them. Keep B2b absence-horizon valuation and the
+remaining trade-family work separate from B2a.
 
 ## Relevant References
 
 - `AGENTS.md`
-- `MEMORY.md`
 - `MAINTENANCE.md`
+- `MEMORY.md`
 - `USER.md`
 - `patches/PATCH_PROTOCOL.md`
 - `architecture/WEEKLY_DECISION_COMPLETION.md`
-- `decisions/WEEKLY_DECISION_ORCHESTRATOR_DESIGN_2026-09-29.md`
-- `evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md`
-- `evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_SOURCE_VALIDATION_2026-10-01.md`
 - `evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_RUNTIME_COMMISSIONING_2026-10-01.md`
-- `investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`
-- `templates/WEEKLY_DECISION_RECEIPT.md`
+- `evidence/WEEKLY_DECISION_GATE_B2_IR_ABSENCE_AUDIT_2026-10-01.md`
 - `roadmap/SEASON_2026.md`
 - `roadmap/STATUS.md`
 - `../KNOWN_ISSUES.md`

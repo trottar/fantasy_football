@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-01T01:36:44.763666-04:00",
+  "generated_at": "2026-10-01T02:35:14.180214-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 8186,
-      "sha256": "3319ec77a161b10b7fbd586dc063520282c45c6dcf390e36fbd33d75eaf5c97b"
+      "bytes": 6339,
+      "sha256": "05bcf1653a0cb4f7b0a8296bea09f1b3417260ba383832753e67a85ff2fa54d6"
     },
     {
       "path": "LEARNINGS.md",
@@ -610,6 +610,11 @@
       "sha256": "409f455fb4b2e5cac71d1c4af431e228d54294d123a8c183762f891e2e6308bc"
     },
     {
+      "path": "evidence/WEEKLY_DECISION_GATE_B2_IR_ABSENCE_AUDIT_2026-10-01.md",
+      "bytes": 6406,
+      "sha256": "e82f4dcc75835c25b5dc18ef610d0e8d237b36596e67eaf60e438b0a2ade01e2"
+    },
+    {
       "path": "evidence/WEEKLY_DECISION_ORCHESTRATION_FAILURE_AUDIT_2026-09-29.md",
       "bytes": 5912,
       "sha256": "2167592e33e1841371c49d5f17ffd0dfe972c8b39d302ecb59aa8ffcb7ab7de7"
@@ -761,13 +766,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6548,
-      "sha256": "f70b3f63c5ab5ee6b60fed08a3c3ca81020c03bdb0ecf330dfae49d4479140ed"
+      "bytes": 6554,
+      "sha256": "6cfb95b756e34ed95010808b696b23e8d864306f49cce4b091181cf3155e5a6b"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 4788,
-      "sha256": "cfc153490503cf4fbff9d7c8e520e4daee47e2acd0c77a43a9839d6e7dbc8d02"
+      "bytes": 3841,
+      "sha256": "8a2cb6b62388b31b1aaad40b9a3e1bd416af31ad65fe307609370333ef5746da"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",
