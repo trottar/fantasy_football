@@ -1,109 +1,104 @@
 # Current Project State
 
 ---
-state_updated: 2026-09-29
+state_updated: 2026-09-30
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: weekly_decision_orchestration_recovery
-active_workstream: source_design_audit_complete
-memory_refinement_step: weekly_decision_source_design_audit
+active_workstream: memory_semantic_integrity_hardening
+memory_refinement_step: active_memory_semantic_integrity
 nfl_week: 4
 fantasy_stage: regular_season
-maintenance_status: blocking_workflow_failure
+maintenance_status: semantic_integrity_hardened
 ---
 
 ## Active Objective
 
-Correct the durable operating contract before any infrastructure or football
-source work resumes. A weekly fantasy decision cycle may not be called complete,
-HOLD, or no-action unless every required roster-action channel and required
-health gate has an explicit current receipt.
+Keep the weekly-decision recovery state truthful and fail closed while preventing
+repository memory from becoming structurally valid but semantically stale. No
+production football/model/application repair is authorized by this memory/tooling
+checkpoint.
 
 ## Current Work Item
 
-**WEEKLY DECISION ORCHESTRATION / COMPLETION-GATE FAILURE — BLOCKING.**
+**ACTIVE MEMORY SEMANTIC INTEGRITY HARDENING.**
 
-The Week 4 prospective captures remain valid frozen measurements. The prior
-one-for-one player-trade HOLD remains valid only for that narrow search scope.
-Any broader interpretation that the Week 4 roster decision cycle was complete is
-withdrawn.
+The read-only Week 4 source/design audit is already the durable predecessor
+checkpoint. The active-memory audit found deterministic contradictions that the
+strict memory checker did not reject: stale self-publication, stale stable-handoff
+residue, past-week calendar/status language, incomplete decision indexing, and
+missing weekly decision-receipt/template contracts.
 
-The systemic memory audit is now remote-durable and the required read-only
-source/design audit is complete. Week 3 closure, Phase 1E activation, roster
-transactions, and production-source repair remain blocked. Production source
-change is not yet authorized.
+This checkpoint hardens only durable memory, memory-health tooling/tests, and
+weekly record templates. The fail-closed weekly production orchestrator remains
+designed but not authorized or implemented.
 
 ## Verified State
 
-- Week 3 evidence shows the broad player add/drop engine and separate DST/K
-  evaluations were actually exercised; the capability existed.
-- Week 4 week-open and fresh pre-lock captures remain causally valid and
-  integrity-checked.
-- Week 4 automated trade search evaluated one-for-one QB/RB/WR/TE trades only.
-- Week 4 did not run the full player waiver/free-agent channel before the earlier
-  roster-level HOLD interpretation.
-- Week 4 did not run the commissioned DST and kicker policy channels before that
-  interpretation.
-- Player waiver/free-agent, DST, and kicker subsystems already existed; the
-  failure was missing orchestration/completion enforcement.
-- `search_trades` is automated one-for-one player search. The underlying player
-  trade evaluator can represent up to two assets per side, but automated
-  multi-asset search is absent.
-- Specialist assets are rejected by the current player trade evaluator; no
-  specialist-aware trade evaluator is commissioned.
-- The commissioned specialist dynamic policy starts from guaranteed current
-  FREEAGENTs and excludes current WAIVERS from its authoritative dynamic pool.
-- IR-move-plus-add is not an explicit ordinary action, and explicit multiweek
-  injury-duration propagation is not represented as a roster-action state.
-- Validation/health tools exist, but the weekly operating contract did not
-  require a fresh health receipt before declaring decision completeness.
-- Read-only source audit confirms the production CLI/GUI expose lineup,
-  player actions, DST, kicker, and trade operations as independent entry points
-  with no fail-closed weekly completion receipt above them.
-- Existing authorities can be reused: player paired-MC actions, commissioned
-  specialist policy, ESPN roster-slot/eligible-slot state, capture integrity,
-  provider health state, and persistence state.
-- The repair design requires a unified weekly decision state machine plus a
-  weekly operational-health receipt before any roster-wide COMPLETE/NO_ACTION.
-- Production-source modification remains unperformed and unauthorized.
+- Commissioned runtime baseline remains `v0.36-repack1`, internal `VERSION = 0.36`.
+- Week 4 week-open and pre-lock captures remain valid frozen prospective evidence.
+- The earlier one-for-one player-trade HOLD remains valid only for that narrow
+  channel scope.
+- Roster-wide Week 4 completion remains `INCOMPLETE_COVERAGE`; no broader HOLD or
+  NO-ACTION authority exists.
+- Read-only source/design audit established that the production CLI/GUI expose
+  lineup, player actions, DST, kicker, and trade operations independently with no
+  fail-closed weekly completion state machine above them.
+- Existing calculation authorities remain reusable; missing orchestration and
+  capability gaps remain explicit blockers.
+- The repository-memory audit classified
+  `ACTIVE_MEMORY_SEMANTIC_INTEGRITY_GAP = CONFIRMED`.
+- Hardening carriers v1-v4 all failed without a durable checkpoint: v1/v2 on
+  deterministic predecessor-marker defects, v3 on repository-root pytest
+  over-collection, and v4 on application-test execution against the split
+  control-root surface. v3/v4 reported rollback to the exact predecessor state.
+- The successor memory/tooling design uses exact predecessor identities,
+  whole-file result payloads rather than guessed text-patch anchors, and
+  validation scoped to the authority surface actually modified.
+- No football/model/application source, runtime, transaction, or persistence
+  state is changed by this checkpoint.
 
 ## Calendar / Evidence Gates
 
-- Week 4 prospective evidence already captured remains immutable evidence.
-- A material Week 4 status/practice change before an affected player's lock still
-  preempts deferrable memory/publication work for a fresh causal capture.
-- Missing action-channel coverage is not reconstructed as if it had been run.
-- Week 3 Data/MC closure is blocked until the weekly decision completion contract
-  is durable and the production orchestration gap is repaired.
-- Phase 1E.4 persistence activation remains separately gated and unauthorized.
+- Week 4 prospective captures remain immutable evidence and must not be backfilled.
+- A material Week 4 status/practice/roster/market change before an affected lock
+  requires a fresh decision-time capture before consequential action.
+- Missing historical Week 4 action-channel execution remains missing; it is not
+  reconstructed as contemporaneous evidence.
+- Week 3 Data/MC closure remains blocked behind the weekly-decision orchestration
+  recovery.
+- Phase 1E persistence activation remains separately gated and unauthorized.
 
 ## Scientific / Architectural Boundaries
 
-- Preserve `P ⊕ D ⊕ K` for valuation and response; this is not a prohibition on
-  DST/K participation in league-legal transactions.
-- Cross-channel transaction effects combine only at complete-roster utility/state
+- Preserve `P ⊕ D ⊕ K` for internal valuation: players compare to players, DST to
+  DST, and kickers to kickers.
+- Channel separation is not a prohibition on DST/K participation in league-legal
+  transactions; cross-channel composition occurs only at complete-roster utility
   boundaries.
-- User-named examples never define search scope; the system must scan the whole
-  relevant roster, market, and supported action family.
+- User examples may open an investigation but never define production search
+  scope.
 - `screen != authority`.
-- Missing channel receipt means `INCOMPLETE_COVERAGE`, never implicit HOLD.
-- Missing/stale required health receipt means `BLOCKED_HEALTH`, never implicit
-  operational readiness.
-- Observed 2026 outcomes still may not tune v0.X.
+- Missing decision coverage is `INCOMPLETE_COVERAGE`, never implicit HOLD.
+- Missing/stale required health is `BLOCKED_HEALTH`, never implicit PASS.
+- `v0.X` remains a-priori; observed 2026 outcomes may not tune it.
+- The memory-health checker may enforce deterministic repository-state semantic
+  contracts, but it may not infer football truth or substitute for weekly
+  decision/operational-health receipts.
 
 ## Exact Next Action
 
-Publish this read-only source/design audit as a memory-only checkpoint through
-the normal isolated staging/publication workflow.
-
-After remote verification, stop at the explicit source-change authorization
-boundary. If production repair is authorized, implement the fail-closed weekly
-orchestrator/health receipt first, then close the missing action-family gaps
-under the same blocking workstream. Until all required receipts pass, the cycle
-must remain `INCOMPLETE_COVERAGE` or `BLOCKED_HEALTH`.
+Complete this memory/tooling checkpoint through the established human-in-the-loop
+local-apply, isolated-staging, publication, and remote-verification sequence.
+After remote verification, stop at the explicit production source-change
+authorization boundary. If and only if production repair is authorized, begin
+Gate A from the accepted orchestrator design: implement the fail-closed weekly
+decision receipt/state machine and operational-health interface before closing
+additional action-family gaps.
 
 Week 3 closure remains blocked until the repaired orchestration is
-source-published, runtime-commissioned, and proven by a fresh complete cycle.
+source-published, runtime-commissioned, and proven by a fresh complete weekly
+cycle.
 
 ## Relevant References
 
@@ -112,13 +107,12 @@ source-published, runtime-commissioned, and proven by a fresh complete cycle.
 - `MAINTENANCE.md`
 - `USER.md`
 - `architecture/WEEKLY_DECISION_COMPLETION.md`
-- `architecture/SPECIALIST_CHANNELS.md`
+- `decisions/D-026_ACTIVE_MEMORY_SEMANTIC_INTEGRITY.md`
 - `decisions/WEEKLY_DECISION_ORCHESTRATOR_DESIGN_2026-09-29.md`
+- `evidence/REPOSITORY_MEMORY_SEMANTIC_INTEGRITY_AUDIT_2026-09-30.md`
 - `evidence/WEEKLY_DECISION_SOURCE_DESIGN_AUDIT_2026-09-29.md`
 - `investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`
-- `evidence/WEEKLY_DECISION_ORCHESTRATION_FAILURE_AUDIT_2026-09-29.md`
-- `evidence/WEEK4_PROSPECTIVE_CAPTURE_AND_DECISION_2026-09-29.md`
-- `evidence/WEEK4_PRELOCK_STATUS_GATE_2026-09-29.md`
+- `templates/WEEKLY_DECISION_RECEIPT.md`
 - `roadmap/SEASON_2026.md`
 - `roadmap/STATUS.md`
 - `../KNOWN_ISSUES.md`

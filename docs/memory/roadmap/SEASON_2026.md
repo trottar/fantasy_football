@@ -1,6 +1,6 @@
 # 2026 Season Calendar / Development Gates
 
-**Planning state:** 2026-09-29
+**Planning state:** 2026-09-30
 **Configured fantasy regular season:** Weeks 1-13
 **Configured fantasy playoffs:** Weeks 14-17
 **Configured playoff Round 1:** Week 14
@@ -25,15 +25,15 @@ A date can trigger an evidence review. It cannot force the evidence gate to pass
 | --- | --- | --- | --- |
 | 1 | Sep 9-14 | none | Closed. Use as prospective evidence only if a genuine frozen capture already exists. Never backfill. |
 | 2 | Sep 17-21 | none | Closed. Preserve any genuine frozen W2 evidence and classify gaps explicitly. Never backfill. |
-| 3 | Sep 24-28 | none | **Active hard capture gate.** Week-open and Wednesday decision-time state are secured. Preserve them. Refresh prospectively on material injury/status change or before relevant lineup locks. Calendar capture outranks nonessential Phase 1D development. |
-| 4 | Oct 1-5 | none | **Blocking operational correction:** make the weekly completion/health contract durable, repair the orchestrator, then rerun a fresh complete Week 4 decision cycle before roster-wide HOLD/NO-ACTION authority. Prospective capture deadlines still preempt deferrable engineering. |
-| 5 | Oct 8-12 | CAR, KC | Preferred broader v1.0 observability commissioning target and first bye-week operational stress. |
-| 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks (W3-W5 if valid). Open calibration investigations only; no automatic tuning. |
-| 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow candidate calibration only when justified. |
+| 3 | Sep 24-28 | none | Closed calendar window. Preserve secured week-open/decision-time evidence; Week 3 closure remains deferred behind orchestration recovery. |
+| 4 | Oct 1-5 | none | **Active blocking operational correction.** Preserve valid frozen captures, make memory/decision-completion governance durable, repair the orchestrator only after authorization, and require a fresh complete cycle before roster-wide HOLD/NO-ACTION authority. |
+| 5 | Oct 8-12 | CAR, KC | Preferred broader observability/operability target after Week 4 recovery; first bye-week operational stress. |
+| 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks if evidence quality supports it. Open calibration investigations only; no automatic tuning. |
+| 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow calibration only when justified. |
 | 8 | Oct 29-Nov 2 | HOU, NO, NYG, SF | Midseason calibration decision review. Commission only evidence-supported changes; otherwise defer. |
 | 9 | Nov 5-9 | PIT, TEN | Prefer any justified early calibration commissioned by this point. Shift attention toward transaction/field response. |
 | 10 | Nov 12-16 | CHI, DEN, PHI, TB | Waiver/trade behavior closure and manager-kernel validation. |
-| 11 | Nov 19-23 | ATL, CLE, GB, LAR, NE, SEA | Largest bye cluster in configured schedule. Playoff-readiness candidate should be operational by week end. |
+| 11 | Nov 19-23 | ATL, CLE, GB, LAR, NE, SEA | Largest bye cluster. Playoff-readiness candidate should be operational by week end. |
 | 12 | Nov 26-30 | none | Thanksgiving-compressed week. Start explicit playoff future utility. Avoid late high-risk development. |
 | 13 | Dec 3-7 | BAL, IND, LV, NYJ | Final configured fantasy regular-season week. **Major empirical calibration freeze / playoff baseline commissioning.** |
 | 14 | Dec 10-14 | ARI, DAL | **Fantasy playoff Round 1.** Production-first; explicit bye management; structural repairs only. |
@@ -81,13 +81,12 @@ provenance.
 
 Preserve a separate prospective capture for each consequential lineup change,
 waiver/add/drop, trade evaluation, DST/kicker stream, and injury replacement.
-A Sunday decision may use information unavailable Thursday; both remain
-prospective if their information times are explicit.
 
 ### Weekly decision completion gate
 
 Before the weekly roster cycle may be called complete, require the current
-receipt matrix in `architecture/WEEKLY_DECISION_COMPLETION.md`.
+receipt matrix in `architecture/WEEKLY_DECISION_COMPLETION.md` and record it using
+`templates/WEEKLY_DECISION_RECEIPT.md` or an equivalent canonical evidence record.
 
 Required domains include lineup/availability, broad player waiver/free-agent
 search, commissioned DST and kicker policy, IR/injury-replacement state, required
@@ -97,25 +96,15 @@ Missing/unsupported coverage is `INCOMPLETE_COVERAGE`. Missing/stale required
 health is `BLOCKED_HEALTH`. Neither may be translated to HOLD.
 
 The search scope is system-defined across the full relevant roster/market, not
-restricted to players or examples named by the user.
+restricted to examples named by the user.
 
-## Trade-Search Operational Target
+## Trade-Search Operational Requirement
 
-The Week 4 trade-search target is deliberately separate from empirical model
-calibration.
-
-Readiness means:
-
-- the runtime/data dependency is explicit and validated;
-- league-wide one-for-one screening can run on a current prospective snapshot;
-- screened candidates advance to uncertainty-aware predictive MC;
-- football value for both managers remains separate from the manager-response
-  probability layer;
-- any consequential offer is frozen in a decision-time capture before action.
-
-The trade-response probability model may remain uncalibrated while the search is
-used, provided its provisional status is explicit and it does not alter intrinsic
-football value.
+Trade completion is defined by the league-legal transaction families required by
+`architecture/WEEKLY_DECISION_COMPLETION.md`, not by the current one-for-one
+helper. One-for-one player search may produce a valid narrow receipt, but
+unsupported multi-asset or specialist-inclusive families remain explicit
+coverage gaps rather than implicit HOLDs.
 
 ## Calibration Evidence Ladder
 

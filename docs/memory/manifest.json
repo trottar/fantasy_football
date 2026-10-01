@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-30T17:58:40.964358-04:00",
+  "generated_at": "2026-09-30T22:18:00.581753-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,18 +16,18 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5898,
-      "sha256": "ae3981fb4ddcf170ecaa2b6f3b44aabe16016cef369b5c2c3663f68d4fb28796"
+      "bytes": 5422,
+      "sha256": "5e07cf5ba7c7feb58c7d589362f8e18f2ffaaeb92a77dce8d4d2b6bfc833acc3"
     },
     {
       "path": "LEARNINGS.md",
-      "bytes": 24979,
-      "sha256": "13e0d2ce8418d7c991532e10c2742f1bde8aa46d9b257c9ebd65bed1b4307cb2"
+      "bytes": 28002,
+      "sha256": "14bd6a5cd05d70c4bcadcbaac5a0d93da34c7c3aa380010fbf3b8ae1a362eb01"
     },
     {
       "path": "MAINTENANCE.md",
-      "bytes": 19369,
-      "sha256": "0f2014d0e64ee40552f6d52f0182040c251cb0e0159f577e44ef3d688dcd4802"
+      "bytes": 20517,
+      "sha256": "1aabb52a1452835fd0f25249f4dbf0795958246c30a7da36c696b234d0271a1b"
     },
     {
       "path": "MEMORY.md",
@@ -190,9 +190,14 @@
       "sha256": "e17c721b8543b5064449ad1422975a06b99188b221af34ebe30c197e9107fbb3"
     },
     {
+      "path": "decisions/D-026_ACTIVE_MEMORY_SEMANTIC_INTEGRITY.md",
+      "bytes": 2967,
+      "sha256": "c8eb090bfe0c185cd282e2e4208b66666a51121f49644914ccdf086c2d949fcf"
+    },
+    {
       "path": "decisions/DECISION_LOG.md",
-      "bytes": 7174,
-      "sha256": "5079fec506ecdc8694db0d33e7f99f604597fbb8300c3f03e2c9449bc79610e7"
+      "bytes": 6904,
+      "sha256": "e2b18a9afa4374f7dae91d0d45d3ef74d321b61a7e2148762b2d9d7326c7a672"
     },
     {
       "path": "decisions/WEEKLY_DECISION_ORCHESTRATOR_DESIGN_2026-09-29.md",
@@ -450,6 +455,11 @@
       "sha256": "2a28cca0bb2223b3ffe824e257a77626bc675adbefb8afe782a88fc274953f38"
     },
     {
+      "path": "evidence/REPOSITORY_MEMORY_SEMANTIC_INTEGRITY_AUDIT_2026-09-30.md",
+      "bytes": 8572,
+      "sha256": "31dd6097e92a50c99cd280f81c2246b35e24c6fd78660567d0c655ab72942649"
+    },
+    {
       "path": "evidence/TRADE_SEARCH_PLAYER_VALUES_RUNTIME_SYNC_2026-09-24.md",
       "bytes": 3590,
       "sha256": "6eb947135e48ffd5a8b6cbd4b0e5af1ff717cc18e81f8c6caa81feb5bb9311f1"
@@ -596,8 +606,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 574,
-      "sha256": "654502fd95092e1bd87f0daeb10697a508c68aaf664bc60ee99f3cfc577d750a"
+      "bytes": 347,
+      "sha256": "65262a5261092b9b386c25a1347d49d1e997ea641152c7d3233ed58433a3a852"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -711,8 +721,8 @@
     },
     {
       "path": "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
-      "bytes": 2200,
-      "sha256": "ab25686bbef8a8c7860eb55c985e616d64c4cb33c5cd5f2aefb82f9903af8707"
+      "bytes": 3763,
+      "sha256": "aa417f9e3f6eefce136987c3884fb57e00bec495a0960d7a68c1c04e29bb6031"
     },
     {
       "path": "patches/MANIFEST_REGISTRY_REPAIR_2026-09-17.md",
@@ -731,13 +741,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6805,
-      "sha256": "2a491072859e04daef81972cc6f9b8d475c5f7fe8382a721a61b4027e6cb35f4"
+      "bytes": 6317,
+      "sha256": "03d19bdf2e9c014218e6e40c11f3fbfafd29a3d8d47db20fbff6898d2512beb9"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 5210,
-      "sha256": "92d714460d7371e79cbd6fa8f25a225c31afb9242ea621d8bef633588004190f"
+      "bytes": 3041,
+      "sha256": "2753f055f1774468ebd3659f2a20d3eaf9807374607056fe1584e11518c9b384"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",
@@ -756,8 +766,8 @@
     },
     {
       "path": "templates/MEMORY_UPDATE.md",
-      "bytes": 2211,
-      "sha256": "d77e632a7565a8af242e38b514a5eab24ee121db937920ca32b721aff81618c8"
+      "bytes": 3069,
+      "sha256": "2e1f69bc057429032a946d770a7d79b67cb67020edf2d15d2fade7daccfb12ec"
     },
     {
       "path": "templates/RELEASE.md",
@@ -765,9 +775,14 @@
       "sha256": "6d1859ead7fcb04bf80814b120fb96d958a8d2312a26d58206cf1dee08ffaada"
     },
     {
+      "path": "templates/WEEKLY_DECISION_RECEIPT.md",
+      "bytes": 3079,
+      "sha256": "5fe8ad40ec7b60958ef79717edf00e39d61cd53a3f6b31ec834d8c7a647a4cd4"
+    },
+    {
       "path": "templates/WEEKLY_RECAP.md",
-      "bytes": 4270,
-      "sha256": "7069096c622eb56cbd522fe7eb28bee409eb5ed54343490e31bbab9412c7b0d3"
+      "bytes": 5025,
+      "sha256": "8a1c5cb3f27ac7a282c2533a7a949b36406e8dd1028791104b3b87e478eae393"
     }
   ]
 }

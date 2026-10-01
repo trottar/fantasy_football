@@ -31,6 +31,22 @@ closure_generated_time_utc:
 - Decision-time capture IDs:
 - Causality/invariant violations:
 
+## Weekly decision completion / operational health
+
+Link the canonical weekly decision receipt produced from
+`templates/WEEKLY_DECISION_RECEIPT.md` or an equivalent evidence record.
+
+- Decision receipt ID/path:
+- Coverage matrix complete: YES / NO
+- Unsupported/missing action families:
+- Weekly operational health: PASS / BLOCKED / MISSING
+- Required artifact missing/error flags:
+- Overall state: `COMPLETE / ACTION_REQUIRED` / `COMPLETE / NO_ACTION` / `INCOMPLETE_COVERAGE` / `BLOCKED_HEALTH` / `CAPTURE_REQUIRED`
+- Any narrow `CHANNEL_HOLD:<scope>` results retained without roster-wide promotion:
+
+Do not treat a closure recap as proof that the weekly decision cycle was
+complete. Completion authority belongs to the explicit current receipt matrix.
+
 ## User matchup closure
 
 - Predicted team distribution:

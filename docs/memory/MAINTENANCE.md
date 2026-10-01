@@ -384,9 +384,10 @@ Do not convert package/local-apply state into commit/push state.
 structural-only checks to enforcement of the stable representation contracts
 selected by M1-M5. It never rewrites memory.
 
-Strict health enforces:
+Strict health enforces both stable representation and deterministic
+repository-state semantic contracts, including:
 
-- required active bootstrap/policy/status files exist;
+- required active bootstrap/policy/status/template files exist;
 - existing byte/line thresholds and duplicate-heading rules;
 - exactly one active objective and exact next action;
 - the M5 five-file startup core appears in canonical order in `AGENTS.md`,
@@ -394,19 +395,27 @@ Strict health enforces:
 - each startup surface requires the core to be read in full before selective
   post-core expansion;
 - `CURRENT.md` contains the selected active-state headings exactly once and in
-  order: Active Objective, Current Work Item, Verified State, Calendar / Evidence
-  Gates, Scientific / Architectural Boundaries, Exact Next Action, and Relevant
-  References;
-- `CURRENT_HANDOFF.md` preserves CURRENT authority, one Transfer State, one Resume
-  section, non-empty transfer state, a CURRENT resume pointer, and no routine
-  CURRENT-style headings;
+  order and does not direct publication of its own active checkpoint as the
+  substantive next action;
+- a no-exception `CURRENT_HANDOFF.md` contains only the canonical stable transfer
+  sentence, plus a CURRENT resume pointer, with no stale transfer residue;
 - `MEMORY.md` does not acquire exact active/transfer headings;
 - active rendered memory/policy surfaces do not contain literal escaped-newline
-  artifacts of the class that caused the M4 rendering defect.
+  artifacts of the class that caused the M4 rendering defect;
+- past weeks are not left labeled active/upcoming/current hard-capture gates in
+  the season calendar relative to `CURRENT.md`'s declared `nfl_week`;
+- every canonical `D-NNN_*.md` decision file is indexed in `DECISION_LOG.md`;
+- the weekly decision receipt template exists and the weekly recap links
+  decision-completion / operational-health state;
+- current memory-update and diagnostic-delivery procedures use `.ffpkg`, not
+  obsolete ZIP delivery instructions;
+- selected narrow stale status markers with deterministic repository semantics
+  are rejected by explicit regression-tested rules.
 
 The checker deliberately does not infer football truth, empirical phase
-completion, or decision validity from prose. Canonical source/evidence remains
-authoritative for those questions.
+completion, recommendation validity, or whether a runtime action actually ran.
+Canonical source/evidence and the weekly decision receipt remain authoritative
+for those questions. Strict memory health is only one operational-health receipt.
 
 A dedicated `tests/test_memory_health.py` covers the enforced semantic branches,
 and `--self-test` provides a dependency-light regression gate.
@@ -417,7 +426,7 @@ At every weekly decision checkpoint, memory review must verify that any
 roster-wide `COMPLETE`, `HOLD`, or `NO ACTION` statement points to the current
 receipt matrix in `architecture/WEEKLY_DECISION_COMPLETION.md`.
 
-Required manual semantic checks:
+Required weekly semantic review:
 
 - every required decision channel has a receipt or an explicit blocking gap;
 - channel-specific HOLD language names its scope;
@@ -429,9 +438,10 @@ Required manual semantic checks:
 - historical raw evidence is preserved when a broader interpretation is
   withdrawn.
 
-`tools/check_memory_health.py` remains structural and must not be misrepresented
-as proof of football/decision completeness. Strict memory health is one required
-receipt, not the entire operational-health gate.
+Use `templates/WEEKLY_DECISION_RECEIPT.md` (or an equivalent canonical evidence
+record) for the explicit matrix. The checker verifies only the deterministic
+repository/template contracts it can know; it must not be represented as proof
+that football coverage or runtime health actually passed.
 
 A missing operational-health or coverage receipt is itself a maintenance trigger
 and must be reflected in `CURRENT.md` before opening another major work item.
@@ -520,5 +530,11 @@ Direct GitHub connector writes do not satisfy this process.
 - [ ] Missed prospective captures are recorded as missing rather than backfilled.
 - [ ] Root roadmap, known-issues state, roadmap status, and season calendar do not
   contradict `CURRENT.md`.
+- [ ] Stable handoff contains no routine transfer residue.
+- [ ] `DECISION_LOG.md` indexes every canonical `D-NNN_*.md` record.
+- [ ] Weekly recap/receipt template surfaces expose the decision-completion and
+  operational-health contract.
+- [ ] Current delivery procedures use deterministic `.ffpkg` wording rather than
+  ZIP-era instructions.
 
-<!-- FANTASY_MEMORY_MAINTENANCE_20260918_V3 -->
+<!-- FANTASY_MEMORY_MAINTENANCE_20260930_V4 -->

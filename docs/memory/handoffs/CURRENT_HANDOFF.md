@@ -5,13 +5,9 @@ exceptional cross-session transfer state and cannot override `CURRENT.md`.
 
 ## Transfer State
 
-No exceptional transfer state is active.
-
-The Phase 1C player recovery source checkpoint is remote verified. The current
-memory-only workflow hardening and the later runtime synchronization/commissioning
-transition are both fully described by `CURRENT.md`.
+No exceptional transfer state is recorded.
 
 ## Resume
 
-Use `../CURRENT.md` as authority. Do not reconstruct continuation from older
-publication-recovery handoff text.
+Follow `../CURRENT.md`'s `Exact Next Action` and load only its task-relevant
+canonical references.

@@ -521,3 +521,60 @@ Durable lessons:
   interpretation;
 - weekly completeness must be mechanically difficult to bypass before closure or
   nonessential development resumes.
+
+<!-- FANTASY_LEARNING_PREDELIVERY_PATCH_PLAN_PROOF_20260930:BEGIN -->
+## Prove deterministic mutation plans against exact predecessor source before delivery
+
+The 2026-09-30 repository-memory hardening v1/v2 failures exposed a package-QA
+gap: a marker can look plausible or even be internally validated without ever
+having been proved against the authoritative predecessor representation.
+
+Permanent rule:
+
+1. obtain deterministic predecessor literals/identities from exact source, not
+   from reconstructed or synthesized context;
+2. before carrier construction, simulate the complete mutation plan against an
+   exact disposable predecessor and require every marker/cardinality assertion to
+   pass at the moment it is used;
+3. reject ambiguous or absent markers before packaging;
+4. prefer complete-file results guarded by exact predecessor identities when that
+   is simpler and safer than chained textual replacement;
+5. reconstruct/extract the exact final `.ffpkg` and execute the applicable
+   success, controlled-failure, rollback, and idempotence paths before delivery;
+6. never make the operator the first validator of deterministic generated
+   package behavior.
+
+A validation added only inside the delivered carrier is not pre-delivery proof.
+<!-- FANTASY_LEARNING_PREDELIVERY_PATCH_PLAN_PROOF_20260930:END -->
+
+<!-- FANTASY_LEARNING_VALIDATION_SURFACE_SCOPE_20260930:BEGIN -->
+## Validation scope must match the authority surface under test
+
+The 2026-09-30 memory-hardening v3/v4 failures exposed two different ways a
+nominally stronger test gate can become invalid:
+
+1. bare repository-root `pytest` recursively collected retained historical and
+   prior-release trees that are not one jointly importable environment;
+2. narrowing collection to root `tests/` still failed because the synchronized
+   control root is not the complete runnable application tree and intentionally
+   lacks runtime modules supplied by the commissioned release installation.
+
+Permanent rule:
+
+- identify the authority surface before selecting validation;
+- a memory/tooling local apply in the synchronized control root must run the
+  complete applicable memory/tooling tests, strict memory health, rendered-output
+  checks, identity checks, and package branch/rollback/idempotence QA;
+- do not label application/runtime tests as applicable merely because test files
+  are present in the control root;
+- application/runtime pytest belongs in the complete staged/runnable application
+  tree when application source or runtime behavior is actually being validated;
+- retained historical/release trees are separate artifacts unless a procedure
+  explicitly establishes a combined test environment;
+- a reduced disposable QA tree cannot prove commands whose validity depends on
+  repository/runtime layout, so derive applicability from the real authority
+  contract before delivery.
+
+More tests are not stronger evidence when they execute against the wrong state
+surface.
+<!-- FANTASY_LEARNING_VALIDATION_SURFACE_SCOPE_20260930:END -->

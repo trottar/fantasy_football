@@ -1,61 +1,66 @@
 # Known Issues and Deferred Work
 
-**As of:** 2026-09-29
+**As of:** 2026-09-30
 
 This file owns open/deferred/blocker/debt state that should not clutter
 `docs/memory/CURRENT.md`. It does not override current authority.
 
-| Item | Status | Blocks current work? | Owner / resolve condition |
-| --- | --- | --- | --- |
-| Memory-system refinement M0-M7 | M7 CONTENT COMPLETE / DURABILITY CONTEXT | Blocks only declaring memory refinement durable if the containing M7 state is not remote; does not outrank Week 3 capture | If remote `main` contains the exact M7 state, classify M0-M7 COMPLETE / DURABLE and close the maintenance series |
-| Current memory-step durability gate | GATE CONDITION | Yes for the next transition only when the current step exists only as local/unpublished state | Resolve from the repository context containing the current files; if remote `main` contains the current step, the gate is satisfied |
-| M7 fresh-session integration audit | CONTENT COMPLETE | Yes only for formal M0-M7 closure until durable | Publish the reviewed M7 evidence/continuity scope if needed; once remote-durable, proceed to Week 3 prospective capture |
-| Closure production instrumentation | NEXT TECHNICAL SLICE / RETAINED CANDIDATE | Deferred until the Week 3 week-open capture is secured | Resume Phase 1B after the hard capture gate; do not rerun established candidate gates without new evidence |
-| Player/DST/K production instrumentation | PLANNED / SEPARATELY GATED | No | v1.0A Phase 1C |
-| Market/manager-behavior production instrumentation | PLANNED / SEPARATELY GATED | No | v1.0A Phase 1D |
-| Persistent runtime evidence sink disabled | INTENTIONAL / DEFERRED | No | Enable only after separate privacy/non-interference authorization |
-| Week 1/2 prospective-capture availability not classified here | UNCLASSIFIED | Blocks treating those weeks as prospective closure if no frozen capture exists | Inspect genuine frozen evidence only; never backfill |
-| Week 3 week-open capture | UPCOMING HARD CALENDAR GATE | Yes for causal 2026 measurement quality | Freeze prospective state before the first Sep 24 game using the commissioned baseline; do not delay for Phase 1B or other nonessential development |
-| Three-clean-week prospective closure baseline | INSUFFICIENT EVIDENCE | Yes for broad empirical calibration | Accumulate/verify clean weekly closure; first formal review after Week 5 if W3-W5 are valid |
-| Midseason calibration | DEFERRED PENDING EVIDENCE | No | Authorize only from repeated prospective residual/coverage evidence |
-| Playoff production baseline | PLANNED | Becomes blocking before Week 14 | Commission before Week 14 |
-| Season-readiness checker | PLANNED TOOLING | No | Implement after memory/observability foundations are stable |
-
-## Blocking Weekly Decision-Orchestration Issues — 2026-09-29
+## Blocking Weekly Decision-Orchestration Issues
 
 | Item | Status | Blocks current work? | Owner / resolve condition |
 | --- | --- | --- | --- |
-| Weekly decision completion orchestrator | OPEN / BLOCKING SYSTEMIC | Yes | Commission one cycle that requires every channel/health receipt before COMPLETE/HOLD |
-| Weekly operational health receipt | OPEN / BLOCKING | Yes | Add enforced fresh health gate defined by `architecture/WEEKLY_DECISION_COMPLETION.md` |
-| Specialist current-WAIVER authority | OPEN / COVERAGE GAP | Yes for roster-wide completion when relevant waiver specialists exist | Extend commissioned specialist acquisition policy beyond guaranteed FREEAGENT-only authority |
-| Automated multi-asset player trade search | OPEN / COVERAGE GAP | Yes for roster-wide trade completion | Search supported package families rather than one-for-one only |
-| Specialist-inclusive trade evaluation | OPEN / COVERAGE GAP | Yes when league rules permit | Preserve P/D/K internal valuation and compose complete-roster trade utility |
-| IR-move-plus-add action | OPEN / COVERAGE GAP | Yes when IR/roster capacity is decision-relevant | Represent league-legal IR transition plus acquisition |
-| Multiweek injury-duration roster state | OPEN / COVERAGE GAP | Yes when known absence horizon affects marginal roster value | Propagate decision-time absence evidence without empirical v0.X tuning |
-| Season-readiness checker | RECLASSIFIED / BLOCKING OPERABILITY | Yes | Replace/extend planned checker with enforced weekly completion + health receipt |
+| Weekly decision completion orchestrator | OPEN / BLOCKING SYSTEMIC | Yes | Commission one cycle that requires every mandatory channel/health receipt before roster-wide completion |
+| Weekly operational health receipt | OPEN / BLOCKING | Yes | Add and commission the enforced health gate defined by `architecture/WEEKLY_DECISION_COMPLETION.md` |
+| Specialist current-WAIVER authority | OPEN / COVERAGE GAP | Yes when actionable waiver specialists exist | Extend specialist acquisition behavior without treating WAIVERS as guaranteed FREEAGENTs |
+| Automated multi-asset player trade search | OPEN / COVERAGE GAP | Yes for roster-wide trade completion | Enumerate supported package families rather than one-for-one only |
+| Specialist-inclusive trade evaluation | OPEN / COVERAGE GAP | Yes when league rules permit | Preserve P/D/K internal valuation and compose at the complete-roster utility boundary |
+| IR-move-plus-add action | OPEN / COVERAGE GAP | Yes when IR/roster capacity is relevant | Represent league-legal IR transition plus acquisition from direct roster-slot facts |
+| Multiweek injury-duration roster state | OPEN / COVERAGE GAP | Yes when known absence horizon affects value | Propagate decision-time absence evidence without empirical v0.X tuning |
+| Fresh complete Week 4 cycle | BLOCKED PENDING REPAIR | Yes | Run only after required orchestration/capabilities are commissioned; do not backfill missing earlier searches |
 
 Canonical investigation:
 `docs/memory/investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`.
 
-## Standing scientific non-issues
+## Deferred Scientific / Operational Work
+
+| Item | Status | Blocks current work? | Owner / resolve condition |
+| --- | --- | --- | --- |
+| Week 1/2 prospective-capture availability | UNCLASSIFIED | Blocks treating those weeks as prospective closure if no frozen capture exists | Inspect genuine frozen evidence only; never backfill |
+| Week 3 Data/MC closure | DEFERRED / BLOCKED | Yes for Week 3 closure only | Resume after orchestration recovery is source-published, runtime-commissioned, and proven by a fresh complete cycle |
+| Three-clean-week prospective closure baseline | INSUFFICIENT EVIDENCE | Yes for broad empirical calibration | Accumulate/verify clean weekly closure before any calibration decision |
+| Midseason calibration | DEFERRED PENDING EVIDENCE | No | Authorize only from repeated prospective residual/coverage evidence |
+| Persistent runtime evidence sink | INTENTIONAL / DISABLED | No | Enable only after separate privacy/non-interference authorization |
+| Phase 1E activation | SEPARATELY GATED / NOT AUTHORIZED | No | Requires its own explicit authorization and commissioning evidence |
+| Playoff production baseline | PLANNED | Becomes blocking before Week 14 | Commission before Week 14 |
+
+## Memory / Workflow Debt
+
+| Item | Status | Blocks current work? | Owner / resolve condition |
+| --- | --- | --- | --- |
+| Active-memory semantic-integrity gap | HARDENING CHECKPOINT IN PROGRESS | Yes for opening another major work item | Publish D-026/checker/template hardening and verify remote state |
+| Failed hardening carrier v1 | SUPERSEDED FAILURE | No | Preserved in semantic-integrity audit evidence; do not reuse marker payload |
+| Failed hardening carrier v2 | SUPERSEDED FAILURE / FAILED BEFORE MODIFICATION | No | Preserved in semantic-integrity audit evidence; do not reuse fabricated anchor |
+
+## Standing Scientific Non-Issues
 
 Do not reopen without new evidence:
 
-- `P ⊕ D ⊕ K`;
+- `P ⊕ D ⊕ K` valuation/channel separation;
+- channel separation is not transaction exclusion;
 - `0.X` a-priori / `1.X` empirical boundary;
 - manager behavior versus intrinsic football utility;
 - `screen != authority`;
 - frozen prediction / decision-time causality;
 - raw observation versus derived/calibrated state;
 - human-in-the-loop checkpoint actor separation;
-- Phase 1A season-sync shadow commissioning.
+- commissioned v1.0A shadow boundaries already proven by their canonical receipts.
 
 ## Missed-Capture Policy
 
 A missing pregame or decision-time capture is an evidence gap, not permission to
-reconstruct a prospective state from hindsight. Record which capture is missing,
-when its deadline passed, what downstream analysis is unavailable, and the next
-causally valid capture opportunity.
+reconstruct a prospective state from hindsight. Record what is missing, when its
+window passed, what downstream analysis is unavailable, and the next causally
+valid capture opportunity.
 
 ## Reopen Rule
 

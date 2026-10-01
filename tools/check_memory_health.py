@@ -55,6 +55,12 @@ REQUIRED_REPO_FILES = (
     "docs/memory/USER.md",
     "docs/memory/handoffs/CURRENT_HANDOFF.md",
     "docs/memory/roadmap/STATUS.md",
+    "docs/memory/roadmap/SEASON_2026.md",
+    "docs/memory/decisions/DECISION_LOG.md",
+    "docs/memory/templates/MEMORY_UPDATE.md",
+    "docs/memory/templates/WEEKLY_RECAP.md",
+    "docs/memory/templates/WEEKLY_DECISION_RECEIPT.md",
+    "docs/memory/patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
     "docs/KNOWN_ISSUES.md",
 )
 
@@ -108,6 +114,12 @@ ACTIVE_TEXT_SURFACES = (
     "docs/memory/USER.md",
     "docs/memory/handoffs/CURRENT_HANDOFF.md",
     "docs/memory/roadmap/STATUS.md",
+    "docs/memory/roadmap/SEASON_2026.md",
+    "docs/memory/decisions/DECISION_LOG.md",
+    "docs/memory/templates/MEMORY_UPDATE.md",
+    "docs/memory/templates/WEEKLY_RECAP.md",
+    "docs/memory/templates/WEEKLY_DECISION_RECEIPT.md",
+    "docs/memory/patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md",
     "docs/KNOWN_ISSUES.md",
 )
 
@@ -308,7 +320,7 @@ def handoff_contract_report(handoff: Path) -> tuple[dict[str, object], list[str]
             + ", ".join(routine_headings)
         )
 
-    stable_state = "No exceptional transfer state is recorded." in text
+    stable_state = bool(transfer and re.match(r"^No exceptional transfer state is (?:recorded|active)\.$", transfer.splitlines()[0].strip()))
     valid = (
         structure_valid
         and authority_ok
@@ -353,6 +365,152 @@ def rendered_text_report(root: Path) -> tuple[dict[str, object], list[str]]:
             bad_paths.append(rel)
             issues.append(f"{rel} contains literal escaped newline marker in active rendered text")
     return {"valid": not bad_paths, "literal_escape_paths": bad_paths}, issues
+
+
+def _current_nfl_week(current_text: str) -> int | None:
+    match = re.search(r"^nfl_week:\s*(\d+)\s*$", current_text, flags=re.MULTILINE)
+    return int(match.group(1)) if match else None
+
+
+def _past_week_stale_rows(text: str, current_week: int) -> list[str]:
+    stale: list[str] = []
+    for line in text.splitlines():
+        week_match = re.search(r"\bWeek\s+(\d+)\b", line, flags=re.IGNORECASE)
+        if not week_match and line.lstrip().startswith("|"):
+            week_match = re.match(r"\|\s*(\d+)\s*\|", line)
+        if not week_match:
+            continue
+        week = int(week_match.group(1))
+        if week >= current_week:
+            continue
+        folded = line.casefold()
+        if any(marker in folded for marker in ("upcoming", "active hard capture gate", "**active")):
+            stale.append(line.strip())
+    return stale
+
+
+def active_semantic_integrity_report(root: Path) -> tuple[dict[str, object], list[str]]:
+    issues: list[str] = []
+    memory = root / "docs/memory"
+    details: dict[str, object] = {}
+
+    current_path = memory / "CURRENT.md"
+    current_text = read_text(current_path) if current_path.is_file() else ""
+    next_action = extract_exact_section(current_text, "## Exact Next Action", "## Relevant References") or ""
+    self_publish = bool(
+        re.search(
+            r"\bpublish\s+(?:this|the\s+current|the\s+read-only|the\s+source/design)\b",
+            next_action,
+            flags=re.IGNORECASE,
+        )
+    )
+    if self_publish:
+        issues.append("CURRENT.md Exact Next Action contains stale self-publication language")
+    details["current_self_publication"] = self_publish
+
+    handoff_path = memory / "handoffs/CURRENT_HANDOFF.md"
+    handoff_text = read_text(handoff_path) if handoff_path.is_file() else ""
+    transfer = extract_exact_section(handoff_text, "## Transfer State", "## Resume") or ""
+    transfer_lines = [line.strip() for line in transfer.splitlines() if line.strip()]
+    stable_handoff = bool(
+        transfer_lines
+        and re.fullmatch(
+            r"No exceptional transfer state is (?:recorded|active)\.",
+            transfer_lines[0],
+        )
+    )
+    stable_handoff_residue = stable_handoff and len(transfer_lines) != 1
+    if stable_handoff_residue:
+        issues.append("CURRENT_HANDOFF.md declares no exceptional transfer state but retains transfer residue")
+    details["stable_handoff_residue"] = stable_handoff_residue
+
+    current_week = _current_nfl_week(current_text)
+    details["current_nfl_week"] = current_week
+    stale_season: list[str] = []
+    stale_known: list[str] = []
+    if current_week is not None:
+        season = memory / "roadmap/SEASON_2026.md"
+        if season.is_file():
+            stale_season = _past_week_stale_rows(read_text(season), current_week)
+            if stale_season:
+                issues.append(
+                    "roadmap/SEASON_2026.md contains past-week active/upcoming gate language: "
+                    + " | ".join(stale_season)
+                )
+        known = root / "docs/KNOWN_ISSUES.md"
+        if known.is_file():
+            stale_known = _past_week_stale_rows(read_text(known), current_week)
+            if stale_known:
+                issues.append(
+                    "docs/KNOWN_ISSUES.md contains past-week active/upcoming gate language: "
+                    + " | ".join(stale_known)
+                )
+    details["stale_season_rows"] = stale_season
+    details["stale_known_issue_rows"] = stale_known
+
+    status_path = memory / "roadmap/STATUS.md"
+    status_text = read_text(status_path) if status_path.is_file() else ""
+    pending_checkpoint = "MEMORY CHECKPOINT PENDING" in status_text.upper()
+    if pending_checkpoint:
+        issues.append("roadmap/STATUS.md contains stale MEMORY CHECKPOINT PENDING status")
+    details["status_checkpoint_pending"] = pending_checkpoint
+
+    decision_dir = memory / "decisions"
+    decision_log_path = decision_dir / "DECISION_LOG.md"
+    decision_log_text = read_text(decision_log_path) if decision_log_path.is_file() else ""
+    canonical_ids = sorted(
+        {
+            match.group(1)
+            for path in decision_dir.glob("D-[0-9][0-9][0-9]_*.md")
+            if (match := re.match(r"D-(\d{3})_", path.name))
+        }
+    ) if decision_dir.is_dir() else []
+    indexed_ids = set(re.findall(r"^##\s+D-(\d{3})\b", decision_log_text, flags=re.MULTILINE))
+    missing_decisions = [decision_id for decision_id in canonical_ids if decision_id not in indexed_ids]
+    if missing_decisions:
+        issues.append(
+            "DECISION_LOG.md is missing canonical decision index entries: "
+            + ", ".join(f"D-{decision_id}" for decision_id in missing_decisions)
+        )
+    details["canonical_decision_ids"] = canonical_ids
+    details["missing_decision_index_ids"] = missing_decisions
+
+    receipt = memory / "templates/WEEKLY_DECISION_RECEIPT.md"
+    receipt_present = receipt.is_file()
+    if not receipt_present:
+        issues.append("weekly decision receipt template missing: docs/memory/templates/WEEKLY_DECISION_RECEIPT.md")
+    details["weekly_decision_receipt_template"] = receipt_present
+
+    recap = memory / "templates/WEEKLY_RECAP.md"
+    recap_text = read_text(recap) if recap.is_file() else ""
+    recap_contract = (
+        "## Weekly decision completion / operational health" in recap_text
+        and "WEEKLY_DECISION_RECEIPT.md" in recap_text
+    )
+    if not recap_contract:
+        issues.append("WEEKLY_RECAP.md lacks weekly decision completion / operational health receipt contract")
+    details["weekly_recap_receipt_contract"] = recap_contract
+
+    update = memory / "templates/MEMORY_UPDATE.md"
+    update_text = read_text(update) if update.is_file() else ""
+    update_ffpkg = ".ffpkg" in update_text
+    update_zip_era = bool(re.search(r"\bsame\s+ZIP\b|\bInclude memory changes in the same ZIP\b", update_text, flags=re.IGNORECASE))
+    if not update_ffpkg or update_zip_era:
+        issues.append("MEMORY_UPDATE.md does not use the current .ffpkg delivery contract")
+    details["memory_update_ffpkg"] = update_ffpkg and not update_zip_era
+
+    diagnostic = memory / "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md"
+    diagnostic_text = read_text(diagnostic) if diagnostic.is_file() else ""
+    diagnostic_ffpkg = ".ffpkg" in diagnostic_text
+    diagnostic_zip_era = bool(
+        re.search(r"\bbuild ZIP\b|\bextract the exact ZIP\b", diagnostic_text, flags=re.IGNORECASE)
+    )
+    if not diagnostic_ffpkg or diagnostic_zip_era:
+        issues.append("DIAGNOSTIC_TOOL_QA_PROTOCOL.md does not use the current .ffpkg exact-delivery contract")
+    details["diagnostic_delivery_ffpkg"] = diagnostic_ffpkg and not diagnostic_zip_era
+
+    details["valid"] = not issues
+    return details, issues
 
 
 def analyze(root: Path) -> dict[str, object]:
@@ -420,11 +578,13 @@ def analyze(root: Path) -> dict[str, object]:
     handoff, handoff_issues = handoff_contract_report(memory / "handoffs/CURRENT_HANDOFF.md")
     roles, role_issues = role_separation_report(memory)
     rendered, rendered_issues = rendered_text_report(root)
+    active_semantics, active_semantic_issues = active_semantic_integrity_report(root)
     issues.extend(startup_issues)
     issues.extend(current_issues)
     issues.extend(handoff_issues)
     issues.extend(role_issues)
     issues.extend(rendered_issues)
+    issues.extend(active_semantic_issues)
 
     return {
         "schema": 3,
@@ -441,6 +601,7 @@ def analyze(root: Path) -> dict[str, object]:
             "handoff": handoff,
             "role_separation": roles,
             "rendered_text": rendered,
+            "active_semantics": active_semantics,
         },
         "issues": issues,
         "healthy": not issues,
@@ -486,6 +647,7 @@ def render(report: dict[str, object]) -> str:
         ("handoff", "handoff authority/structure/role"),
         ("role_separation", "durable-memory role separation"),
         ("rendered_text", "active rendered-text hygiene"),
+        ("active_semantics", "deterministic active-memory semantic integrity"),
     ):
         valid = bool(contracts.get(key, {}).get("valid"))
         lines.append(f"  {label}: {'PASS' if valid else 'FAIL'}")
@@ -500,8 +662,14 @@ def render(report: dict[str, object]) -> str:
 
 def _write_self_test_fixture(root: Path) -> None:
     memory = root / "docs/memory"
-    (memory / "handoffs").mkdir(parents=True, exist_ok=True)
-    (memory / "roadmap").mkdir(parents=True, exist_ok=True)
+    for rel in (
+        "handoffs",
+        "roadmap",
+        "decisions",
+        "templates",
+        "patches",
+    ):
+        (memory / rel).mkdir(parents=True, exist_ok=True)
     (root / "docs").mkdir(parents=True, exist_ok=True)
 
     startup = (
@@ -522,6 +690,9 @@ def _write_self_test_fixture(root: Path) -> None:
     )
     (memory / "CURRENT.md").write_text(
         "# Current Project State\n\n"
+        "---\n"
+        "nfl_week: 4\n"
+        "---\n\n"
         "## Active Objective\n\nTest.\n\n"
         "## Current Work Item\n\nTest.\n\n"
         "## Verified State\n\nTest.\n\n"
@@ -560,8 +731,44 @@ def _write_self_test_fixture(root: Path) -> None:
         encoding="utf-8",
     )
     (memory / "roadmap/STATUS.md").write_text("# Roadmap Status\n\nCurrent.\n", encoding="utf-8")
+    (memory / "roadmap/SEASON_2026.md").write_text(
+        "# 2026 Season Calendar\n\n"
+        "| Week | State |\n"
+        "| --- | --- |\n"
+        "| 3 | Closed. |\n"
+        "| 4 | **Active** current week. |\n",
+        encoding="utf-8",
+    )
     (root / "docs/KNOWN_ISSUES.md").write_text("# Known Issues\n\nCurrent.\n", encoding="utf-8")
 
+    (memory / "decisions/D-010_TEST_DECISION.md").write_text(
+        "# D-010 — Test Decision\n",
+        encoding="utf-8",
+    )
+    (memory / "decisions/DECISION_LOG.md").write_text(
+        "# Decision Log\n\n## D-010 — Test Decision\n\n**Status:** ACTIVE\n",
+        encoding="utf-8",
+    )
+    (memory / "templates/MEMORY_UPDATE.md").write_text(
+        "# Memory Update Checklist\n\nUse deterministic `.ffpkg` delivery.\n",
+        encoding="utf-8",
+    )
+    (memory / "templates/WEEKLY_RECAP.md").write_text(
+        "# Weekly Recap\n\n"
+        "## Weekly decision completion / operational health\n\n"
+        "Use `WEEKLY_DECISION_RECEIPT.md`.\n",
+        encoding="utf-8",
+    )
+    (memory / "templates/WEEKLY_DECISION_RECEIPT.md").write_text(
+        "# Weekly Decision / Operational Health Receipt Template\n",
+        encoding="utf-8",
+    )
+    (memory / "patches/DIAGNOSTIC_TOOL_QA_PROTOCOL.md").write_text(
+        "# Diagnostic Tool QA Protocol\n\n"
+        "## Exact Delivery\n\n"
+        "Build and validate the exact deterministic `.ffpkg` carrier.\n",
+        encoding="utf-8",
+    )
 
 def self_test() -> None:
     import tempfile
