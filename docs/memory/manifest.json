@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-01T09:30:08.272218-04:00",
+  "generated_at": "2026-10-01T10:24:05.309533-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6103,
-      "sha256": "bfab9f7c9e8a9339dba2d4551d86607db6c0bc39198d5b2db54546e3a06f9bfb"
+      "bytes": 6410,
+      "sha256": "fbb1d05dda7587d464442cc15d2a5d68617fb66677bee286f78fd8d4feab6182"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 13494,
-      "sha256": "72dc4378ab64c0169a974726d495140383404c7162155e45252b27db4e5ca135"
+      "bytes": 13883,
+      "sha256": "2c31c148d324e537a6d34ad9ffb1f54bcbf4aff8317463615d44f97c3b3b015e"
     },
     {
       "path": "README.md",
@@ -620,6 +620,11 @@
       "sha256": "347fc77d47d71f3aaea8ca09bb431a546d626e8a8fe302d6d97ccb73ec10e639"
     },
     {
+      "path": "evidence/WEEKLY_DECISION_GATE_B2B_ABSENCE_HORIZON_CLASSIFICATION_2026-10-01.md",
+      "bytes": 5446,
+      "sha256": "7c975b9f67a6cd5d31d5da1f0efb743b25a2901463fa14d92a282cdbc0bf6657"
+    },
+    {
       "path": "evidence/WEEKLY_DECISION_GATE_B2_IR_ABSENCE_AUDIT_2026-10-01.md",
       "bytes": 6406,
       "sha256": "e82f4dcc75835c25b5dc18ef610d0e8d237b36596e67eaf60e438b0a2ade01e2"
@@ -776,13 +781,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6480,
-      "sha256": "0c79e4b0f88314ef97b1267ad6d13073aa4ef08242a9b1bb63d25a186dba7652"
+      "bytes": 6613,
+      "sha256": "7a8e06449043a461e16bd69be0220dd2ba5b7f68bbd929a5849e71583b82058c"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 2997,
-      "sha256": "2bb2f7acf464d7a153cf0919fe4c7b5a18627770157dfd35cc3c5c395a945d9c"
+      "bytes": 3567,
+      "sha256": "5de51e2243bf3523f17c641c081871688e71f6911677d58a6e4605f69a99a75c"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

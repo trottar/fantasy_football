@@ -283,9 +283,16 @@ Canonical commissioning evidence:
 - `evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_RUNTIME_COMMISSIONING_2026-10-01.md`
 - `evidence/WEEKLY_DECISION_GATE_B2A_IR_ROSTER_STATE_RUNTIME_COMMISSIONING_2026-10-01.md`
 
-The remaining Gate B frontier is B2b explicit multiweek absence/return-horizon
-state, broader automated multi-asset/unequal player trade search, and
-specialist-inclusive trade composition preserving `P ⊕ D ⊕ K`.
+B2b horizon discovery found quantified ESPN `seasonOutlook` /
+`outlooksByWeek` narrative signals, but the fresh Week 4 semantic/freshness audit
+found zero current guarded claims. B2b therefore remains fail-closed and deferred
+until fresh decision-time evidence satisfies current-status, freshness,
+quantification, and binding guards; narrative text is not stored as raw durable
+state.
+
+The remaining active Gate B frontier is broader automated multi-asset/unequal
+player trade search and specialist-inclusive trade composition preserving
+`P ⊕ D ⊕ K`. B2b may reopen only with new qualifying evidence.
 
 ## 2026 Season-Gated Development Contract
 

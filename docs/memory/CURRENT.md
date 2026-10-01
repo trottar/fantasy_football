@@ -5,8 +5,8 @@ state_updated: 2026-10-01
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: weekly_decision_gate_b_capability_closure
-active_workstream: gate_b2a_runtime_commissioning_memory_checkpoint
-memory_refinement_step: commissioned_slice_compaction
+active_workstream: gate_b2b_absence_horizon_fail_closed_classification
+memory_refinement_step: none
 nfl_week: 4
 fantasy_stage: regular_season
 maintenance_status: healthy
@@ -16,59 +16,56 @@ maintenance_status: healthy
 
 Close the remaining Gate B capability gaps behind the commissioned Gate A control
 plane without weakening causal, channel, or prospective-information boundaries.
-Gate B1 and B2a are now operationally commissioned; B2b and the remaining trade
-families still block roster-wide completion.
+Gate B1 and B2a are commissioned. B2b has been investigated and remains
+fail-closed for the current Week 4 state; the remaining trade families still
+block roster-wide completion.
 
 ## Current Work Item
 
-**WEEKLY DECISION GATE B2A — RUNTIME COMMISSIONING MEMORY CLOSURE.**
+**WEEKLY DECISION GATE B2B — ABSENCE-HORIZON CLASSIFICATION CHECKPOINT.**
 
-B2a represents current ESPN-status-qualified IR/open-slot roster state. It does
-not infer a return date, authorize an injury-replacement recommendation without
-temporal capacity evidence, or propagate an IR-created roster opening across
-future weeks.
+Fresh Week 4 source audits found quantified future-return language in ESPN
+player-scoped narrative fields (`seasonOutlook` and `outlooksByWeek`), but no
+structured return-week/date field and no current claim satisfying the strict
+semantic guards required for prospective horizon authority.
 
-The production source is published and the `v0.36-repack1` runtime has now been
-commissioned. This checkpoint records that runtime result durably before the
-project advances to B2b.
+The correct current-state result is therefore fail-closed, not a production
+parser/representation patch.
 
 ## Verified State
 
 - Runtime baseline: `v0.36-repack1`, internal `VERSION = 0.36` — **COMMISSIONED**.
 - Gate A fail-closed weekly control plane — **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
 - Gate B1 specialist current-WAIVER coverage — **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
-- Gate B2 audit — **COMPLETE / SPLIT INTO B2A + B2B**.
-- B2a source checkpoint is published at
-  `073d36447858f0b23391a0f4cf28e6d71023101a`, tree
-  `2a7f6a10aeacff36a5426426b45c94f72bc97328`.
-- B2a source-preflight v2 validated exactly:
-  - `src/ir_roster_state.py` -> blob `d767baa7e25a8e630d99c358d5e039322a2f2cb4`;
-  - `src/weekly_decision_cycle.py` -> blob `e3513f54a9decbc108a23a14ba06a3a68442aed8`;
-  - `tests/test_weekly_decision_gate_b2a_ir_roster_state.py` -> blob
-    `75c9a6edc32cce6b87a60f0b4aa9c99c72f364fb`.
-- B2a runtime preflight proved the installed predecessor exactly:
-  `src/weekly_decision_cycle.py` raw SHA-256
-  `3dc4176461bbb8b3bc9465354124c0c910c3d31d96d1dfc90117ad4b06f5b4c4`,
-  normalized blob `6c5e968a876bae3c94870c0417d86bcb149e39a5`, with
-  `src/ir_roster_state.py` absent.
-- B2a runtime commissioning package
-  `weekly_decision_gate_b2a_ir_roster_state_runtime_commission_v1_20261001`
-  passed with `STATE=COMMISSIONED / VALIDATED`.
-- Commissioned runtime result identities:
-  - `src/ir_roster_state.py` SHA-256
-    `ee60b036801f2cc29a15f41a7fd65cd57b0e784591730590ec2feb5cdd35e0f1`,
-    blob `d767baa7e25a8e630d99c358d5e039322a2f2cb4`;
-  - `src/weekly_decision_cycle.py` SHA-256
-    `270f0925afdcad5767a55a20204e1a24c01319c64653640ba1f6beee72a020c2`,
-    blob `e3513f54a9decbc108a23a14ba06a3a68442aed8`.
-- Runtime commissioning passed `compileall`, focused B2a pytest, the full runtime
-  pytest suite, and import-root smoke; validation residue is none and rollback
-  was not performed.
-- B2a is therefore **SOURCE-PUBLISHED / REMOTE-VERIFIED /
-  RUNTIME-COMMISSIONED / VALIDATED**.
-- B2b remains fail-closed: neither normalized nor raw ESPN state provides an
-  explicit decision-time return week, absence-through week, or equivalent
-  multiweek horizon.
+- Gate B2a current IR/open-slot representation — **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
+- B2b source/capture audit v2 completed a fresh temporary Week 4 sync across
+  ESPN, Sleeper, NFL official injury/transaction sources, NFL team rosters, and
+  nflverse rosters with all source families available.
+- No explicit structured horizon field name was present in the audited raw or
+  normalized surfaces, and current prospective capture schemas contain no
+  explicit horizon field.
+- The B2b provenance audit isolated five sanitized narrative-hit records:
+  four player-scoped ESPN records plus one unscoped NFL.com record.
+- ESPN player-scoped signals occurred in `seasonOutlook` and
+  `outlooks.outlooksByWeek`; they contained quantified return language but
+  remained narrative rather than structured horizon state.
+- The semantic/freshness audit found five ESPN claims total:
+  - 2 roster-scoped and 3 market-scoped;
+  - 0 strong guarded claims;
+  - 1 stale/missing-news claim;
+  - 0 weak-binding claims.
+- None of the five claims was attached to a player currently hard-unavailable:
+  current statuses were ACTIVE or QUESTIONABLE. Several weekly-outlook claims
+  were keyed to past weeks, and one current-looking season-outlook duration
+  belonged to an ACTIVE player.
+- Therefore
+  `B2B_ESPN_NARRATIVE_HORIZON_FOUND_BUT_NOT_STRONG_ENOUGH_FAIL_CLOSED`
+  is the authoritative current classification.
+- `SEMANTIC_PATCH_AUTHORIZED=false`; raw narrative storage is not authorized.
+- Injury start date, injury text, current status alone, generic IR compatibility,
+  and process-only return events remain prohibited as inferred horizon inputs.
+- B2b is **DEFERRED / FAIL-CLOSED UNTIL FRESH GUARDED HORIZON EVIDENCE**.
+  Future fresh decision-time evidence may reopen it; current evidence does not.
 - Automated multi-asset/unequal player trade search and specialist-inclusive
   trade composition remain open Gate B coverage gaps.
 - Week 4 roster-wide completion remains `INCOMPLETE_COVERAGE`.
@@ -79,10 +76,11 @@ project advances to B2b.
 - Week 4 prospective captures are immutable; never backfill a missed state.
 - A material status/practice/roster/market change before an affected lock requires
   a fresh decision-time capture before consequential action.
+- B2b may reopen only from fresh decision-time evidence that satisfies explicit
+  semantic/freshness guards; stale/past-week ESPN outlook prose is not authority.
 - Current IR legality does not establish a future absence horizon.
-- Do not run a fresh roster-wide Week 4 completion cycle until remaining Gate B
-  families are commissioned or explicitly not applicable under the completion
-  contract.
+- Do not run a fresh roster-wide Week 4 completion cycle until remaining required
+  Gate B trade families are commissioned or explicitly not applicable.
 - Week 3 Data/MC closure remains blocked until a later fresh complete receipt
   matrix passes.
 
@@ -90,13 +88,15 @@ project advances to B2b.
 
 - Preserve `P ⊕ D ⊕ K` inside valuation; compose only at complete-roster state
   boundaries.
-- ESPN `injury_status` supplies current platform IR-rule input. Generic
-  `eligible_slots` is not current IR eligibility.
 - B2a current roster-state legality is distinct from B2b future roster-capacity
   value.
-- Do not infer a recovery horizon from injury type, injury start date, generic
-  slot compatibility, or observed outcomes.
-- Manager acquisition behavior remains separate from intrinsic football value.
+- Narrative text is not automatically structured state. A future B2b patch
+  requires a current hard-unavailable player, fresh decision-time evidence,
+  quantified horizon semantics, and unambiguous binding.
+- Do not infer recovery timing from injury type, injury start date, generic slot
+  compatibility, old outlook text, or observed outcomes.
+- Manager acquisition/trade behavior remains separate from intrinsic football
+  value.
 - `screen != authority`; raw measurements outrank derived classifiers.
 - Missing action coverage is `INCOMPLETE_COVERAGE`, never implicit HOLD.
 - Missing/stale required health is `BLOCKED_HEALTH`, never implicit PASS.
@@ -104,17 +104,17 @@ project advances to B2b.
 
 ## Exact Next Action
 
-Complete this B2a runtime-commissioning memory checkpoint through isolated
-staging, guarded publication, and read-only remote verification. Source and
-runtime gates are already validated; do not rerun them unless new evidence
-invalidates their receipts.
+Complete this B2b classification-memory checkpoint through isolated staging,
+guarded publication, and read-only remote verification. Do not build or
+commission a B2b production parser from the current evidence.
 
-After this memory checkpoint is remote-durable, begin the next already-authorized
-B2b sub-gate with one narrow audit of **explicit decision-time multiweek
-absence/return-horizon sources and capture representation**. Do not infer a
-horizon where none is captured, and keep the trade-family work separate.
+After the checkpoint is remote-durable, begin one narrow audit of the next open
+Gate B trade gap: **automated multi-asset/unequal player trade search coverage**.
+Determine the exact currently supported package families, search-space boundary,
+and existing paired predictive authority before designing any expansion.
 
-Do not run a fresh roster-wide Week 4 completion cycle yet.
+Keep specialist-inclusive trade composition as the subsequent separate gap. Do
+not run a fresh roster-wide Week 4 completion cycle yet.
 
 ## Relevant References
 
@@ -125,8 +125,8 @@ Do not run a fresh roster-wide Week 4 completion cycle yet.
 - `patches/PATCH_PROTOCOL.md`
 - `architecture/WEEKLY_DECISION_COMPLETION.md`
 - `evidence/WEEKLY_DECISION_GATE_B2_IR_ABSENCE_AUDIT_2026-10-01.md`
-- `evidence/WEEKLY_DECISION_GATE_B2A_IR_ROSTER_STATE_SOURCE_VALIDATION_2026-10-01.md`
 - `evidence/WEEKLY_DECISION_GATE_B2A_IR_ROSTER_STATE_RUNTIME_COMMISSIONING_2026-10-01.md`
+- `evidence/WEEKLY_DECISION_GATE_B2B_ABSENCE_HORIZON_CLASSIFICATION_2026-10-01.md`
 - `roadmap/SEASON_2026.md`
 - `roadmap/STATUS.md`
 - `../KNOWN_ISSUES.md`

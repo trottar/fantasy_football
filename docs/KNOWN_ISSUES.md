@@ -15,7 +15,7 @@ This file owns open/deferred/blocker/debt state that should not clutter
 | Automated multi-asset player trade search | OPEN / COVERAGE GAP | Yes for roster-wide trade completion | Enumerate supported package families rather than one-for-one only |
 | Specialist-inclusive trade evaluation | OPEN / COVERAGE GAP | Yes when league rules permit | Preserve P/D/K internal valuation and compose at the complete-roster utility boundary |
 | Current IR/open-slot roster-state representation | RESOLVED / B2A SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts current ESPN-status-qualified IR legality or active/IR capacity representation |
-| IR replacement / multiweek temporal roster state | OPEN / B2B EXPLICIT HORIZON FIELD ABSENT | Yes when known absence horizon affects replacement or future capacity value | Capture/represent an explicit decision-time return/absence horizon; do not infer one from injury type/start date, generic slot compatibility, or observed outcomes |
+| IR replacement / multiweek temporal roster state | DEFERRED / B2B FAIL-CLOSED / CURRENT NARRATIVES NOT AUTHORITATIVE | Yes when known absence horizon affects replacement or future capacity value | Fresh ESPN narratives can contain quantified return language, but current Week 4 claims fail hard-unavailable/freshness/current-binding guards. Reopen only with fresh qualifying decision-time evidence; do not infer from stale prose, injury type/start date, generic slot compatibility, or outcomes |
 | Fresh complete Week 4 cycle | BLOCKED PENDING GATE B COMMISSIONING | Yes | Run only after required Gate B capabilities are commissioned; do not backfill missing earlier searches |
 
 Canonical investigation:
