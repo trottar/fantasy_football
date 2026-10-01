@@ -16,7 +16,7 @@ from .weekly_operational_health import (
 )
 
 
-CONTRACT = "WEEKLY_DECISION_COMPLETION_GATE_B2A_IR_ROSTER_STATE_V001"
+CONTRACT = "WEEKLY_DECISION_COMPLETION_GATE_B3_MULTI_ASSET_PLAYER_TRADE_SEARCH_V001"
 SCHEMA_VERSION = 1
 
 STATE_ACTION = "COMPLETE / ACTION_REQUIRED"
@@ -378,17 +378,72 @@ def _specialist_receipt(key: str, label: str, report: Mapping[str, Any], authori
     )
 
 
-def _trade_receipt(rows: Sequence[Mapping[str, Any]]) -> ChannelReceipt:
-    actionable = [dict(row) for row in rows if str(row.get("classification") or "") == "ACTIONABLE_OFFER"]
-    return ChannelReceipt(
-        TRADE_1X1,
-        "One-for-one player trades",
-        STATUS_ACTION if actionable else _hold("ONE_FOR_ONE_PLAYER_TRADE"),
-        "market_manager.search_trades",
-        evidence={"evaluated_reported": len(rows), "actionable_offers": len(actionable)},
-        scope="automated one-for-one QB/RB/WR/TE offers",
-        action={"kind": "ONE_FOR_ONE_PLAYER_TRADE", "offers": actionable} if actionable else None,
-    )
+def _trade_receipts(rows: Sequence[Mapping[str, Any]]) -> list[ChannelReceipt]:
+    normalized = [dict(row) for row in rows]
+    for row in normalized:
+        row.setdefault("package_family", "1x1")
+    one_rows = [
+        row for row in normalized
+        if str(row.get("package_family") or "1x1") == "1x1"
+    ]
+    multi_rows = [
+        row for row in normalized
+        if str(row.get("package_family") or "") in {"1x2", "2x1", "2x2"}
+    ]
+    one_actionable = [
+        row for row in one_rows
+        if str(row.get("classification") or "") == "ACTIONABLE_OFFER"
+    ]
+    multi_actionable = [
+        row for row in multi_rows
+        if str(row.get("classification") or "") == "ACTIONABLE_OFFER"
+    ]
+    family_counts = {
+        family: sum(
+            1 for row in multi_rows
+            if str(row.get("package_family") or "") == family
+        )
+        for family in ("1x2", "2x1", "2x2")
+    }
+    return [
+        ChannelReceipt(
+            TRADE_1X1,
+            "One-for-one player trades",
+            STATUS_ACTION if one_actionable else _hold("ONE_FOR_ONE_PLAYER_TRADE"),
+            "market_manager.search_trades",
+            evidence={
+                "evaluated_reported": len(one_rows),
+                "actionable_offers": len(one_actionable),
+                "supported_package_families": ["1x1"],
+            },
+            scope="automated one-for-one QB/RB/WR/TE offers through cheap screen -> paired predictive MC",
+            action={
+                "kind": "ONE_FOR_ONE_PLAYER_TRADE",
+                "offers": one_actionable,
+            } if one_actionable else None,
+        ),
+        ChannelReceipt(
+            TRADE_MULTI,
+            "Multi-player / unequal player trades",
+            STATUS_ACTION if multi_actionable else _hold("MULTI_ASSET_PLAYER_TRADE"),
+            "market_manager.search_trades",
+            evidence={
+                "evaluated_reported": len(multi_rows),
+                "actionable_offers": len(multi_actionable),
+                "evaluated_by_family": family_counts,
+                "supported_package_families": ["1x2", "2x1", "2x2"],
+                "max_players_per_side": 2,
+            },
+            scope=(
+                "automated bounded QB/RB/WR/TE packages (1x2, 2x1, 2x2) "
+                "through family-balanced cheap screen -> paired predictive MC"
+            ),
+            action={
+                "kind": "MULTI_ASSET_PLAYER_TRADE",
+                "offers": multi_actionable,
+            } if multi_actionable else None,
+        ),
+    ]
 
 
 def _legacy_ir_receipt() -> ChannelReceipt:
@@ -434,13 +489,6 @@ def _ir_receipt(report: Mapping[str, Any]) -> ChannelReceipt:
 
 def _gate_b_receipts() -> list[ChannelReceipt]:
     return [
-        ChannelReceipt(
-            TRADE_MULTI,
-            "Supported multi-player / unequal trades",
-            "INCOMPLETE_COVERAGE:GATE_B_MULTI_ASSET_TRADE_SEARCH",
-            "Gate A capability inventory",
-            gap="evaluator supports bounded packages but automated search is one-for-one only",
-        ),
         ChannelReceipt(
             TRADE_SPECIALIST,
             "DST/K-inclusive trades when league-legal",
@@ -562,14 +610,30 @@ def run_weekly_decision_cycle(
             snapshot, league, model, values_path=values_path,
             user_team=team, limit=trade_limit, mc_scenarios=trade_mc_scenarios,
         )
-        channels.append(_trade_receipt(trade_rows))
+        channels.extend(_trade_receipts(trade_rows))
     except Exception as exc:
-        channels.append(ChannelReceipt(
-            TRADE_1X1, "One-for-one player trades",
-            "INCOMPLETE_COVERAGE:ONE_FOR_ONE_TRADE_AUTHORITY_ERROR",
-            "market_manager.search_trades",
-            evidence={"error_type": type(exc).__name__}, gap="one-for-one trade search failed",
-        ))
+        for key, label, status, gap in (
+            (
+                TRADE_1X1,
+                "One-for-one player trades",
+                "INCOMPLETE_COVERAGE:ONE_FOR_ONE_TRADE_AUTHORITY_ERROR",
+                "one-for-one trade search failed",
+            ),
+            (
+                TRADE_MULTI,
+                "Multi-player / unequal player trades",
+                "INCOMPLETE_COVERAGE:MULTI_ASSET_TRADE_AUTHORITY_ERROR",
+                "multi-asset player trade search failed",
+            ),
+        ):
+            channels.append(ChannelReceipt(
+                key,
+                label,
+                status,
+                "market_manager.search_trades",
+                evidence={"error_type": type(exc).__name__},
+                gap=gap,
+            ))
 
     channels.extend(_gate_b_receipts())
     channels.append(ChannelReceipt(

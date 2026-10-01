@@ -637,6 +637,212 @@ def screen_one_for_one_trades(
     return rows[: max(1, int(limit))]
 
 
+def _coarse_package_score(
+    user_roster: list[dict[str, Any]],
+    partner_roster: list[dict[str, Any]],
+    give: tuple[dict[str, Any], ...],
+    receive: tuple[dict[str, Any], ...],
+    league: dict[str, Any],
+) -> tuple[float, float]:
+    user_gain = sum(
+        float(player.get("season_ppg") or 0.0)
+        * _need_multiplier(user_roster, player, league)
+        for player in receive
+    ) - sum(
+        float(player.get("season_ppg") or 0.0)
+        * _need_multiplier(user_roster, player, league)
+        for player in give
+    )
+    partner_gain = sum(
+        float(player.get("season_ppg") or 0.0)
+        * _need_multiplier(partner_roster, player, league)
+        for player in give
+    ) - sum(
+        float(player.get("season_ppg") or 0.0)
+        * _need_multiplier(partner_roster, player, league)
+        for player in receive
+    )
+    return float(user_gain), float(partner_gain)
+
+
+def _candidate_packages(
+    players: list[dict[str, Any]],
+    *,
+    max_players_per_side: int,
+) -> list[tuple[dict[str, Any], ...]]:
+    packages = [(player,) for player in players]
+    if int(max_players_per_side) >= 2:
+        packages.extend(tuple(combo) for combo in itertools.combinations(players, 2))
+    return packages
+
+
+def _package_family(
+    give: tuple[dict[str, Any], ...],
+    receive: tuple[dict[str, Any], ...],
+) -> str:
+    return f"{len(give)}x{len(receive)}"
+
+
+def _family_balanced_frontier(
+    rows: list[dict[str, Any]],
+    *,
+    limit: int,
+    families: tuple[str, ...],
+) -> list[dict[str, Any]]:
+    cap = max(1, int(limit))
+    ordered = sorted(
+        rows,
+        key=lambda row: float(row.get("screen_score") or 0.0),
+        reverse=True,
+    )
+    active_families = [
+        family for family in families
+        if any(str(row.get("package_family") or "") == family for row in ordered)
+    ]
+    if not active_families:
+        return []
+    quota = max(1, cap // len(active_families))
+    selected: list[dict[str, Any]] = []
+    selected_keys: set[tuple[int, tuple[int, ...], tuple[int, ...]]] = set()
+
+    def key(row: dict[str, Any]) -> tuple[int, tuple[int, ...], tuple[int, ...]]:
+        return (
+            int(row["partner_team_id"]),
+            tuple(int(x) for x in row.get("give_ids") or []),
+            tuple(int(x) for x in row.get("receive_ids") or []),
+        )
+
+    for family in active_families:
+        bucket = [
+            row for row in ordered
+            if str(row.get("package_family") or "") == family
+        ]
+        for row in bucket[:quota]:
+            marker = key(row)
+            if marker not in selected_keys:
+                selected.append(row)
+                selected_keys.add(marker)
+            if len(selected) >= cap:
+                return selected
+
+    for row in ordered:
+        marker = key(row)
+        if marker in selected_keys:
+            continue
+        selected.append(row)
+        selected_keys.add(marker)
+        if len(selected) >= cap:
+            break
+    return selected
+
+
+def screen_player_trade_packages(
+    snapshot: dict[str, Any],
+    league: dict[str, Any],
+    model: dict[str, Any],
+    *,
+    values_path: str | Path,
+    user_team: dict[str, Any],
+    limit: int = 20,
+) -> list[dict[str, Any]]:
+    # Cheap bounded player-package screen; predictive MC remains recommendation authority.
+    user_ctx = UtilityContext(snapshot, league, model, values_path, user_team)
+    cfg = model.get("market_manager") or {}
+    max_package = min(
+        2,
+        max(1, int(cfg.get("trade_max_players_per_side", 2))),
+    )
+    give_limit = max(2, int(cfg.get("trade_search_give_candidates", 8)))
+    target_limit = max(2, int(cfg.get("trade_search_target_candidates", 10)))
+    user_candidates = sorted(
+        [
+            player for player in user_ctx.roster
+            if _legal_drop(player)
+            and str(player.get("position") or "").upper() in PLAYER_POSITIONS
+        ],
+        key=lambda player: float(player.get("season_ppg") or 0.0),
+    )[:give_limit]
+    user_packages = _candidate_packages(
+        user_candidates,
+        max_players_per_side=max_package,
+    )
+    supported_families = tuple(
+        family
+        for family in ("1x1", "1x2", "2x1", "2x2")
+        if int(family[0]) <= max_package and int(family[-1]) <= max_package
+    )
+
+    rows: list[dict[str, Any]] = []
+    espn = snapshot.get("espn", snapshot)
+    for team in espn.get("teams") or []:
+        tid = _finite_int(team.get("team_id"))
+        if tid is None or tid == user_ctx.team_id:
+            continue
+        roster = user_ctx.all_team_rosters.get(tid, [])
+        targets = sorted(
+            [
+                player for player in roster
+                if str(player.get("position") or "").upper() in PLAYER_POSITIONS
+            ],
+            key=lambda player: float(player.get("season_ppg") or 0.0),
+            reverse=True,
+        )[:target_limit]
+        target_packages = _candidate_packages(
+            targets,
+            max_players_per_side=max_package,
+        )
+
+        for give in user_packages:
+            for receive in target_packages:
+                family = _package_family(give, receive)
+                if family not in supported_families:
+                    continue
+                give_ids = [_finite_int(player.get("espn_id")) for player in give]
+                receive_ids = [_finite_int(player.get("espn_id")) for player in receive]
+                if any(pid is None for pid in give_ids + receive_ids):
+                    continue
+                ug, pg = _coarse_package_score(
+                    user_ctx.roster,
+                    roster,
+                    give,
+                    receive,
+                    league,
+                )
+                if ug <= float(cfg.get("trade_search_min_user_screen_gain", 0.15)):
+                    continue
+                combined = ug + 0.75 * pg - 0.25 * abs(ug - pg)
+                give_names = [str(player.get("name") or player.get("espn_id")) for player in give]
+                receive_names = [str(player.get("name") or player.get("espn_id")) for player in receive]
+                give_positions = [str(player.get("position") or "") for player in give]
+                receive_positions = [str(player.get("position") or "") for player in receive]
+                rows.append({
+                    "partner_team_id": tid,
+                    "partner_name": team.get("name"),
+                    "package_family": family,
+                    "give_ids": [int(pid) for pid in give_ids if pid is not None],
+                    "give_names": give_names,
+                    "give_positions": give_positions,
+                    "receive_ids": [int(pid) for pid in receive_ids if pid is not None],
+                    "receive_names": receive_names,
+                    "receive_positions": receive_positions,
+                    "give_id": int(give_ids[0]) if len(give_ids) == 1 and give_ids[0] is not None else None,
+                    "give_name": " + ".join(give_names),
+                    "give_position": " + ".join(give_positions),
+                    "receive_id": int(receive_ids[0]) if len(receive_ids) == 1 and receive_ids[0] is not None else None,
+                    "receive_name": " + ".join(receive_names),
+                    "receive_position": " + ".join(receive_positions),
+                    "user_screen_gain_ppg": ug,
+                    "partner_screen_gain_ppg": pg,
+                    "screen_score": combined,
+                })
+
+    return _family_balanced_frontier(
+        rows,
+        limit=max(int(limit), len(supported_families)),
+        families=supported_families,
+    )
+
+
 def search_trades(
     snapshot: dict[str, Any],
     league: dict[str, Any],
@@ -649,23 +855,45 @@ def search_trades(
     progress_callback: McProgressCallback | None = None,
 ) -> list[dict[str, Any]]:
     cfg = model.get("market_manager") or {}
-    screen_limit = max(int(limit), int(cfg.get("trade_search_screen_limit", 18)))
-    screened = screen_one_for_one_trades(
-        snapshot, league, model, values_path=values_path, user_team=user_team, limit=screen_limit
+    max_package = min(
+        2,
+        max(1, int(cfg.get("trade_max_players_per_side", 2))),
+    )
+    supported_families = tuple(
+        family
+        for family in ("1x1", "1x2", "2x1", "2x2")
+        if int(family[0]) <= max_package and int(family[-1]) <= max_package
+    )
+    screen_limit = max(
+        int(limit),
+        int(cfg.get("trade_search_screen_limit", 18)),
+        len(supported_families),
+    )
+    screened = screen_player_trade_packages(
+        snapshot,
+        league,
+        model,
+        values_path=values_path,
+        user_team=user_team,
+        limit=screen_limit,
     )
     search_mc = int(mc_scenarios or cfg.get("trade_search_mc_scenarios", 4096))
     results: list[dict[str, Any]] = []
     for i, row in enumerate(screened):
         try:
+            give_ids = [int(x) for x in row.get("give_ids") or []]
+            receive_ids = [int(x) for x in row.get("receive_ids") or []]
             result = evaluate_trade(
-                snapshot, league, model,
+                snapshot,
+                league,
+                model,
                 values_path=values_path,
                 user_team=user_team,
                 partner_team_id=int(row["partner_team_id"]),
-                give_ids=[int(row["give_id"])],
-                receive_ids=[int(row["receive_id"])],
+                give_ids=give_ids,
+                receive_ids=receive_ids,
                 mc_scenarios=search_mc,
-                progress_callback=None,  # candidate-level callback below keeps the UI legible
+                progress_callback=None,
             )
         except (ValueError, RuntimeError):
             continue
@@ -680,19 +908,59 @@ def search_trades(
             "p_counter": result["response"]["p_counter"],
             "p_reject": result["response"]["p_reject"],
             "expected_offer_value": result["expected_offer_value"],
+            "user_auto_drop_ids": [
+                _finite_int(player.get("espn_id"))
+                for player in result.get("user_auto_drops") or []
+            ],
+            "user_auto_drop_names": [
+                player.get("name")
+                for player in result.get("user_auto_drops") or []
+            ],
+            "partner_auto_drop_ids": [
+                _finite_int(player.get("espn_id"))
+                for player in result.get("partner_auto_drops") or []
+            ],
+            "partner_auto_drop_names": [
+                player.get("name")
+                for player in result.get("partner_auto_drops") or []
+            ],
+            "user_auto_add_ids": [
+                _finite_int(player.get("espn_id"))
+                for player in result.get("user_auto_adds") or []
+            ],
+            "user_auto_add_names": [
+                player.get("name")
+                for player in result.get("user_auto_adds") or []
+            ],
+            "partner_auto_add_ids": [
+                _finite_int(player.get("espn_id"))
+                for player in result.get("partner_auto_adds") or []
+            ],
+            "partner_auto_add_names": [
+                player.get("name")
+                for player in result.get("partner_auto_adds") or []
+            ],
             "mc_scenarios": search_mc,
         }
         results.append(summary)
         if progress_callback is not None:
-            progress_callback(i + 1, max(1, len(screened)), f"trade search {i + 1}/{len(screened)}")
+            progress_callback(
+                i + 1,
+                max(1, len(screened)),
+                f"trade search {i + 1}/{len(screened)}",
+            )
     results.sort(
-        key=lambda r: (
-            float(r.get("expected_offer_value") or 0.0),
-            float(r.get("our_delta_season_ppg") or 0.0),
+        key=lambda row: (
+            float(row.get("expected_offer_value") or 0.0),
+            float(row.get("our_delta_season_ppg") or 0.0),
         ),
         reverse=True,
     )
-    return results[: max(1, int(limit))]
+    return _family_balanced_frontier(
+        results,
+        limit=max(1, int(limit)),
+        families=supported_families,
+    )
 
 
 def save_trade_report(report: dict[str, Any], out_dir: str | Path = "data/season_decisions") -> Path:

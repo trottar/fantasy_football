@@ -12,7 +12,7 @@ This file owns open/deferred/blocker/debt state that should not clutter
 | Weekly decision completion orchestrator | RESOLVED / GATE A SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts the shared fail-closed receipt contract |
 | Weekly operational health receipt | RESOLVED / GATE A RUNTIME-COMMISSIONED | No | Reopen only if the shared health interface fails its required contract |
 | Specialist current-WAIVER authority | RESOLVED / B1 SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts the commissioned uncertain-acquisition response; WAIVERS remain distinct from guaranteed FREEAGENTs |
-| Automated multi-asset player trade search | OPEN / COVERAGE GAP | Yes for roster-wide trade completion | Enumerate supported package families rather than one-for-one only |
+| Automated multi-asset player trade search | SOURCE-VALIDATED / LOCAL-APPLIED / RUNTIME PENDING | Yes until published/runtime-commissioned | Publish and commission the validated bounded 1x1/1x2/2x1/2x2 player-package search; predictive authority remains `evaluate_trade`, not the screen |
 | Specialist-inclusive trade evaluation | OPEN / COVERAGE GAP | Yes when league rules permit | Preserve P/D/K internal valuation and compose at the complete-roster utility boundary |
 | Current IR/open-slot roster-state representation | RESOLVED / B2A SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts current ESPN-status-qualified IR legality or active/IR capacity representation |
 | IR replacement / multiweek temporal roster state | DEFERRED / B2B FAIL-CLOSED / CURRENT NARRATIVES NOT AUTHORITATIVE | Yes when known absence horizon affects replacement or future capacity value | Fresh ESPN narratives can contain quantified return language, but current Week 4 claims fail hard-unavailable/freshness/current-binding guards. Reopen only with fresh qualifying decision-time evidence; do not infer from stale prose, injury type/start date, generic slot compatibility, or outcomes |
@@ -42,6 +42,9 @@ Canonical investigation:
 | Failed hardening carrier v2 | SUPERSEDED FAILURE / FAILED BEFORE MODIFICATION | No | Preserved in semantic-integrity audit evidence; do not reuse fabricated anchor |
 | Gate A local-apply carrier v1 | SUPERSEDED PACKAGING FAILURE / FAILED BEFORE MODIFICATION | No | Root-layout guard incorrectly required full application source on the sparse control root; corrected v2 was published successfully |
 | B2a source-preflight v1 memory-health stop | SUPERSEDED FAILURE / FAILED BEFORE MODIFICATION | No | Strict memory health correctly stopped the threshold-edge state; memory was compacted and v2 source preflight subsequently passed against the successor remote head |
+| Gate B3 source-preflight v1 legacy expectation mismatch | SUPERSEDED TEST-HARNESS FAILURE / NO MODIFICATION | No | Candidate closed the multi-asset blocker correctly; legacy Gate A regression expectation was updated and v2 preflight passed |
+| Gate B3 source local-apply v1 clone-head guard | SUPERSEDED PACKAGING FAILURE / FAILED BEFORE SOURCE WRITE | No | Fresh-clone `HEAD:<path>` checks were invalid on the synchronized control root; v2 removed only that redundant guard |
+| Gate B3 source local-apply v2 sparse-test validation | SUPERSEDED VALIDATION-HARNESS FAILURE / ROLLED BACK | No | Control root lacks the full repository test inventory; v3 preserved exact local guards and validated the applied four-file result in a fresh remote-clone overlay |
 
 ## Standing Scientific Non-Issues
 

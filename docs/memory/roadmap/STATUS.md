@@ -12,7 +12,7 @@
 - Gate B2 audit: **COMPLETE / SPLIT INTO B2A + B2B**
 - Gate B2a current IR/open-slot representation: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED / CURRENT ESPN NARRATIVES NOT AUTHORITATIVE**
-- Automated multi-asset/unequal trade search: **OPEN / COVERAGE GAP**
+- Gate B3 automated multi-asset/unequal player trade search: **SOURCE-VALIDATED / LOCAL-APPLIED / PUBLICATION PENDING**
 - Specialist-inclusive trade composition: **OPEN / COVERAGE GAP**
 - Week 3 Data/MC closure: **BLOCKED BY CAPABILITY RECOVERY**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
@@ -41,9 +41,9 @@ Canonical commissioning evidence:
 
 ## Known Capability Gaps
 
+- Gate B3 source publication and runtime commissioning;
 - B2b explicit decision-time multiweek absence/return horizon and temporal
-  roster-capacity propagation;
-- automated player trade package search beyond one-for-one;
+  roster-capacity propagation remain deferred until fresh qualifying evidence;
 - specialist-inclusive trade evaluation at the complete-roster boundary.
 
 ## Gate B2b Current Classification
@@ -59,17 +59,37 @@ Current classification:
 No production parser or temporal-capacity propagation patch is authorized from
 this evidence. B2b may reopen only on fresh qualifying decision-time evidence.
 
+## Gate B3 Source Boundary
+
+The Gate B3 audit proved the existing player trade evaluator already supports
+1x1, 1x2, 2x1, and 2x2 packages with a two-player-per-side cap, explicit
+unequal-package post-trade drop/fill effects, and paired predictive MC.
+
+The structural gap was automated enumeration. The validated Gate B3 source
+candidate adds a family-balanced cheap package frontier and routes those packages
+into the existing `evaluate_trade` predictive authority. The screen remains
+non-authoritative and specialist-inclusive packages remain excluded.
+
+Source preflight v2 passed targeted and full repository validation. Corrected
+source local-apply v3 passed exact control-root identities plus a fresh
+remote-clone overlay with targeted/full pytest, `compileall`, strict memory
+health, and diff checks.
+
+Canonical evidence:
+`evidence/WEEKLY_DECISION_GATE_B3_MULTI_ASSET_PLAYER_TRADE_SEARCH_SOURCE_VALIDATION_2026-10-01.md`.
+
 ## Next Gate
 
-Complete the B2b classification-memory checkpoint through isolated staging,
-guarded publication, and read-only remote verification.
+Stage and publish the exact Gate B3 source-validation checkpoint, including the
+four validated source/test paths plus the typed durable-memory update and
+regenerated schema-2 manifest.
 
-Then audit automated multi-asset/unequal player trade-search coverage: exact
-supported package families, current search frontier, and the existing paired
-predictive authority. Keep specialist-inclusive trade composition separate.
+After remote verification, run a separate non-mutating runtime preflight and
+explicit runtime commissioning against `v0.36-repack1`.
 
-Do not run a fresh roster-wide Week 4 cycle until remaining Gate B coverage is
-commissioned or explicitly not applicable.
+Then audit specialist-inclusive trade composition as the next separate Gate B
+gap. Do not run a fresh roster-wide Week 4 cycle until required remaining Gate B
+coverage is commissioned or explicitly not applicable.
 
 ## Boundary Conditions
 

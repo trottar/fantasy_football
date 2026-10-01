@@ -236,7 +236,7 @@ def test_gate_a_orchestrates_existing_authorities_but_remains_incomplete(tmp_pat
     by_key = {row.key: row for row in receipt.channels}
     assert by_key[PLAYER].status == STATUS_ACTION
     assert by_key[IR].status.startswith("INCOMPLETE_COVERAGE:GATE_B")
-    assert by_key[TRADE_MULTI].status.startswith("INCOMPLETE_COVERAGE:GATE_B")
+    assert by_key[TRADE_MULTI].status == "PASS / HOLD:MULTI_ASSET_PLAYER_TRADE"
     assert by_key[TRADE_SPECIALIST].status.startswith("INCOMPLETE_COVERAGE:GATE_B")
     assert {LINEUP, PLAYER, DST, KICKER, IR, TRADE_1X1, TRADE_MULTI, TRADE_SPECIALIST, PROVENANCE} == set(by_key)
 
