@@ -258,6 +258,29 @@ Canonical records:
 - `evidence/PHASE1C_PLAYER_PUBLICATION_RECOVERY_2026-09-23.md`
 - `evidence/PHASE1C_PLAYER_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`
 
+## Weekly Decision Gate A — Commissioned Control Plane
+
+Gate A of the weekly-decision recovery is source-published and runtime-commissioned
+in `v0.36-repack1`. It provides one shared fail-closed weekly receipt/state
+machine plus operational-health interface across CLI/service surfaces while
+reusing the existing football authorities.
+
+Durable semantics:
+
+- missing/unsupported required action coverage -> `INCOMPLETE_COVERAGE`;
+- missing/stale required health -> `BLOCKED_HEALTH`;
+- material stale decision information -> `CAPTURE_REQUIRED`;
+- narrow channel HOLDs cannot become roster-wide HOLD independently;
+- Gate A does not make unsupported Gate B action families complete.
+
+The remaining capability frontier is current specialist-waiver behavior, explicit
+IR/open-slot transitions, decision-time multiweek absence state, broader automated
+trade-package search, and specialist-inclusive trade composition preserving
+`P ⊕ D ⊕ K`.
+
+Canonical commissioning evidence:
+`evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md`.
+
 ## 2026 Season-Gated Development Contract
 
 Calendar gates protect irreversible prospective captures and operational

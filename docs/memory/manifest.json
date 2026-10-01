@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-09-30T23:27:49.397097-04:00",
+  "generated_at": "2026-10-01T00:00:36.877709-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6978,
-      "sha256": "be53c45cb4952778cb19b98d8d55bd3a5be53368f33c314bfbfeac5fdf61d962"
+      "bytes": 6451,
+      "sha256": "d6cbd0e0ff67ef7ec2cbc30cc8f21af2e0a8336b4e60cce8c2f5773195819af5"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 11856,
-      "sha256": "7987ab0ff1b483b6af37ab41a27b950873de39bbb655482d9c74859c47e202bc"
+      "bytes": 12904,
+      "sha256": "30cd67b9642123ca1cbcc171175745a63f67ba6a1592258c1c0468bcd43b6be9"
     },
     {
       "path": "README.md",
@@ -590,6 +590,11 @@
       "sha256": "c0ea4f96aae216a07914ff8fe3382bf9c52496f8271b5456c8173198bf8f6ff1"
     },
     {
+      "path": "evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md",
+      "bytes": 5805,
+      "sha256": "0398ebf04fd677e59a0bd3950322722fbc99b220e9fe9b2de5b9ed6b07c0104b"
+    },
+    {
       "path": "evidence/WEEKLY_DECISION_GATE_A_SOURCE_VALIDATION_2026-09-30.md",
       "bytes": 5919,
       "sha256": "5f7ddd75227c383d8c3bb2d35a34d6e1c1fa4a6f211285f4461593e3b16e1626"
@@ -746,13 +751,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6418,
-      "sha256": "51ec6ec8feb52970970d7dec1614e14601f891845e9e31d0db4a8739b300c889"
+      "bytes": 6390,
+      "sha256": "b3bb1dad76c14f05544c4cacbf937526e33c80e4f0ca4662bd74895dcf82dbe9"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 4322,
-      "sha256": "371c3db4416a630dd7ada9cf4da063a383447689f2c0c665230cabfebc2f51c5"
+      "bytes": 4008,
+      "sha256": "9286ab2f9d54975a15e46b10448ea0bd35032fd791e5195a9b329e967f8ed6ec"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

@@ -5,7 +5,7 @@ state_updated: 2026-09-30
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: weekly_decision_orchestration_recovery
-active_workstream: weekly_decision_gate_a_source_checkpoint
+active_workstream: weekly_decision_gate_a_runtime_commissioning_closure
 memory_refinement_step: none
 nfl_week: 4
 fantasy_stage: regular_season
@@ -14,55 +14,50 @@ maintenance_status: semantic_integrity_hardened
 
 ## Active Objective
 
-Install and commission Gate A of the weekly-decision recovery without expanding
-into Gate B capability work. Gate A is the fail-closed decision-receipt/state
-machine plus shared operational-health interface over existing football
-authorities. The commissioned runtime remains `v0.36-repack1` until a later,
-explicit runtime synchronization and commissioning gate succeeds.
+Close Gate A of the weekly-decision recovery as a fully source-published and
+runtime-commissioned fail-closed control plane, without expanding this checkpoint
+into Gate B capability work. Gate A now supplies the shared decision-receipt/state
+machine and operational-health interface over existing football authorities.
 
 ## Current Work Item
 
-**WEEKLY DECISION GATE A — FAIL-CLOSED CONTROL PLANE.**
+**WEEKLY DECISION GATE A — RUNTIME COMMISSIONING CLOSURE.**
 
-The user explicitly authorized production-source work after the memory-semantic
-hardening checkpoint became remote-durable. The exact Gate A candidate was then
-validated read-only in an isolated clone of predecessor
-`457e085a0acddc1ee9d6871a1bd85b10c8deb394`.
+The authorized Gate A source checkpoint is published at
+`a49f824a4d5d18879314f7c08eb0997a5d47c008` and remote-verified. The exact
+published production result has now been synchronized into the commissioned
+`v0.36-repack1` runtime and passed explicit runtime commissioning.
 
-That candidate changes only the shared orchestration/health control plane and thin
-CLI/service adapters. It does not implement current specialist-WAIVER behavior,
-IR/open-slot transitions, multiweek absence propagation, broader trade package
-search, or specialist-inclusive trade composition. Those remain Gate B coverage
-gaps and therefore remain fail-closed blockers.
-
-The Gate A source candidate is locally applied and validated on the sparse
-control-root checkpoint surface together with this durable state update. The
-first local-apply carrier (`weekly_decision_gate_a_local_apply_v1_20260930`)
-failed before modification because it incorrectly required a complete application
-source layout at the control root. The corrected v2 carrier reconstructs the two
-modified existing source files from the exact remote predecessor and writes only
-the reviewed changed result paths to the sparse checkpoint surface. It is not yet
-staged, published, synchronized into the commissioned runtime, or runtime
-commissioned.
+This checkpoint records that commissioning durably. It does not implement current
+specialist-WAIVER behavior, IR/open-slot transitions, multiweek absence
+propagation, broader automated trade-package search, or specialist-inclusive
+trade composition. Those remain Gate B coverage gaps and therefore remain
+fail-closed blockers.
 
 ## Verified State
 
-- Commissioned runtime baseline remains `v0.36-repack1`, internal `VERSION = 0.36`.
-- Repository predecessor for Gate A is
-  `457e085a0acddc1ee9d6871a1bd85b10c8deb394`.
-- Diagnostic package `weekly_decision_gate_a_source_preflight_v1_20260930`
-  validated the exact five-path source candidate in a fresh isolated clone.
-- Operator-executed preflight passed targeted Gate A pytest, full repository
-  pytest, compileall, strict memory health, `git diff --check`, and exact
-  changed-path/result-identity gates.
-- Local-apply v1 then failed **before modification** at a packaging-only root-layout
-  guard that incorrectly assumed the sparse control root contained the full
-  application source tree. This did not invalidate the source candidate or its
-  isolated-clone validation.
-- Local-apply v2 preserves the exact five source/test result identities, derives
-  `fantasy.py` and `src/gui/season_service.py` from the exact remote predecessor
-  before any write, and treats absent application files as valid sparse-control-root
-  predecessor state.
+- Repository Gate A source checkpoint:
+  `a49f824a4d5d18879314f7c08eb0997a5d47c008` — **PUSHED / REMOTE VERIFIED**.
+- Published Gate A staged tree:
+  `8499130c0c607360590780952418266179449f7c`.
+- Commissioned runtime remains
+  `L:\Projects\fantasy_football\fantasy_season_v0_36_repack1`, internal
+  `VERSION = 0.36`.
+- Read-only runtime preflight
+  `weekly_decision_gate_a_runtime_preflight_v1_20260930` classified the installed
+  runtime as `PREDECESSOR_MATCH` and validated the exact Gate A candidate in a
+  disposable runtime copy.
+- Runtime commissioning package
+  `weekly_decision_gate_a_runtime_commission_v1_20260930` completed successfully
+  with `STATE=COMMISSIONED / VALIDATED`.
+- Runtime commissioning synchronized exactly four production paths:
+  `fantasy.py`, `src/gui/season_service.py`, `src/weekly_decision_cycle.py`, and
+  `src/weekly_operational_health.py`.
+- The Gate A regression test was validation-only in the runtime, then removed.
+- Runtime validation passed compileall, targeted Gate A pytest, the full runtime
+  pytest suite, runtime import-root smoke, and exact result identities.
+- Validation residue is `NONE`; rollback backup identities passed; rollback was
+  not performed.
 - Gate A installs one shared fail-closed classifier and operational-health receipt
   surface; CLI and `SeasonGuiService` delegate to the same receipt machinery.
 - Missing required action families remain `INCOMPLETE_COVERAGE`; missing/stale
@@ -70,12 +65,10 @@ commissioned.
   `CAPTURE_REQUIRED`.
 - The earlier one-for-one player-trade HOLD remains valid only for that narrow
   channel scope.
-- Roster-wide Week 4 completion remains `INCOMPLETE_COVERAGE`; no broader HOLD or
-  NO-ACTION authority exists.
-- The active-memory semantic-integrity hardening checkpoint is already pushed and
-  remote-verified; its checker/template contracts remain in force.
-- No Gate B football capability, transaction, empirical calibration, persistence
-  activation, or commissioned-runtime state is changed by the Gate A local apply.
+- Roster-wide Week 4 completion remains `INCOMPLETE_COVERAGE`; Gate A
+  commissioning does not make unsupported Gate B families complete.
+- No football-model tuning, empirical calibration, persistence activation, or
+  Gate B capability change occurred during Gate A commissioning.
 
 ## Calendar / Evidence Gates
 
@@ -84,11 +77,11 @@ commissioned.
   requires a fresh decision-time capture before consequential action.
 - Missing historical Week 4 action-channel execution remains missing; it is not
   reconstructed as contemporaneous evidence.
-- A fresh complete weekly cycle cannot be claimed until Gate A is source-published
-  and runtime-commissioned and the remaining required Gate B capability gaps are
-  commissioned or explicitly not applicable under the completion contract.
+- A fresh roster-wide complete weekly cycle remains blocked until the required
+  Gate B capability gaps are commissioned or explicitly not applicable under the
+  completion contract.
 - Week 3 Data/MC closure remains blocked behind the weekly-decision orchestration
-  recovery.
+  recovery and a later fresh complete cycle.
 - Phase 1E persistence activation remains separately gated and unauthorized.
 
 ## Scientific / Architectural Boundaries
@@ -112,17 +105,19 @@ commissioned.
 
 ## Exact Next Action
 
-Run declarative isolated staging for the exact v2 locally validated Gate A
-source-plus-memory allowlist, regenerate `docs/memory/manifest.json` from staged
-Git-blob bytes, and complete the separate guarded publication/remote-verification
-transition. After source publication, synchronize the exact published Gate A
-source into the commissioned runtime and run explicit runtime commissioning.
-Do not begin Gate B capability implementation until Gate A source/runtime
-commissioning is complete and verified.
+Complete this Gate A commissioning-memory checkpoint through the normal
+human-in-the-loop local apply -> isolated staging -> guarded publication ->
+read-only remote verification sequence.
 
-Week 3 closure remains blocked until the repaired orchestration is
-source-published, runtime-commissioned, and proven by a fresh complete weekly
-cycle.
+After that checkpoint is remote-durable, stop at the Gate B production-source
+authorization boundary. Gate B remains the accepted capability-closure frontier:
+current specialist waiver claims, IR/open-slot transitions, decision-time
+multiweek absence state, broader automated trade-package search, and
+specialist-inclusive trade composition. Do not treat Gate A commissioning as
+implicit authorization for those additional production behavior changes.
+
+Week 3 closure remains blocked until Gate B coverage is commissioned and a fresh
+complete weekly cycle proves the full receipt matrix.
 
 ## Relevant References
 
@@ -133,6 +128,7 @@ cycle.
 - `architecture/WEEKLY_DECISION_COMPLETION.md`
 - `decisions/WEEKLY_DECISION_ORCHESTRATOR_DESIGN_2026-09-29.md`
 - `evidence/WEEKLY_DECISION_GATE_A_SOURCE_VALIDATION_2026-09-30.md`
+- `evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md`
 - `evidence/WEEKLY_DECISION_SOURCE_DESIGN_AUDIT_2026-09-29.md`
 - `investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`
 - `templates/WEEKLY_DECISION_RECEIPT.md`
