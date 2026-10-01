@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-01T00:58:44.637696-04:00",
+  "generated_at": "2026-10-01T01:36:44.763666-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7702,
-      "sha256": "b212b63806217512de4afc2c04280b551cf4024583966c22a889414dc552a8dc"
+      "bytes": 8186,
+      "sha256": "3319ec77a161b10b7fbd586dc063520282c45c6dcf390e36fbd33d75eaf5c97b"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 12904,
-      "sha256": "30cd67b9642123ca1cbcc171175745a63f67ba6a1592258c1c0468bcd43b6be9"
+      "bytes": 13848,
+      "sha256": "a76afd7a00b01aecc94b1be1cffb729df2d4f7bad1cbda320b88c9afc31ddf40"
     },
     {
       "path": "README.md",
@@ -600,6 +600,11 @@
       "sha256": "5f7ddd75227c383d8c3bb2d35a34d6e1c1fa4a6f211285f4461593e3b16e1626"
     },
     {
+      "path": "evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_RUNTIME_COMMISSIONING_2026-10-01.md",
+      "bytes": 5608,
+      "sha256": "2ce7ea0e4597ae74cf23acfb47a07a529dcd8c7958f6be37e944ecb564ceaf59"
+    },
+    {
       "path": "evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_SOURCE_VALIDATION_2026-10-01.md",
       "bytes": 5561,
       "sha256": "409f455fb4b2e5cac71d1c4af431e228d54294d123a8c183762f891e2e6308bc"
@@ -756,13 +761,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6545,
-      "sha256": "8236332ea04cccdecf12b04d04d71a4f04ecc9de0f13bb44d40a1f0756f90fe6"
+      "bytes": 6548,
+      "sha256": "f70b3f63c5ab5ee6b60fed08a3c3ca81020c03bdb0ecf330dfae49d4479140ed"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 4671,
-      "sha256": "5e1b98d8901606d2fbb4847918aa0d444585a6deaa172c416ad24b2d40372cca"
+      "bytes": 4788,
+      "sha256": "cfc153490503cf4fbff9d7c8e520e4daee47e2acd0c77a43a9839d6e7dbc8d02"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

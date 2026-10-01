@@ -10,10 +10,10 @@
 - Active-memory semantic-integrity hardening: **PUSHED / REMOTE VERIFIED**
 - Gate A fail-closed weekly control plane: **PUSHED / REMOTE VERIFIED / RUNTIME COMMISSIONED**
 - Gate A weekly operational-health interface: **RUNTIME COMMISSIONED**
-- Gate A commissioned runtime: **v0.36-repack1 / VALIDATED**
 - Gate B capability closure: **AUTHORIZED / ACTIVE**
-- Gate B1 specialist current-WAIVER source: **SOURCE-VALIDATED / LOCAL-APPLIED / NOT PUBLISHED**
-- Gate B1 commissioned runtime: **NOT YET SYNCHRONIZED / NOT COMMISSIONED**
+- Gate B1 specialist current-WAIVER source: **PUSHED / REMOTE VERIFIED**
+- Gate B1 specialist current-WAIVER runtime: **COMMISSIONED / VALIDATED**
+- Gate B2 IR/open-slot + decision-time absence state: **NEXT / SOURCE AUDIT PENDING**
 - Week 3 Data/MC closure: **BLOCKED BY CAPABILITY RECOVERY**
 - Phase 1E persistence controller: **RUNTIME COMMISSIONED / PERSISTENCE DISABLED**
 - Phase 1E activation: **SEPARATELY GATED / NOT AUTHORIZED**
@@ -27,49 +27,54 @@ player actions, DST, kicker, IR/injury-replacement state, required trade familie
 prospective provenance, and weekly operational health.
 
 Gate A enforces the fail-closed control plane in the commissioned runtime. B1 now
-has a source-validated candidate for explicit current specialist-WAIVER
-acquisition-state coverage, but that capability is not operational until source
-publication and runtime commissioning complete. Unsupported action families
-remain `INCOMPLETE_COVERAGE`; missing/stale required health remains
+provides commissioned current specialist-WAIVER acquisition-state coverage while
+preserving football/behavior separation. Unsupported remaining action families
+stay `INCOMPLETE_COVERAGE`; missing/stale required health remains
 `BLOCKED_HEALTH`; a narrow channel HOLD cannot become a roster-wide HOLD.
 
 ## Known Capability Gaps
 
-- current specialist WAIVERS: B1 source validated/local-applied, but not yet
-  published or runtime-commissioned;
+- explicit IR/reserve/open-slot and IR-move-plus-add action generation is absent;
+- explicit decision-time multiweek absence propagation is absent;
 - automated player trade search remains narrower than evaluator capability;
-- specialist-inclusive trade evaluation is absent;
-- explicit IR-move-plus-add action generation is absent;
-- explicit decision-time multiweek absence propagation is absent.
+- specialist-inclusive trade evaluation is absent.
 
-## Gate B1 Source Boundary
+## Gate B1 Commissioning Boundary
 
-Predecessor checkpoint:
-`d80ed56a75f034516b8d5387894b4899375d61f7`.
+Published source checkpoint:
+`10106dfc6fed609e9ed9a42961e6d0ebfb71e465`.
 
-Source-validation package:
-`weekly_decision_gate_b1_specialist_waivers_source_preflight_v1_20261001`.
+Published staged tree:
+`781777a736d90f8e376d976ee85216c209978786`.
 
-Accepted operator receipt:
+Runtime preflight package:
+`weekly_decision_gate_b1_specialist_waivers_runtime_preflight_v1_20261001`.
 
-- remote/predecessor: exact `d80ed56a75f034516b8d5387894b4899375d61f7`;
-- changed source/test paths: 3;
-- targeted B1 pytest: PASS;
-- full repository pytest: PASS;
+Runtime commissioning package:
+`weekly_decision_gate_b1_specialist_waivers_runtime_commission_v1_20261001`.
+
+Accepted runtime receipt:
+
+- runtime: `L:\Projects\fantasy_football\fantasy_season_v0_36_repack1`;
+- `VERSION = 0.36`;
+- pre-state: `PREDECESSOR_MATCH`;
+- production paths synchronized: 2;
+- temporary validation paths: 1 / removed;
 - compileall: PASS;
-- strict memory health: PASS;
-- `git diff --check`: PASS;
-- exact result identities: PASS;
-- control root: untouched by diagnostic;
-- commissioned runtime: untouched;
-- staging/commit/push: not performed.
+- targeted B1 pytest: PASS;
+- full runtime pytest: PASS;
+- import-root smoke: PASS;
+- result identities: PASS;
+- validation residue: NONE;
+- rollback backup identities: PASS;
+- rollback performed: false.
 
-B1 semantics preserve current WAIVERS as uncertain acquisitions, reuse the
-existing manager-claim behavior kernel, retain DST/K football authority, and
-cover both one-slot specialist actions and current-week DST carry-two state.
+B1 semantics preserve current WAIVERS as uncertain acquisitions, keep specialist
+football value inside DST/K, use acquisition probability only in the manager
+behavior layer, and cover both one-slot and current-week DST carry-two response.
 
 Canonical evidence:
-`evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_SOURCE_VALIDATION_2026-10-01.md`.
+`evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_RUNTIME_COMMISSIONING_2026-10-01.md`.
 
 ## Memory Integrity Boundary
 
@@ -84,11 +89,12 @@ Canonical decision:
 
 ## Next Gate
 
-Stage and publish the exact B1 source-plus-memory checkpoint, verify it remotely,
-then separately synchronize and commission B1 into `v0.36-repack1`. Do not begin
-the next Gate B capability sub-gate until B1 runtime commissioning is complete.
-A fresh complete Week 4 cycle and Week 3 closure remain blocked until all required
-Gate B coverage is commissioned and a fresh receipt matrix passes.
+Finish the B1 runtime-commissioning memory checkpoint and remote verification.
+Then begin B2 with a narrow source audit of IR/reserve/open-slot transitions and
+decision-time multiweek absence state. Do not run a fresh roster-wide Week 4
+completion cycle until the remaining Gate B capability gaps are commissioned or
+explicitly not applicable. Week 3 closure remains blocked until a later fresh
+complete receipt matrix passes.
 
 ## Boundary Conditions
 

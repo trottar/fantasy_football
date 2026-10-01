@@ -273,13 +273,31 @@ Durable semantics:
 - narrow channel HOLDs cannot become roster-wide HOLD independently;
 - Gate A does not make unsupported Gate B action families complete.
 
-The remaining capability frontier is current specialist-waiver behavior, explicit
-IR/open-slot transitions, decision-time multiweek absence state, broader automated
-trade-package search, and specialist-inclusive trade composition preserving
-`P ⊕ D ⊕ K`.
+The remaining capability frontier after Gate B1 is explicit IR/open-slot
+transitions, decision-time multiweek absence state, broader automated trade-package
+search, and specialist-inclusive trade composition preserving `P ⊕ D ⊕ K`.
 
 Canonical commissioning evidence:
 `evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md`.
+
+## Weekly Decision Gate B1 — Commissioned Specialist-WAIVER Acquisition State
+
+Gate B1 is source-published and runtime-commissioned in `v0.36-repack1`. It
+closes the current DST/K WAIVERS acquisition-state coverage gap without changing
+intrinsic specialist football physics.
+
+Durable semantics:
+- current WAIVERS remain uncertain acquisitions, never guaranteed FREEAGENTs;
+- specialist football response stays inside DST/K while acquisition probability
+  remains a separate uncalibrated manager-behavior response;
+- DST waiver coverage includes one-slot and carry-two complete-state response;
+- partial reports without explicit waiver coverage remain fail-closed.
+The remaining Gate B frontier is IR/reserve/open-slot and decision-time absence
+state, broader multi-asset/unequal trade search, and specialist-inclusive trade
+composition.
+
+Canonical commissioning evidence:
+`evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_RUNTIME_COMMISSIONING_2026-10-01.md`.
 
 ## 2026 Season-Gated Development Contract
 
