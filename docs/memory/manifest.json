@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-01T02:51:36.138535-04:00",
+  "generated_at": "2026-10-01T09:30:08.272218-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6230,
-      "sha256": "0c2a8e986d631281c1c57a3701a14aad5adbb12f6205023bc5622b1bb6f55d97"
+      "bytes": 6103,
+      "sha256": "bfab9f7c9e8a9339dba2d4551d86607db6c0bc39198d5b2db54546e3a06f9bfb"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 13848,
-      "sha256": "a76afd7a00b01aecc94b1be1cffb729df2d4f7bad1cbda320b88c9afc31ddf40"
+      "bytes": 13494,
+      "sha256": "72dc4378ab64c0169a974726d495140383404c7162155e45252b27db4e5ca135"
     },
     {
       "path": "README.md",
@@ -610,6 +610,11 @@
       "sha256": "409f455fb4b2e5cac71d1c4af431e228d54294d123a8c183762f891e2e6308bc"
     },
     {
+      "path": "evidence/WEEKLY_DECISION_GATE_B2A_IR_ROSTER_STATE_RUNTIME_COMMISSIONING_2026-10-01.md",
+      "bytes": 5467,
+      "sha256": "fc60f24394d30b49209124e95a252980cf0c4d01a915298fe017b2824c2f8840"
+    },
+    {
       "path": "evidence/WEEKLY_DECISION_GATE_B2A_IR_ROSTER_STATE_SOURCE_VALIDATION_2026-10-01.md",
       "bytes": 5781,
       "sha256": "347fc77d47d71f3aaea8ca09bb431a546d626e8a8fe302d6d97ccb73ec10e639"
@@ -771,13 +776,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6583,
-      "sha256": "933f33fb97609abaf48f5dbf744e7abec2e40498d5b925b2f4db22b201583acc"
+      "bytes": 6480,
+      "sha256": "0c79e4b0f88314ef97b1267ad6d13073aa4ef08242a9b1bb63d25a186dba7652"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3516,
-      "sha256": "ec0547a6eb5008274a7e3506a30acf936dbfbb1a64ca72f98b11271a23174a49"
+      "bytes": 2997,
+      "sha256": "2bb2f7acf464d7a153cf0919fe4c7b5a18627770157dfd35cc3c5c395a945d9c"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

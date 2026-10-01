@@ -258,46 +258,34 @@ Canonical records:
 - `evidence/PHASE1C_PLAYER_PUBLICATION_RECOVERY_2026-09-23.md`
 - `evidence/PHASE1C_PLAYER_SHADOW_RUNTIME_COMMISSIONING_2026-09-23.md`
 
-## Weekly Decision Gate A — Commissioned Control Plane
+## Weekly Decision Gate Recovery — Commissioned Slices
 
-Gate A of the weekly-decision recovery is source-published and runtime-commissioned
-in `v0.36-repack1`. It provides one shared fail-closed weekly receipt/state
-machine plus operational-health interface across CLI/service surfaces while
-reusing the existing football authorities.
+Gate A, B1, and B2a are source-published and runtime-commissioned in
+`v0.36-repack1`.
 
-Durable semantics:
-
-- missing/unsupported required action coverage -> `INCOMPLETE_COVERAGE`;
-- missing/stale required health -> `BLOCKED_HEALTH`;
-- material stale decision information -> `CAPTURE_REQUIRED`;
-- narrow channel HOLDs cannot become roster-wide HOLD independently;
-- Gate A does not make unsupported Gate B action families complete.
-
-The remaining capability frontier after Gate B1 is explicit IR/open-slot
-transitions, decision-time multiweek absence state, broader automated trade-package
-search, and specialist-inclusive trade composition preserving `P ⊕ D ⊕ K`.
-
-Canonical commissioning evidence:
-`evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md`.
-
-## Weekly Decision Gate B1 — Commissioned Specialist-WAIVER Acquisition State
-
-Gate B1 is source-published and runtime-commissioned in `v0.36-repack1`. It
-closes the current DST/K WAIVERS acquisition-state coverage gap without changing
-intrinsic specialist football physics.
-
-Durable semantics:
-- current WAIVERS remain uncertain acquisitions, never guaranteed FREEAGENTs;
-- specialist football response stays inside DST/K while acquisition probability
-  remains a separate uncalibrated manager-behavior response;
-- DST waiver coverage includes one-slot and carry-two complete-state response;
-- partial reports without explicit waiver coverage remain fail-closed.
-The remaining Gate B frontier is IR/reserve/open-slot and decision-time absence
-state, broader multi-asset/unequal trade search, and specialist-inclusive trade
-composition.
+- **Gate A — fail-closed control plane:** one shared weekly receipt/state machine
+  plus operational-health authority. Missing action coverage remains
+  `INCOMPLETE_COVERAGE`; missing/stale required health remains `BLOCKED_HEALTH`;
+  stale material decision information remains `CAPTURE_REQUIRED`.
+- **Gate B1 — specialist current-WAIVER acquisition state:** DST/K WAIVERS remain
+  uncertain acquisitions, never guaranteed FREEAGENTs. Acquisition probability
+  stays in manager behavior while intrinsic football response stays inside the
+  specialist channel; partial coverage remains fail-closed.
+- **Gate B2a — current IR/open-slot roster state:** current active/IR capacity and
+  ESPN-status-qualified move-to-IR legality are represented explicitly.
+  `eligible_slots` remains generic compatibility rather than current eligibility.
+  B2a does not infer recovery duration or authorize future roster-capacity value
+  without B2b's explicit decision-time absence/return horizon.
 
 Canonical commissioning evidence:
-`evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_RUNTIME_COMMISSIONING_2026-10-01.md`.
+
+- `evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md`
+- `evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_RUNTIME_COMMISSIONING_2026-10-01.md`
+- `evidence/WEEKLY_DECISION_GATE_B2A_IR_ROSTER_STATE_RUNTIME_COMMISSIONING_2026-10-01.md`
+
+The remaining Gate B frontier is B2b explicit multiweek absence/return-horizon
+state, broader automated multi-asset/unequal player trade search, and
+specialist-inclusive trade composition preserving `P ⊕ D ⊕ K`.
 
 ## 2026 Season-Gated Development Contract
 
