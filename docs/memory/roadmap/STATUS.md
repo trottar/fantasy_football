@@ -11,8 +11,10 @@
 - Gate A fail-closed weekly control plane: **PUSHED / REMOTE VERIFIED / RUNTIME COMMISSIONED**
 - Gate A weekly operational-health interface: **RUNTIME COMMISSIONED**
 - Gate A commissioned runtime: **v0.36-repack1 / VALIDATED**
-- Gate B capability closure: **NOT STARTED / PRODUCTION AUTHORIZATION REQUIRED**
-- Week 3 Data/MC closure: **BLOCKED BY ORCHESTRATION RECOVERY**
+- Gate B capability closure: **AUTHORIZED / ACTIVE**
+- Gate B1 specialist current-WAIVER source: **SOURCE-VALIDATED / LOCAL-APPLIED / NOT PUBLISHED**
+- Gate B1 commissioned runtime: **NOT YET SYNCHRONIZED / NOT COMMISSIONED**
+- Week 3 Data/MC closure: **BLOCKED BY CAPABILITY RECOVERY**
 - Phase 1E persistence controller: **RUNTIME COMMISSIONED / PERSISTENCE DISABLED**
 - Phase 1E activation: **SEPARATELY GATED / NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
@@ -24,45 +26,50 @@ matrix in `architecture/WEEKLY_DECISION_COMPLETION.md` accounts for lineup,
 player actions, DST, kicker, IR/injury-replacement state, required trade families,
 prospective provenance, and weekly operational health.
 
-Gate A now enforces the fail-closed control plane in the commissioned runtime. It
-does not make missing capabilities complete. Unsupported action families remain
-`INCOMPLETE_COVERAGE`; missing/stale required health remains `BLOCKED_HEALTH`; a
-narrow channel HOLD cannot become a roster-wide HOLD.
+Gate A enforces the fail-closed control plane in the commissioned runtime. B1 now
+has a source-validated candidate for explicit current specialist-WAIVER
+acquisition-state coverage, but that capability is not operational until source
+publication and runtime commissioning complete. Unsupported action families
+remain `INCOMPLETE_COVERAGE`; missing/stale required health remains
+`BLOCKED_HEALTH`; a narrow channel HOLD cannot become a roster-wide HOLD.
 
 ## Known Capability Gaps
 
-- current specialist WAIVERS are outside guaranteed FREEAGENT specialist authority;
+- current specialist WAIVERS: B1 source validated/local-applied, but not yet
+  published or runtime-commissioned;
 - automated player trade search remains narrower than evaluator capability;
 - specialist-inclusive trade evaluation is absent;
 - explicit IR-move-plus-add action generation is absent;
 - explicit decision-time multiweek absence propagation is absent.
 
-## Gate A Commissioning Boundary
+## Gate B1 Source Boundary
 
-Published source checkpoint:
-`a49f824a4d5d18879314f7c08eb0997a5d47c008`.
+Predecessor checkpoint:
+`d80ed56a75f034516b8d5387894b4899375d61f7`.
 
-Runtime commissioning package:
-`weekly_decision_gate_a_runtime_commission_v1_20260930`.
+Source-validation package:
+`weekly_decision_gate_b1_specialist_waivers_source_preflight_v1_20261001`.
 
-Accepted runtime receipt:
+Accepted operator receipt:
 
-- runtime: `L:\Projects\fantasy_football\fantasy_season_v0_36_repack1`;
-- `VERSION = 0.36`;
-- pre-state: `PREDECESSOR_MATCH`;
-- production paths synchronized: 4;
-- temporary validation paths: 1 / removed;
+- remote/predecessor: exact `d80ed56a75f034516b8d5387894b4899375d61f7`;
+- changed source/test paths: 3;
+- targeted B1 pytest: PASS;
+- full repository pytest: PASS;
 - compileall: PASS;
-- targeted Gate A pytest: PASS;
-- full runtime pytest: PASS;
-- import-root smoke: PASS;
-- result identities: PASS;
-- validation residue: NONE;
-- rollback backup identities: PASS;
-- rollback performed: false.
+- strict memory health: PASS;
+- `git diff --check`: PASS;
+- exact result identities: PASS;
+- control root: untouched by diagnostic;
+- commissioned runtime: untouched;
+- staging/commit/push: not performed.
+
+B1 semantics preserve current WAIVERS as uncertain acquisitions, reuse the
+existing manager-claim behavior kernel, retain DST/K football authority, and
+cover both one-slot specialist actions and current-week DST carry-two state.
 
 Canonical evidence:
-`evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md`.
+`evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_SOURCE_VALIDATION_2026-10-01.md`.
 
 ## Memory Integrity Boundary
 
@@ -77,17 +84,18 @@ Canonical decision:
 
 ## Next Gate
 
-Finish the Gate A commissioning-memory checkpoint and remote verification. Then
-stop at the Gate B production-source authorization boundary. If separately
-authorized, close the remaining action-family capability gaps behind the already
-commissioned fail-closed Gate A control plane. A fresh complete Week 4 cycle and
-Week 3 closure remain blocked until required Gate B coverage is commissioned and
-a fresh receipt matrix passes.
+Stage and publish the exact B1 source-plus-memory checkpoint, verify it remotely,
+then separately synchronize and commission B1 into `v0.36-repack1`. Do not begin
+the next Gate B capability sub-gate until B1 runtime commissioning is complete.
+A fresh complete Week 4 cycle and Week 3 closure remain blocked until all required
+Gate B coverage is commissioned and a fresh receipt matrix passes.
 
 ## Boundary Conditions
 
 - Preserve `P ⊕ D ⊕ K`.
 - Gate A is orchestration/operability, not a second optimizer.
+- Current WAIVERS remain uncertain acquisition states, never guaranteed free agents.
+- Manager acquisition behavior remains separate from intrinsic football utility.
 - Channel separation is valuation architecture, not transaction exclusion.
 - User examples do not define search scope.
 - `screen != authority`.

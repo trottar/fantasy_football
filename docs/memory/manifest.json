@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-01T00:00:36.877709-04:00",
+  "generated_at": "2026-10-01T00:58:44.637696-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6451,
-      "sha256": "d6cbd0e0ff67ef7ec2cbc30cc8f21af2e0a8336b4e60cce8c2f5773195819af5"
+      "bytes": 7702,
+      "sha256": "b212b63806217512de4afc2c04280b551cf4024583966c22a889414dc552a8dc"
     },
     {
       "path": "LEARNINGS.md",
@@ -600,6 +600,11 @@
       "sha256": "5f7ddd75227c383d8c3bb2d35a34d6e1c1fa4a6f211285f4461593e3b16e1626"
     },
     {
+      "path": "evidence/WEEKLY_DECISION_GATE_B1_SPECIALIST_WAIVERS_SOURCE_VALIDATION_2026-10-01.md",
+      "bytes": 5561,
+      "sha256": "409f455fb4b2e5cac71d1c4af431e228d54294d123a8c183762f891e2e6308bc"
+    },
+    {
       "path": "evidence/WEEKLY_DECISION_ORCHESTRATION_FAILURE_AUDIT_2026-09-29.md",
       "bytes": 5912,
       "sha256": "2167592e33e1841371c49d5f17ffd0dfe972c8b39d302ecb59aa8ffcb7ab7de7"
@@ -751,13 +756,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6390,
-      "sha256": "b3bb1dad76c14f05544c4cacbf937526e33c80e4f0ca4662bd74895dcf82dbe9"
+      "bytes": 6545,
+      "sha256": "8236332ea04cccdecf12b04d04d71a4f04ecc9de0f13bb44d40a1f0756f90fe6"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 4008,
-      "sha256": "9286ab2f9d54975a15e46b10448ea0bd35032fd791e5195a9b329e967f8ed6ec"
+      "bytes": 4671,
+      "sha256": "5e1b98d8901606d2fbb4847918aa0d444585a6deaa172c416ad24b2d40372cca"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

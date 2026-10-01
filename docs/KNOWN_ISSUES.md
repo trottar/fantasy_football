@@ -1,6 +1,6 @@
 # Known Issues and Deferred Work
 
-**As of:** 2026-09-30
+**As of:** 2026-10-01
 
 This file owns open/deferred/blocker/debt state that should not clutter
 `docs/memory/CURRENT.md`. It does not override current authority.
@@ -11,7 +11,7 @@ This file owns open/deferred/blocker/debt state that should not clutter
 | --- | --- | --- | --- |
 | Weekly decision completion orchestrator | RESOLVED / GATE A SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts the shared fail-closed receipt contract |
 | Weekly operational health receipt | RESOLVED / GATE A RUNTIME-COMMISSIONED | No | Reopen only if the shared health interface fails its required contract |
-| Specialist current-WAIVER authority | OPEN / COVERAGE GAP | Yes when actionable waiver specialists exist | Extend specialist acquisition behavior without treating WAIVERS as guaranteed FREEAGENTs |
+| Specialist current-WAIVER authority | B1 SOURCE-VALIDATED / LOCAL-APPLIED / NOT PUBLISHED OR COMMISSIONED | Yes until B1 runtime commissioning | Publish and commission the validated acquisition-state response; WAIVERS remain uncertain acquisitions and are never treated as guaranteed FREEAGENTs |
 | Automated multi-asset player trade search | OPEN / COVERAGE GAP | Yes for roster-wide trade completion | Enumerate supported package families rather than one-for-one only |
 | Specialist-inclusive trade evaluation | OPEN / COVERAGE GAP | Yes when league rules permit | Preserve P/D/K internal valuation and compose at the complete-roster utility boundary |
 | IR-move-plus-add action | OPEN / COVERAGE GAP | Yes when IR/roster capacity is relevant | Represent league-legal IR transition plus acquisition from direct roster-slot facts |

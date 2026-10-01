@@ -16,7 +16,7 @@ from .weekly_operational_health import (
 )
 
 
-CONTRACT = "WEEKLY_DECISION_COMPLETION_GATE_A_V001"
+CONTRACT = "WEEKLY_DECISION_COMPLETION_GATE_B1_SPECIALIST_WAIVERS_V001"
 SCHEMA_VERSION = 1
 
 STATE_ACTION = "COMPLETE / ACTION_REQUIRED"
@@ -302,33 +302,76 @@ def _player_receipt(report: Mapping[str, Any]) -> ChannelReceipt:
 def _specialist_receipt(key: str, label: str, report: Mapping[str, Any], authority: str) -> ChannelReceipt:
     block = report.get("one_slot_policy") if isinstance(report.get("one_slot_policy"), Mapping) else {}
     excluded = int((block or {}).get("excluded_current_waivers") or 0)
+    modeled = int((block or {}).get("modeled_current_waivers") or 0)
+    coverage_complete = bool((block or {}).get("current_waiver_coverage_complete")) if excluded > 0 else True
     recommendation = dict((block or {}).get("recommended_current_action") or {"action": "HOLD"})
     authoritative = bool((block or {}).get("authoritative_current_action"))
+
+    carry_rows = [
+        dict(row) for row in (report.get("dynamic_carry_actions") or [])
+        if isinstance(row, Mapping) and bool(row.get("current_activation"))
+    ]
+    carry_rows.sort(
+        key=lambda row: (
+            float(row.get("expected_complete_state_delta_mean") or -999.0),
+            float(((row.get("complete_state_delta") or {}).get("mean") or -999.0)),
+        ),
+        reverse=True,
+    )
+    current_carry = carry_rows[0] if carry_rows else None
+    carry_class = str((current_carry or {}).get("classification") or "")
+    carry_action = carry_class in {"CARRY2_ACTIONABLE_EDGE", "CARRY2_POSSIBLE_EDGE"}
+
+    one_slot_action = authoritative and str(recommendation.get("action") or "HOLD").upper() != "HOLD"
+    authorized_actions: list[dict[str, Any]] = []
+    if one_slot_action:
+        authorized_actions.append({
+            "policy": "ONE_SLOT",
+            "recommendation": recommendation,
+        })
+    if carry_action:
+        authorized_actions.append({
+            "policy": "CARRY2",
+            "recommendation": dict(current_carry or {}),
+        })
+
     evidence = {
         "excluded_current_waivers": excluded,
+        "modeled_current_waivers": modeled,
+        "current_waiver_coverage_complete": coverage_complete,
+        "current_waiver_one_slot_coverage_complete": (block or {}).get("current_waiver_one_slot_coverage_complete"),
+        "current_waiver_carry2_coverage_complete": (block or {}).get("current_waiver_carry2_coverage_complete"),
         "guaranteed_free_agents_initial": (block or {}).get("guaranteed_free_agents_initial"),
         "recommended_current_action": recommendation,
         "authoritative_current_action": authoritative,
         "complete_state_delta": dict((block or {}).get("complete_state_delta") or {}),
+        "current_waiver_actions": list((block or {}).get("current_waiver_actions") or []),
+        "current_carry_action": dict(current_carry or {}),
+        "carry2_current_recommendation": report.get("carry2_current_recommendation"),
     }
-    if excluded > 0:
+    if excluded > 0 and not coverage_complete:
         return ChannelReceipt(
             key,
             label,
             "INCOMPLETE_COVERAGE:CURRENT_SPECIALIST_WAIVERS_UNSUPPORTED",
             authority,
             evidence=evidence,
-            gap=f"{excluded} current waiver specialist(s) excluded from authoritative dynamic pool",
-            action={"kind": key.upper(), "recommendation": recommendation} if authoritative else None,
+            gap=(
+                f"{excluded} current waiver specialist(s) exist but only {modeled} "
+                "have complete ONE_SLOT/CARRY2 acquisition-response coverage"
+            ),
+            action={"kind": key.upper(), "authorized_actions": authorized_actions} if authorized_actions else None,
         )
-    is_action = authoritative and str(recommendation.get("action") or "HOLD").upper() != "HOLD"
+
+    is_action = bool(authorized_actions)
     return ChannelReceipt(
         key,
         label,
         STATUS_ACTION if is_action else _hold(key.upper()),
         authority,
         evidence=evidence,
-        action={"kind": key.upper(), "recommendation": recommendation} if is_action else None,
+        scope="whole actionable specialist FREEAGENT + current WAIVERS market under commissioned same-channel policy",
+        action={"kind": key.upper(), "authorized_actions": authorized_actions} if is_action else None,
     )
 
 

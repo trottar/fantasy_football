@@ -27,6 +27,8 @@ from .transaction_manager import (
     _scenario_h2h_utility_against,
     evaluate_roster_predictive,
     released_player_league_state_response,
+    waiver_acquisition_probability,
+    waiver_blocker_diagnostics,
 )
 from .weekly_manager import find_week_opponent, resolve_team
 from .specialist_temporal_v033 import (
@@ -205,6 +207,8 @@ def simulate_specialist_market_policy(
     position: str,
     user_mode: str,
     pre_acquire_espn_id: int | None = None,
+    pre_drop_espn_id: int | None = None,
+    pre_acquire_from_waivers: bool = False,
     activation_week: int | None = None,
 ) -> SpecialistPolicyResult:
     """Propagate a specialist-only league state with deterministic pre-lock best responses.
@@ -240,26 +244,72 @@ def simulate_specialist_market_policy(
     else:
         activation_week = None
 
+    pre_transaction: dict[str, Any] | None = None
+    pre_released: dict[int, dict[str, Any]] = {}
     if pre_acquire_espn_id is not None:
-        if user_mode != "CARRY2" or int(activation_week) != int(ctx.week):
-            raise ValueError("pre-acquisition is only valid for current-week CARRY2 compatibility")
+        if user_mode == "HOLD":
+            raise ValueError("pre-acquisition is incompatible with HOLD")
+        if user_mode == "CARRY2" and int(activation_week) != int(ctx.week):
+            raise ValueError("pre-acquisition is only valid for current-week CARRY2")
         pre_id = int(pre_acquire_espn_id)
         candidate = free.pop(pre_id, None)
+        acquisition_state = "FREEAGENT"
+        if candidate is None and pre_acquire_from_waivers:
+            candidate = next((
+                dict(player) for player in ctx.actionable_available
+                if _pid(player) == pre_id
+                and str(player.get("position") or "").upper() == position
+                and str(player.get("fantasy_status") or "").upper() in {"WAIVER", "WAIVERS"}
+            ), None)
+            acquisition_state = "WAIVERS"
         if candidate is None:
-            raise ValueError("pre-acquired specialist must be an unlocked current FREEAGENT")
+            expected = "current WAIVERS candidate" if pre_acquire_from_waivers else "unlocked current FREEAGENT"
+            raise ValueError(f"pre-acquired specialist must be an {expected}")
         if _is_current_week_locked(candidate, ctx):
             raise ValueError("pre-acquired specialist is already locked")
-        portfolios[user_id] = list(portfolios.get(user_id) or []) + [candidate]
+
+        portfolio = list(portfolios.get(user_id) or [])
+        drop_player = None
+        if pre_drop_espn_id is not None:
+            drop_id = int(pre_drop_espn_id)
+            drop_player = next((player for player in portfolio if _pid(player) == drop_id), None)
+            if drop_player is None:
+                raise ValueError("pre-acquisition drop specialist is not on the user roster")
+            if _is_current_week_locked(drop_player, ctx) or not _legal_drop(drop_player):
+                raise ValueError("pre-acquisition drop specialist is locked or not droppable")
+            portfolio = [player for player in portfolio if _pid(player) != drop_id]
+            pre_released[drop_id] = drop_player
+
+        if user_mode == "ONE_SLOT" and pre_drop_espn_id is None and portfolio:
+            raise ValueError("ONE_SLOT pre-acquisition requires an explicit legal specialist drop")
+        if user_mode == "CARRY2" and len(portfolio) >= 2:
+            raise ValueError("CARRY2 pre-acquisition exceeds specialist capacity")
+        portfolio.append(candidate)
+        portfolios[user_id] = portfolio
+        pre_transaction = {
+            "week": int(ctx.week),
+            "team_id": int(user_id),
+            "action": "ADD" if drop_player is None else "SWAP",
+            "add": candidate.get("name"),
+            "add_espn_id": pre_id,
+            "drop": (drop_player or {}).get("name"),
+            "drop_espn_id": _pid(drop_player),
+            "expected_gain": None,
+            "acquisition_state": acquisition_state,
+            "conditional_acquisition": True,
+        }
 
     team_weekly = {tid: np.zeros((n, 17), dtype=float) for tid in portfolios}
     # Convenience alias used by callers/tests without needing user id metadata.
     team_weekly[-1] = np.zeros((n, 17), dtype=float)
     user_plan: list[dict[str, Any]] = []
-    transactions: list[dict[str, Any]] = []
+    transactions: list[dict[str, Any]] = [pre_transaction] if pre_transaction is not None else []
     market_states: list[dict[str, Any]] = []
 
     for week in range(max(1, int(ctx.week)), 18):
         dropped_next: dict[int, dict[str, Any]] = {}
+        if week == int(ctx.week) and pre_released:
+            dropped_next.update(pre_released)
         free_before = sorted(int(pid) for pid in free)
         ownership_before = {
             str(tid): sorted(int(pid) for p in roster if (pid := _pid(p)) is not None)
@@ -284,7 +334,7 @@ def simulate_specialist_market_policy(
             # The pre-acquisition is itself the current user decision.  Do not allow a
             # second same-week user acquisition on top of that state perturbation.
             can_manage = not (is_user and user_mode == "HOLD")
-            if is_user and user_mode == "CARRY2" and week == int(ctx.week) and pre_acquire_espn_id is not None:
+            if is_user and week == int(ctx.week) and pre_acquire_espn_id is not None:
                 can_manage = False
             if _locked_starter(portfolio, ctx, week, cache) is not None:
                 can_manage = False
@@ -632,6 +682,157 @@ def _evaluate_policy_channel(
     block["recommended_current_action"] = dict(block["proposal_current_action"]) if resolved else {"action": "HOLD"}
     block["authoritative_current_action"] = bool(resolved)
 
+    # Current WAIVERS remain distinct from the guaranteed FREEAGENT market.  Each
+    # claim is evaluated conditionally on acquisition with the same specialist
+    # complete-state response, while acquisition probability stays in the separate
+    # uncalibrated manager-behavior kernel.
+    waiver_candidates = [
+        dict(player) for player in ctx.actionable_available
+        if str(player.get("position") or "").upper() == position
+        and str(player.get("fantasy_status") or "").upper() in {"WAIVER", "WAIVERS"}
+        and _pid(player) is not None
+        and not _is_current_week_locked(player, ctx)
+    ]
+    waiver_candidates.sort(key=lambda player: int(_pid(player) or 10**12))
+    owned_specialists = _position_rows(ctx.roster, position)
+    current_waiver_actions: list[dict[str, Any]] = []
+    for candidate in waiver_candidates:
+        candidate_id = int(_pid(candidate))
+        blockers = waiver_blocker_diagnostics(candidate, ctx)
+        p_acquire = float(waiver_acquisition_probability(candidate, ctx, blockers=blockers))
+        drop_options: list[dict[str, Any] | None]
+        if owned_specialists:
+            drop_options = [
+                owned for owned in owned_specialists
+                if _legal_drop(owned) and not _is_current_week_locked(owned, ctx)
+            ]
+        else:
+            drop_options = [None]
+
+        candidate_rows: list[dict[str, Any]] = []
+        if not drop_options:
+            candidate_rows.append({
+                "action": "CLAIM",
+                "position": position,
+                "add_espn_id": candidate_id,
+                "add_name": candidate.get("name"),
+                "add_team": candidate.get("nfl_team"),
+                "drop_espn_id": None,
+                "drop_name": None,
+                "fantasy_status": "WAIVERS",
+                "p_acquire": p_acquire,
+                "waiver_blockers": blockers,
+                "legal": False,
+                "reason": "NO_LEGAL_UNLOCKED_SAME_CHANNEL_DROP",
+                "conditional_complete_state_delta": None,
+                "expected_complete_state_delta_mean": 0.0,
+                "classification": "NO_LEGAL_CLAIM_STATE",
+            })
+        else:
+            for drop_player in drop_options:
+                drop_id = _pid(drop_player)
+                conditional = simulate_specialist_market_policy(
+                    ctx,
+                    position=position,
+                    user_mode="ONE_SLOT",
+                    pre_acquire_espn_id=candidate_id,
+                    pre_drop_espn_id=drop_id,
+                    pre_acquire_from_waivers=True,
+                )
+                if position == "DST":
+                    _ww, _oo, u_claim = _compose_state(
+                        base_weekly, base_opponent, ctx,
+                        d_policy=conditional, k_policy=k1,
+                        d_static=d_static, k_static=k_static,
+                    )
+                else:
+                    _ww, _oo, u_claim = _compose_state(
+                        base_weekly, base_opponent, ctx,
+                        d_policy=d1, k_policy=conditional,
+                        d_static=d_static, k_static=k_static,
+                    )
+                stats = _paired_stats(
+                    np.asarray(u_claim) - np.asarray(u_hold),
+                    ctx,
+                    32500 + candidate_id + int(drop_id or 0),
+                )
+                base_class = str(stats.get("classification") or "NO_RESOLVED_EDGE")
+                classification = (
+                    "WAIVER_ACTIONABLE_EDGE" if base_class == "ACTIONABLE_EDGE"
+                    else "WAIVER_POSSIBLE_EDGE" if base_class == "POSSIBLE_EDGE"
+                    else "NO_WAIVER_RESOLVED_EDGE"
+                )
+                candidate_rows.append({
+                    "action": "CLAIM" if drop_player is None else "SWAP_CLAIM",
+                    "position": position,
+                    "add_espn_id": candidate_id,
+                    "add_name": candidate.get("name"),
+                    "add_team": candidate.get("nfl_team"),
+                    "drop_espn_id": drop_id,
+                    "drop_name": (drop_player or {}).get("name"),
+                    "fantasy_status": "WAIVERS",
+                    "p_acquire": p_acquire,
+                    "waiver_blockers": blockers,
+                    "legal": True,
+                    "conditional_complete_state_delta": stats,
+                    "expected_complete_state_delta_mean": float(p_acquire * float(stats.get("mean") or 0.0)),
+                    "classification": classification,
+                    "conditional_policy_market_states": conditional.market_states,
+                })
+        candidate_rows.sort(
+            key=lambda row: (
+                float(row.get("expected_complete_state_delta_mean") or -999.0),
+                float(((row.get("conditional_complete_state_delta") or {}).get("mean") or -999.0)),
+                -int(row.get("drop_espn_id") or -1),
+            ),
+            reverse=True,
+        )
+        current_waiver_actions.append(candidate_rows[0])
+
+    current_waiver_actions.sort(
+        key=lambda row: (
+            float(row.get("expected_complete_state_delta_mean") or -999.0),
+            float(((row.get("conditional_complete_state_delta") or {}).get("mean") or -999.0)),
+            -int(row.get("add_espn_id") or -1),
+        ),
+        reverse=True,
+    )
+    block["current_waiver_candidates_total"] = len(waiver_candidates)
+    block["modeled_current_waivers"] = len(current_waiver_actions)
+    block["current_waiver_one_slot_coverage_complete"] = len(current_waiver_actions) == len(waiver_candidates)
+    block["current_waiver_actions"] = current_waiver_actions
+
+    free_action = dict(block.get("recommended_current_action") or {"action": "HOLD"})
+    free_expected = (
+        float((block.get("complete_state_delta") or {}).get("mean") or 0.0)
+        if block.get("authoritative_current_action") and str(free_action.get("action") or "HOLD").upper() != "HOLD"
+        else 0.0
+    )
+    authorized_current_actions: list[dict[str, Any]] = []
+    if free_expected > 0.0:
+        authorized_current_actions.append({
+            "acquisition_state": "FREEAGENT",
+            "expected_complete_state_delta_mean": free_expected,
+            "action": free_action,
+        })
+    for row in current_waiver_actions:
+        if str(row.get("classification") or "") not in {"WAIVER_ACTIONABLE_EDGE", "WAIVER_POSSIBLE_EDGE"}:
+            continue
+        authorized_current_actions.append({
+            "acquisition_state": "WAIVERS",
+            "expected_complete_state_delta_mean": float(row.get("expected_complete_state_delta_mean") or 0.0),
+            "action": row,
+        })
+    authorized_current_actions.sort(
+        key=lambda item: float(item.get("expected_complete_state_delta_mean") or 0.0),
+        reverse=True,
+    )
+    block["authorized_current_actions"] = authorized_current_actions
+    if authorized_current_actions:
+        best = authorized_current_actions[0]
+        block["recommended_current_action"] = dict(best["action"])
+        block["authoritative_current_action"] = True
+
     dynamic_carry: list[dict[str, Any]] = []
     temporal_player_state_report = None
     if position == "DST":
@@ -679,10 +880,14 @@ def _evaluate_policy_channel(
         d1_sum = _weighted_summary(d1.team_weekly[int(ctx.team_id)], ctx)
         activation_rows: list[dict[str, Any]] = []
 
-        for requested_activation_week in range(max(1, int(ctx.week)), 18):
-            d2 = simulate_specialist_market_policy(
-                ctx, position="DST", user_mode="CARRY2", activation_week=requested_activation_week
-            )
+        def _carry2_row(
+            d2: SpecialistPolicyResult,
+            requested_activation_week: int,
+            *,
+            acquisition_state: str = "FREEAGENT",
+            p_acquire: float = 1.0,
+            waiver_blockers: list[dict[str, Any]] | None = None,
+        ) -> dict[str, Any]:
             d2_sum = _weighted_summary(d2.team_weekly[int(ctx.team_id)], ctx)
 
             # The slot is physically consumed when the user actually makes the ADD that
@@ -832,7 +1037,7 @@ def _evaluate_policy_channel(
                 classification = "CARRY2_POSSIBLE_EDGE" if current else "FUTURE_CARRY2_POSSIBLE_EDGE"
             else:
                 classification = "NO_CARRY2_RESOLVED_EDGE"
-            activation_rows.append({
+            row = {
                 "activation_week": int(requested_activation_week),
                 "effective_player_release_week": effective_activation_week,
                 "current_activation": bool(current),
@@ -861,19 +1066,71 @@ def _evaluate_policy_channel(
                 "complete_state_delta": stats,
                 "classification": classification,
                 "release_response": response_summary,
-            })
+                "acquisition_state": acquisition_state,
+                "p_acquire": float(p_acquire),
+                "waiver_blockers": list(waiver_blockers or []),
+                "expected_complete_state_delta_mean": float(p_acquire * float(stats.get("mean") or 0.0)),
+            }
+            return row
+        for requested_activation_week in range(max(1, int(ctx.week)), 18):
+            d2 = simulate_specialist_market_policy(
+                ctx, position="DST", user_mode="CARRY2", activation_week=requested_activation_week
+            )
+            activation_rows.append(
+                _carry2_row(d2, requested_activation_week, acquisition_state="FREEAGENT")
+            )
+
+        for candidate in waiver_candidates:
+            candidate_id = int(_pid(candidate))
+            blockers = waiver_blocker_diagnostics(candidate, ctx)
+            p_acquire = float(waiver_acquisition_probability(candidate, ctx, blockers=blockers))
+            try:
+                d2 = simulate_specialist_market_policy(
+                    ctx,
+                    position="DST",
+                    user_mode="CARRY2",
+                    pre_acquire_espn_id=candidate_id,
+                    pre_acquire_from_waivers=True,
+                    activation_week=int(ctx.week),
+                )
+            except ValueError:
+                continue
+            activation_rows.append(
+                _carry2_row(
+                    d2,
+                    int(ctx.week),
+                    acquisition_state="WAIVERS",
+                    p_acquire=p_acquire,
+                    waiver_blockers=blockers,
+                )
+            )
+
         activation_rows.sort(
             key=lambda r: (
+                float(r.get("expected_complete_state_delta_mean") or -999.0),
                 float(((r.get("complete_state_delta") or {}).get("mean") or -999.0)),
                 -int(r.get("activation_week") or 99),
             ), reverse=True,
         )
         dynamic_carry = activation_rows
 
+    waiver_carry2_rows = [
+        row for row in dynamic_carry
+        if bool(row.get("current_activation"))
+        and str(row.get("acquisition_state") or "").upper() == "WAIVERS"
+    ]
+    carry2_required = position == "DST" and len(owned_specialists) < 2
+    carry2_complete = (not carry2_required) or len(waiver_carry2_rows) == len(waiver_candidates)
+    block["modeled_current_waiver_carry2"] = len(waiver_carry2_rows)
+    block["current_waiver_carry2_coverage_complete"] = bool(carry2_complete)
+    block["current_waiver_coverage_complete"] = bool(
+        block.get("current_waiver_one_slot_coverage_complete") and carry2_complete
+    )
+
     current_carry = next((r for r in dynamic_carry if r.get("current_activation")), None)
     current_carry_class = str((current_carry or {}).get("classification") or "NO_CARRY2_RESOLVED_EDGE")
     carry2_current_recommendation = (
-        "ADD_SECOND_DST_NOW"
+        ("CLAIM_SECOND_DST_NOW" if str((current_carry or {}).get("acquisition_state") or "").upper() == "WAIVERS" else "ADD_SECOND_DST_NOW")
         if current_carry_class in {"CARRY2_ACTIONABLE_EDGE", "CARRY2_POSSIBLE_EDGE"}
         else "HOLD_ONE_DST_NOW"
     )
