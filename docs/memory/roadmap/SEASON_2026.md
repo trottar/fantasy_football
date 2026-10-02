@@ -1,13 +1,13 @@
 # 2026 Season Calendar / Development Gates
 
-**Planning state:** 2026-10-01
+**Planning state:** 2026-10-02
 **Configured fantasy regular season:** Weeks 1-13
 **Configured fantasy playoffs:** Weeks 14-17
 **Configured playoff Round 1:** Week 14
 
 This file owns the active 2026 temporal plan. `docs/ROADMAP.md` owns long-range
-phase intent; `roadmap/STATUS.md` owns current roadmap position; `CURRENT.md`
-owns the exact active task.
+phase intent; `roadmap/STATUS.md` owns current roadmap position; `CURRENT.md` owns
+the exact active task.
 
 ## Gate Types
 
@@ -26,7 +26,7 @@ A date can trigger an evidence review. It cannot force the evidence gate to pass
 | 1 | Sep 9-14 | none | Closed. Use as prospective evidence only if a genuine frozen capture already exists. Never backfill. |
 | 2 | Sep 17-21 | none | Closed. Preserve any genuine frozen W2 evidence and classify gaps explicitly. Never backfill. |
 | 3 | Sep 24-28 | none | Closed calendar window. Preserve secured week-open/decision-time evidence; Week 3 closure remains deferred until a fresh complete weekly receipt proves recovery. |
-| 4 | Oct 1-5 | none | **Fresh post-commissioning decision cycle required.** Gate A, B1, B2a, B3, and specialist-inclusive trade composition are source-published/runtime-commissioned. B2b remains deferred/fail-closed pending fresh qualifying evidence. Refresh decision-time state/health for material changes and run a new complete receipt matrix; never reinterpret the historical pre-commissioning incomplete result as HOLD. |
+| 4 | Oct 1-5 | none | **Fresh post-commissioning cycle captured and classified.** Operational health passed; eight of nine channels passed. The sole blocker is the current IR move-plus-add adapter. Production authorization is granted; v1-v3 source preflights are superseded/non-mutating and the adapter requires redesign. B2b remains deferred/fail-closed. Preserve the existing prospective capture; refresh only if material decision-time state changes before a consequential action. |
 | 5 | Oct 8-12 | CAR, KC | Preferred broader observability/operability target after Week 4 recovery; first bye-week operational stress. |
 | 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks if evidence quality supports it. Open calibration investigations only; no automatic tuning. |
 | 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow calibration only when justified. |
@@ -84,8 +84,8 @@ waiver/add/drop, trade evaluation, DST/kicker stream, and injury replacement.
 
 ### Weekly decision completion gate
 
-Before the weekly roster cycle may be called complete, require the current
-receipt matrix in `architecture/WEEKLY_DECISION_COMPLETION.md` and record it using
+Before the weekly roster cycle may be called complete, require the current receipt
+matrix in `architecture/WEEKLY_DECISION_COMPLETION.md` and record it using
 `templates/WEEKLY_DECISION_RECEIPT.md` or an equivalent canonical evidence record.
 
 Required domains include lineup/availability, broad player waiver/free-agent

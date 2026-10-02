@@ -1,6 +1,6 @@
 # Known Issues and Deferred Work
 
-**As of:** 2026-10-01
+**As of:** 2026-10-02
 
 This file owns open/deferred/blocker/debt state that should not clutter
 `docs/memory/CURRENT.md`. It does not override current authority.
@@ -15,8 +15,9 @@ This file owns open/deferred/blocker/debt state that should not clutter
 | Automated multi-asset player trade search | RESOLVED / B3 SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh source/runtime/weekly evidence contradicts the commissioned bounded 1x1/1x2/2x1/2x2 player-package search; `evaluate_trade` remains predictive authority |
 | Specialist-inclusive trade evaluation | RESOLVED / SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh source/runtime/weekly evidence contradicts the separate specialist authority, complete-roster P/D/K composition, or mixed-package capacity/drop/fill behavior |
 | Current IR/open-slot roster-state representation | RESOLVED / B2A SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts current ESPN-status-qualified IR legality or active/IR capacity representation |
-| IR replacement / multiweek temporal roster state | DEFERRED / B2B FAIL-CLOSED / CURRENT NARRATIVES NOT AUTHORITATIVE | Yes only when fresh qualifying absence horizon affects future capacity value | Reopen only with fresh qualifying decision-time evidence; do not infer from stale prose, injury type/start date, generic slot compatibility, or outcomes |
-| Fresh complete Week 4 cycle | READY / FRESH POST-COMMISSIONING RUN REQUIRED | Yes for declaring current roster-wide completion | Refresh decision-time state/health as required, run the complete receipt matrix, and classify from the new receipts only; never backfill the earlier incomplete search |
+| Current IR move-plus-add valuation/capacity adapter | OPEN / PRODUCTION AUTHORIZED / V1-V3 PREFLIGHT LINE SUPERSEDED | Yes | Redesign from exact source for the proven one-slot B2a transition; use kickoff-aware locks; preserve FA/WAIVER uncertainty; cover every legal P/D/K branch made relevant by the opened slot or fail closed explicitly; no future IR-capacity credit |
+| IR replacement multiweek temporal horizon | DEFERRED / B2B FAIL-CLOSED / CLAIM-LOCAL QUALIFYING CLAIMS = 0 | Only if a future-capacity claim is needed | Reopen only with fresh qualifying decision-time evidence; do not infer from stale prose, injury type/start date, generic slot compatibility, or outcomes |
+| Fresh Week 4 roster-wide cycle | COMPLETED / HEALTH PASS / INCOMPLETE ONLY ON IR ADAPTER | Yes for declaring current roster-wide completion | Preserve the fresh receipt/capture; rerun only after corrected adapter commissioning or after material decision-time state changes |
 
 Canonical investigation:
 `docs/memory/investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`.
@@ -46,6 +47,9 @@ Canonical investigation:
 | Specialist trade audit v2 import-absence guard | SUPERSEDED DIAGNOSTIC HARNESS FAILURE / FAILED BEFORE FOOTBALL PROBE | No | Harness incorrectly required `src.market_manager` to be globally unimportable outside the runtime root; v3 verified exact module origins under the runtime cwd/PYTHONPATH contract |
 | Specialist trade source preflight v1 porcelain parser | SUPERSEDED PREFLIGHT-HARNESS FAILURE / NON-MUTATING | No | `git_text(...).strip()` removed the first porcelain status line's leading space and shifted the path slice to `rc/...`; v2 reads raw status stdout and regression-tests the exact first-line case |
 | Specialist trade runtime-memory v1 handoff/MEMORY health | SUPERSEDED MEMORY-HARNESS FAILURE / ROLLED BACK | No | v1 used a noncanonical no-exception handoff representation and expanded `MEMORY.md` beyond the strict soft line threshold; v2 restores the canonical handoff structure and compacts the durable specialist commissioning update |
+| IR adapter source preflight v1 | SUPERSEDED DIAGNOSTIC HARNESS FAILURE / NON-MUTATING | No | Windows denied cleanup of a read-only Git pack index in the disposable clone; no tracked source/runtime/stage changed |
+| IR adapter source preflight v2 | SUPERSEDED CANDIDATE VALIDATION FAILURE / NON-MUTATING | No | Targeted Gate A/B tests passed; full pytest reached 576 passed / 1 failed on the pre-existing B4 weekly-contract literal. Later source audit also invalidated the candidate design as complete |
+| IR adapter source preflight v3 | SUPERSEDED DETERMINISTIC PACKAGE-CONSTRUCTION FAILURE / NON-MUTATING | No | A test-file transform was put in a global transform list and incorrectly required against `src/weekly_decision_cycle.py`; future packages must route transforms by file and execute the exact routing logic in QA |
 
 ## Standing Scientific Non-Issues
 
@@ -70,5 +74,5 @@ valid capture opportunity.
 
 ## Reopen Rule
 
-A resolved/deferred item reopens only when new source, runtime, weekly closure,
-or operational evidence contradicts the standing classification.
+A resolved/deferred item reopens only when new source, runtime, weekly closure, or
+operational evidence contradicts the standing classification.

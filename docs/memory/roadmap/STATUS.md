@@ -7,13 +7,13 @@
 - Week 4 prospective captures: **VALID / PRESERVED**
 - Week 4 roster-wide decision completion: **INCOMPLETE_COVERAGE / CURRENT IR MOVE-PLUS-ADD VALUE ADAPTER**
 - Gate A fail-closed weekly control plane: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Gate B capability closure: **CURRENT IR MOVE-PLUS-ADD VALUE ADAPTER OPEN / B2B DEFERRED**
+- Gate B capability closure: **IR ADAPTER REDESIGN AUTHORIZED / B2B DEFERRED**
 - Gate B1 specialist current-WAIVER coverage: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B2a current IR/open-slot representation: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Gate B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED / CLAIM-LOCAL FRESHNESS AUDIT = 0 QUALIFYING CLAIMS**
+- Gate B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED / CLAIM-LOCAL QUALIFYING CLAIMS = 0**
 - Gate B3 automated multi-asset/unequal player trade search: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Specialist-inclusive trade composition: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Current IR move-plus-add value/capacity adapter: **STRUCTURAL GAP CONFIRMED / PRODUCTION AUTHORIZATION REQUIRED**
+- Current IR move-plus-add adapter: **PRODUCTION AUTHORIZED / V1-V3 PREFLIGHT LINE SUPERSEDED / REDESIGN REQUIRED**
 - Week 3 Data/MC closure: **BLOCKED PENDING A FRESH COMPLETE WEEKLY RECEIPT**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
@@ -21,45 +21,49 @@
 ## Blocking Recovery Contract
 
 Roster-wide completion requires the receipt matrix in
-`architecture/WEEKLY_DECISION_COMPLETION.md`. Unsupported required action
-coverage is `INCOMPLETE_COVERAGE`; missing/stale required health is
-`BLOCKED_HEALTH`; stale material decision information is `CAPTURE_REQUIRED`.
+`architecture/WEEKLY_DECISION_COMPLETION.md`. Unsupported required action coverage
+is `INCOMPLETE_COVERAGE`; missing/stale required health is `BLOCKED_HEALTH`; stale
+material decision information is `CAPTURE_REQUIRED`.
 
-## Trade Coverage Boundary
+## Current IR Adapter Boundary
 
-Gate B3 remains the commissioned player-only authority for bounded 1x1, 1x2, 2x1,
-and 2x2 packages. Its cheap screen remains non-authoritative and paired
-`market_manager.evaluate_trade` remains predictive authority.
+The fresh Week 4 cycle is operationally healthy and incomplete only on the
+IR/replacement channel. B2a proves exactly one current legal
+`IR_MOVE_PLUS_ADD` transition: one unlocked `OUT` QB can move to the one open IR
+slot, opening one active-roster slot.
 
-Specialist-inclusive packages are now separately commissioned through
-`specialist_trade.evaluate_specialist_trade`. Player ownership and DST/K response
-remain channel-separated and compose only at the complete-roster state boundary.
-Mixed equal/unequal packages model explicit legal drop/fill normalization.
-Guaranteed FREEAGENT fills never imply waiver success, and manager response
-remains a separate behavior layer.
+Production authorization is granted. The first three source preflights are
+superseded and non-mutating:
 
-Canonical commissioning evidence:
-`evidence/WEEKLY_DECISION_GATE_B_SPECIALIST_TRADE_COMPOSITION_RUNTIME_COMMISSIONING_2026-10-01.md`.
+- v1 failed during disposable Git-clone cleanup on Windows;
+- v2 reached full pytest with 576 passed and one stale B4 contract assertion;
+- v3 failed because the package applied a test-file transform to the weekly source
+  transform list.
 
-## Remaining Capability Boundary
+Post-v3 source audit also invalidated the v2 design as a release candidate:
+player candidate locking was weaker than the commissioned kickoff-aware lock
+boundary, and the adapter could silently skip a league-legal additional-kicker
+open-slot branch while claiming IR-channel completeness.
 
-The fresh Week 4 cycle is healthy but incomplete only on the IR/replacement
-channel. B2a proves one legal current `IR_MOVE_PLUS_ADD` transition, while source
-audit shows the player open-slot adapter and specialist IR-capacity coupling are
-absent. This is the active structural production frontier.
+The next candidate must therefore be redesigned, not merely repackaged.
+
+## B2b Boundary
 
 B2b remains separate and deferred. The v1 frontier audit's five candidates came
 from an over-broad parent-record timestamp fallback; corrected claim-local
-freshness retained zero qualifying claims. Do not backfill a horizon.
+freshness retained zero qualifying claims. Do not backfill a horizon and do not
+credit future IR capacity.
 
 ## Next Gate
 
-Obtain explicit production authorization before changing football/application
-logic. If authorized, close only the current IR move-plus-add value/capacity
-adapter under the existing B2a legality state and channel/uncertainty boundaries.
+Build one redesigned non-mutating source preflight from exact source. It must
+target only the proven single B2a IR-opened slot, preserve the commissioned lock
+and acquisition-state boundaries, cover every league-legal player/DST/K branch
+made relevant by that slot or fail closed explicitly, and validate exact
+per-file transform routing before delivery.
 
-Do not rerun the full Week 4 cycle until that coverage is commissioned or fresh
-material decision-time information requires a new capture.
+Only after that source preflight passes may a production local-apply checkpoint
+be constructed.
 
 ## Boundary Conditions
 
@@ -68,4 +72,6 @@ material decision-time information requires a new capture.
 - Manager acquisition/trade behavior remains separate from intrinsic football utility.
 - User examples do not define production search scope.
 - `screen != authority`; raw measurements outrank derived classifiers.
+- A disabled general specialist policy is not evidence that a distinct
+  league-legal open-slot transaction branch can be omitted.
 - No observed 2026 outcome may tune v0.X.
