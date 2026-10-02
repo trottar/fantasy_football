@@ -16,7 +16,7 @@ from .weekly_operational_health import (
 )
 
 
-CONTRACT = "WEEKLY_DECISION_COMPLETION_GATE_B3_MULTI_ASSET_PLAYER_TRADE_SEARCH_V001"
+CONTRACT = "WEEKLY_DECISION_COMPLETION_GATE_B4_SPECIALIST_TRADE_COMPOSITION_V001"
 SCHEMA_VERSION = 1
 
 STATE_ACTION = "COMPLETE / ACTION_REQUIRED"
@@ -112,6 +112,7 @@ class WeeklyAuthorities:
     trade_search: Callable[..., Sequence[Mapping[str, Any]]]
     persistence_state: Callable[[], Any]
     ir_state: Callable[..., Mapping[str, Any]] | None = None
+    specialist_trade_search: Callable[..., Sequence[Mapping[str, Any]]] | None = None
 
 
 def utc_now() -> str:
@@ -210,6 +211,7 @@ def _default_lineup(
 def default_authorities() -> WeeklyAuthorities:
     from .ir_roster_state import evaluate_ir_roster_state
     from .market_manager import search_trades
+    from .specialist_trade import search_specialist_trades
     from .observability.persistence import shadow_persistence_state
     from .specialist_policy_v032 import evaluate_defense_channel, evaluate_kicker_channel
     from .transaction_manager import evaluate_actions
@@ -222,6 +224,7 @@ def default_authorities() -> WeeklyAuthorities:
         trade_search=search_trades,
         persistence_state=shadow_persistence_state,
         ir_state=evaluate_ir_roster_state,
+        specialist_trade_search=search_specialist_trades,
     )
 
 
@@ -499,6 +502,55 @@ def _gate_b_receipts() -> list[ChannelReceipt]:
     ]
 
 
+
+def _specialist_trade_receipt(rows: Sequence[Mapping[str, Any]]) -> ChannelReceipt:
+    normalized = [dict(row) for row in rows]
+    actionable = [
+        row for row in normalized
+        if str(row.get("classification") or "") == "ACTIONABLE_OFFER"
+    ]
+    family_counts = {
+        family: sum(
+            1 for row in normalized
+            if str(row.get("package_family") or "") == family
+        )
+        for family in ("1x1", "1x2", "2x1", "2x2")
+    }
+    specialist_channels = sorted({
+        channel
+        for row in normalized
+        for channel in str(row.get("specialist_channels") or "").split("+")
+        if channel in {"DST", "K"}
+    })
+    evidence = {
+        "evaluated_reported": len(normalized),
+        "actionable_offers": len(actionable),
+        "evaluated_by_family": family_counts,
+        "supported_package_families": ["1x1", "1x2", "2x1", "2x2"],
+        "max_players_per_side": 2,
+        "specialist_channels": specialist_channels,
+        "screen_authority": False,
+        "player_trade_authority_unchanged": "market_manager.evaluate_trade",
+        "composition": "P_PLUS_D_PLUS_K_AT_COMPLETE_ROSTER_BOUNDARY",
+    }
+    return ChannelReceipt(
+        TRADE_SPECIALIST,
+        "DST/K-inclusive trades when league-legal",
+        STATUS_ACTION if actionable else _hold("SPECIALIST_INCLUSIVE_TRADE"),
+        "specialist_trade.search_specialist_trades",
+        evidence=evidence,
+        scope=(
+            "bounded 1x1/1x2/2x1/2x2 packages containing DST and/or K; "
+            "cheap complete-roster screen -> player perturbation + same-channel "
+            "DST/K response -> complete-roster predictive composition"
+        ),
+        action={
+            "kind": "SPECIALIST_INCLUSIVE_TRADE",
+            "offers": actionable,
+        } if actionable else None,
+    )
+
+
 def run_weekly_decision_cycle(
     snapshot: Mapping[str, Any],
     league: Mapping[str, Any],
@@ -635,7 +687,25 @@ def run_weekly_decision_cycle(
                 gap=gap,
             ))
 
-    channels.extend(_gate_b_receipts())
+    if authorities.specialist_trade_search is None:
+        channels.extend(_gate_b_receipts())
+    else:
+        try:
+            specialist_trade_rows = authorities.specialist_trade_search(
+                snapshot, league, model, values_path=values_path,
+                user_team=team, limit=trade_limit, mc_scenarios=trade_mc_scenarios,
+            )
+            channels.append(_specialist_trade_receipt(specialist_trade_rows))
+        except Exception as exc:
+            channels.append(ChannelReceipt(
+                TRADE_SPECIALIST,
+                "DST/K-inclusive trades when league-legal",
+                "INCOMPLETE_COVERAGE:SPECIALIST_TRADE_AUTHORITY_ERROR",
+                "specialist_trade.search_specialist_trades",
+                evidence={"error_type": type(exc).__name__},
+                gap="specialist-inclusive trade search failed",
+            ))
+
     channels.append(ChannelReceipt(
         PROVENANCE,
         "Prospective capture / provenance",

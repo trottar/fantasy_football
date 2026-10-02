@@ -269,4 +269,4 @@ def test_weekly_trade_receipts_close_multi_asset_gap_but_not_specialist_gap():
 
 
 def test_weekly_contract_identifies_multi_asset_player_trade_search_gate():
-    assert CONTRACT == "WEEKLY_DECISION_COMPLETION_GATE_B3_MULTI_ASSET_PLAYER_TRADE_SEARCH_V001"
+    assert CONTRACT == "WEEKLY_DECISION_COMPLETION_GATE_B4_SPECIALIST_TRADE_COMPOSITION_V001"

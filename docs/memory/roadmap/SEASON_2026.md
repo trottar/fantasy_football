@@ -26,7 +26,7 @@ A date can trigger an evidence review. It cannot force the evidence gate to pass
 | 1 | Sep 9-14 | none | Closed. Use as prospective evidence only if a genuine frozen capture already exists. Never backfill. |
 | 2 | Sep 17-21 | none | Closed. Preserve any genuine frozen W2 evidence and classify gaps explicitly. Never backfill. |
 | 3 | Sep 24-28 | none | Closed calendar window. Preserve secured week-open/decision-time evidence; Week 3 closure remains deferred behind orchestration recovery. |
-| 4 | Oct 1-5 | none | **Active blocking operational correction.** Preserve valid frozen captures. Gate A, B1, B2a, and B3 are source-published/runtime-commissioned. B2b is deferred/fail-closed pending fresh qualifying evidence. Specialist-inclusive trade audit is complete and classified patchable: composition primitives exist, but production evaluator/search and unequal mixed-package capacity handling remain incomplete. Require an authorized, commissioned repair plus a fresh complete cycle before roster-wide HOLD/NO-ACTION authority. |
+| 4 | Oct 1-5 | none | **Active blocking operational correction.** Preserve valid frozen captures. Gate A, B1, B2a, and B3 are source-published/runtime-commissioned. B2b is deferred/fail-closed pending fresh qualifying evidence. Specialist-inclusive trade composition has passed source preflight and exact local source apply while preserving Gate B3; publish the reviewed source+memory checkpoint and commission the exact runtime before any fresh roster-wide HOLD/NO-ACTION authority. |
 | 5 | Oct 8-12 | CAR, KC | Preferred broader observability/operability target after Week 4 recovery; first bye-week operational stress. |
 | 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks if evidence quality supports it. Open calibration investigations only; no automatic tuning. |
 | 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow calibration only when justified. |
@@ -104,17 +104,15 @@ Trade completion is defined by the league-legal transaction families required by
 `architecture/WEEKLY_DECISION_COMPLETION.md`, not by whichever helper is
 currently commissioned.
 
-Gate B3 is source-published and runtime-commissioned for bounded player-only 1x1,
-1x2, 2x1, and 2x2 enumeration through a family-balanced cheap screen into paired
-predictive `evaluate_trade` authority.
+Gate B3 remains the commissioned player-only 1x1/1x2/2x1/2x2 authority through a
+family-balanced cheap screen into paired predictive `evaluate_trade`.
 
-The specialist-inclusive trade audit proved existing complete-roster composition
-primitives can represent DST, K, and equal-count mixed player+DST ownership
-perturbations symmetrically. Production coverage nevertheless remains incomplete:
-the current evaluator/search excludes specialist assets and unequal-package
-drop/fill capacity helpers are player-only. Any repair must preserve
-`P ⊕ D ⊕ K` internally and compose only at the complete-roster utility/state
-boundary.
+The authorized specialist-inclusive source patch is separate. It keeps player,
+DST, and K valuation/response in their own channels, then composes ownership
+perturbations only at the complete-roster state boundary. Source validation covers
+bounded 1x1/1x2/2x1/2x2 specialist-containing packages and explicit mixed-package
+drop/fill normalization. Runtime coverage remains incomplete until the exact
+published source is commissioned.
 
 ## Calibration Evidence Ladder
 
