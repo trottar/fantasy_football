@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-01T18:28:42.888683-04:00",
+  "generated_at": "2026-10-01T21:23:58.934136-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6460,
-      "sha256": "b0ef53a166e78ee850c941a0c7410493d96a0c0c80bf3d0d98594bdaef4f3b0f"
+      "bytes": 6679,
+      "sha256": "b611689b2790af528700afe50dde6a0ab2ef39cdfcd68396e10d25641bb59c9b"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 14362,
-      "sha256": "ea7114fa2740e52e705aec684f46a29d44d6432025abef50428f7cc925ff5fff"
+      "bytes": 14560,
+      "sha256": "6003416ecfab88e63a8ab2d405c767c3281069349d032014659e4a0a321e4b50"
     },
     {
       "path": "README.md",
@@ -640,6 +640,11 @@
       "sha256": "24bc624c5b11adbcc9b67aca47ffeb4d35727e4a72597180aac0a930acb8e8be"
     },
     {
+      "path": "evidence/WEEKLY_DECISION_GATE_B_SPECIALIST_TRADE_COMPOSITION_AUDIT_2026-10-01.md",
+      "bytes": 6417,
+      "sha256": "543c581bac97c8c1c6e0ebdf73dea7d064b97efa4be615c9bd2cd6e1f0640380"
+    },
+    {
       "path": "evidence/WEEKLY_DECISION_ORCHESTRATION_FAILURE_AUDIT_2026-09-29.md",
       "bytes": 5912,
       "sha256": "2167592e33e1841371c49d5f17ffd0dfe972c8b39d302ecb59aa8ffcb7ab7de7"
@@ -791,13 +796,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6722,
-      "sha256": "005d1b3ec7ead514b671106ea77a3312d78299dd8cab18299cb03641754db88f"
+      "bytes": 7087,
+      "sha256": "7f53449145ffb476f2660e0a7b6e54b1c38f2e54dabb70340645cd6b431db24c"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 4527,
-      "sha256": "9e69747b5e5c01f867811b802b70249c8f679d0de086d017e4493808ca9652f5"
+      "bytes": 5259,
+      "sha256": "f07454bbdd41cbd362fb2d4bb55f4212e35891780cc1270afb7f056acf238779"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

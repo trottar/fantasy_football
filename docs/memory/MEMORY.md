@@ -296,9 +296,9 @@ until fresh decision-time evidence satisfies current-status, freshness,
 quantification, and binding guards; narrative text is not stored as raw durable
 state.
 
-The remaining active Gate B frontier is specialist-inclusive trade composition
-preserving `P ⊕ D ⊕ K` internally and composing only at the complete-roster
-utility/state boundary. B2b may reopen only with new qualifying evidence.
+The specialist-inclusive trade audit proved complete-roster P/D/K composition for DST, K, and equal-count mixed `RB + DST` ownership perturbations, while evaluator/search and unequal-package capacity helpers remain player-only.
+Classification: `B_SPECIALIST_TRADE_COMPOSITION_PRIMITIVES_PRESENT_ADAPTER_PLUS_MIXED_CAPACITY_GAP_PATCHABLE`.
+The repair is an adapter/capacity layer, not cross-channel valuation; B2b remains deferred.
 
 ## 2026 Season-Gated Development Contract
 

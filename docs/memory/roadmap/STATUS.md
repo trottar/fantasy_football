@@ -13,7 +13,7 @@
 - Gate B2a current IR/open-slot representation: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED / CURRENT ESPN NARRATIVES NOT AUTHORITATIVE**
 - Gate B3 automated multi-asset/unequal player trade search: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Specialist-inclusive trade composition: **OPEN / COVERAGE GAP / NEXT AUDIT**
+- Specialist-inclusive trade composition: **AUDIT COMPLETE / PATCHABLE GAP / PRODUCTION CHANGE NOT AUTHORIZED**
 - Week 3 Data/MC closure: **BLOCKED BY CAPABILITY RECOVERY**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
@@ -59,8 +59,10 @@ Canonical evidence:
 
 - B2b explicit decision-time multiweek absence/return horizon and temporal
   roster-capacity propagation remain deferred until fresh qualifying evidence;
-- specialist-inclusive trade evaluation at the complete-roster boundary remains
-  the next active coverage gap.
+- specialist-inclusive trade evaluation remains incomplete after audit: the
+  complete-roster composition primitives are present, but the player-only trade
+  evaluator/search and player-only unequal-package capacity helpers require an
+  authorized production adapter/capacity patch.
 
 ## Gate B2b Current Classification
 
@@ -75,17 +77,30 @@ Current classification:
 No production parser or temporal-capacity propagation patch is authorized from
 this evidence. B2b may reopen only on fresh qualifying decision-time evidence.
 
+## Specialist Trade Audit Classification
+
+Read-only runtime audit v3 classified the gap as
+`B_SPECIALIST_TRADE_COMPOSITION_PRIMITIVES_PRESENT_ADAPTER_PLUS_MIXED_CAPACITY_GAP_PATCHABLE`.
+
+Observed boundaries:
+
+- current evaluator/search remains player-only;
+- DST and K ownership composition each passed for both managers;
+- equal-count mixed `RB + DST` composition passed symmetrically with exact repeatability;
+- unequal-package automatic drop/fill helpers remain player-only;
+- local snapshot trade settings exposed no specialist restriction key, but zero
+  historical trade rows mean league legality was not directly proven by snapshot history.
+
 ## Next Gate
 
-Audit specialist-inclusive trade composition as a separate complete-roster
-problem. First establish league-legal mixed package families and the exact
-existing player/DST/K response surfaces, then run one minimal read-only probe to
-classify whether support exists or a structural composition patch is required.
+Obtain explicit user authorization before any football/model/application source
+change. Once authorized, source-validate the smallest specialist-inclusive trade
+adapter plus mixed unequal-package capacity repair, preserving `P ⊕ D ⊕ K`,
+player-only Gate B3 authority, non-authoritative screening, and separate
+manager-response behavior.
 
-Preserve `P ⊕ D ⊕ K`: specialists are valued only by their own channels and are
-coupled to player state only at complete-roster utility boundaries. Do not run a
-fresh roster-wide Week 4 cycle until required remaining coverage is commissioned
-or explicitly not applicable.
+Do not run a fresh roster-wide Week 4 cycle until required remaining coverage is
+commissioned or explicitly not applicable.
 
 ## Boundary Conditions
 
