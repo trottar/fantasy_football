@@ -25,8 +25,8 @@ A date can trigger an evidence review. It cannot force the evidence gate to pass
 | --- | --- | --- | --- |
 | 1 | Sep 9-14 | none | Closed. Use as prospective evidence only if a genuine frozen capture already exists. Never backfill. |
 | 2 | Sep 17-21 | none | Closed. Preserve any genuine frozen W2 evidence and classify gaps explicitly. Never backfill. |
-| 3 | Sep 24-28 | none | Closed calendar window. Preserve secured week-open/decision-time evidence; Week 3 closure remains deferred behind orchestration recovery. |
-| 4 | Oct 1-5 | none | **Active blocking operational correction.** Preserve valid frozen captures. Gate A, B1, B2a, and B3 are source-published/runtime-commissioned. B2b is deferred/fail-closed pending fresh qualifying evidence. Specialist-inclusive trade composition has passed source preflight and exact local source apply while preserving Gate B3; publish the reviewed source+memory checkpoint and commission the exact runtime before any fresh roster-wide HOLD/NO-ACTION authority. |
+| 3 | Sep 24-28 | none | Closed calendar window. Preserve secured week-open/decision-time evidence; Week 3 closure remains deferred until a fresh complete weekly receipt proves recovery. |
+| 4 | Oct 1-5 | none | **Fresh post-commissioning decision cycle required.** Gate A, B1, B2a, B3, and specialist-inclusive trade composition are source-published/runtime-commissioned. B2b remains deferred/fail-closed pending fresh qualifying evidence. Refresh decision-time state/health for material changes and run a new complete receipt matrix; never reinterpret the historical pre-commissioning incomplete result as HOLD. |
 | 5 | Oct 8-12 | CAR, KC | Preferred broader observability/operability target after Week 4 recovery; first bye-week operational stress. |
 | 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks if evidence quality supports it. Open calibration investigations only; no automatic tuning. |
 | 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow calibration only when justified. |
@@ -89,30 +89,26 @@ receipt matrix in `architecture/WEEKLY_DECISION_COMPLETION.md` and record it usi
 `templates/WEEKLY_DECISION_RECEIPT.md` or an equivalent canonical evidence record.
 
 Required domains include lineup/availability, broad player waiver/free-agent
-search, commissioned DST and kicker policy, IR/injury-replacement state, required
-trade families, prospective provenance, and weekly operational health.
+search, DST, kicker, IR/injury-replacement state, required trade families,
+prospective provenance, and weekly operational health.
 
 Missing/unsupported coverage is `INCOMPLETE_COVERAGE`. Missing/stale required
-health is `BLOCKED_HEALTH`. Neither may be translated to HOLD.
+health is `BLOCKED_HEALTH`. Stale material decision information is
+`CAPTURE_REQUIRED`. None may be translated to HOLD.
 
 The search scope is system-defined across the full relevant roster/market, not
 restricted to examples named by the user.
 
 ## Trade-Search Operational Requirement
 
-Trade completion is defined by the league-legal transaction families required by
-`architecture/WEEKLY_DECISION_COMPLETION.md`, not by whichever helper is
-currently commissioned.
-
-Gate B3 remains the commissioned player-only 1x1/1x2/2x1/2x2 authority through a
+Gate B3 is commissioned for player-only 1x1/1x2/2x1/2x2 packages through a
 family-balanced cheap screen into paired predictive `evaluate_trade`.
 
-The authorized specialist-inclusive source patch is separate. It keeps player,
-DST, and K valuation/response in their own channels, then composes ownership
-perturbations only at the complete-roster state boundary. Source validation covers
-bounded 1x1/1x2/2x1/2x2 specialist-containing packages and explicit mixed-package
-drop/fill normalization. Runtime coverage remains incomplete until the exact
-published source is commissioned.
+Specialist-inclusive trade composition is separately commissioned for bounded
+1x1/1x2/2x1/2x2 packages containing DST and/or K. Player, DST, and K response
+remain channel-separated and compose only at the complete-roster state boundary.
+Mixed-package drop/fill normalization is explicit; guaranteed FREEAGENT fills do
+not imply waiver success.
 
 ## Calibration Evidence Ladder
 

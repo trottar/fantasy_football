@@ -260,8 +260,8 @@ Canonical records:
 
 ## Weekly Decision Gate Recovery — Commissioned Slices
 
-Gate A, B1, B2a, and B3 are source-published and runtime-commissioned in
-`v0.36-repack1`.
+Gate A, B1, B2a, B3, and specialist-inclusive trade composition are
+source-published and runtime-commissioned in `v0.36-repack1`.
 
 - **Gate A — fail-closed control plane:** one shared weekly receipt/state machine
   plus operational-health authority. Missing action coverage remains
@@ -296,9 +296,10 @@ until fresh decision-time evidence satisfies current-status, freshness,
 quantification, and binding guards; narrative text is not stored as raw durable
 state.
 
-The specialist-inclusive trade audit proved complete-roster P/D/K composition for DST, K, and equal-count mixed `RB + DST` ownership perturbations, while evaluator/search and unequal-package capacity helpers remain player-only.
-Classification: `B_SPECIALIST_TRADE_COMPOSITION_PRIMITIVES_PRESENT_ADAPTER_PLUS_MIXED_CAPACITY_GAP_PATCHABLE`.
-The repair is an adapter/capacity layer, not cross-channel valuation; B2b remains deferred.
+Specialist-inclusive trade composition is source-published and runtime-commissioned in `v0.36-repack1`; player-only Gate B3 authority remains `market_manager.evaluate_trade`.
+Specialist-containing packages use separate `specialist_trade.evaluate_specialist_trade`; player, DST, and K response remain channel-separated and compose only at the complete-roster utility/state boundary.
+Mixed equal/unequal packages use explicit legal drop/fill normalization; guaranteed FREEAGENT fills never assume WAIVER success; screening stays non-authoritative and manager response stays separate from football utility.
+Canonical evidence: `evidence/WEEKLY_DECISION_GATE_B_SPECIALIST_TRADE_COMPOSITION_RUNTIME_COMMISSIONING_2026-10-01.md`; B2b remains deferred/fail-closed pending fresh qualifying horizon evidence.
 
 ## 2026 Season-Gated Development Contract
 

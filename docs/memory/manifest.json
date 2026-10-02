@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-01T22:56:08.309420-04:00",
+  "generated_at": "2026-10-01T23:32:06.525079-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7113,
-      "sha256": "d627a12d0c985b76db35f3f025add8781498a952866e2156c6b928e53566adb4"
+      "bytes": 6393,
+      "sha256": "e64412d7445880ab3ce7aa5669e6d951be4ccaafbe583fcf87a8e92c0158f0dc"
     },
     {
       "path": "LEARNINGS.md",
@@ -31,8 +31,8 @@
     },
     {
       "path": "MEMORY.md",
-      "bytes": 14560,
-      "sha256": "6003416ecfab88e63a8ab2d405c767c3281069349d032014659e4a0a321e4b50"
+      "bytes": 14969,
+      "sha256": "6d0a888107e58f44210d94fbda7b8895115c4234cb0696f35295d0cdd0f932f8"
     },
     {
       "path": "README.md",
@@ -645,6 +645,11 @@
       "sha256": "543c581bac97c8c1c6e0ebdf73dea7d064b97efa4be615c9bd2cd6e1f0640380"
     },
     {
+      "path": "evidence/WEEKLY_DECISION_GATE_B_SPECIALIST_TRADE_COMPOSITION_RUNTIME_COMMISSIONING_2026-10-01.md",
+      "bytes": 5037,
+      "sha256": "0ab8fe76ef552a4e0e865721479fdeecb3b9bac381438eecb30b48d07232a965"
+    },
+    {
       "path": "evidence/WEEKLY_DECISION_GATE_B_SPECIALIST_TRADE_COMPOSITION_SOURCE_VALIDATION_2026-10-01.md",
       "bytes": 6739,
       "sha256": "157d2bf430294aec79efc2242f28784248ffab5cf4f68c4b3199b500d2c98987"
@@ -666,8 +671,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 1264,
-      "sha256": "bae707c36d5ad489df4edda6f4389803054e132489860b1fbf23bb51f299128a"
+      "bytes": 347,
+      "sha256": "65262a5261092b9b386c25a1347d49d1e997ea641152c7d3233ed58433a3a852"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",
@@ -801,13 +806,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6937,
-      "sha256": "fca7524cc7ccfaa2e2e042ce22fd69b70de5e3b02b36a825629eb8630847e6de"
+      "bytes": 6661,
+      "sha256": "1f1f9bff3b440a6c4e6648c8cfd711b205edba625186ad5ad084afa0d79999ea"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 3878,
-      "sha256": "385187b3d59af40ac4639d8d37fecd8573cc0eb5d85c6e522026540c168b7c84"
+      "bytes": 3360,
+      "sha256": "9c02c54f41f8df7a35c73069b52654e0e2d790ac407405155381232637febf68"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

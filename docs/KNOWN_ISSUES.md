@@ -13,10 +13,10 @@ This file owns open/deferred/blocker/debt state that should not clutter
 | Weekly operational health receipt | RESOLVED / GATE A RUNTIME-COMMISSIONED | No | Reopen only if the shared health interface fails its required contract |
 | Specialist current-WAIVER authority | RESOLVED / B1 SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts the commissioned uncertain-acquisition response; WAIVERS remain distinct from guaranteed FREEAGENTs |
 | Automated multi-asset player trade search | RESOLVED / B3 SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh source/runtime/weekly evidence contradicts the commissioned bounded 1x1/1x2/2x1/2x2 player-package search; `evaluate_trade` remains predictive authority |
-| Specialist-inclusive trade evaluation | SOURCE-VALIDATED / LOCAL-APPLIED / PUBLICATION + RUNTIME COMMISSIONING PENDING | Yes when league rules permit | Exact four-path patch passed source preflight and local apply while leaving Gate B3 market authority unchanged; close only after guarded source publication and exact runtime commissioning/probe |
+| Specialist-inclusive trade evaluation | RESOLVED / SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh source/runtime/weekly evidence contradicts the separate specialist authority, complete-roster P/D/K composition, or mixed-package capacity/drop/fill behavior |
 | Current IR/open-slot roster-state representation | RESOLVED / B2A SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts current ESPN-status-qualified IR legality or active/IR capacity representation |
-| IR replacement / multiweek temporal roster state | DEFERRED / B2B FAIL-CLOSED / CURRENT NARRATIVES NOT AUTHORITATIVE | Yes when known absence horizon affects replacement or future capacity value | Fresh ESPN narratives can contain quantified return language, but current Week 4 claims fail hard-unavailable/freshness/current-binding guards. Reopen only with fresh qualifying decision-time evidence; do not infer from stale prose, injury type/start date, generic slot compatibility, or outcomes |
-| Fresh complete Week 4 cycle | BLOCKED PENDING SPECIALIST TRADE COMMISSIONING | Yes | Run only after the exact specialist-inclusive trade source checkpoint is remote-verified and runtime-commissioned; do not backfill missing earlier searches |
+| IR replacement / multiweek temporal roster state | DEFERRED / B2B FAIL-CLOSED / CURRENT NARRATIVES NOT AUTHORITATIVE | Yes only when fresh qualifying absence horizon affects future capacity value | Reopen only with fresh qualifying decision-time evidence; do not infer from stale prose, injury type/start date, generic slot compatibility, or outcomes |
+| Fresh complete Week 4 cycle | READY / FRESH POST-COMMISSIONING RUN REQUIRED | Yes for declaring current roster-wide completion | Refresh decision-time state/health as required, run the complete receipt matrix, and classify from the new receipts only; never backfill the earlier incomplete search |
 
 Canonical investigation:
 `docs/memory/investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`.
@@ -26,7 +26,7 @@ Canonical investigation:
 | Item | Status | Blocks current work? | Owner / resolve condition |
 | --- | --- | --- | --- |
 | Week 1/2 prospective-capture availability | UNCLASSIFIED | Blocks treating those weeks as prospective closure if no frozen capture exists | Inspect genuine frozen evidence only; never backfill |
-| Week 3 Data/MC closure | DEFERRED / BLOCKED | Yes for Week 3 closure only | Resume after required Gate B coverage is commissioned and a fresh complete weekly cycle proves the full receipt matrix |
+| Week 3 Data/MC closure | DEFERRED / BLOCKED | Yes for Week 3 closure only | Resume after a fresh complete weekly cycle proves the full receipt matrix |
 | Three-clean-week prospective closure baseline | INSUFFICIENT EVIDENCE | Yes for broad empirical calibration | Accumulate/verify clean weekly closure before any calibration decision |
 | Midseason calibration | DEFERRED PENDING EVIDENCE | No | Authorize only from repeated prospective residual/coverage evidence |
 | Persistent runtime evidence sink | INTENTIONAL / DISABLED | No | Enable only after separate privacy/non-interference authorization |
@@ -45,6 +45,7 @@ Canonical investigation:
 | Specialist trade audit v1 runner-argument mismatch | SUPERSEDED DIAGNOSTIC HARNESS FAILURE / FAILED BEFORE PROBE | No | Entrypoint omitted the generic runner's injected arguments; corrected successors preserved the generic runner contract |
 | Specialist trade audit v2 import-absence guard | SUPERSEDED DIAGNOSTIC HARNESS FAILURE / FAILED BEFORE FOOTBALL PROBE | No | Harness incorrectly required `src.market_manager` to be globally unimportable outside the runtime root; v3 verified exact module origins under the runtime cwd/PYTHONPATH contract |
 | Specialist trade source preflight v1 porcelain parser | SUPERSEDED PREFLIGHT-HARNESS FAILURE / NON-MUTATING | No | `git_text(...).strip()` removed the first porcelain status line's leading space and shifted the path slice to `rc/...`; v2 reads raw status stdout and regression-tests the exact first-line case |
+| Specialist trade runtime-memory v1 handoff/MEMORY health | SUPERSEDED MEMORY-HARNESS FAILURE / ROLLED BACK | No | v1 used a noncanonical no-exception handoff representation and expanded `MEMORY.md` beyond the strict soft line threshold; v2 restores the canonical handoff structure and compacts the durable specialist commissioning update |
 
 ## Standing Scientific Non-Issues
 
