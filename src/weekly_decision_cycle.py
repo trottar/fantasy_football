@@ -16,7 +16,7 @@ from .weekly_operational_health import (
 )
 
 
-CONTRACT = "WEEKLY_DECISION_COMPLETION_GATE_B4_SPECIALIST_TRADE_COMPOSITION_V001"
+CONTRACT = "WEEKLY_DECISION_COMPLETION_GATE_B5_IR_MOVE_PLUS_ADD_V001"
 SCHEMA_VERSION = 1
 
 STATE_ACTION = "COMPLETE / ACTION_REQUIRED"
@@ -113,6 +113,7 @@ class WeeklyAuthorities:
     persistence_state: Callable[[], Any]
     ir_state: Callable[..., Mapping[str, Any]] | None = None
     specialist_trade_search: Callable[..., Sequence[Mapping[str, Any]]] | None = None
+    ir_replacement: Callable[..., Mapping[str, Any]] | None = None
 
 
 def utc_now() -> str:
@@ -209,6 +210,7 @@ def _default_lineup(
 
 
 def default_authorities() -> WeeklyAuthorities:
+    from .ir_replacement import evaluate_ir_replacement
     from .ir_roster_state import evaluate_ir_roster_state
     from .market_manager import search_trades
     from .specialist_trade import search_specialist_trades
@@ -225,6 +227,7 @@ def default_authorities() -> WeeklyAuthorities:
         persistence_state=shadow_persistence_state,
         ir_state=evaluate_ir_roster_state,
         specialist_trade_search=search_specialist_trades,
+        ir_replacement=evaluate_ir_replacement,
     )
 
 
@@ -461,6 +464,31 @@ def _legacy_ir_receipt() -> ChannelReceipt:
 
 def _ir_receipt(report: Mapping[str, Any]) -> ChannelReceipt:
     evidence = dict(report)
+    if str(report.get("authority") or "") == "IR_MOVE_PLUS_ADD_VALUE_ADAPTER_V001":
+        if not bool(report.get("coverage_complete")):
+            return ChannelReceipt(
+                IR,
+                "IR / reserve / open-slot / injury replacement",
+                "INCOMPLETE_COVERAGE:GATE_B_IR_MOVE_PLUS_ADD_VALUE_ADAPTER",
+                "ir_replacement.evaluate_ir_replacement",
+                evidence=evidence,
+                scope="current decision-time open-slot perturbation only",
+                gap=str(report.get("coverage_reason") or "IR replacement coverage incomplete"),
+            )
+        action = report.get("recommended_action")
+        return ChannelReceipt(
+            IR,
+            "IR / reserve / open-slot / injury replacement",
+            STATUS_ACTION if isinstance(action, Mapping) else _hold("IR_REPLACEMENT"),
+            "ir_replacement.evaluate_ir_replacement",
+            evidence=evidence,
+            scope=(
+                "current-week B2a-legal direct/IR-opened slot across player and "
+                "commissioned specialist response; no future IR-capacity credit"
+            ),
+            action=dict(action) if isinstance(action, Mapping) else None,
+        )
+
     if str(report.get("status") or "").upper() != "PASS":
         blockers = [str(item) for item in (report.get("blockers") or [])]
         return ChannelReceipt(
@@ -640,7 +668,28 @@ def run_weekly_decision_cycle(
                 evidence={"error_type": type(exc).__name__}, gap=f"{label} authority failed",
             ))
 
-    if authorities.ir_state is None:
+    if authorities.ir_replacement is not None:
+        try:
+            ir_report = authorities.ir_replacement(
+                snapshot,
+                league,
+                model,
+                values_path=values_path,
+                team_name=team_name,
+                team_id=team_id,
+                player_mc_scenarios=player_mc_scenarios,
+                specialist_mc_scenarios=specialist_mc_scenarios,
+            )
+            channels.append(_ir_receipt(ir_report))
+        except Exception as exc:
+            channels.append(ChannelReceipt(
+                IR, "IR / reserve / open-slot / injury replacement",
+                "INCOMPLETE_COVERAGE:GATE_B_IR_REPLACEMENT_AUTHORITY_ERROR",
+                "ir_replacement.evaluate_ir_replacement",
+                evidence={"error_type": type(exc).__name__},
+                gap="IR move-plus-add replacement authority failed",
+            ))
+    elif authorities.ir_state is None:
         channels.append(_legacy_ir_receipt())
     else:
         try:

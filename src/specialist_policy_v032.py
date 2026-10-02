@@ -223,8 +223,10 @@ def simulate_specialist_market_policy(
     if position not in {"DST", "K"}:
         raise ValueError("position must be DST or K")
     user_mode = str(user_mode).upper()
-    if user_mode not in {"HOLD", "ONE_SLOT", "CARRY2"}:
-        raise ValueError("user_mode must be HOLD, ONE_SLOT, or CARRY2")
+    if user_mode not in {"HOLD", "ONE_SLOT", "CARRY2", "OPEN_SLOT_PLUS_ONE_CURRENT_ONLY"}:
+        raise ValueError(
+            "user_mode must be HOLD, ONE_SLOT, CARRY2, or OPEN_SLOT_PLUS_ONE_CURRENT_ONLY"
+        )
     if position == "K" and user_mode == "CARRY2":
         raise ValueError("two-kicker policy is disabled")
 
@@ -236,7 +238,11 @@ def simulate_specialist_market_policy(
     cache: dict = {}
     order = _manager_order(ctx)
     user_id = int(ctx.team_id)
-    capacity = 2 if user_mode == "CARRY2" else 1
+    current_only_open_slot = user_mode == "OPEN_SLOT_PLUS_ONE_CURRENT_ONLY"
+    if current_only_open_slot:
+        capacity = len(portfolios.get(user_id) or []) + 1
+    else:
+        capacity = 2 if user_mode == "CARRY2" else 1
     if user_mode == "CARRY2":
         activation_week = int(ctx.week if activation_week is None else activation_week)
         if activation_week < int(ctx.week) or activation_week > 17:
@@ -270,6 +276,8 @@ def simulate_specialist_market_policy(
 
         portfolio = list(portfolios.get(user_id) or [])
         drop_player = None
+        if current_only_open_slot and pre_drop_espn_id is not None:
+            raise ValueError("OPEN_SLOT_PLUS_ONE_CURRENT_ONLY does not permit a specialist drop")
         if pre_drop_espn_id is not None:
             drop_id = int(pre_drop_espn_id)
             drop_player = next((player for player in portfolio if _pid(player) == drop_id), None)
@@ -284,6 +292,8 @@ def simulate_specialist_market_policy(
             raise ValueError("ONE_SLOT pre-acquisition requires an explicit legal specialist drop")
         if user_mode == "CARRY2" and len(portfolio) >= 2:
             raise ValueError("CARRY2 pre-acquisition exceeds specialist capacity")
+        if current_only_open_slot and len(portfolio) >= capacity:
+            raise ValueError("OPEN_SLOT_PLUS_ONE_CURRENT_ONLY exceeds specialist capacity")
         portfolio.append(candidate)
         portfolios[user_id] = portfolio
         pre_transaction = {
@@ -326,7 +336,10 @@ def simulate_specialist_market_policy(
             portfolio = list(portfolios.get(tid) or [])
             is_user = tid == user_id
             manager_capacity = (
-                2 if is_user and user_mode == "CARRY2" and int(week) >= int(activation_week)
+                capacity
+                if is_user and current_only_open_slot and int(week) == int(ctx.week)
+                else 2
+                if is_user and user_mode == "CARRY2" and int(week) >= int(activation_week)
                 else 1
             )
             transaction = None
@@ -397,6 +410,9 @@ def simulate_specialist_market_policy(
                 for tid, roster in portfolios.items()
             },
         })
+
+        if current_only_open_slot and int(week) == int(ctx.week):
+            break
 
     return SpecialistPolicyResult(
         position=position,

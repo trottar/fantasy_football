@@ -26,29 +26,29 @@ auditing retained zero qualifying horizon claims.
 
 ## Current Work Item
 
-**WEEKLY DECISION GATE B2 — REDESIGN CURRENT IR MOVE-PLUS-ADD VALUE ADAPTER.**
+**WEEKLY DECISION GATE B2 — IR MOVE-PLUS-ADD SOURCE CANDIDATE VALIDATED LOCALLY.**
 
-Explicit production authorization was granted on 2026-10-02. Three subsequent
-source-preflight packages failed before any source/runtime modification:
+The redesigned v4 source preflight passed against repository checkpoint
+`1c61e1b3574f6797be518061c03a2b4e66d1c373`, and the exact five-path candidate is
+now local-applied/validated in the control root.
 
-- v1: disposable-clone Windows read-only cleanup failure;
-- v2: candidate reached full pytest with 576 passed / 1 failed; the single failure
-  was the pre-existing Gate B4 weekly-contract literal after the candidate
-  intentionally advanced the contract;
-- v3: deterministic packaging defect routed a test-file transform through the
-  weekly-source transform list and failed before code validation.
+The candidate:
 
-The v1-v3 candidate line is superseded. Source audit after v3 found two production
-design defects that require redesign rather than another harness-only rerun:
+- targets only the proven single B2a `IR_MOVE_PLUS_ADD` transition and fails
+  closed on direct/multiple unsupported open-slot states;
+- reuses the commissioned kickoff/snapshot-aware lock boundary;
+- preserves FREEAGENT versus WAIVER uncertainty;
+- covers league-legal player, DST, and K acquisition branches made relevant by
+  the opened slot;
+- adds one specialist primitive,
+  `OPEN_SLOT_PLUS_ONE_CURRENT_ONLY`, without enabling the general two-kicker
+  `CARRY2` policy;
+- gives zero future IR-capacity credit while B2b remains deferred;
+- leaves `transaction_manager.py` and `ir_roster_state.py` unchanged;
+- advances the weekly completion contract to
+  `WEEKLY_DECISION_COMPLETION_GATE_B5_IR_MOVE_PLUS_ADD_V001`.
 
-1. player acquisition lock filtering must use the commissioned decision-time
-   kickoff-aware lock boundary, not only `lineup_locked`;
-2. an IR-opened active slot must not silently omit a league-legal specialist branch
-   such as an additional kicker merely because the general two-kicker `CARRY2`
-   policy is disabled.
-
-The repair must target the proven single current B2a IR-opened slot and fail closed
-on broader unsupported capacity states rather than claiming coverage.
+This state is **not yet source-published and not runtime-commissioned**.
 
 ## Verified State
 
@@ -80,9 +80,15 @@ on broader unsupported capacity states rather than claiming coverage.
 - Preflight v2 — **FAILED / NON-MUTATING / 576 PASSED + 1 STALE CONTRACT TEST**;
   its targeted Gate A/B regression set passed before the full-suite failure.
 - Preflight v3 — **FAILED / NON-MUTATING / DETERMINISTIC TRANSFORM-ROUTING BUG**.
-- Source/runtime/staging/commit/push after all three failures — **UNCHANGED /
-  NOT PERFORMED**.
-- Active structural blocker remains `CURRENT_IR_MOVE_PLUS_ADD_VALUE_ADAPTER_GAP`.
+- Redesigned preflight v4 — **PASS / NON-MUTATING** with path-keyed transform
+  self-test, targeted pytest, full pytest, compileall, strict memory health, and
+  `git diff --check`.
+- Exact v4 candidate — **LOCAL-APPLIED / VALIDATED** in the control root; five
+  source/test paths only.
+- Production source publication — **NOT YET PERFORMED**.
+- Commissioned runtime synchronization — **NOT YET PERFORMED**.
+- Active structural blocker remains `CURRENT_IR_MOVE_PLUS_ADD_VALUE_ADAPTER_GAP`
+  until source publication and runtime commissioning complete.
 - No observed 2026 outcome has tuned v0.X. Phase 1E persistence remains disabled.
 
 ## Calendar / Evidence Gates
@@ -112,31 +118,16 @@ on broader unsupported capacity states rather than claiming coverage.
 
 ## Exact Next Action
 
-Redesign one narrow source preflight for the current single B2a
-`IR_MOVE_PLUS_ADD` state from exact source.
+Stage the exact validated source+memory checkpoint in an isolated clone, regenerate
+the schema-2 durable-memory manifest, and validate the staged tree.
 
-The redesigned candidate must:
+After staged validation, publish the exact checkpoint under remote/base/tree
+guards. Then commission only the five production source/test candidate paths into
+`v0.36-repack1`, validate the runtime independently, and record commissioning
+evidence before rerunning the Week 4 receipt matrix.
 
-1. consume only the proven one-slot B2a transition and fail closed on broader
-   unsupported current-capacity states;
-2. use the commissioned kickoff-aware decision-time lock boundary for acquisition
-   candidates;
-3. preserve FREEAGENT-versus-WAIVER uncertainty and manager/football separation;
-4. preserve `P ⊕ D ⊕ K` and compose only at the complete-roster boundary;
-5. cover every league-legal player/DST/K acquisition branch made relevant by the
-   opened slot, or explicitly remain `INCOMPLETE_COVERAGE` for any unsupported
-   branch;
-6. give zero future IR-capacity credit while B2b remains deferred;
-7. keep the mature player add/drop authority and commissioned specialist policy
-   unchanged unless exact source evidence proves a minimal shared primitive must
-   be extended;
-8. key deterministic transforms by target file path and execute the exact
-   transform-routing logic in package QA before operator delivery;
-9. rerun targeted tests, full `pytest`, `compileall`, strict memory health, and
-   `git diff --check` because the production design changes from the v2 candidate.
-
-Do not rerun the full Week 4 roster-wide cycle until the corrected structural
-coverage is source-published and runtime-commissioned, or fresh material
+Do not treat the local-applied source candidate as runtime authority. Do not rerun
+the Week 4 cycle until runtime commissioning is complete or fresh material
 decision-time information independently requires a new capture.
 
 ## Relevant References
@@ -149,6 +140,7 @@ decision-time information independently requires a new capture.
 - `architecture/WEEKLY_DECISION_COMPLETION.md`
 - `evidence/WEEK4_IR_COMPLETION_FRONTIER_AND_B2B_CORRECTION_2026-10-02.md`
 - `evidence/WEEK4_IR_ADAPTER_PREFLIGHT_REALIGNMENT_2026-10-02.md`
+- `evidence/WEEK4_IR_MOVE_PLUS_ADD_SOURCE_VALIDATION_2026-10-02.md`
 - `roadmap/SEASON_2026.md`
 - `roadmap/STATUS.md`
 - `../KNOWN_ISSUES.md`

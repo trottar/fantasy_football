@@ -13,7 +13,7 @@
 - Gate B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED / CLAIM-LOCAL QUALIFYING CLAIMS = 0**
 - Gate B3 automated multi-asset/unequal player trade search: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Specialist-inclusive trade composition: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Current IR move-plus-add adapter: **PRODUCTION AUTHORIZED / V1-V3 PREFLIGHT LINE SUPERSEDED / REDESIGN REQUIRED**
+- Current IR move-plus-add adapter: **V4 PREFLIGHT PASS / SOURCE LOCAL-APPLIED + VALIDATED / PUBLICATION PENDING**
 - Week 3 Data/MC closure: **BLOCKED PENDING A FRESH COMPLETE WEEKLY RECEIPT**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
@@ -47,6 +47,11 @@ open-slot branch while claiming IR-channel completeness.
 
 The next candidate must therefore be redesigned, not merely repackaged.
 
+That redesign is now validated: v4 passed path-keyed transform QA, targeted/full
+pytest, compileall, strict memory health, and `git diff --check`. The exact
+five-path result is local-applied/validated in the control root. It is not yet
+source-published or runtime-commissioned.
+
 ## B2b Boundary
 
 B2b remains separate and deferred. The v1 frontier audit's five candidates came
@@ -56,14 +61,13 @@ credit future IR capacity.
 
 ## Next Gate
 
-Build one redesigned non-mutating source preflight from exact source. It must
-target only the proven single B2a IR-opened slot, preserve the commissioned lock
-and acquisition-state boundaries, cover every league-legal player/DST/K branch
-made relevant by that slot or fail closed explicitly, and validate exact
-per-file transform routing before delivery.
+Stage the exact validated five-path source candidate together with its durable
+memory/evidence update in an isolated clone. Validate the staged tree and
+schema-2 manifest before publication.
 
-Only after that source preflight passes may a production local-apply checkpoint
-be constructed.
+After source publication, separately commission the same five source/test paths
+into `v0.36-repack1`; source publication does not itself authorize runtime use.
+Only after runtime commissioning may the fresh Week 4 weekly matrix be rerun.
 
 ## Boundary Conditions
 
