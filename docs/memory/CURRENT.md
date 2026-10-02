@@ -1,11 +1,11 @@
 # Current Project State
 
 ---
-state_updated: 2026-10-01
+state_updated: 2026-10-02
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: weekly_decision_gate_b_capability_closure
-active_workstream: week4_roster_wide_completion_recovery
+active_workstream: gate_b2_ir_move_plus_add_completion
 memory_refinement_step: none
 nfl_week: 4
 fantasy_stage: regular_season
@@ -18,19 +18,24 @@ Recover a causally valid Week 4 roster-wide decision state through the commissio
 Gate A/B control plane without backfilling missed prospective searches or
 weakening channel, health, or decision-time information boundaries.
 
-Gate A, B1, B2a, B3, and specialist-inclusive trade composition are now
-source-published and runtime-commissioned. B2b remains deferred/fail-closed on
-current evidence and may reopen only from fresh qualifying decision-time horizon
-evidence.
+The fresh post-specialist-commissioning cycle is preserved and operationally
+healthy. Eight of nine required channels produced valid receipts. The remaining
+blocker is the current IR move-plus-add replacement-value/capacity adapter. B2b
+remains deferred/fail-closed after corrected claim-local freshness auditing
+retained zero qualifying horizon claims.
 
 ## Current Work Item
 
-**WEEK 4 — FRESH ROSTER-WIDE DECISION COMPLETION CYCLE.**
+**WEEKLY DECISION GATE B2 — CURRENT IR MOVE-PLUS-ADD VALUE ADAPTER.**
 
-The specialist-inclusive trade coverage gap is closed in the commissioned
-`v0.36-repack1` runtime. The next cycle must use fresh decision-time information
-and the complete weekly receipt matrix. It must not reinterpret earlier incomplete
-coverage as HOLD and must not reconstruct any missed earlier search.
+The exact Week 4 snapshot has one unlocked `OUT` QB, one open IR slot, no open
+active slot, and therefore one legal `IR_MOVE_PLUS_ADD` capacity. B2a represents
+that transition correctly, but production player/specialist action authorities
+cannot yet value the resulting no-drop open-slot acquisition state.
+
+The first B2b frontier audit's five candidate claims are superseded diagnostic
+false positives: corrected claim-local freshness reproduced all five broad
+candidates and retained zero qualifying claims.
 
 ## Verified State
 
@@ -79,8 +84,21 @@ coverage as HOLD and must not reconstruct any missed earlier search.
   - explicit legal mixed equal/unequal capacity/drop/fill normalization;
   - guaranteed FREEAGENT fills distinct from uncertain WAIVERS;
   - manager response separate from intrinsic football utility.
-- Week 4 roster-wide completion has **not yet been rerun after commissioning**.
-  The previous `INCOMPLETE_COVERAGE` result remains historical evidence, not HOLD.
+- Fresh Week 4 cycle at snapshot `2026-10-02T05:25:32.944434+00:00` —
+  **OPERATIONAL HEALTH PASS / INCOMPLETE_COVERAGE**.
+- Fresh prospective capture at `2026-10-02T05:25:33.654991+00:00` passed
+  integrity and is a post-lock partial-week decision-time capture.
+- Eight of nine required weekly channels returned valid receipts; the sole
+  unsupported channel is `ir_reserve_open_slot_injury_replacement`.
+- Current IR state: 16/16 active roster, 0/1 IR occupied, one unlocked `OUT` QB
+  move candidate, `IR_MOVE_PLUS_ADD_CAPACITY=1`, and no IR blockers.
+- Source frontier: player open-slot adapter absent, player action schema requires
+  a drop, specialist IR-capacity coupling absent.
+- Gate B2b v1 frontier diagnostic reported five broad candidates but used an
+  over-broad parent-record freshness fallback — **SUPERSEDED DIAGNOSTIC CLASSIFIER**.
+- Corrected claim-local B2b audit reproduced five v1-style candidates and retained
+  zero qualifying claims — **B2B DEFERRED / FAIL-CLOSED**.
+- Active structural blocker: `CURRENT_IR_MOVE_PLUS_ADD_VALUE_ADAPTER_GAP`.
 - No observed 2026 outcome has tuned v0.X. Phase 1E persistence remains disabled.
 
 ## Calendar / Evidence Gates
@@ -110,18 +128,18 @@ coverage as HOLD and must not reconstruct any missed earlier search.
 
 ## Exact Next Action
 
-Obtain a fresh Week 4 decision-time snapshot/health state under the current
-commissioned runtime, then run one new roster-wide weekly decision cycle through
-the full receipt matrix in `architecture/WEEKLY_DECISION_COMPLETION.md`.
+The current scientific diagnosis is complete. Before any football/application
+logic change, obtain explicit user authorization for the current IR move-plus-add
+value/capacity adapter.
 
-Classify the result from that fresh receipt matrix only:
-- missing required action coverage -> `INCOMPLETE_COVERAGE`;
-- missing/stale required health -> `BLOCKED_HEALTH`;
-- stale material decision information -> `CAPTURE_REQUIRED`;
-- otherwise report the actual channel-specific actions/HOLD receipts.
+If authorized, design one narrow production patch that lets the existing player
+and specialist response authorities evaluate a legal B2a-opened active slot
+without inventing a drop. Preserve `P ⊕ D ⊕ K`, lock/droppability rules,
+FREEAGENT-versus-WAIVER acquisition uncertainty, complete-roster composition,
+manager/football separation, and the corrected B2b fail-closed boundary.
 
-Do not backfill any earlier missing prospective search or infer HOLD from the
-pre-commissioning Week 4 result.
+Do not rerun the full Week 4 cycle until that structural coverage is commissioned
+or fresh material decision-time information requires a new capture.
 
 ## Relevant References
 
@@ -131,6 +149,7 @@ pre-commissioning Week 4 result.
 - `USER.md`
 - `architecture/WEEKLY_DECISION_COMPLETION.md`
 - `templates/WEEKLY_DECISION_RECEIPT.md`
+- `evidence/WEEK4_IR_COMPLETION_FRONTIER_AND_B2B_CORRECTION_2026-10-02.md`
 - `evidence/WEEKLY_DECISION_GATE_B_SPECIALIST_TRADE_COMPOSITION_SOURCE_VALIDATION_2026-10-01.md`
 - `evidence/WEEKLY_DECISION_GATE_B_SPECIALIST_TRADE_COMPOSITION_RUNTIME_COMMISSIONING_2026-10-01.md`
 - `evidence/WEEKLY_DECISION_GATE_B3_MULTI_ASSET_PLAYER_TRADE_SEARCH_RUNTIME_COMMISSIONING_2026-10-01.md`

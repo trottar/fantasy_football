@@ -289,12 +289,12 @@ Canonical commissioning evidence:
 - `evidence/WEEKLY_DECISION_GATE_B2A_IR_ROSTER_STATE_RUNTIME_COMMISSIONING_2026-10-01.md`
 - `evidence/WEEKLY_DECISION_GATE_B3_MULTI_ASSET_PLAYER_TRADE_SEARCH_RUNTIME_COMMISSIONING_2026-10-01.md`
 
-B2b horizon discovery found quantified ESPN `seasonOutlook` /
-`outlooksByWeek` narrative signals, but the fresh Week 4 semantic/freshness audit
-found zero current guarded claims. B2b therefore remains fail-closed and deferred
-until fresh decision-time evidence satisfies current-status, freshness,
-quantification, and binding guards; narrative text is not stored as raw durable
-state.
+B2b horizon discovery found quantified ESPN narrative signals. An October 2
+diagnostic initially reported five guarded candidates, but its freshness guard
+incorrectly accepted parent player-record timestamps; corrected claim-local
+freshness reproduced those five broad candidates and retained zero qualifying
+claims. B2b therefore remains fail-closed/deferred; raw narrative text is not
+stored as durable state.
 
 Specialist-inclusive trade composition is source-published and runtime-commissioned in `v0.36-repack1`; player-only Gate B3 authority remains `market_manager.evaluate_trade`.
 Specialist-containing packages use separate `specialist_trade.evaluate_specialist_trade`; player, DST, and K response remain channel-separated and compose only at the complete-roster utility/state boundary.

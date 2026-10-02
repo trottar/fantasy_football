@@ -5,14 +5,15 @@
 - Runtime baseline: `v0.36-repack1` — **COMMISSIONED**
 - Internal version: `0.36`
 - Week 4 prospective captures: **VALID / PRESERVED**
-- Week 4 roster-wide decision completion: **READY FOR FRESH POST-COMMISSIONING CYCLE**
+- Week 4 roster-wide decision completion: **INCOMPLETE_COVERAGE / CURRENT IR MOVE-PLUS-ADD VALUE ADAPTER**
 - Gate A fail-closed weekly control plane: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Gate B capability closure: **COMMISSIONED EXCEPT B2B DEFERRED / FAIL-CLOSED**
+- Gate B capability closure: **CURRENT IR MOVE-PLUS-ADD VALUE ADAPTER OPEN / B2B DEFERRED**
 - Gate B1 specialist current-WAIVER coverage: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B2a current IR/open-slot representation: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Gate B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED / CURRENT ESPN NARRATIVES NOT AUTHORITATIVE**
+- Gate B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED / CLAIM-LOCAL FRESHNESS AUDIT = 0 QUALIFYING CLAIMS**
 - Gate B3 automated multi-asset/unequal player trade search: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Specialist-inclusive trade composition: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
+- Current IR move-plus-add value/capacity adapter: **STRUCTURAL GAP CONFIRMED / PRODUCTION AUTHORIZATION REQUIRED**
 - Week 3 Data/MC closure: **BLOCKED PENDING A FRESH COMPLETE WEEKLY RECEIPT**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
@@ -42,20 +43,23 @@ Canonical commissioning evidence:
 
 ## Remaining Capability Boundary
 
-B2b explicit decision-time multiweek absence/return horizon and temporal
-roster-capacity propagation remain deferred until fresh qualifying evidence.
-Current Week 4 narratives did not satisfy the guarded evidence contract, so B2b
-remains fail-closed rather than guessed.
+The fresh Week 4 cycle is healthy but incomplete only on the IR/replacement
+channel. B2a proves one legal current `IR_MOVE_PLUS_ADD` transition, while source
+audit shows the player open-slot adapter and specialist IR-capacity coupling are
+absent. This is the active structural production frontier.
 
-That deferred state does not authorize backfilling a horizon and does not reopen
-the now-commissioned specialist transaction work.
+B2b remains separate and deferred. The v1 frontier audit's five candidates came
+from an over-broad parent-record timestamp fallback; corrected claim-local
+freshness retained zero qualifying claims. Do not backfill a horizon.
 
 ## Next Gate
 
-Refresh Week 4 decision-time state/health as required by any material change, then
-run one fresh roster-wide completion cycle through the complete receipt matrix.
-Classify only from the fresh receipts; do not translate the historical
-pre-commissioning `INCOMPLETE_COVERAGE` state into HOLD.
+Obtain explicit production authorization before changing football/application
+logic. If authorized, close only the current IR move-plus-add value/capacity
+adapter under the existing B2a legality state and channel/uncertainty boundaries.
+
+Do not rerun the full Week 4 cycle until that coverage is commissioned or fresh
+material decision-time information requires a new capture.
 
 ## Boundary Conditions
 
