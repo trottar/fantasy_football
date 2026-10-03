@@ -5,15 +5,15 @@
 - Runtime baseline: `v0.36-repack1` — **COMMISSIONED**
 - Internal version: `0.36`
 - Week 4 prospective captures: **VALID / PRESERVED**
-- Week 4 roster-wide decision completion: **INCOMPLETE_COVERAGE / CURRENT IR MOVE-PLUS-ADD VALUE ADAPTER**
+- Week 4 roster-wide decision completion: **FRESH DECISION-TIME RERUN REQUIRED AFTER GATE B5 COMMISSIONING**
 - Gate A fail-closed weekly control plane: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Gate B capability closure: **IR ADAPTER REDESIGN AUTHORIZED / B2B DEFERRED**
+- Gate B capability closure: **CURRENT-WEEK ACTION COVERAGE COMMISSIONED / B2B DEFERRED**
 - Gate B1 specialist current-WAIVER coverage: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B2a current IR/open-slot representation: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED / CLAIM-LOCAL QUALIFYING CLAIMS = 0**
 - Gate B3 automated multi-asset/unequal player trade search: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Specialist-inclusive trade composition: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Current IR move-plus-add adapter: **V4 PREFLIGHT PASS / SOURCE LOCAL-APPLIED + VALIDATED / PUBLICATION PENDING**
+- Current IR move-plus-add adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / GATE B5**
 - Week 3 Data/MC closure: **BLOCKED PENDING A FRESH COMPLETE WEEKLY RECEIPT**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
@@ -47,10 +47,13 @@ open-slot branch while claiming IR-channel completeness.
 
 The next candidate must therefore be redesigned, not merely repackaged.
 
-That redesign is now validated: v4 passed path-keyed transform QA, targeted/full
-pytest, compileall, strict memory health, and `git diff --check`. The exact
-five-path result is local-applied/validated in the control root. It is not yet
-source-published or runtime-commissioned.
+That redesign is now source-published and runtime-commissioned. Source checkpoint
+`d254e569f7c4dc5a3e27f85f6ba1386e4a6c98eb` passed exact-tree publication.
+Runtime commissioning v1 failed only because the sparse runtime lacked one
+targeted regression and rolled back cleanly. Corrected v2 sourced all six
+targeted regressions from published control-root blobs, passed targeted/full
+runtime pytest, compileall, import smoke, identity/residue checks, and
+commissioned the three production runtime files.
 
 ## B2b Boundary
 
@@ -61,13 +64,13 @@ credit future IR capacity.
 
 ## Next Gate
 
-Stage the exact validated five-path source candidate together with its durable
-memory/evidence update in an isolated clone. Validate the staged tree and
-schema-2 manifest before publication.
+Create a new decision-time Week 4 snapshot/capture and rerun the complete weekly
+receipt matrix through the commissioned Gate B5 runtime.
 
-After source publication, separately commission the same five source/test paths
-into `v0.36-repack1`; source publication does not itself authorize runtime use.
-Only after runtime commissioning may the fresh Week 4 weekly matrix be rerun.
+The Oct. 2 05:25 UTC capture remains immutable historical prospective evidence
+but is not sufficiently fresh for current action authorization after the later
+runtime commissioning. If the live IR/roster state changed, use the fresh observed
+state. B2b remains deferred/fail-closed with zero future IR-capacity credit.
 
 ## Boundary Conditions
 

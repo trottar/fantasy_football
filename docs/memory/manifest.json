@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-02T15:42:17.154102-04:00",
+  "generated_at": "2026-10-03T02:33:06.778947-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6986,
-      "sha256": "594ef807166b450dba86c54b3e700bf6c53aed80d60fafce267008b2395ac6f5"
+      "bytes": 7814,
+      "sha256": "08976502981fcfb47cd22696087d90fcf14fb2e92a4b0103b4700da7b11b8c08"
     },
     {
       "path": "LEARNINGS.md",
@@ -590,6 +590,11 @@
       "sha256": "66139dde3ad0284cf4ab48b269b3e20dbf90e95623691d220852756477feedaf"
     },
     {
+      "path": "evidence/WEEK4_IR_MOVE_PLUS_ADD_RUNTIME_COMMISSIONING_2026-10-02.md",
+      "bytes": 3397,
+      "sha256": "1b5e36937214673987cac6ed667d19af2908a2a45a56eaf1541d4e118bac8221"
+    },
+    {
       "path": "evidence/WEEK4_IR_MOVE_PLUS_ADD_SOURCE_VALIDATION_2026-10-02.md",
       "bytes": 3053,
       "sha256": "6e1a59a60f61d23a01f27da6e9b17e3e4aced9553ce82ed49f2556f14dfddafc"
@@ -821,13 +826,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6720,
-      "sha256": "acb1bc0587a28ed8f5f15e10645f3e6d439dfe063e0e8310c496b78e4ad18609"
+      "bytes": 6624,
+      "sha256": "06167390e53d7d96ea9f1a7b913d84c948d7042f3d454257b0c28a907bd53bc9"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 4073,
-      "sha256": "59d06b716825a7db0f544053c47ff56d31cadad82f2dacea61c2b7395f95aa86"
+      "bytes": 4312,
+      "sha256": "19476ae212da179e639e2ec3971ef0747a0f61753d6ca1a6ea062ab66a8d7728"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

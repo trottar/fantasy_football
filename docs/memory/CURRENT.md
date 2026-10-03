@@ -26,7 +26,7 @@ auditing retained zero qualifying horizon claims.
 
 ## Current Work Item
 
-**WEEKLY DECISION GATE B2 — IR MOVE-PLUS-ADD SOURCE CANDIDATE VALIDATED LOCALLY.**
+**WEEKLY DECISION GATE B2 — IR MOVE-PLUS-ADD SOURCE-PUBLISHED / RUNTIME-COMMISSIONED.**
 
 The redesigned v4 source preflight passed against repository checkpoint
 `1c61e1b3574f6797be518061c03a2b4e66d1c373`, and the exact five-path candidate is
@@ -48,7 +48,7 @@ The candidate:
 - advances the weekly completion contract to
   `WEEKLY_DECISION_COMPLETION_GATE_B5_IR_MOVE_PLUS_ADD_V001`.
 
-This state is **not yet source-published and not runtime-commissioned**.
+The exact source is now **PUSHED / REMOTE VERIFIED** at `d254e569f7c4dc5a3e27f85f6ba1386e4a6c98eb`, and the three production runtime files are **COMMISSIONED / VALIDATED** in `v0.36-repack1`.
 
 ## Verified State
 
@@ -85,10 +85,17 @@ This state is **not yet source-published and not runtime-commissioned**.
   `git diff --check`.
 - Exact v4 candidate — **LOCAL-APPLIED / VALIDATED** in the control root; five
   source/test paths only.
-- Production source publication — **NOT YET PERFORMED**.
-- Commissioned runtime synchronization — **NOT YET PERFORMED**.
-- Active structural blocker remains `CURRENT_IR_MOVE_PLUS_ADD_VALUE_ADAPTER_GAP`
-  until source publication and runtime commissioning complete.
+- Production source publication — **PUSHED / REMOTE VERIFIED** at
+  `d254e569f7c4dc5a3e27f85f6ba1386e4a6c98eb`, tree
+  `be0829c8539df8947d848acbef0070e739614437`.
+- Runtime commissioning v1 — **FAILED / ROLLED BACK** because the sparse runtime
+  lacked `tests/test_weekly_decision_gate_b2a_ir_roster_state.py`; this was a
+  validation-harness inventory failure, not a production candidate defect.
+- Runtime commissioning v2 — **COMMISSIONED / VALIDATED** in `v0.36-repack1`;
+  three retained production paths, six published targeted regressions overlaid
+  temporarily and restored/removed, targeted/full pytest PASS, compileall PASS,
+  import smoke PASS, result identities PASS, residue NONE.
+- `CURRENT_IR_MOVE_PLUS_ADD_VALUE_ADAPTER_GAP` — **RESOLVED / COMMISSIONED**.
 - No observed 2026 outcome has tuned v0.X. Phase 1E persistence remains disabled.
 
 ## Calendar / Evidence Gates
@@ -118,17 +125,19 @@ This state is **not yet source-published and not runtime-commissioned**.
 
 ## Exact Next Action
 
-Stage the exact validated source+memory checkpoint in an isolated clone, regenerate
-the schema-2 durable-memory manifest, and validate the staged tree.
+Run a **fresh Week 4 decision-time snapshot/capture and roster-wide weekly cycle**
+through the commissioned Gate B5 control plane.
 
-After staged validation, publish the exact checkpoint under remote/base/tree
-guards. Then commission only the five production source/test candidate paths into
-`v0.36-repack1`, validate the runtime independently, and record commissioning
-evidence before rerunning the Week 4 receipt matrix.
+Do not reuse the Oct. 2 05:25 UTC snapshot/capture for current action
+authorization. The runtime was commissioned many hours later and material roster,
+injury/practice, availability, market, waiver, or kickoff/lock state may have
+changed. Preserve the morning capture as immutable prospective evidence; create a
+new causally valid capture for the next decision.
 
-Do not treat the local-applied source candidate as runtime authority. Do not rerun
-the Week 4 cycle until runtime commissioning is complete or fresh material
-decision-time information independently requires a new capture.
+Require the complete receipt matrix and current operational-health contract. If
+fresh state changes the B2a IR transition, evaluate that observed state rather
+than carrying forward the morning one-slot assumption. B2b remains
+deferred/fail-closed and contributes no future IR-capacity credit.
 
 ## Relevant References
 
@@ -141,6 +150,7 @@ decision-time information independently requires a new capture.
 - `evidence/WEEK4_IR_COMPLETION_FRONTIER_AND_B2B_CORRECTION_2026-10-02.md`
 - `evidence/WEEK4_IR_ADAPTER_PREFLIGHT_REALIGNMENT_2026-10-02.md`
 - `evidence/WEEK4_IR_MOVE_PLUS_ADD_SOURCE_VALIDATION_2026-10-02.md`
+- `evidence/WEEK4_IR_MOVE_PLUS_ADD_RUNTIME_COMMISSIONING_2026-10-02.md`
 - `roadmap/SEASON_2026.md`
 - `roadmap/STATUS.md`
 - `../KNOWN_ISSUES.md`
