@@ -525,6 +525,19 @@ def _contains_specialist(rows: Iterable[dict[str, Any]]) -> bool:
     return any(_position(row) in SPECIALIST_POSITIONS for row in rows)
 
 
+def _assert_supported_trade_specialist_state(
+    roster: Iterable[dict[str, Any]],
+    *,
+    side: str,
+) -> None:
+    kickers = [player for player in roster if _position(player) == "K"]
+    if len(kickers) > 1:
+        raise ValueError(
+            f"{side} specialist-trade state requires unsupported multi-K ownership; "
+            "general two-kicker policy is disabled"
+        )
+
+
 def evaluate_specialist_trade(
     snapshot: dict[str, Any],
     league: dict[str, Any],
@@ -619,6 +632,9 @@ def evaluate_specialist_trade(
         raise ValueError("normalized user specialist-trade roster is illegal")
     if not roster_is_legal(partner_after, league, target_size=len(partner_ctx.roster)):
         raise ValueError("normalized partner specialist-trade roster is illegal")
+
+    _assert_supported_trade_specialist_state(user_after, side="user")
+    _assert_supported_trade_specialist_state(partner_after, side="partner")
 
     final_snapshot = _snapshot_with_rosters(
         snapshot,

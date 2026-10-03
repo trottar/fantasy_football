@@ -1,6 +1,6 @@
 # 2026 Season Calendar / Development Gates
 
-**Planning state:** 2026-10-02
+**Planning state:** 2026-10-03
 **Configured fantasy regular season:** Weeks 1-13
 **Configured fantasy playoffs:** Weeks 14-17
 **Configured playoff Round 1:** Week 14
@@ -26,7 +26,7 @@ A date can trigger an evidence review. It cannot force the evidence gate to pass
 | 1 | Sep 9-14 | none | Closed. Use as prospective evidence only if a genuine frozen capture already exists. Never backfill. |
 | 2 | Sep 17-21 | none | Closed. Preserve any genuine frozen W2 evidence and classify gaps explicitly. Never backfill. |
 | 3 | Sep 24-28 | none | Closed calendar window. Preserve secured week-open/decision-time evidence; Week 3 closure remains deferred until a fresh complete weekly receipt proves recovery. |
-| 4 | Oct 1-5 | none | **Gate B5 IR move-plus-add is source-published and runtime-commissioned.** The Oct. 2 morning capture remains immutable prospective evidence but is now stale for current authorization after later commissioning. Create a fresh decision-time snapshot/capture and rerun the complete weekly matrix. B2b remains deferred/fail-closed with zero future IR-capacity credit. |
+| 4 | Oct 1-5 | none | **Gate B5 is commissioned and the Oct. 3 fresh matrix achieved 9/9 coverage.** The specialist-trade action frontier then exposed an unsupported post-trade multi-K fixed-ownership state; the narrow fail-closed source correction is local-applied/validated and awaits publication/runtime commissioning. After commissioning, take a new decision-time capture and rerun the complete matrix before any trade action. B2b remains deferred/fail-closed with zero future IR-capacity credit. |
 | 5 | Oct 8-12 | CAR, KC | Preferred broader observability/operability target after Week 4 recovery; first bye-week operational stress. |
 | 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks if evidence quality supports it. Open calibration investigations only; no automatic tuning. |
 | 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow calibration only when justified. |
@@ -108,7 +108,9 @@ Specialist-inclusive trade composition is separately commissioned for bounded
 1x1/1x2/2x1/2x2 packages containing DST and/or K. Player, DST, and K response
 remain channel-separated and compose only at the complete-roster state boundary.
 Mixed-package drop/fill normalization is explicit; guaranteed FREEAGENT fills do
-not imply waiver success.
+not imply waiver success. Post-trade K states with more than one owned kicker are
+unsupported while general K `CARRY2` is disabled; specialist-trade authority must
+fail closed rather than assign uncommissioned multi-K portfolio option value.
 
 ## Calibration Evidence Ladder
 

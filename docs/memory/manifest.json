@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-03T02:33:06.778947-04:00",
+  "generated_at": "2026-10-03T14:29:59.666857-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7814,
-      "sha256": "08976502981fcfb47cd22696087d90fcf14fb2e92a4b0103b4700da7b11b8c08"
+      "bytes": 7399,
+      "sha256": "df9852912b46a99adb15e8274603939c6bebbe6d23468ecb5adf302f72f844b4"
     },
     {
       "path": "LEARNINGS.md",
@@ -610,6 +610,11 @@
       "sha256": "c0ea4f96aae216a07914ff8fe3382bf9c52496f8271b5456c8173198bf8f6ff1"
     },
     {
+      "path": "evidence/WEEK4_SPECIALIST_TRADE_MULTI_K_BOUNDARY_2026-10-03.md",
+      "bytes": 4535,
+      "sha256": "5dfb98bb650f60935a8c603fa351e8a75296860bae5ccffe9b7aff537fbd2615"
+    },
+    {
       "path": "evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md",
       "bytes": 5805,
       "sha256": "0398ebf04fd677e59a0bd3950322722fbc99b220e9fe9b2de5b9ed6b07c0104b"
@@ -826,13 +831,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6624,
-      "sha256": "06167390e53d7d96ea9f1a7b913d84c948d7042f3d454257b0c28a907bd53bc9"
+      "bytes": 6954,
+      "sha256": "10d2dea9cc3647604fe95dac1dba9a135ffc6a9a708c469f16969ebcdddcecf0"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 4312,
-      "sha256": "19476ae212da179e639e2ec3971ef0747a0f61753d6ca1a6ea062ab66a8d7728"
+      "bytes": 5174,
+      "sha256": "6868ceee9d8ac3779c01244bf60724df5bf8aa25c0e5bc7834abadabb93a656c"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

@@ -5,14 +5,14 @@
 - Runtime baseline: `v0.36-repack1` — **COMMISSIONED**
 - Internal version: `0.36`
 - Week 4 prospective captures: **VALID / PRESERVED**
-- Week 4 roster-wide decision completion: **FRESH DECISION-TIME RERUN REQUIRED AFTER GATE B5 COMMISSIONING**
+- Week 4 roster-wide decision completion: **9/9 COMPLETE MATRIX / SPECIALIST TRADE ACTION FRONTIER BLOCKED BY MULTI-K DEFECT**
 - Gate A fail-closed weekly control plane: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B capability closure: **CURRENT-WEEK ACTION COVERAGE COMMISSIONED / B2B DEFERRED**
 - Gate B1 specialist current-WAIVER coverage: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B2a current IR/open-slot representation: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED / CLAIM-LOCAL QUALIFYING CLAIMS = 0**
 - Gate B3 automated multi-asset/unequal player trade search: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Specialist-inclusive trade composition: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
+- Specialist-inclusive trade composition: **REOPENED / MULTI-K SOURCE CANDIDATE LOCAL-APPLIED + VALIDATED / PUBLICATION + COMMISSIONING PENDING**
 - Current IR move-plus-add adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / GATE B5**
 - Week 3 Data/MC closure: **BLOCKED PENDING A FRESH COMPLETE WEEKLY RECEIPT**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
@@ -55,6 +55,25 @@ targeted regressions from published control-root blobs, passed targeted/full
 runtime pytest, compileall, import smoke, identity/residue checks, and
 commissioned the three production runtime files.
 
+## Specialist Trade Multi-K Boundary
+
+The October 3 fresh Gate B5 cycle passed operational health and all nine required
+coverage channels, but its sole action channel produced six specialist-inclusive
+trade offers. Exact reproduction and decomposition showed four offers ending with
+two K assets and receiving future best-of-week kicker option value while general
+K `CARRY2` remains disabled.
+
+Classification:
+`SPECIALIST_TRADE_MULTI_K_FIXED_OWNERSHIP_BOUNDARY_DEFECT`.
+
+The authorized correction rejects final user or partner trade states with more
+than one K after legal normalization, while preserving multi-DST ownership.
+Corrected source preflight v3 passed targeted/full pytest, compileall, strict
+memory health, and `git diff --check`. The exact two-path candidate is now
+local-applied/validated; publication and runtime commissioning are pending.
+
+The October 3 six-offer frontier is evidence only and is not executable.
+
 ## B2b Boundary
 
 B2b remains separate and deferred. The v1 frontier audit's five candidates came
@@ -64,13 +83,10 @@ credit future IR capacity.
 
 ## Next Gate
 
-Create a new decision-time Week 4 snapshot/capture and rerun the complete weekly
-receipt matrix through the commissioned Gate B5 runtime.
-
-The Oct. 2 05:25 UTC capture remains immutable historical prospective evidence
-but is not sufficiently fresh for current action authorization after the later
-runtime commissioning. If the live IR/roster state changed, use the fresh observed
-state. B2b remains deferred/fail-closed with zero future IR-capacity credit.
+Publish the exact validated multi-K source/test correction with this durable-memory
+checkpoint, commission the published source into `v0.36-repack1`, then create a
+new decision-time Week 4 snapshot/capture and rerun the complete weekly receipt
+matrix. Do not send a trade from the October 3 six-offer frontier.
 
 ## Boundary Conditions
 

@@ -208,3 +208,44 @@ def test_specialist_weekly_receipt_is_separate_from_player_trade_receipts():
     assert receipt.evidence["evaluated_by_family"]["1x2"] == 1
     assert set(receipt.evidence["specialist_channels"]) == {"DST", "K"}
     assert receipt.evidence["screen_authority"] is False
+
+def test_specialist_trade_policy_guard_rejects_user_multi_k_state():
+    roster = base_roster() + [p(9, "K", points=9)]
+    with pytest.raises(
+        ValueError,
+        match="user specialist-trade state requires unsupported multi-K ownership",
+    ):
+        st._assert_supported_trade_specialist_state(roster, side="user")
+
+
+def test_specialist_trade_policy_guard_rejects_partner_multi_k_state():
+    roster = base_roster(100) + [p(109, "K", points=9)]
+    with pytest.raises(
+        ValueError,
+        match="partner specialist-trade state requires unsupported multi-K ownership",
+    ):
+        st._assert_supported_trade_specialist_state(roster, side="partner")
+
+
+def test_specialist_trade_policy_guard_preserves_multi_dst_state():
+    roster = base_roster() + [p(9, "DST", points=9)]
+    st._assert_supported_trade_specialist_state(roster, side="user")
+    assert sum(1 for row in roster if st._position(row) == "DST") == 2
+    assert sum(1 for row in roster if st._position(row) == "K") == 1
+
+
+def test_specialist_trade_multi_k_guard_is_after_legal_normalization():
+    source = open(st.__file__, encoding="utf-8").read()
+    user_legal = (
+        'if not roster_is_legal(user_after, league, target_size=len(user_ctx.roster)):'
+    )
+    partner_legal = (
+        'if not roster_is_legal(partner_after, league, target_size=len(partner_ctx.roster)):'
+    )
+    user_guard = '_assert_supported_trade_specialist_state(user_after, side="user")'
+    partner_guard = (
+        '_assert_supported_trade_specialist_state(partner_after, side="partner")'
+    )
+    assert source.index(user_legal) < source.index(partner_legal)
+    assert source.index(partner_legal) < source.index(user_guard)
+    assert source.index(user_guard) < source.index(partner_guard)

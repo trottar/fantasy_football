@@ -1,6 +1,6 @@
 # Known Issues and Deferred Work
 
-**As of:** 2026-10-02
+**As of:** 2026-10-03
 
 This file owns open/deferred/blocker/debt state that should not clutter
 `docs/memory/CURRENT.md`. It does not override current authority.
@@ -13,11 +13,11 @@ This file owns open/deferred/blocker/debt state that should not clutter
 | Weekly operational health receipt | RESOLVED / GATE A RUNTIME-COMMISSIONED | No | Reopen only if the shared health interface fails its required contract |
 | Specialist current-WAIVER authority | RESOLVED / B1 SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts the commissioned uncertain-acquisition response; WAIVERS remain distinct from guaranteed FREEAGENTs |
 | Automated multi-asset player trade search | RESOLVED / B3 SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh source/runtime/weekly evidence contradicts the commissioned bounded 1x1/1x2/2x1/2x2 player-package search; `evaluate_trade` remains predictive authority |
-| Specialist-inclusive trade evaluation | RESOLVED / SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh source/runtime/weekly evidence contradicts the separate specialist authority, complete-roster P/D/K composition, or mixed-package capacity/drop/fill behavior |
+| Specialist-inclusive trade evaluation | REOPENED / MULTI-K SOURCE CANDIDATE LOCAL-APPLIED + VALIDATED | Yes for specialist-trade action | Fresh Oct. 3 evidence proved uncommissioned post-trade multi-K fixed-ownership option value; publish and runtime-commission the fail-closed multi-K guard, then rerun a fresh weekly matrix |
 | Current IR/open-slot roster-state representation | RESOLVED / B2A SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts current ESPN-status-qualified IR legality or active/IR capacity representation |
 | Current IR move-plus-add valuation/capacity adapter | RESOLVED / GATE B5 SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh weekly/runtime evidence contradicts the single-B2a scope, kickoff-aware locks, FA/WAIVER uncertainty, complete P/D/K branch coverage, or zero-future-capacity contract |
 | IR replacement multiweek temporal horizon | DEFERRED / B2B FAIL-CLOSED / CLAIM-LOCAL QUALIFYING CLAIMS = 0 | Only if a future-capacity claim is needed | Reopen only with fresh qualifying decision-time evidence; do not infer from stale prose, injury type/start date, generic slot compatibility, or outcomes |
-| Fresh Week 4 roster-wide cycle | FRESH RERUN REQUIRED AFTER GATE B5 COMMISSIONING | Yes for current roster-wide authorization | Preserve the Oct. 2 morning capture as immutable evidence, but create a new decision-time snapshot/capture because material state may have changed before the commissioned rerun |
+| Fresh Week 4 roster-wide cycle | COMPLETE MATRIX / SPECIALIST TRADE ACTION BLOCKED | Only specialist-trade execution | Oct. 3 health and 9/9 coverage passed; all non-trade action channels HOLD. The six-offer specialist frontier is evidence only until the multi-K correction is published, commissioned, and rerun on a fresh capture |
 
 Canonical investigation:
 `docs/memory/investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`.
@@ -47,6 +47,9 @@ Canonical investigation:
 | Specialist trade audit v2 import-absence guard | SUPERSEDED DIAGNOSTIC HARNESS FAILURE / FAILED BEFORE FOOTBALL PROBE | No | Harness incorrectly required `src.market_manager` to be globally unimportable outside the runtime root; v3 verified exact module origins under the runtime cwd/PYTHONPATH contract |
 | Specialist trade source preflight v1 porcelain parser | SUPERSEDED PREFLIGHT-HARNESS FAILURE / NON-MUTATING | No | `git_text(...).strip()` removed the first porcelain status line's leading space and shifted the path slice to `rc/...`; v2 reads raw status stdout and regression-tests the exact first-line case |
 | Specialist trade runtime-memory v1 handoff/MEMORY health | SUPERSEDED MEMORY-HARNESS FAILURE / ROLLED BACK | No | v1 used a noncanonical no-exception handoff representation and expanded `MEMORY.md` beyond the strict soft line threshold; v2 restores the canonical handoff structure and compacts the durable specialist commissioning update |
+| Specialist trade multi-K preflight v1 | SUPERSEDED HARNESS PATH-PARSER FAILURE / NON-MUTATING | No | Git CRLF warnings on stderr were merged into stdout and misread as changed paths; v2 separated streams |
+| Specialist trade multi-K preflight v2 | SUPERSEDED TEST-HARNESS FAILURE / NON-MUTATING | No | Production candidate compiled and 26 targeted tests passed; one new regression referenced `Path` without importing it; v3 used builtin `open` |
+| Specialist trade multi-K preflight v3 | RESOLVED / PASS / NON-MUTATING | No | Exact two-path candidate passed user/partner multi-K rejection, multi-DST preservation, targeted/full pytest, compileall, strict memory health, and `git diff --check` |
 | IR adapter source preflight v1 | SUPERSEDED DIAGNOSTIC HARNESS FAILURE / NON-MUTATING | No | Windows denied cleanup of a read-only Git pack index in the disposable clone; no tracked source/runtime/stage changed |
 | IR adapter source preflight v2 | SUPERSEDED CANDIDATE VALIDATION FAILURE / NON-MUTATING | No | Targeted Gate A/B tests passed; full pytest reached 576 passed / 1 failed on the pre-existing B4 weekly-contract literal. Later source audit also invalidated the candidate design as complete |
 | IR adapter source preflight v3 | SUPERSEDED DETERMINISTIC PACKAGE-CONSTRUCTION FAILURE / NON-MUTATING | No | A test-file transform was put in a global transform list and incorrectly required against `src/weekly_decision_cycle.py`; future packages must route transforms by file and execute the exact routing logic in QA |
