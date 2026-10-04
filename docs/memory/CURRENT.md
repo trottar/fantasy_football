@@ -27,68 +27,35 @@ specialist-trade frontier is not executable.
 
 ## Current Work Item
 
-**SPECIALIST TRADE MULTI-K BOUNDARY - SOURCE CANDIDATE LOCAL-APPLIED / VALIDATED.**
+**SPECIALIST TRADE MULTI-K BOUNDARY - SOURCE-PUBLISHED / RUNTIME-COMMISSIONED.**
 
-Fresh October 3 evidence reopened the previously commissioned specialist-inclusive
-trade surface. The authoritative decomposition reproduced all six frozen offers and
-showed that four ended with two K assets and inherited future best-of-week kicker
-option value. DST multi-ownership was not invalidated; K multi-ownership crossed
-the commissioned K-channel policy boundary.
+Source checkpoint `285f34669e60593153b7a30f18016669c7b73f7e` is pushed and remote-verified.
+The exact multi-K fail-closed correction is commissioned in `v0.36-repack1`.
 
-The authorized structural correction is deliberately fail-closed:
+Commissioned `src/specialist_trade.py`:
+- SHA-256 `2a7b34f1b8c82cafb194eb13a984d222c7f76aae6757aa095a37dd041e93a1ed`;
+- Git blob `c2d420f08ed31debb95d5ac8478411479e67907c`.
 
-- after legal mixed-package drop/fill normalization, reject any user or partner
-  final state with more than one K;
-- preserve league-legal multi-DST states and all existing DST machinery;
-- do not invent a two-kicker valuation or acquisition strategy;
-- leave screening non-authoritative and unchanged;
-- leave player-only trade authority, manager behavior, IR Gate B5, and B2b
-  boundaries unchanged;
-- use no observed outcome to tune v0.X.
+Runtime validation passed import-root smoke, focused user/partner multi-K rejection,
+multi-DST preservation, targeted/full pytest, compileall, exact identity checks,
+and zero validation residue. Rollback was not required.
 
-Source preflight v1 failed only on CRLF-warning path parsing; v2 reached 26 targeted
-passes and failed only because a new regression omitted a test-only `Path` import.
-Corrected v3 passed targeted pytest, full pytest, compileall, strict memory health,
-and `git diff --check` against remote `75e0806e50d4b7d4fbc873a870db3281c80b45ad`.
-
-The exact two-path source/test candidate is now **LOCAL-APPLIED / VALIDATED** in
-the control root. Publication and runtime commissioning remain pending.
+The pre-correction October 3 six-offer frontier remains immutable evidence and is
+not executable. Current authorization now requires a fresh decision-time capture
+and complete weekly cycle through the commissioned runtime.
 
 ## Verified State
 
 - Runtime baseline: `v0.36-repack1`, internal `VERSION = 0.36` - **COMMISSIONED**.
-- Gate A fail-closed weekly control plane - **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
-- Gate B1 specialist current-WAIVER coverage - **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
-- Gate B2a current IR/open-slot representation - **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
-- Gate B2b absence horizon - **DEFERRED / FAIL-CLOSED**; corrected claim-local
-  freshness retains zero qualifying claims and no future capacity credit.
-- Gate B3 bounded player-only 1x1/1x2/2x1/2x2 search -
-  **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
-- Gate B5 IR move-plus-add adapter - **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
-- October 3 fresh snapshot `2026-10-03T07:07:57.420185+00:00` and prospective
-  capture `2026-10-03T07:07:58.070713+00:00` - **VALID / PRESERVED**.
-- October 3 weekly receipt - **OPERATIONAL HEALTH PASS / 9 OF 9 COVERAGE /
-  COMPLETE / ACTION_REQUIRED**; only `trade_specialist_inclusive` produced action.
-- Frozen specialist frontier - six offers reproduced exactly with decomposition
-  identity PASS; five were specialist-dominated.
-- Policy-boundary audit - all six offers ended with multi-specialist ownership;
-  four ended with two K and three with multiple DST.
-- General K `CARRY2` - **DISABLED / DIRECT BEHAVIOR CONFIRMED**.
-- Structural classification - post-trade multi-K fixed-ownership option value is
-  outside the commissioned K-channel contract; multi-DST ownership is not
-  invalidated by this evidence.
-- Current specialist trade action frontier - **NOT EXECUTABLE / CORRECTION
-  REQUIRED**. No trade should be sent from the October 3 six-offer frontier.
-- Production authorization for the narrow multi-K structural correction -
-  **GRANTED**.
-- Multi-K source preflight v1 - **FAILED / NON-MUTATING / CRLF WARNING PARSER**.
-- Multi-K source preflight v2 - **FAILED / NON-MUTATING / 26 PASSED + 1
-  TEST-HARNESS NAMEERROR**.
-- Multi-K source preflight v3 - **PASS / NON-MUTATING** with exact two-path
-  candidate, targeted/full pytest, compileall, strict memory health, and
-  `git diff --check`.
-- Exact multi-K source/test candidate - **LOCAL-APPLIED / VALIDATED** in the
-  control root; source publication and runtime commissioning pending.
+- Gate A, B1, B2a, B3, and Gate B5 remain **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
+- Gate B2b remains **DEFERRED / FAIL-CLOSED / NO FUTURE CAPACITY CREDIT**.
+- Specialist-inclusive trade multi-K correction - **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
+- Published source checkpoint: `285f34669e60593153b7a30f18016669c7b73f7e`.
+- Commissioned specialist-trade source SHA-256: `2a7b34f1b8c82cafb194eb13a984d222c7f76aae6757aa095a37dd041e93a1ed`.
+- Commissioned specialist-trade Git blob: `c2d420f08ed31debb95d5ac8478411479e67907c`.
+- Runtime validation: import-root smoke PASS; focused user/partner multi-K rejection PASS; multi-DST preservation PASS; targeted/full pytest PASS; compileall PASS; validation residue NONE; rollback false.
+- General K `CARRY2` remains **DISABLED / UNCHANGED**.
+- October 3 pre-correction snapshot/capture and six-offer frontier remain **VALID IMMUTABLE EVIDENCE / NOT EXECUTABLE**.
 - No observed 2026 outcome has tuned v0.X. Phase 1E persistence remains disabled.
 
 ## Calendar / Evidence Gates
@@ -118,15 +85,12 @@ the control root. Publication and runtime commissioning remain pending.
 
 ## Exact Next Action
 
-Stage and publish the exact validated two-path specialist-trade multi-K source
-correction together with this durable-memory checkpoint, then commission the
-published `src/specialist_trade.py` into `v0.36-repack1`.
+Create a **new decision-time Week 4 snapshot and prospective capture** through the
+commissioned `v0.36-repack1` runtime, then rerun the complete nine-channel weekly
+decision receipt and operational-health matrix.
 
-After runtime commissioning, create a **new decision-time Week 4 snapshot/capture**
-and rerun the complete weekly receipt matrix. Do not authorize a specialist trade
-from the October 3 six-offer frontier; it was generated under the now-classified
-multi-K valuation defect. The October 3 snapshot/capture remain immutable
-prospective evidence of the pre-correction state.
+Do not reuse the pre-correction October 3 snapshot/capture as current authorization
+and do not execute any offer from its six-offer specialist frontier.
 
 B2b remains deferred/fail-closed and contributes no future IR-capacity credit.
 
@@ -143,6 +107,7 @@ B2b remains deferred/fail-closed and contributes no future IR-capacity credit.
 - `evidence/WEEK4_IR_MOVE_PLUS_ADD_SOURCE_VALIDATION_2026-10-02.md`
 - `evidence/WEEK4_IR_MOVE_PLUS_ADD_RUNTIME_COMMISSIONING_2026-10-02.md`
 - `evidence/WEEK4_SPECIALIST_TRADE_MULTI_K_BOUNDARY_2026-10-03.md`
+- `evidence/WEEK4_SPECIALIST_TRADE_MULTI_K_RUNTIME_COMMISSIONING_2026-10-03.md`
 - `roadmap/SEASON_2026.md`
 - `roadmap/STATUS.md`
 - `../KNOWN_ISSUES.md`

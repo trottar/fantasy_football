@@ -12,7 +12,7 @@
 - Gate B2a current IR/open-slot representation: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED / CLAIM-LOCAL QUALIFYING CLAIMS = 0**
 - Gate B3 automated multi-asset/unequal player trade search: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Specialist-inclusive trade composition: **REOPENED / MULTI-K SOURCE CANDIDATE LOCAL-APPLIED + VALIDATED / PUBLICATION + COMMISSIONING PENDING**
+- Specialist-inclusive trade composition: **MULTI-K CORRECTION SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Current IR move-plus-add adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / GATE B5**
 - Week 3 Data/MC closure: **BLOCKED PENDING A FRESH COMPLETE WEEKLY RECEIPT**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
@@ -68,9 +68,9 @@ Classification:
 
 The authorized correction rejects final user or partner trade states with more
 than one K after legal normalization, while preserving multi-DST ownership.
-Corrected source preflight v3 passed targeted/full pytest, compileall, strict
-memory health, and `git diff --check`. The exact two-path candidate is now
-local-applied/validated; publication and runtime commissioning are pending.
+Source checkpoint `285f34669e60593153b7a30f18016669c7b73f7e` is pushed/remote-verified and
+the exact source is runtime-commissioned in `v0.36-repack1`; focused behavior,
+targeted/full pytest, compileall, identity, import-root, and residue checks passed.
 
 The October 3 six-offer frontier is evidence only and is not executable.
 
@@ -83,10 +83,9 @@ credit future IR capacity.
 
 ## Next Gate
 
-Publish the exact validated multi-K source/test correction with this durable-memory
-checkpoint, commission the published source into `v0.36-repack1`, then create a
-new decision-time Week 4 snapshot/capture and rerun the complete weekly receipt
-matrix. Do not send a trade from the October 3 six-offer frontier.
+Create a new decision-time Week 4 snapshot/capture through the commissioned
+multi-K correction and rerun the complete nine-channel weekly receipt. Do not
+reuse or execute the pre-correction six-offer frontier.
 
 ## Boundary Conditions
 
