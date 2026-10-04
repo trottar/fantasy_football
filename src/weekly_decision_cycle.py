@@ -173,6 +173,58 @@ def observed_runtime_version(version_path: str | Path = "VERSION") -> str | None
     return text or None
 
 
+_LINEUP_INACTIVE_SLOTS = {"BENCH", "BE", "IR", "RESERVE", ""}
+_LINEUP_STARTER_SLOTS = ("QB", "RB", "WR", "TE", "FLEX", "K", "DST")
+
+
+def _lineup_snapshot_utc(snapshot: Mapping[str, Any]) -> datetime | None:
+    raw = snapshot.get("snapshot_utc")
+    if not raw:
+        return None
+    try:
+        value = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return None
+    if value.tzinfo is None:
+        return None
+    return value.astimezone(timezone.utc)
+
+
+def _lineup_expected_points(player: Mapping[str, Any], model: Mapping[str, Any]) -> float:
+    from .weekly_manager import (
+        HARD_UNAVAILABLE_STATUSES,
+        active_probability,
+        availability_status,
+    )
+
+    status, _source = availability_status(dict(player))
+    try:
+        enriched_probability = (
+            float(player.get("active_probability"))
+            if player.get("active_probability") is not None
+            else None
+        )
+    except (TypeError, ValueError):
+        enriched_probability = None
+    probability = (
+        min(max(enriched_probability, 0.0), 1.0)
+        if enriched_probability is not None
+        else active_probability(dict(player), dict(model))
+    )
+    if status in HARD_UNAVAILABLE_STATUSES or bool(player.get("is_bye_week")):
+        probability = 0.0
+    try:
+        projection = float(player.get("projection_points") or 0.0)
+    except (TypeError, ValueError):
+        projection = 0.0
+    try:
+        workload = float(player.get("expected_workload_given_active", 1.0))
+    except (TypeError, ValueError):
+        workload = 1.0
+    workload = min(max(workload, 0.0), 1.0)
+    return float(projection * probability * workload)
+
+
 def _default_lineup(
     snapshot: Mapping[str, Any], league: Mapping[str, Any], model: Mapping[str, Any], *,
     values_path: str | Path, team_name: str | None, team_id: int | None,
@@ -182,32 +234,158 @@ def _default_lineup(
 
     team = resolve_team(dict(snapshot), team_name=team_name, team_id=team_id)
     ctx = UtilityContext(dict(snapshot), dict(league), dict(model), values_path, team)
-    result = optimize_lineup(ctx.roster, dict(league), dict(model))
-    selected = sorted(
+    snapshot_utc = _lineup_snapshot_utc(snapshot)
+
+    roster_cfg = dict(league.get("roster") or {})
+    remaining_slots: dict[str, int] = {}
+    legality_gaps: list[str] = []
+    for slot in _LINEUP_STARTER_SLOTS:
+        count = _finite_int(roster_cfg.get(slot, 0))
+        if count is None or count < 0:
+            legality_gaps.append(f"invalid_roster_slot_count:{slot}")
+            remaining_slots[slot] = 0
+        else:
+            remaining_slots[slot] = int(count)
+
+    current_starters: list[int] = []
+    locked_ids: list[int] = []
+    locked_starters: list[dict[str, Any]] = []
+    locked_bench_ids: list[int] = []
+    unlocked_roster: list[dict[str, Any]] = []
+    unlocked_ids: list[int] = []
+    unresolved_lock_ids: list[int] = []
+    lock_evidence: list[dict[str, Any]] = []
+
+    if snapshot_utc is None:
+        legality_gaps.append("snapshot_utc_missing_or_invalid")
+
+    for raw_player in ctx.roster:
+        player = dict(raw_player)
+        player_id = _finite_int(player.get("espn_id"))
+        if player_id is None:
+            legality_gaps.append("roster_player_missing_espn_id")
+            continue
+
+        slot = str(player.get("lineup_slot") or "").strip().upper()
+        is_starter = slot not in _LINEUP_INACTIVE_SLOTS
+        if is_starter:
+            current_starters.append(player_id)
+            if slot not in remaining_slots:
+                legality_gaps.append(f"unsupported_current_lineup_slot:{player_id}:{slot}")
+
+        state = "UNKNOWN"
+        source = "UNKNOWN"
+        kickoff_utc: str | None = None
+        if bool(player.get("lineup_locked")):
+            state = "LOCKED"
+            source = "ESPN_LINEUP_LOCKED"
+        elif snapshot_utc is not None:
+            try:
+                timing = ctx.lock_timing(player, ctx.week)
+            except Exception as exc:
+                legality_gaps.append(
+                    f"lock_timing_error:{player_id}:{type(exc).__name__}"
+                )
+            else:
+                kickoff = getattr(timing, "kickoff", None)
+                source = str(getattr(timing, "source", None) or "UNKNOWN")
+                if kickoff is None:
+                    legality_gaps.append(f"lock_timing_unknown:{player_id}:{source}")
+                elif kickoff.tzinfo is None:
+                    legality_gaps.append(f"lock_timing_naive:{player_id}:{source}")
+                else:
+                    kickoff = kickoff.astimezone(timezone.utc)
+                    kickoff_utc = kickoff.isoformat()
+                    state = "LOCKED" if kickoff <= snapshot_utc else "UNLOCKED"
+
+        lock_evidence.append({
+            "espn_id": player_id,
+            "current_slot": slot,
+            "state": state,
+            "source": source,
+            "kickoff_utc": kickoff_utc,
+        })
+
+        if state == "LOCKED":
+            locked_ids.append(player_id)
+            if is_starter:
+                locked_starters.append(player)
+                if slot in remaining_slots:
+                    remaining_slots[slot] -= 1
+                    if remaining_slots[slot] < 0:
+                        legality_gaps.append(
+                            f"locked_starter_slot_overflow:{player_id}:{slot}"
+                        )
+            else:
+                locked_bench_ids.append(player_id)
+        elif state == "UNLOCKED":
+            unlocked_ids.append(player_id)
+            unlocked_roster.append(player)
+        else:
+            unresolved_lock_ids.append(player_id)
+
+    current = sorted(set(current_starters))
+    legality_complete = not legality_gaps and not unresolved_lock_ids
+    if not legality_complete:
+        return {
+            "missing_slots": [],
+            "selected_espn_ids": current,
+            "current_starter_espn_ids": current,
+            "locked_espn_ids": sorted(set(locked_ids)),
+            "locked_starter_espn_ids": sorted(
+                int(player["espn_id"]) for player in locked_starters
+            ),
+            "locked_bench_espn_ids": sorted(set(locked_bench_ids)),
+            "unlocked_espn_ids": sorted(set(unlocked_ids)),
+            "unresolved_lock_espn_ids": sorted(set(unresolved_lock_ids)),
+            "lineup_legality_complete": False,
+            "lineup_legality_gaps": sorted(set(legality_gaps)),
+            "lock_evidence": lock_evidence,
+            "action_required": False,
+            "total_expected": None,
+        }
+
+    reduced_league = dict(league)
+    reduced_roster = dict(roster_cfg)
+    for slot, count in remaining_slots.items():
+        reduced_roster[slot] = int(count)
+    reduced_league["roster"] = reduced_roster
+
+    result = optimize_lineup(
+        unlocked_roster,
+        reduced_league,
+        dict(model),
+    )
+    optimized_ids = [
         int(row["espn_id"])
         for row in result.rows
         if _finite_int(row.get("espn_id")) is not None
-    )
-    current = sorted(
+    ]
+    locked_starter_ids = [
         int(player["espn_id"])
-        for player in team.get("roster") or []
-        if _finite_int(player.get("espn_id")) is not None
-        and str(player.get("lineup_slot") or "").upper() not in {"BENCH", "BE", "IR", "RESERVE", ""}
+        for player in locked_starters
+    ]
+    selected = sorted(set(locked_starter_ids + optimized_ids))
+    locked_expected = sum(
+        _lineup_expected_points(player, model)
+        for player in locked_starters
     )
-    locked = sorted(
-        int(player["espn_id"])
-        for player in team.get("roster") or []
-        if _finite_int(player.get("espn_id")) is not None and bool(player.get("lineup_locked"))
-    )
+
     return {
         "missing_slots": list(result.missing_slots),
         "selected_espn_ids": selected,
         "current_starter_espn_ids": current,
-        "locked_espn_ids": locked,
+        "locked_espn_ids": sorted(set(locked_ids)),
+        "locked_starter_espn_ids": sorted(set(locked_starter_ids)),
+        "locked_bench_espn_ids": sorted(set(locked_bench_ids)),
+        "unlocked_espn_ids": sorted(set(unlocked_ids)),
+        "unresolved_lock_espn_ids": [],
+        "lineup_legality_complete": True,
+        "lineup_legality_gaps": [],
+        "lock_evidence": lock_evidence,
         "action_required": bool(selected != current),
-        "total_expected": float(result.total_expected),
+        "total_expected": float(locked_expected + result.total_expected),
     }
-
 
 def default_authorities() -> WeeklyAuthorities:
     from .ir_replacement import evaluate_ir_replacement
@@ -260,6 +438,27 @@ def classify_weekly_decision(
 
 
 def _lineup_receipt(report: Mapping[str, Any]) -> ChannelReceipt:
+    if report.get("lineup_legality_complete") is False:
+        gaps = [str(x) for x in report.get("lineup_legality_gaps") or []]
+        unresolved = [
+            str(x) for x in report.get("unresolved_lock_espn_ids") or []
+        ]
+        details = gaps + (
+            ["unresolved_lock_espn_ids=" + ",".join(unresolved)]
+            if unresolved else []
+        )
+        return ChannelReceipt(
+            LINEUP,
+            "Lineup / availability",
+            "INCOMPLETE_COVERAGE:LINEUP_LOCK_LEGALITY",
+            "weekly_decision_cycle._default_lineup + transaction_manager.UtilityContext.lock_timing",
+            evidence=dict(report),
+            gap=(
+                "current lineup cannot be authorized under complete lock/slot constraints"
+                + (": " + "; ".join(details) if details else "")
+            ),
+        )
+
     missing = [str(x) for x in report.get("missing_slots") or []]
     if missing:
         return ChannelReceipt(
@@ -275,13 +474,14 @@ def _lineup_receipt(report: Mapping[str, Any]) -> ChannelReceipt:
         LINEUP,
         "Lineup / availability",
         STATUS_ACTION if action_required else _hold("LINEUP_AVAILABILITY"),
-        "weekly_manager.optimize_lineup",
+        "weekly_decision_cycle._default_lineup + transaction_manager.UtilityContext.lock_timing",
         evidence=dict(report),
-        scope="complete legal current lineup",
-        action={"kind": "LINEUP_REVIEW", "selected_espn_ids": list(report.get("selected_espn_ids") or [])}
-        if action_required else None,
+        scope="complete legal current lineup under frozen locked-player constraints",
+        action={
+            "kind": "LINEUP_REVIEW",
+            "selected_espn_ids": list(report.get("selected_espn_ids") or []),
+        } if action_required else None,
     )
-
 
 def _player_receipt(report: Mapping[str, Any]) -> ChannelReceipt:
     rows = list(report.get("free_agent_actions") or []) + list(report.get("waiver_actions") or [])

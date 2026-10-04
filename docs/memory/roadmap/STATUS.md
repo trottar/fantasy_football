@@ -5,7 +5,7 @@
 - Runtime baseline: `v0.36-repack1` — **COMMISSIONED**
 - Internal version: `0.36`
 - Week 4 prospective captures: **VALID / PRESERVED**
-- Week 4 roster-wide decision completion: **9/9 COMPLETE MATRIX / SPECIALIST TRADE ACTION FRONTIER BLOCKED BY MULTI-K DEFECT**
+- Week 4 roster-wide decision completion: **FRESH OCT. 4 EVIDENCE CAPTURED / LINEUP ACTION AUTHORITY INVALIDATED / LOCK FIX LOCAL-APPLIED**
 - Gate A fail-closed weekly control plane: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B capability closure: **CURRENT-WEEK ACTION COVERAGE COMMISSIONED / B2B DEFERRED**
 - Gate B1 specialist current-WAIVER coverage: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
@@ -74,6 +74,26 @@ targeted/full pytest, compileall, identity, import-root, and residue checks pass
 
 The October 3 six-offer frontier is evidence only and is not executable.
 
+## Weekly Lineup Lock Authority
+
+The October 4 post-multi-K fresh cycle passed operational health and emitted all
+nine receipt rows, but its lineup action selected locked-bench Jakobi Meyers into
+the starting lineup. Source inspection proved `_default_lineup` computed lock
+metadata without constraining `optimize_lineup` or `action_required`.
+
+Classification:
+`WEEKLY_LINEUP_LOCK_AUTHORITY_CONSTRAINT_DEFECT`.
+
+The authorized correction freezes locked starters in their current slots, excludes
+locked bench players, optimizes only unlocked players over remaining legal slots,
+and fails closed when required lock timing or current slot legality is unresolved.
+Source preflight v2 passed with the exact two-path candidate and a frozen October 4
+probe; that candidate is now local-applied/validated. Publication and runtime
+commissioning are pending.
+
+The October 4 four-offer specialist frontier is diagnostic evidence only until a
+fresh post-commissioning weekly cycle reauthorizes current actions.
+
 ## B2b Boundary
 
 B2b remains separate and deferred. The v1 frontier audit's five candidates came
@@ -83,9 +103,10 @@ credit future IR capacity.
 
 ## Next Gate
 
-Create a new decision-time Week 4 snapshot/capture through the commissioned
-multi-K correction and rerun the complete nine-channel weekly receipt. Do not
-reuse or execute the pre-correction six-offer frontier.
+Publish and runtime-commission the exact local-applied lineup-lock correction, then
+create a new decision-time Week 4 snapshot/capture and rerun all nine channels.
+Do not execute the defective October 4 lineup action or its four specialist offers
+as current authority.
 
 ## Boundary Conditions
 

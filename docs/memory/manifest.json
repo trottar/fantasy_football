@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-04T16:18:12.952035-04:00",
+  "generated_at": "2026-10-04T19:48:22.382290-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5416,
-      "sha256": "14cc839f43064d7393c9223f85f100ed74ced70a1d097e0c478cc09af3a026c5"
+      "bytes": 6680,
+      "sha256": "aea9e39f1bb3e5fee24e8040b0b2a6f7ef1b594159dc782c0bd8c08218a9cf07"
     },
     {
       "path": "LEARNINGS.md",
@@ -600,6 +600,11 @@
       "sha256": "6e1a59a60f61d23a01f27da6e9b17e3e4aced9553ce82ed49f2556f14dfddafc"
     },
     {
+      "path": "evidence/WEEK4_LINEUP_LOCK_AUTHORITY_DEFECT_2026-10-04.md",
+      "bytes": 4412,
+      "sha256": "fd7cbec60d77d7a9f5db803176472bce25edd7510465cc0307395366de71b42c"
+    },
+    {
       "path": "evidence/WEEK4_PRELOCK_STATUS_GATE_2026-09-29.md",
       "bytes": 4464,
       "sha256": "78d171ebf2bce4f73d5d21600e2af2f84607960b10cfa3be493e2b0f37cc211e"
@@ -836,13 +841,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6903,
-      "sha256": "6ac4b27c7a1e2e7bfae37e3b835dd15f88d0ef67f5066df64028bb2309f9611f"
+      "bytes": 6936,
+      "sha256": "981ea2e46405747970be7909830164ab8ce74cc8de699dae9abd48c2a224cdfd"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 5057,
-      "sha256": "ab490aefc79cc5e5c6e9e7fff36278734e93ee53ce5c736ea435e1e73fb15fb6"
+      "bytes": 6129,
+      "sha256": "a5b6f0c791f05a9fc18000dd4f8305534b56cea5bcc2ed16708558dc1b6bdc17"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",
