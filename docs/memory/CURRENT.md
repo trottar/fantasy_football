@@ -98,11 +98,13 @@ Classification:
 
 ## Historical Replay Secondary Workstream
 
-Replay bootstrap is source-validated and checkpoint-pending. Weeks 1-2 are
-reconstructed-only; Week 3 is `RECONSTRUCTED_RETROSPECTIVE_REPLAY` overall with
-frozen rostered-player/specialist sub-surfaces and reconstructed player-market
-values. Phase-A receipt/outcome-firewall source is local-applied/validated;
-runtime, outcomes, tuning, and transactions are unchanged. See
+Replay Phase-A bootstrap is **PUSHED / REMOTE VERIFIED** at
+`b038c6b388f1a4aefc53c45ce1c924ed9e9bdb85` (tree `e59b6e7d2930b42d2a2af8e1e54e14756763c86e`). Weeks 1-2 remain
+reconstructed-only; Week 3 remains `RECONSTRUCTED_RETROSPECTIVE_REPLAY` overall
+with frozen rostered-player/specialist sub-surfaces and reconstructed
+player-market values. Runtime, outcomes, tuning, and transactions are unchanged.
+Next replay slice: bind the mixed-provenance Week 3 input adapter and perform
+blind Phase-A candidate evaluation. See
 `evidence/HISTORICAL_COUNTERFACTUAL_REPLAY_PHASE_A_BOOTSTRAP_2026-10-05.md`.
 
 ## Scientific / Architectural Boundaries

@@ -140,21 +140,40 @@ memory-structure debt rather than implementation failure. The successor keeps
 `CURRENT.md` concise and places replay detail in this evidence record and the
 canonical replay architecture.
 
+## Published Checkpoint
+
+The source+memory checkpoint was subsequently published and independently
+remote-verified:
+
+- commit: `b038c6b388f1a4aefc53c45ce1c924ed9e9bdb85`;
+- parent: `f9023a9d165d1079a91d0dbcf060ee1709b1a16b`;
+- committed tree: `e59b6e7d2930b42d2a2af8e1e54e14756763c86e`;
+- remote `main`: `b038c6b388f1a4aefc53c45ce1c924ed9e9bdb85`;
+- changed paths: `9 / EXACT` including the regenerated schema-2 memory manifest;
+- manifest entries: `181`;
+- final focused replay pytest: `14 passed in 0.17s`;
+- final full repository pytest: `609 passed in 48.39s`;
+- `compileall src`: PASS;
+- strict memory health: PASS.
+
+Read-only remote verification confirmed `main` points to the exact commit/tree/parent
+above and the predecessor-to-head comparison contains exactly the intended nine
+paths.
+
 ## State Boundary
 
-Current checkpoint state after this memory local apply:
-
-- Phase-A source: `LOCAL-APPLIED / SOURCE-VALIDATED`;
-- durable memory: `LOCAL-APPLIED / VALIDATED`;
+- Phase-A source: `PUSHED / REMOTE VERIFIED`;
+- durable replay bootstrap memory: `PUSHED / REMOTE VERIFIED`;
 - runtime: unchanged;
-- staging: not performed;
-- commit: not performed;
-- push: not performed;
-- remote verification of this source+memory checkpoint: pending.
+- football-model tuning: false;
+- observed replay outcome attachment: none;
+- transaction execution by replay work: none.
+- The separate Week 4 Kamara -> Bills D/ST action gate remains state-sensitive
+  and authoritative in `CURRENT.md`.
 
 ## Next Replay Development Gate
 
-After source+memory checkpoint publication, bind a Week 3 replay-input adapter to:
+Bind a Week 3 replay-input adapter to:
 
 1. frozen rostered-player predictions;
 2. frozen owned/actionable specialist state;

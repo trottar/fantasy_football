@@ -20,7 +20,7 @@
 
 ## Historical Counterfactual Replay / Regret
 
-- Status: **PHASE-A TOOLING LOCAL-APPLIED / VALIDATED / CHECKPOINT PENDING**.
+- Status: **PHASE-A TOOLING PUSHED / REMOTE VERIFIED** at `b038c6b388f1a4aefc53c45ce1c924ed9e9bdb85` (tree `e59b6e7d2930b42d2a2af8e1e54e14756763c86e`).
 - Provenance bootstrap is closed: Weeks 1-2 are reconstructed-only; Week 3 is
   `RECONSTRUCTED_RETROSPECTIVE_REPLAY` overall with frozen rostered-player and
   specialist sub-surfaces but a reconstructed player waiver/free-agent values
@@ -46,10 +46,10 @@
 - v0.X outcome-driven empirical tuning remains prohibited.
 - The current Week 4 Kamara -> Bills D/ST action remains pending, unexecuted, and
   state-sensitive; replay development does not replace that authority boundary.
-- Replay next implementation gate after checkpoint publication: bind a Week 3
-  replay-input adapter to the frozen roster/specialist dependencies plus the
-  explicitly reconstructed player-market values layer, then enumerate/evaluate
-  legal Phase-A candidates with observed outcomes unavailable.
+- Replay next implementation gate: bind a Week 3 replay-input adapter to the
+  frozen roster/specialist dependencies plus the explicitly reconstructed
+  player-market values layer, then enumerate/evaluate legal Phase-A candidates
+  with observed outcomes unavailable.
 
 ## Blocking Recovery Contract
 
