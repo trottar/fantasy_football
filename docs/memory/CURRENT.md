@@ -24,11 +24,15 @@ Phase-A receipt/model choice before any Phase-B outcome attachment.
 
 ## Current Work Item
 
-**WEEK 3 HISTORICAL REPLAY - PHASE-A INPUT ADAPTER + BLIND EVALUATION.**
+**WEEK 3 HISTORICAL REPLAY - BLIND PHASE-A CANDIDATE ENUMERATION / EVALUATION.**
 
-Phase-A provenance/receipt/outcome-firewall tooling is pushed and remote-verified.
-The next implementation slice is the Week 3 replay-input adapter and blind
-candidate evaluation.
+The mixed-provenance Week 3 replay-input adapter is implemented and validated in
+this checkpoint against all four frozen Week 3 snapshot/capture pairs. It binds
+the frozen rostered-player and specialist surfaces and marks only the
+player waiver/free-agent predictive-values layer as reconstructed.
+
+The next implementation slice is complete legal Phase-A candidate generation and
+uncertainty-aware evaluation for each replayable Week 3 decision point.
 
 Week 3 replay mode is:
 
@@ -61,6 +65,15 @@ recomputed merely because another material layer is reconstructed.
 - Validation: 14 focused replay tests passed; exact complete-repository candidate
   passed 609 tests plus `compileall`, staged allowlist, manifest, and diff gates.
 - Phase-A receipt/outcome firewall: published and validated.
+- Week 3 input-contract audit: `4 / 4` captures integrity-valid and canonically
+  linked to `4 / 4` frozen snapshots; outcome files read: `0`.
+- Replay-input adapter: `src/historical_replay_input.py`; real-data probe:
+  `4 / 4` Week 3 pairs PASS.
+- Adapter validation: `25` focused replay tests and `620` full-repository tests
+  pass in the isolated predecessor checkout; `compileall` PASS.
+- Player-values fallback: eligible players without a positive reconstructed
+  latent mean follow the commissioned frozen ESPN season/weekly projection
+  fallback; this is explicit adapter metadata, not a missing dependency.
 - Observed Week 3 outcomes attached to replay: none.
 - Football-model tuning from 2026 outcomes: false.
 - Replay transaction execution: none.
@@ -100,31 +113,28 @@ a genuinely new capture deadline arises.
 
 ## Exact Next Action
 
-Implement and validate the **Week 3 mixed-provenance replay-input adapter** as
-standalone diagnostic/replay tooling.
+Use the validated Week 3 replay-input adapter to materialize the four chronological
+mixed-provenance decision states, then implement the **complete supported legal
+Phase-A candidate enumerator/evaluator**.
 
-The adapter must bind:
+For each decision point, cover the weekly-contract families supported by the
+historical state: lineup/availability, player waiver/free agent, DST, kicker,
+IR/open-slot/injury replacement, one-for-one player trades, supported unequal or
+multi-player trades, and specialist-inclusive trades. Preserve transaction timing,
+locks, roster legality, availability state, and `P ⊕ D ⊕ K`.
 
-1. frozen Week 3 rostered-player predictions;
-2. frozen owned/actionable specialist state;
-3. the explicitly reconstructed player waiver/free-agent predictive-values layer;
-4. historical league/lock/transaction/availability state needed for legality.
+Cheap screens may generate frontiers, but predictive uncertainty-aware response
+machinery must authorize rankings and model choice. Freeze a separate immutable
+Phase-A receipt for each replayable decision point with candidate predictions,
+uncertainty, ranking, selected action, source identities, and provenance.
 
-Then enumerate the complete supported Week 3 legal action space and evaluate it
-with observed Week 3 outcomes unavailable. Freeze candidate predictions,
-uncertainty, ranking, model-preferred action, source/dependency identities, and
-replay-mode provenance into the immutable Phase-A receipt.
+Do **not** attach Week 3 outcomes, compute hindsight oracles, calculate realized
+regret, or use any result for v0.X tuning until each corresponding Phase-A receipt
+is frozen and verified.
 
-Do **not** attach Week 3 outcomes, compute the hindsight oracle, calculate realized
-regret, or use any result for v0.X tuning until the Phase-A receipt is frozen and
-verified.
-
-If a material historical dependency cannot be proved or reconstructed without
-leakage, classify it explicitly and fail closed rather than silently inferring it.
-
-After the Phase-A receipt is frozen, proceed separately to Phase B: attach actual
-Week 3 outcomes and compare historical actual vs model-preferred vs oracle-best
-feasible states, then classify structural/search/state/data discrepancies.
+If a historical dependency or legal branch cannot be represented without leakage,
+classify it explicitly and fail closed rather than silently narrowing the action
+space.
 
 ## Relevant References
 
@@ -134,9 +144,12 @@ feasible states, then classify structural/search/state/data discrepancies.
 - `patches/PATCH_PROTOCOL.md`
 - `architecture/HISTORICAL_COUNTERFACTUAL_REPLAY.md`
 - `evidence/HISTORICAL_COUNTERFACTUAL_REPLAY_PHASE_A_BOOTSTRAP_2026-10-05.md`
+- `evidence/WEEK3_REPLAY_INPUT_ADAPTER_2026-10-05.md`
 - `architecture/WEEKLY_DECISION_COMPLETION.md`
 - `roadmap/SEASON_2026.md`
 - `roadmap/STATUS.md`
 - `../KNOWN_ISSUES.md`
 - `../../src/counterfactual_replay.py`
+- `../../src/historical_replay_input.py`
 - `../../tests/test_counterfactual_replay.py`
+- `../../tests/test_historical_replay_input.py`

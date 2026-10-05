@@ -15,7 +15,7 @@
 - Specialist-inclusive trade composition: **MULTI-K CORRECTION SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Current IR move-plus-add adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / GATE B5**
 - Week 3 Data/MC closure: **UNBLOCKED BY FRESH COMPLETE WEEKLY RECEIPT**
-- Active development workstream: **WEEK 3 HISTORICAL REPLAY / PHASE-A INPUT ADAPTER + BLIND EVALUATION**
+- Active development workstream: **WEEK 3 HISTORICAL REPLAY / INPUT ADAPTER VALIDATED / BLIND CANDIDATE EVALUATION NEXT**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
 
@@ -48,11 +48,20 @@
 - Active development focus is the Week 3 previous-week replay checks. The pending
   Week 4 Kamara -> Bills D/ST action remains preserved, unexecuted, and
   state-sensitive, but is not the active development workstream.
-- Replay next implementation gate: bind a Week 3 replay-input adapter to the
-  frozen roster/specialist dependencies plus the explicitly reconstructed
-  player-market values layer, then enumerate/evaluate the complete supported
-  legal Phase-A action space with observed outcomes unavailable and freeze the
-  immutable Phase-A receipt.
+- Week 3 replay-input adapter: **IMPLEMENTED / VALIDATED IN THIS CHECKPOINT**.
+  Exact input-contract audit found `4 / 4` integrity-valid captures canonically
+  linked to `4 / 4` frozen snapshots with zero outcome files read. Adapter source
+  `src/historical_replay_input.py` SHA-256 `4145ca8c3eb7673d17c563c834292f2ff9c2333d78644be7c5b710a529d51d42`; test SHA-256 `88265d8dcb5e4f2444d518e482c5a3d641a0ad5b7012c0c33a10718386515504`.
+- The first adapter apply candidate was non-mutating and failed correctly during
+  its first real-pair probe because it incorrectly required every eligible player
+  to exist in the reconstructed values CSV. Source authority showed the
+  commissioned evaluator instead uses positive latent value when available, else
+  frozen ESPN season/weekly projection fallback. v2 mirrors and validates that
+  exact branch.
+- Replay next implementation gate: materialize all four chronological Week 3
+  mixed-provenance decision states, enumerate/evaluate the complete supported
+  legal Phase-A action space with observed outcomes unavailable, and freeze one
+  immutable Phase-A receipt per replayable decision point.
 
 ## Blocking Recovery Contract
 
@@ -185,14 +194,15 @@ MC, or the football decision. This is a nonblocking representation gap.
 
 ## Next Gate
 
-Continue the previous-week checks with the Week 3 mixed-provenance Phase-A replay
-input adapter and blind candidate evaluation.
+Use the validated Week 3 replay-input adapter across all four chronological frozen
+decision points and implement complete supported legal Phase-A candidate
+enumeration/evaluation.
 
-Bind the frozen rostered-player and specialist surfaces plus the explicitly
-reconstructed player-market values layer; preserve historical legality, locks,
-transaction timing, availability, and `P ⊕ D ⊕ K`; enumerate the complete
-supported legal action space; evaluate with observed outcomes unavailable; and
-freeze the Phase-A receipt before any Phase-B outcome attachment.
+Preserve historical legality, locks, transaction timing, availability, and
+`P ⊕ D ⊕ K`; use cheap screens only as candidate generators; require
+uncertainty-aware predictive authority for ranking/model choice; and freeze a
+separate immutable Phase-A receipt for each replayable decision point before any
+Phase-B outcome attachment.
 
 The Week 4 Kamara -> Bills D/ST action remains a preserved pending operational
 side-state, not the active development workstream. If execution is later resumed,
