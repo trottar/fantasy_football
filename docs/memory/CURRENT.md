@@ -27,49 +27,39 @@ specialist-trade frontier is not executable.
 
 ## Current Work Item
 
-**WEEKLY LINEUP LOCK AUTHORITY - STRUCTURAL CORRECTION LOCAL-APPLIED / VALIDATED.**
+**WEEKLY LINEUP LOCK AUTHORITY - SOURCE-PUBLISHED / RUNTIME-COMMISSIONED.**
 
-The October 4 post-multi-K fresh cycle preserved a valid decision-time snapshot and
-prospective capture, passed operational health, and produced all nine receipt rows.
-Its lineup channel nevertheless authorized an impossible perturbation: locked
-bench WR Jakobi Meyers was selected into the starting lineup.
+Source checkpoint `5dba8ea39f5b0cdeb16203b7a423cc6fe7849b52` is pushed and
+remote-verified. The exact lock-aware weekly lineup authority is commissioned in
+`v0.36-repack1`.
 
-Source inspection proved the defect is in `weekly_decision_cycle._default_lineup`:
-it computed lock information but did not constrain `optimize_lineup` or
-`action_required` with the commissioned lock authority.
+Commissioned `src/weekly_decision_cycle.py`:
+- SHA-256 `b48162719044e625e32f23b882d9030c1bf22323a473b11a48d200f30731b852`;
+- Git blob `7969052173582e7b10bbdd846fb9f72ad104d676`.
 
-The authorized correction is now local-applied/validated in the control root:
-locked starters are frozen in their current slots, locked bench players are
-excluded from candidate optimization, only unlocked players compete for remaining
-legal slots, and unresolved lock/slot state fails closed as
-`INCOMPLETE_COVERAGE:LINEUP_LOCK_LEGALITY`.
+Runtime validation passed exact published source/test identity, import-root smoke,
+the frozen October 4 Meyers/Kamara timing probe, locked-bench exclusion,
+locked-starter preservation, fail-closed unknown-lock handling, targeted/full
+pytest, compileall, and zero validation residue. Rollback was not required.
 
-Validated candidate identities:
-- `src/weekly_decision_cycle.py` SHA-256
-  `b48162719044e625e32f23b882d9030c1bf22323a473b11a48d200f30731b852`;
-- Git blob `7969052173582e7b10bbdd846fb9f72ad104d676`;
-- regression SHA-256
-  `c9046463d090088f6ff290420a185c77c245f10a4558de0a42101f7632a4461d`;
-- regression Git blob `4cd790e3cf82c3a5dd66e1aece8f4d5272e68c79`.
-
-The October 4 four-offer specialist frontier is valid diagnostic evidence after
-the multi-K repair, but no lineup or trade action is executable until this lineup
-correction is source-published, runtime-commissioned, and followed by a fresh
-decision-time weekly rerun.
+The October 4 snapshot/capture and defective lineup action remain immutable
+evidence. The four specialist offers from that receipt remain diagnostic evidence
+only and are not executable. Current authorization requires a fresh decision-time
+snapshot/capture and complete nine-channel weekly rerun through the corrected
+commissioned runtime.
 
 ## Verified State
 
-- Runtime baseline: `v0.36-repack1`, internal `VERSION = 0.36` - **COMMISSIONED**, but still carries the pre-lineup-fix weekly authority.
-- Gate A, B1, B2a, B3, Gate B5, and the specialist multi-K correction remain **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
+- Runtime baseline: `v0.36-repack1`, internal `VERSION = 0.36` - **COMMISSIONED**.
+- Gate A, B1, B2a, B3, Gate B5, specialist multi-K correction, and lineup-lock correction are **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
 - Gate B2b remains **DEFERRED / FAIL-CLOSED / NO FUTURE CAPACITY CREDIT**.
-- October 4 snapshot UTC `2026-10-04T21:30:24.707083+00:00` and capture UTC `2026-10-04T21:30:25.525534+00:00` are **VALID IMMUTABLE PROSPECTIVE EVIDENCE**.
-- October 4 operational health: **PASS**; receipt inventory: **9/9**, but action authorization is invalidated by the lineup-lock defect.
-- Fresh-cycle lock scope from commissioned timing authority: players 13 locked / 1 unlocked / 0 unknown; specialists 1 locked / 1 unlocked / 0 unknown.
-- The defective lineup action attempted to move locked-bench Jakobi Meyers into the starting lineup.
-- The four post-multi-K specialist offers are DST-only compositions; none reintroduces unsupported multi-K ownership.
-- Lineup-lock correction source preflight v1: **SUPERSEDED HARNESS PATH-PARSER FAILURE / NON-MUTATING**.
-- Lineup-lock correction source preflight v2: **PASS / NON-MUTATING**; exact two-path candidate validated.
-- Exact candidate is now **LOCAL-APPLIED / VALIDATED**; source publication and runtime commissioning are pending.
+- Lineup-lock source checkpoint: `5dba8ea39f5b0cdeb16203b7a423cc6fe7849b52`.
+- Commissioned weekly-decision source SHA-256: `b48162719044e625e32f23b882d9030c1bf22323a473b11a48d200f30731b852`.
+- Commissioned weekly-decision Git blob: `7969052173582e7b10bbdd846fb9f72ad104d676`.
+- Runtime validation: published identity PASS; import-root smoke PASS; locked-bench exclusion PASS; locked-starter freeze PASS; unknown-lock fail-closed PASS; frozen Oct. 4 Meyers/Kamara probe PASS; targeted/full pytest PASS; compileall PASS; validation residue NONE; rollback false.
+- October 4 snapshot UTC `2026-10-04T21:30:24.707083+00:00` and capture UTC `2026-10-04T21:30:25.525534+00:00` remain **VALID IMMUTABLE PROSPECTIVE EVIDENCE / NOT CURRENT AUTHORIZATION**.
+- October 4 raw receipt inventory was 9/9 with health PASS, but its lineup action was invalidated by the now-corrected lock-authority defect.
+- The four October 4 post-multi-K specialist offers remain **DIAGNOSTIC EVIDENCE / NOT EXECUTABLE** pending fresh reauthorization.
 - General K `CARRY2` remains **DISABLED / UNCHANGED**.
 - No observed 2026 outcome has tuned v0.X. Phase 1E persistence remains disabled.
 
@@ -100,14 +90,14 @@ decision-time weekly rerun.
 
 ## Exact Next Action
 
-Publish the exact local-applied lineup-lock source/test candidate from remote base
-`1cfce15ba6838901883dfcfd60132a87bbe3f2f7`, then commission the published
-`src/weekly_decision_cycle.py` into `v0.36-repack1`.
+Create a **new decision-time Week 4 snapshot and prospective capture** through the
+corrected commissioned `v0.36-repack1` runtime, then rerun the complete
+nine-channel weekly decision receipt and operational-health matrix.
 
-After runtime commissioning, create a new decision-time Week 4 snapshot and
-prospective capture and rerun the complete nine-channel weekly receipt. Do not
-reuse the October 4 defective lineup action or execute any of its four specialist
-trade offers as current authority.
+Preserve current lock semantics. Do not reuse the October 4 21:30 UTC
+snapshot/capture as current authorization, do not execute its defective lineup
+action, and do not execute any of its four specialist offers unless a fresh
+post-commissioning receipt reauthorizes them.
 
 B2b remains deferred/fail-closed and contributes no future IR-capacity credit.
 
@@ -126,6 +116,7 @@ B2b remains deferred/fail-closed and contributes no future IR-capacity credit.
 - `evidence/WEEK4_SPECIALIST_TRADE_MULTI_K_BOUNDARY_2026-10-03.md`
 - `evidence/WEEK4_SPECIALIST_TRADE_MULTI_K_RUNTIME_COMMISSIONING_2026-10-03.md`
 - `evidence/WEEK4_LINEUP_LOCK_AUTHORITY_DEFECT_2026-10-04.md`
+- `evidence/WEEK4_LINEUP_LOCK_AUTHORITY_RUNTIME_COMMISSIONING_2026-10-04.md`
 - `roadmap/SEASON_2026.md`
 - `roadmap/STATUS.md`
 - `../KNOWN_ISSUES.md`

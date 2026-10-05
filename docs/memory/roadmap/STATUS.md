@@ -5,7 +5,7 @@
 - Runtime baseline: `v0.36-repack1` — **COMMISSIONED**
 - Internal version: `0.36`
 - Week 4 prospective captures: **VALID / PRESERVED**
-- Week 4 roster-wide decision completion: **FRESH OCT. 4 EVIDENCE CAPTURED / LINEUP ACTION AUTHORITY INVALIDATED / LOCK FIX LOCAL-APPLIED**
+- Week 4 roster-wide decision completion: **LINEUP LOCK FIX SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / FRESH RERUN REQUIRED**
 - Gate A fail-closed weekly control plane: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B capability closure: **CURRENT-WEEK ACTION COVERAGE COMMISSIONED / B2B DEFERRED**
 - Gate B1 specialist current-WAIVER coverage: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
@@ -87,9 +87,10 @@ Classification:
 The authorized correction freezes locked starters in their current slots, excludes
 locked bench players, optimizes only unlocked players over remaining legal slots,
 and fails closed when required lock timing or current slot legality is unresolved.
-Source preflight v2 passed with the exact two-path candidate and a frozen October 4
-probe; that candidate is now local-applied/validated. Publication and runtime
-commissioning are pending.
+Source checkpoint `5dba8ea39f5b0cdeb16203b7a423cc6fe7849b52` is pushed/remote-verified and
+the exact source is runtime-commissioned in `v0.36-repack1`; published identity,
+focused frozen-Oct. 4 behavior, targeted/full pytest, compileall, import-root, and
+residue checks passed.
 
 The October 4 four-offer specialist frontier is diagnostic evidence only until a
 fresh post-commissioning weekly cycle reauthorizes current actions.
@@ -103,10 +104,10 @@ credit future IR capacity.
 
 ## Next Gate
 
-Publish and runtime-commission the exact local-applied lineup-lock correction, then
-create a new decision-time Week 4 snapshot/capture and rerun all nine channels.
+Create a new decision-time Week 4 snapshot/capture through the corrected
+commissioned lineup authority and rerun the complete nine-channel weekly receipt.
 Do not execute the defective October 4 lineup action or its four specialist offers
-as current authority.
+unless the fresh receipt reauthorizes them.
 
 ## Boundary Conditions
 
