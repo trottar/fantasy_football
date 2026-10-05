@@ -5,7 +5,7 @@
 - Runtime baseline: `v0.36-repack1` — **COMMISSIONED**
 - Internal version: `0.36`
 - Week 4 prospective captures: **VALID / PRESERVED**
-- Week 4 roster-wide decision completion: **TRADE EFFECTIVE-TIMING SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / FRESH RERUN REQUIRED**
+- Week 4 roster-wide decision completion: **COMPLETE / ACTION_REQUIRED / FRESH POST-TIMING AUTHORITY**
 - Gate A fail-closed weekly control plane: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B capability closure: **CURRENT-WEEK ACTION COVERAGE COMMISSIONED / B2B DEFERRED**
 - Gate B1 specialist current-WAIVER coverage: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
@@ -14,9 +14,24 @@
 - Gate B3 automated multi-asset/unequal player trade search: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Specialist-inclusive trade composition: **MULTI-K CORRECTION SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Current IR move-plus-add adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / GATE B5**
-- Week 3 Data/MC closure: **BLOCKED PENDING A FRESH COMPLETE WEEKLY RECEIPT**
+- Week 3 Data/MC closure: **UNBLOCKED BY FRESH COMPLETE WEEKLY RECEIPT**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
+
+## Historical Counterfactual Replay / Regret
+
+- Status: **ARCHITECTURE AUTHORIZED / IMPLEMENTATION BOOTSTRAP**.
+- Initial scope: inventory genuine Weeks 1-3 frozen replay inputs and dependency
+  provenance before source implementation.
+- Weekly integration: after ordinary prospective closure, replay each completed
+  week and retain cumulative structural regression scenarios.
+- Modes: `CAUSAL_FROZEN_REPLAY` and
+  `RECONSTRUCTED_RETROSPECTIVE_REPLAY`.
+- Phase A predictions/model choice freeze before Phase B observed-outcome/oracle
+  attachment.
+- v0.X outcome-driven empirical tuning remains prohibited.
+- The current Week 4 Kamara -> Bills D/ST action remains pending, unexecuted, and
+  state-sensitive; replay development does not replace that authority boundary.
 
 ## Blocking Recovery Contract
 
@@ -127,14 +142,35 @@ tests unchanged, overlaid the actual runtime production bytes into the exact
 published checkout, and passed the complete published suite, compileall, frozen
 Oct. 5 effective-time probe, identity, and residue checks.
 
-The Oct. 5 snapshot/capture remain valid prospective evidence, but the
-pre-correction Kamara -> Bills offer is not executable.
+The Oct. 5 01:26 UTC snapshot/capture remain valid prospective evidence, but
+the pre-correction Kamara -> Bills offer is not executable.
+
+A fresh corrected cycle at snapshot UTC
+`2026-10-05T15:22:25.546621+00:00` passed operational health, all nine required
+channels, and lineup legality. The only action channel is specialist-inclusive
+trade. The sole actionable offer is again Alvin Kamara -> Bills D/ST, now valued
+under the corrected temporal boundary: 4096 predictive scenarios, our season PPG
+delta `+0.5872324506228646`, our `P(better)=0.61767578125`, partner season PPG
+delta `+0.7639320734790934`, partner `P(better)=0.599853515625`, and separate
+uncalibrated `P(accept)=0.6579706454137803`.
+
+The fresh 48-hour trade-review state makes the offer Week 5 effective with
+exactly zero Week 4 ownership effect. No transaction has been executed.
+
+The compact specialist ranked row does not retain the evaluator's `trade_timing`
+object. A read-only extractor recovered timing from the matching frozen snapshot
+through the commissioned timing authority without rerunning snapshot, capture,
+MC, or the football decision. This is a nonblocking representation gap.
 
 ## Next Gate
 
-Take a new decision-time Week 4 snapshot/prospective capture through corrected
-commissioned `v0.36-repack1` and rerun the complete nine-channel weekly receipt
-before any trade execution.
+Handle the fresh Kamara -> Bills D/ST execution gate while the 15:22 UTC material
+decision state remains current. If material roster/injury/market/lock/transaction
+state changes before submission, refresh the decision-time snapshot/capture and
+weekly authority first.
+
+After the action gate is handled, record transaction evidence prospectively and
+resume Week 3 Data/MC closure, whose weekly-completeness blocker is now satisfied.
 
 ## Boundary Conditions
 

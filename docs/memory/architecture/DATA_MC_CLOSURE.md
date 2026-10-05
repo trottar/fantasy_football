@@ -51,3 +51,25 @@ Separate:
 1. Outcome regret — hindsight best lineup; descriptive only.
 2. Information-consistent decision regret — pre-lock information only; tests policy.
 3. Model regret — distributions/inputs systematically wrong; tests physics.
+
+## Historical Counterfactual Replay
+
+After ordinary prospective closure, completed weeks may enter the replay
+laboratory defined by `HISTORICAL_COUNTERFACTUAL_REPLAY.md`.
+
+Replay uses a two-phase firewall: blind predictive replay freezes candidate
+predictions, uncertainty, rankings, and the model-preferred action before
+observed outcomes are attached. Phase B then computes descriptive oracle and
+regret metrics.
+
+A causal-input replay requires every material decision input/dependency to be
+historically decision-time-valid; otherwise classify it as reconstructed
+retrospective replay. Neither mode is a backfilled prospective capture.
+
+Extend the regret taxonomy with matchup-flip opportunity,
+actual-vs-model-preferred regret, actual-vs-oracle regret, model-vs-oracle
+regret, predicted-versus-realized counterfactual response, and P/D/K/action-family
+decomposition.
+
+Replay findings may justify structural investigations and regression tests. They
+may not empirically tune v0.X.

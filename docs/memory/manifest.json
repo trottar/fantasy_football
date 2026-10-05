@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-05T10:59:19.405299-04:00",
+  "generated_at": "2026-10-05T13:06:15.437646-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 5282,
-      "sha256": "fbc71d68121f7ebfe1f8949060516441aacb090e2d2e633b9acf6f1e8bbfe926"
+      "bytes": 5733,
+      "sha256": "812c77365544b08471cf60317e2db3b2f946cd676bd393b9fc5daf0c7195c39c"
     },
     {
       "path": "LEARNINGS.md",
@@ -51,8 +51,8 @@
     },
     {
       "path": "architecture/DATA_MC_CLOSURE.md",
-      "bytes": 1149,
-      "sha256": "fa5ec81fa3e6ccfda79810485ce27c6c09c0b9462fbc21cae9e99b2aa0d7a026"
+      "bytes": 2134,
+      "sha256": "fa29586f00fd10664486aad91a0f9f7ef608bc52caf5e3ff9758b9b58406443f"
     },
     {
       "path": "architecture/DIAGNOSTICS_OBSERVABILITY.md",
@@ -60,9 +60,14 @@
       "sha256": "e869823315972289490fab10d8671da86583d17b8f4d3627c1d8ad261f1afec9"
     },
     {
+      "path": "architecture/HISTORICAL_COUNTERFACTUAL_REPLAY.md",
+      "bytes": 7137,
+      "sha256": "939bcd7ad8fa9b73ff4cc6c10724e28ed0ec0328d2f8219f3b035115c71846c8"
+    },
+    {
       "path": "architecture/INFORMATION_CAUSALITY.md",
-      "bytes": 619,
-      "sha256": "8fd15b9ffb5dc281f546b158ad2f173c23a898d9ee1962b52d99433af9f25c9e"
+      "bytes": 1501,
+      "sha256": "1da4eb397f4963dcfc9eadc651b5959cf5b3115764f525bdfe5ef93472284c6c"
     },
     {
       "path": "architecture/MARKET_MODEL.md",
@@ -856,13 +861,13 @@
     },
     {
       "path": "roadmap/SEASON_2026.md",
-      "bytes": 6953,
-      "sha256": "36fde03e7a489429c8cf07a8bff2473f23337f4f80cba55114af7ff5d6c8d751"
+      "bytes": 7996,
+      "sha256": "435caeda16e9f6a24e711c4b69f2887dc1d6b74883888a990344b3ab7f3575be"
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 7587,
-      "sha256": "951eac0bf7c554205b7588ab4a41224d5620ea3a56561d79e58565f8cf0f641f"
+      "bytes": 9605,
+      "sha256": "1de9d8cb5e6580ae4cc885286a654e36ceba905e8d753293a85ccd47f49ec402"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

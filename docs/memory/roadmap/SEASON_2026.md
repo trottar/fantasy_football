@@ -25,8 +25,8 @@ A date can trigger an evidence review. It cannot force the evidence gate to pass
 | --- | --- | --- | --- |
 | 1 | Sep 9-14 | none | Closed. Use as prospective evidence only if a genuine frozen capture already exists. Never backfill. |
 | 2 | Sep 17-21 | none | Closed. Preserve any genuine frozen W2 evidence and classify gaps explicitly. Never backfill. |
-| 3 | Sep 24-28 | none | Closed calendar window. Preserve secured week-open/decision-time evidence; Week 3 closure remains deferred until a fresh complete weekly receipt proves recovery. |
-| 4 | Oct 1-5 | none | **Gate B5, multi-K, lineup-lock, and trade-effective-time corrections are source-published/runtime-commissioned.** The Oct. 5 01:26 UTC snapshot/capture remain valid immutable pre-correction evidence and lineup HOLD is valid, but the Kamara -> Bills action is not executable. Take a new decision-time capture through the corrected commissioned runtime and rerun all nine channels before any trade execution. B2b remains deferred/fail-closed with zero future IR-capacity credit. |
+| 3 | Sep 24-28 | none | Closed calendar window. Preserve secured week-open/decision-time evidence. **Week 3 closure recovery gate is satisfied** by the Oct. 5 fresh complete Week 4 receipt; resume closure after the current Week 4 action gate is handled. |
+| 4 | Oct 1-5 | none | **Fresh corrected weekly authority secured.** The 15:22:25 UTC fresh corrected snapshot and immediate prospective capture passed integrity/firewall, operational health, all 9 channels, and lineup legality. Sole action: Kamara -> Bills D/ST, 4096-scenario specialist trade; 48-hour review makes ownership Week 5 effective with zero Week 4 effect. Execute only while material state remains unchanged; otherwise refresh first. B2b remains deferred/fail-closed with zero future IR-capacity credit. |
 | 5 | Oct 8-12 | CAR, KC | Preferred broader observability/operability target after Week 4 recovery; first bye-week operational stress. |
 | 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks if evidence quality supports it. Open calibration investigations only; no automatic tuning. |
 | 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow calibration only when justified. |
@@ -57,6 +57,27 @@ Evaluate channel-separated residuals, pulls, MAE/RMSE, pull mean/width, interval
 coverage, availability Brier scores, matchup outcomes,
 opportunity/efficiency/scoring, market/behavior outcomes, and
 lineup/transaction regret.
+
+### Post-outcome counterfactual replay
+
+After raw outcomes are frozen and ordinary prospective closure is evaluated:
+
+- replay the just-completed week under
+  `architecture/HISTORICAL_COUNTERFACTUAL_REPLAY.md`;
+- classify each run as `CAUSAL_FROZEN_REPLAY` or
+  `RECONSTRUCTED_RETROSPECTIVE_REPLAY`;
+- freeze replay predictions and the model-preferred action before outcome
+  attachment;
+- compare historical actual, model-preferred replay, and oracle-best feasible
+  counterfactual states;
+- record regret, matchup-flip opportunities, predictive residuals, and structural
+  classifications;
+- add confirmed structural defects to the cumulative replay regression suite;
+- rerun affected prior structural scenarios after decision-machinery changes;
+- never tune v0.X to improve historical 2026 outcomes.
+
+This is a standard weekly procedure after every completed week. Weeks 1-3 may
+bootstrap the laboratory only under the replay-mode provenance rules above.
 
 ### Tuesday-Wednesday: diagnosis
 

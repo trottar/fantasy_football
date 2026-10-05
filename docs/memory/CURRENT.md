@@ -5,7 +5,7 @@ state_updated: 2026-10-05
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: weekly_decision_gate_b_capability_closure
-active_workstream: fresh_post_trade_timing_week4_cycle
+active_workstream: week4_specialist_trade_execution_gate
 memory_refinement_step: none
 nfl_week: 4
 fantasy_stage: regular_season
@@ -14,69 +14,87 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Take a new decision-time Week 4 snapshot and prospective capture through the
-fully corrected commissioned runtime, then rerun the complete 9-channel weekly
-decision cycle before any trade execution.
+Preserve the fresh corrected Week 4 decision state and handle its sole current
+action: an Alvin Kamara -> Bills D/ST specialist-inclusive trade whose ownership
+effect begins in Week 5 because the league has a 48-hour review window.
 
-The prior Oct. 5 snapshot/capture remains valid immutable prospective evidence,
-but its sole Kamara -> Bills D/ST trade action was produced before the trade
-effective-time correction and is not executable authority.
+The fresh 15:22 UTC snapshot/capture and complete nine-channel receipt supersede
+the earlier pre-correction trade frontier as current action authority. The prior
+frontier remains immutable prospective evidence only.
 
 ## Current Work Item
 
-**TRADE EFFECTIVE TIMING BOUNDARY - SOURCE-PUBLISHED / RUNTIME-COMMISSIONED.**
+**FRESH POST-TRADE-TIMING WEEK 4 CYCLE - COMPLETE / ACTION REQUIRED.**
 
-Published checkpoint:
-`a404f61c77a1449b8275928d877d3c39c0a624a6`
-(tree `3af8b01bb8451d7d9e32962e664e99dadff1d19d`).
+Fresh decision-time snapshot:
+`2026-10-05T15:22:25.546621+00:00`.
 
-Commissioned runtime:
-`fantasy_season_v0_36_repack1`, VERSION `0.36`.
+Fresh prospective capture:
+`2026-10-05T15:22:26.140208+00:00`.
 
-Production identities:
+Fresh weekly receipt:
+`data/season_decisions/weekly_decision_receipt_20261005T152723Z.json`
+(SHA-256
+`1eee2c59b74ec87e719c3c0f5d81e740f17e1aba1afd03e2c90ca01814a2ba20`).
 
-- `src/data_sources/espn_league.py`: SHA-256 `84cce5210f851b31d127a066de27207a476a5b1d64345a52c5b523f3b227b8b2`, blob `081cacdc913529497bf0070aa7845a27da7f388b`.
-- `src/market_manager.py`: SHA-256 `f8aeb8a642da5d22b5fd9950275477487b0b460f1ffe62f6fca506493b366e80`, blob `3036bac8baad2c70e5f019e365c6796ca85a4447`.
-- `src/specialist_trade.py`: SHA-256 `c05859808c85638e825f568aa70713d1e2d3fde768baeccbce8cf0dcf1923221`, blob `79bc906337748025857e504e9a3fc739fa8284e4`.
-- `src/trade_timing.py`: SHA-256 `34672c6a7538247969e92f77fa5da20431d5275cea25b2c5eb4f2e622299d476`, blob `b462bd4c3a622c4ee00b12a4543e2b8bbc801e84`.
+Operational health passed, all nine required channels were present, lineup
+legality passed with no lineup change, and the sole action channel was
+specialist-inclusive trade.
 
-Runtime commissioning v1 wrote the candidate but validated against stale runtime
-test fixtures that lacked normalized `transaction_settings`; 4 trade tests failed
-closed and all 4 production paths were rolled back. v2 retained runtime-local
-tests unchanged, overlaid the actual runtime production bytes into a fresh clone
-of published commit `a404f61...`, and passed the complete published test suite,
-compileall, import smoke, exact identities, frozen Oct. 5 probe, and residue
-checks. Rollback was false.
+Classification:
+`WEEK4_COMPLETE_ACTION_REQUIRED_SPECIALIST_TRADE_WEEK5_EFFECTIVE`.
 
 ## Verified State
 
-- Trade effective-time correction: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
-- Frozen Oct. 5 transaction settings probe: PASS.
-- Frozen Kamara/Bills timing: earliest modeled ownership effect Week 5.
-- Frozen Week 4 ownership effect for that package: exactly zero.
-- Published test suite over actual runtime production bytes: PASS.
-- Published/runtime compileall: PASS.
-- Runtime validation residue: NONE.
-- Gate A, B1, B2a, B3, Gate B5, multi-K, lineup-lock, and trade-effective-time corrections are commissioned.
-- B2b remains deferred / fail-closed / no future IR-capacity credit.
-- General K `CARRY2` remains disabled.
-- Football-model tuning remains false.
-
-Causal rule: normal trade review latency is real; commissioner early processing
-is never assumed. Positive review defers ownership to the next scoring week.
-With zero review, locked assets defer and unresolved timing fails closed. Only
-zero-review, fully unlocked packages may affect the current week. Automatic
-drops/adds share the same effective-time boundary.
+- Fresh corrected Week 4 snapshot/capture: **VALID / PRESERVED**.
+- Capture integrity: PASS.
+- Pre-data firewall: CLOSED.
+- Operational health: PASS.
+- Required weekly channels: `9 / 9`; incomplete channels: NONE.
+- Lineup: legal `PASS / HOLD`; no starting-lineup change.
+- Player lock scope: 13 locked / 1 unlocked / 0 unknown.
+- Specialist lock scope: 2 locked / 0 unlocked / 0 unknown.
+- Player waiver/free-agent, DST, K, IR, 1x1-player trade, and multi-player trade:
+  HOLD.
+- Specialist-inclusive trade: **PASS / ACTION**.
+- Fresh actionable offer: **Alvin Kamara -> Bills D/ST**.
+- User normalization: no automatic drop or add.
+- Partner modeled normalization: drop Kendre Miller; add Falcons D/ST.
+- Our season PPG delta: `+0.5872324506228646`;
+  `P(better)=0.61767578125`.
+- Our complete-state utility delta:
+  `+0.006234695662313433`.
+- Partner season PPG delta: `+0.7639320734790934`;
+  `P(better)=0.599853515625`.
+- Separate uncalibrated manager behavior:
+  `P(accept)=0.6579706454137803`,
+  `P(counter)=0.10718753377738961`,
+  `P(reject)=0.2348418208088301`.
+- Predictive MC: 4096 scenarios.
+- Fresh ESPN trade review: 48 hours.
+- Trade effective week: **Week 5**.
+- Week 4 ownership effect: **exactly zero**.
+- Prior pre-correction Oct. 5 frontier: **NOT REUSED / NOT EXECUTED**.
+- Transaction executed: false.
+- Football-model tuning: false.
+- The fresh complete weekly receipt satisfies the recovery condition that blocked
+  Week 3 Data/MC closure.
 
 ## Calendar / Evidence Gates
 
 - Preserve all prior Week 4 prospective captures; never backfill.
-- The pre-correction Oct. 5 Kamara -> Bills offer remains evidence only.
-- A new prospective decision-time capture is required before current trade action.
-- Refresh state again before execution if material roster, injury, market, lock,
-  or transaction information changes.
-- Week 3 Data/MC closure remains blocked until a fresh complete weekly receipt
-  passes through the corrected commissioned authority.
+- The 15:22 UTC fresh corrected snapshot/capture is current action evidence.
+- The Kamara -> Bills D/ST offer is execution authority only while material
+  roster, injury, market, lock, and transaction state remains unchanged.
+- If material decision-time state changes before submission, take a new snapshot
+  and prospective capture and rerun the required weekly authority.
+- Positive review latency remains causal: this offer is Week 5 effective and
+  cannot alter Week 4 ownership.
+- Week 3 Data/MC closure is now unblocked by weekly-decision completeness and may
+  resume after the current Week 4 action gate is handled.
+- Historical counterfactual replay/regret is authorized as secondary diagnostic
+  development; it must not displace the current Week 4 prospective/action gate or
+  convert hindsight into prospective evidence.
 
 ## Scientific / Architectural Boundaries
 
@@ -91,17 +109,21 @@ drops/adds share the same effective-time boundary.
 
 ## Exact Next Action
 
-Create a new live Week 4 snapshot and prospective pre-data capture through
-commissioned `v0.36-repack1`, verify capture integrity, and rerun all 9 required
-weekly decision channels plus operational health.
+Submit the fresh Alvin Kamara -> Bills D/ST offer **only if the material
+decision-time state represented by the 15:22 UTC snapshot remains unchanged**.
 
-The fresh receipt must report lineup legality, action/incomplete channels,
-trade-effective-time state, lock scopes, source health, dependency identities,
-and specialist offer count. Do not reuse or execute the pre-correction Oct. 5
-trade frontier.
+The offer is modeled as Week 5 effective under the 48-hour review window; do not
+credit any Week 4 ownership effect and do not assume commissioner early
+processing.
 
-After the fresh cycle, analyze the exact result before any football action and
-update durable memory with the new operational evidence.
+If material roster, injury, market, lock, or transaction information changes
+before submission, take a new decision-time snapshot/prospective capture and
+rerun the required weekly authority before execution.
+
+After the action gate is handled, record any submitted/accepted/rejected
+transaction evidence prospectively and resume Week 3 Data/MC closure. The compact
+specialist ranked row's missing `trade_timing` field is a nonblocking
+representation gap; do not rerun MC merely to reconstruct it.
 
 ## Relevant References
 
@@ -110,8 +132,10 @@ update durable memory with the new operational evidence.
 - `USER.md`
 - `patches/PATCH_PROTOCOL.md`
 - `architecture/WEEKLY_DECISION_COMPLETION.md`
+- `architecture/HISTORICAL_COUNTERFACTUAL_REPLAY.md`
 - `evidence/WEEK4_TRADE_EFFECTIVE_TIMING_BOUNDARY_2026-10-05.md`
 - `evidence/WEEK4_TRADE_EFFECTIVE_TIMING_RUNTIME_COMMISSIONING_2026-10-05.md`
+- `evidence/WEEK4_FRESH_POST_TRADE_TIMING_DECISION_2026-10-05.md`
 - `roadmap/SEASON_2026.md`
 - `roadmap/STATUS.md`
 - `../KNOWN_ISSUES.md`
