@@ -79,6 +79,20 @@ After raw outcomes are frozen and ordinary prospective closure is evaluated:
 This is a standard weekly procedure after every completed week. Weeks 1-3 may
 bootstrap the laboratory only under the replay-mode provenance rules above.
 
+Bootstrap classification established on 2026-10-05:
+
+- Weeks 1-2 have no frozen decision-state artifacts in the audited local evidence
+  and therefore support only `RECONSTRUCTED_RETROSPECTIVE_REPLAY`.
+- Week 3 is `RECONSTRUCTED_RETROSPECTIVE_REPLAY` overall. Frozen sub-surfaces
+  cover all 174 rostered player predictions, all 24 owned specialist predictions,
+  and the exact 40-player historical actionable specialist frontier. The broad
+  player waiver/free-agent values layer is reconstructed because its historical
+  decision-time identity is unproven.
+- The first Phase-A replay tooling slice is source-validated. It freezes
+  provenance, candidate rankings/model action, and a hash-addressed receipt before
+  any Phase-B outcome attachment. It does not itself authorize a football action
+  or empirical v0.X tuning.
+
 ### Tuesday-Wednesday: diagnosis
 
 For each meaningful anomaly:

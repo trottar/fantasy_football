@@ -20,9 +20,23 @@
 
 ## Historical Counterfactual Replay / Regret
 
-- Status: **ARCHITECTURE AUTHORIZED / IMPLEMENTATION BOOTSTRAP**.
-- Initial scope: inventory genuine Weeks 1-3 frozen replay inputs and dependency
-  provenance before source implementation.
+- Status: **PHASE-A TOOLING LOCAL-APPLIED / VALIDATED / CHECKPOINT PENDING**.
+- Provenance bootstrap is closed: Weeks 1-2 are reconstructed-only; Week 3 is
+  `RECONSTRUCTED_RETROSPECTIVE_REPLAY` overall with frozen rostered-player and
+  specialist sub-surfaces but a reconstructed player waiver/free-agent values
+  layer.
+- Week 3 exact frozen coverage: `174 / 174` rostered QB/RB/WR/TE predictions,
+  `24 / 24` owned DST/K predictions, and historical eligibility reproduces the
+  captured `40 / 40` actionable specialist frontier in all four frozen pairs.
+- Phase-A source: `src/counterfactual_replay.py` SHA-256
+  `791af42c910d47967bd371d9feddaf50ae45319f707c3608a10cfee7172606b7`;
+  focused pytest `14 passed`; exact isolated full-repository candidate
+  `609 passed`, `compileall` PASS, exact 2-path staged allowlist, and
+  `git diff --cached --check` PASS.
+- The module supplies per-dependency provenance, replay-mode classification,
+  immutable hash-addressed Phase-A receipts, frozen rankings/model action, and a
+  hard Phase-A/Phase-B outcome firewall. Football candidate evaluation and
+  historical outcome attachment are not yet wired.
 - Weekly integration: after ordinary prospective closure, replay each completed
   week and retain cumulative structural regression scenarios.
 - Modes: `CAUSAL_FROZEN_REPLAY` and
@@ -32,6 +46,10 @@
 - v0.X outcome-driven empirical tuning remains prohibited.
 - The current Week 4 Kamara -> Bills D/ST action remains pending, unexecuted, and
   state-sensitive; replay development does not replace that authority boundary.
+- Replay next implementation gate after checkpoint publication: bind a Week 3
+  replay-input adapter to the frozen roster/specialist dependencies plus the
+  explicitly reconstructed player-market values layer, then enumerate/evaluate
+  legal Phase-A candidates with observed outcomes unavailable.
 
 ## Blocking Recovery Contract
 

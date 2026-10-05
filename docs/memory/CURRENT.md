@@ -96,6 +96,15 @@ Classification:
   development; it must not displace the current Week 4 prospective/action gate or
   convert hindsight into prospective evidence.
 
+## Historical Replay Secondary Workstream
+
+Replay bootstrap is source-validated and checkpoint-pending. Weeks 1-2 are
+reconstructed-only; Week 3 is `RECONSTRUCTED_RETROSPECTIVE_REPLAY` overall with
+frozen rostered-player/specialist sub-surfaces and reconstructed player-market
+values. Phase-A receipt/outcome-firewall source is local-applied/validated;
+runtime, outcomes, tuning, and transactions are unchanged. See
+`evidence/HISTORICAL_COUNTERFACTUAL_REPLAY_PHASE_A_BOOTSTRAP_2026-10-05.md`.
+
 ## Scientific / Architectural Boundaries
 
 - Preserve `P ⊕ D ⊕ K`; compose only at complete-roster boundaries.
@@ -136,6 +145,7 @@ representation gap; do not rerun MC merely to reconstruct it.
 - `evidence/WEEK4_TRADE_EFFECTIVE_TIMING_BOUNDARY_2026-10-05.md`
 - `evidence/WEEK4_TRADE_EFFECTIVE_TIMING_RUNTIME_COMMISSIONING_2026-10-05.md`
 - `evidence/WEEK4_FRESH_POST_TRADE_TIMING_DECISION_2026-10-05.md`
+- `evidence/HISTORICAL_COUNTERFACTUAL_REPLAY_PHASE_A_BOOTSTRAP_2026-10-05.md`
 - `roadmap/SEASON_2026.md`
 - `roadmap/STATUS.md`
 - `../KNOWN_ISSUES.md`
