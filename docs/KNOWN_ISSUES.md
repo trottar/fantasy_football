@@ -1,6 +1,6 @@
 # Known Issues and Deferred Work
 
-**As of:** 2026-10-04
+**As of:** 2026-10-05
 
 This file owns open/deferred/blocker/debt state that should not clutter
 `docs/memory/CURRENT.md`. It does not override current authority.
@@ -18,7 +18,7 @@ This file owns open/deferred/blocker/debt state that should not clutter
 | Current IR/open-slot roster-state representation | RESOLVED / B2A SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh runtime/weekly evidence contradicts current ESPN-status-qualified IR legality or active/IR capacity representation |
 | Current IR move-plus-add valuation/capacity adapter | RESOLVED / GATE B5 SOURCE-PUBLISHED + RUNTIME-COMMISSIONED | No | Reopen only if fresh weekly/runtime evidence contradicts the single-B2a scope, kickoff-aware locks, FA/WAIVER uncertainty, complete P/D/K branch coverage, or zero-future-capacity contract |
 | IR replacement multiweek temporal horizon | DEFERRED / B2B FAIL-CLOSED / CLAIM-LOCAL QUALIFYING CLAIMS = 0 | Only if a future-capacity claim is needed | Reopen only with fresh qualifying decision-time evidence; do not infer from stale prose, injury type/start date, generic slot compatibility, or outcomes |
-| Fresh Week 4 roster-wide cycle | TRADE EFFECTIVE-TIMING CORRECTION PENDING PUBLICATION/RUNTIME COMMISSIONING | Yes for current roster-wide authorization | Oct. 5 fresh cycle passed health/9-of-9/lineup legality, but its sole trade action exposed `TRADE_EFFECTIVE_TIMING_LOCK_BOUNDARY_DEFECT`; publish and commission the exact validated correction, then take a new prospective decision-time capture and rerun all nine channels |
+| Fresh Week 4 roster-wide cycle | TRADE EFFECTIVE-TIMING CORRECTION COMMISSIONED / FRESH RERUN REQUIRED | Yes for current roster-wide authorization | Source checkpoint `a404f61...` and exact runtime production paths are commissioned; take a new prospective decision-time capture and rerun all nine channels before any trade execution |
 
 Canonical investigation:
 `docs/memory/investigations/WEEKLY_DECISION_ORCHESTRATION_RECOVERY_2026-09-29.md`.
@@ -61,7 +61,9 @@ Canonical investigation:
 | Trade effective-timing source preflight v3 | SUPERSEDED DETERMINISTIC RENDERING FAILURE / NON-MUTATING | No | Targeted tests, real Oct. 5 probe, full pytest 595 passed, compileall, and strict memory health passed; `git diff --check` caught one generated blank line at EOF |
 | Trade effective-timing source preflight v4 | RESOLVED / PASS / NON-MUTATING | No | Exact 9-path candidate passed effective-week boundaries, real Kamara/Bills Week 5 probe, carried-forward 595-test suite, compileall/memory health, EOF validation, `git diff --check`, and exact path inventory |
 | Trade effective-timing source local apply v1 | SUPERSEDED SPARSE-CONTROL-ROOT PRESTATE FAILURE / FAILED BEFORE WRITE | No | Package incorrectly required every remote-tracked predecessor path to exist in the split control root; source/runtime/memory remained unchanged |
-| Trade effective-timing source local apply v2 | RESOLVED / LOCAL-APPLIED + VALIDATED | No source-local blocker; publication/runtime commissioning pending | Exact v4 candidate rendered from remote `6baebc...`, absent reviewed control-root paths were safe-to-create, all nine post-write SHA/blob/AST/whitespace identities passed; runtime unchanged |
+| Trade effective-timing source local apply v2 | RESOLVED / LOCAL-APPLIED + VALIDATED | No | Exact v4 candidate rendered from remote `6baebc...`, absent reviewed control-root paths were safe-to-create, all nine post-write SHA/blob/AST/whitespace identities passed |
+| Trade effective-timing runtime commission v1 | SUPERSEDED VALIDATION-HARNESS FAILURE / ROLLED BACK | No | Production paths passed import/frozen timing probe, but stale runtime `test_market_manager_v030.py` fixtures lacked `transaction_settings`; full runtime pytest failed 4 tests and all four production paths rolled back |
+| Trade effective-timing runtime commission v2 | RESOLVED / COMMISSIONED + VALIDATED | No source/runtime blocker; fresh weekly rerun required | Exact four published production paths installed; frozen Oct. 5 timing probe, published full test suite over actual runtime bytes, compileall, identities, and residue checks passed; rollback false |
 | IR adapter source preflight v1 | SUPERSEDED DIAGNOSTIC HARNESS FAILURE / NON-MUTATING | No | Windows denied cleanup of a read-only Git pack index in the disposable clone; no tracked source/runtime/stage changed |
 | IR adapter source preflight v2 | SUPERSEDED CANDIDATE VALIDATION FAILURE / NON-MUTATING | No | Targeted Gate A/B tests passed; full pytest reached 576 passed / 1 failed on the pre-existing B4 weekly-contract literal. Later source audit also invalidated the candidate design as complete |
 | IR adapter source preflight v3 | SUPERSEDED DETERMINISTIC PACKAGE-CONSTRUCTION FAILURE / NON-MUTATING | No | A test-file transform was put in a global transform list and incorrectly required against `src/weekly_decision_cycle.py`; future packages must route transforms by file and execute the exact routing logic in QA |

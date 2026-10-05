@@ -1,6 +1,6 @@
 # 2026 Season Calendar / Development Gates
 
-**Planning state:** 2026-10-04
+**Planning state:** 2026-10-05
 **Configured fantasy regular season:** Weeks 1-13
 **Configured fantasy playoffs:** Weeks 14-17
 **Configured playoff Round 1:** Week 14
@@ -26,7 +26,7 @@ A date can trigger an evidence review. It cannot force the evidence gate to pass
 | 1 | Sep 9-14 | none | Closed. Use as prospective evidence only if a genuine frozen capture already exists. Never backfill. |
 | 2 | Sep 17-21 | none | Closed. Preserve any genuine frozen W2 evidence and classify gaps explicitly. Never backfill. |
 | 3 | Sep 24-28 | none | Closed calendar window. Preserve secured week-open/decision-time evidence; Week 3 closure remains deferred until a fresh complete weekly receipt proves recovery. |
-| 4 | Oct 1-5 | none | **Gate B5, multi-K, and lineup-lock corrections are commissioned; trade-effective-time correction is locally applied and pending publication/runtime commissioning.** The Oct. 5 01:26 UTC snapshot/capture are valid immutable prospective evidence and lineup HOLD is valid, but the sole Kamara -> Bills trade action is invalidated by the transaction-timing defect. Publish/commission the timing correction, then take a new decision-time capture and rerun all nine channels before any trade execution. B2b remains deferred/fail-closed with zero future IR-capacity credit. |
+| 4 | Oct 1-5 | none | **Gate B5, multi-K, lineup-lock, and trade-effective-time corrections are source-published/runtime-commissioned.** The Oct. 5 01:26 UTC snapshot/capture remain valid immutable pre-correction evidence and lineup HOLD is valid, but the Kamara -> Bills action is not executable. Take a new decision-time capture through the corrected commissioned runtime and rerun all nine channels before any trade execution. B2b remains deferred/fail-closed with zero future IR-capacity credit. |
 | 5 | Oct 8-12 | CAR, KC | Preferred broader observability/operability target after Week 4 recovery; first bye-week operational stress. |
 | 6 | Oct 15-19 | CIN, DET, MIA, MIN | First formal review of three clean prospective weeks if evidence quality supports it. Open calibration investigations only; no automatic tuning. |
 | 7 | Oct 22-26 | BUF, JAX, LAC, WSH | Test availability/opportunity and waiver-response closure; shadow calibration only when justified. |
