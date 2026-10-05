@@ -15,6 +15,7 @@
 - Specialist-inclusive trade composition: **MULTI-K CORRECTION SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Current IR move-plus-add adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / GATE B5**
 - Week 3 Data/MC closure: **UNBLOCKED BY FRESH COMPLETE WEEKLY RECEIPT**
+- Active development workstream: **WEEK 3 HISTORICAL REPLAY / PHASE-A INPUT ADAPTER + BLIND EVALUATION**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
 
@@ -44,12 +45,14 @@
 - Phase A predictions/model choice freeze before Phase B observed-outcome/oracle
   attachment.
 - v0.X outcome-driven empirical tuning remains prohibited.
-- The current Week 4 Kamara -> Bills D/ST action remains pending, unexecuted, and
-  state-sensitive; replay development does not replace that authority boundary.
+- Active development focus is the Week 3 previous-week replay checks. The pending
+  Week 4 Kamara -> Bills D/ST action remains preserved, unexecuted, and
+  state-sensitive, but is not the active development workstream.
 - Replay next implementation gate: bind a Week 3 replay-input adapter to the
   frozen roster/specialist dependencies plus the explicitly reconstructed
-  player-market values layer, then enumerate/evaluate legal Phase-A candidates
-  with observed outcomes unavailable.
+  player-market values layer, then enumerate/evaluate the complete supported
+  legal Phase-A action space with observed outcomes unavailable and freeze the
+  immutable Phase-A receipt.
 
 ## Blocking Recovery Contract
 
@@ -182,13 +185,18 @@ MC, or the football decision. This is a nonblocking representation gap.
 
 ## Next Gate
 
-Handle the fresh Kamara -> Bills D/ST execution gate while the 15:22 UTC material
-decision state remains current. If material roster/injury/market/lock/transaction
-state changes before submission, refresh the decision-time snapshot/capture and
-weekly authority first.
+Continue the previous-week checks with the Week 3 mixed-provenance Phase-A replay
+input adapter and blind candidate evaluation.
 
-After the action gate is handled, record transaction evidence prospectively and
-resume Week 3 Data/MC closure, whose weekly-completeness blocker is now satisfied.
+Bind the frozen rostered-player and specialist surfaces plus the explicitly
+reconstructed player-market values layer; preserve historical legality, locks,
+transaction timing, availability, and `P ⊕ D ⊕ K`; enumerate the complete
+supported legal action space; evaluate with observed outcomes unavailable; and
+freeze the Phase-A receipt before any Phase-B outcome attachment.
+
+The Week 4 Kamara -> Bills D/ST action remains a preserved pending operational
+side-state, not the active development workstream. If execution is later resumed,
+refresh weekly authority first whenever material decision-time state has changed.
 
 ## Boundary Conditions
 

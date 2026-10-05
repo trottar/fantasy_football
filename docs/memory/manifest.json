@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-05T14:51:54.968541-04:00",
+  "generated_at": "2026-10-05T15:14:54.215379-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6452,
-      "sha256": "043beab597fc2d0411dc7df981f650822b2ef766075127421178ffe1f67a393a"
+      "bytes": 6091,
+      "sha256": "1e423d50f217a648c03becc4abab3d115fb3286d6444e636c01121f41a607598"
     },
     {
       "path": "LEARNINGS.md",
@@ -871,8 +871,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 10902,
-      "sha256": "468d3a47d5cb91a64ec7ef2f47d161f0a58fc60b5d5ff81ae2fb8e9be5c80835"
+      "bytes": 11451,
+      "sha256": "ee3614225358f712798f46887b68d661430d93d6efa0b4842368f3fe9c974d6a"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",
