@@ -248,6 +248,31 @@ def _team_name(team: dict[str, Any]) -> str:
     return name or str(team.get("abbrev") or team.get("id") or "Unknown")
 
 
+
+def _normalized_transaction_settings(settings: dict[str, Any]) -> dict[str, Any]:
+    trade = settings.get("tradeSettings") or {}
+    roster = settings.get("rosterSettings") or {}
+    acquisition = settings.get("acquisitionSettings") or {}
+
+    def _integer(value: Any) -> int | None:
+        if isinstance(value, bool):
+            return None
+        try:
+            return int(value) if value is not None else None
+        except (TypeError, ValueError):
+            return None
+
+    return {
+        "trade_review_hours": _integer(trade.get("revisionHours")),
+        "trade_veto_votes_required": _integer(trade.get("vetoVotesRequired")),
+        "trade_deadline_date": _integer(trade.get("deadlineDate")),
+        "trade_max": _integer(trade.get("max")),
+        "lineup_locktime_type": roster.get("lineupLocktimeType"),
+        "roster_locktime_type": roster.get("rosterLocktimeType"),
+        "transaction_locking_enabled": acquisition.get("transactionLockingEnabled"),
+    }
+
+
 def normalize_league(payload: dict[str, Any], season: int, week: int) -> dict[str, Any]:
     teams: list[dict[str, Any]] = []
     for team in payload.get("teams") or []:
@@ -307,6 +332,7 @@ def normalize_league(payload: dict[str, Any], season: int, week: int) -> dict[st
     return {
         "league_id": payload.get("id"),
         "league_name": settings.get("name"),
+        "transaction_settings": _normalized_transaction_settings(settings),
         "season": int(season),
         "week": int(week),
         "current_scoring_period": status.get("currentScoringPeriod"),

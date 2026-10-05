@@ -1,11 +1,11 @@
 # Current Project State
 
 ---
-state_updated: 2026-10-04
+state_updated: 2026-10-05
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: weekly_decision_gate_b_capability_closure
-active_workstream: weekly_decision_lineup_lock_authority_correction
+active_workstream: trade_effective_timing_lock_boundary_correction
 memory_refinement_step: none
 nfl_week: 4
 fantasy_stage: regular_season
@@ -14,109 +14,106 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Recover a causally valid Week 4 roster-wide decision state through the commissioned
-Gate A/B control plane while preserving channel, health, decision-time, and
-specialist-policy boundaries.
+Restore causally valid Week 4 roster-wide trade authority without disturbing the
+commissioned lineup, specialist-policy, IR, health, or `P ⊕ D ⊕ K` boundaries.
 
-The October 3 fresh Gate B5 cycle achieved complete 9/9 coverage and operational
-health, but its sole action channel exposed a structural specialist-trade defect:
-four of six actionable offers derived material value from post-trade two-kicker
-fixed ownership even though the commissioned K channel explicitly disables general
-two-kicker `CARRY2`. The frozen cycle remains valid evidence of the defect, but its
-specialist-trade frontier is not executable.
+The fresh Oct. 5 decision-time snapshot/capture is valid prospective evidence:
+9/9 channels and operational health passed, lineup was legal HOLD with no changes,
+and the sole action was Alvin Kamara -> Bills D/ST. That trade is not executable
+because the incoming Bills D/ST was already locked and the pre-correction trade
+evaluators modeled ownership as immediate.
 
 ## Current Work Item
 
-**WEEKLY LINEUP LOCK AUTHORITY - SOURCE-PUBLISHED / RUNTIME-COMMISSIONED.**
+**TRADE EFFECTIVE TIMING LOCK BOUNDARY - SOURCE CANDIDATE LOCAL-APPLIED / VALIDATED.**
 
-Source checkpoint `5dba8ea39f5b0cdeb16203b7a423cc6fe7849b52` is pushed and
-remote-verified. The exact lock-aware weekly lineup authority is commissioned in
-`v0.36-repack1`.
+Classification:
+`TRADE_EFFECTIVE_TIMING_LOCK_BOUNDARY_DEFECT`.
 
-Commissioned `src/weekly_decision_cycle.py`:
-- SHA-256 `b48162719044e625e32f23b882d9030c1bf22323a473b11a48d200f30731b852`;
-- Git blob `7969052173582e7b10bbdd846fb9f72ad104d676`.
+Frozen ESPN settings show a 48-hour trade review, 4-veto threshold,
+`INDIVIDUAL_GAME` lineup/roster locks, and transaction locking disabled.
+Both player and specialist trade authorities lacked a transaction-effective-time
+boundary.
 
-Runtime validation passed exact published source/test identity, import-root smoke,
-the frozen October 4 Meyers/Kamara timing probe, locked-bench exclusion,
-locked-starter preservation, fail-closed unknown-lock handling, targeted/full
-pytest, compileall, and zero validation residue. Rollback was not required.
+The authorized correction is locally applied in the control root across exactly
+9 source/test paths. Production identities:
 
-The October 4 snapshot/capture and defective lineup action remain immutable
-evidence. The four specialist offers from that receipt remain diagnostic evidence
-only and are not executable. Current authorization requires a fresh decision-time
-snapshot/capture and complete nine-channel weekly rerun through the corrected
-commissioned runtime.
+- `src/data_sources/espn_league.py`: SHA-256 `84cce5210f851b31d127a066de27207a476a5b1d64345a52c5b523f3b227b8b2`, blob `081cacdc913529497bf0070aa7845a27da7f388b`.
+- `src/market_manager.py`: SHA-256 `f8aeb8a642da5d22b5fd9950275477487b0b460f1ffe62f6fca506493b366e80`, blob `3036bac8baad2c70e5f019e365c6796ca85a4447`.
+- `src/specialist_trade.py`: SHA-256 `c05859808c85638e825f568aa70713d1e2d3fde768baeccbce8cf0dcf1923221`, blob `79bc906337748025857e504e9a3fc739fa8284e4`.
+- `src/trade_timing.py`: SHA-256 `34672c6a7538247969e92f77fa5da20431d5275cea25b2c5eb4f2e622299d476`, blob `b462bd4c3a622c4ee00b12a4543e2b8bbc801e84`.
+
+Source preflight v4 passed the real Oct. 5 Kamara/Bills Week 5 timing probe,
+effective-time regressions, exact 9-path inventory, `git diff --check`, and
+carried forward v3's targeted/full pytest (`595 passed`), compileall, and strict
+memory health. Local apply v2 rendered from remote
+`6baebc139e82decaf311adf4671518dfa4e100f7` and post-write validated all 9
+identities. Runtime remains pre-correction.
 
 ## Verified State
 
-- Runtime baseline: `v0.36-repack1`, internal `VERSION = 0.36` - **COMMISSIONED**.
-- Gate A, B1, B2a, B3, Gate B5, specialist multi-K correction, and lineup-lock correction are **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**.
-- Gate B2b remains **DEFERRED / FAIL-CLOSED / NO FUTURE CAPACITY CREDIT**.
-- Lineup-lock source checkpoint: `5dba8ea39f5b0cdeb16203b7a423cc6fe7849b52`.
-- Commissioned weekly-decision source SHA-256: `b48162719044e625e32f23b882d9030c1bf22323a473b11a48d200f30731b852`.
-- Commissioned weekly-decision Git blob: `7969052173582e7b10bbdd846fb9f72ad104d676`.
-- Runtime validation: published identity PASS; import-root smoke PASS; locked-bench exclusion PASS; locked-starter freeze PASS; unknown-lock fail-closed PASS; frozen Oct. 4 Meyers/Kamara probe PASS; targeted/full pytest PASS; compileall PASS; validation residue NONE; rollback false.
-- October 4 snapshot UTC `2026-10-04T21:30:24.707083+00:00` and capture UTC `2026-10-04T21:30:25.525534+00:00` remain **VALID IMMUTABLE PROSPECTIVE EVIDENCE / NOT CURRENT AUTHORIZATION**.
-- October 4 raw receipt inventory was 9/9 with health PASS, but its lineup action was invalidated by the now-corrected lock-authority defect.
-- The four October 4 post-multi-K specialist offers remain **DIAGNOSTIC EVIDENCE / NOT EXECUTABLE** pending fresh reauthorization.
-- General K `CARRY2` remains **DISABLED / UNCHANGED**.
-- No observed 2026 outcome has tuned v0.X. Phase 1E persistence remains disabled.
+- Runtime `v0.36-repack1` / VERSION `0.36`: commissioned, pre-trade-timing correction.
+- Gate A, B1, B2a, B3, Gate B5, multi-K, and lineup-lock corrections remain commissioned.
+- B2b: deferred / fail-closed / no future IR-capacity credit.
+- Oct. 5 snapshot UTC `2026-10-05T01:26:55.901034+00:00`; capture UTC `2026-10-05T01:26:56.516701+00:00`.
+- Capture integrity PASS; pre-data firewall CLOSED; operational health PASS.
+- Weekly receipt: 9/9 channels; lineup `PASS / HOLD:LINEUP_AVAILABILITY`; legality PASS; no lineup changes.
+- Sole raw action: Kamara -> Bills D/ST specialist trade; diagnostic only, not executable.
+- Trade audit: Kamara UNLOCKED; Bills D/ST LOCKED; no unknown involved lock state.
+- Transaction settings audit: review 48h; vetoes 4; lineup/roster locks `INDIVIDUAL_GAME`.
+- Source candidate: LOCAL-APPLIED / VALIDATED; staging/publication/runtime sync not performed.
+- General K `CARRY2` remains disabled; football-model tuning remains false.
+
+Causal rule: normal review latency is real and commissioner early processing is
+never assumed. Positive review defers ownership to the next scoring week.
+With zero review, locked assets defer and unresolved timing fails closed. Only
+zero-review, fully unlocked packages may affect the current week. Baseline state
+is preserved before the effective week; deferred current-week trade delta is zero.
+Automatic drops/adds share the same boundary.
 
 ## Calendar / Evidence Gates
 
-- Week 4 prospective captures are immutable; never backfill a missed state.
-- Before a consequential Week 4 action, refresh decision-time state/health if any
-  material roster, injury/practice, availability, market, or lock information has
-  changed.
-- B2b may reopen only from fresh qualifying current-status, freshness,
-  quantification, and binding evidence.
-- Week 3 Data/MC closure remains blocked until a later fresh complete weekly receipt
-  matrix passes.
+- Preserve all Week 4 prospective captures; never backfill.
+- The Oct. 5 snapshot/capture are valid evidence, but their pre-correction trade
+  action is not current execution authority.
+- Refresh decision-time state before any consequential action if material roster,
+  injury, market, lock, or transaction information changes.
+- Week 3 Data/MC closure remains blocked until a fresh complete weekly receipt
+  passes through causally valid trade authority.
 
 ## Scientific / Architectural Boundaries
 
-- Preserve `P ⊕ D ⊕ K`; compose only at complete-roster state boundaries.
-- Player-only and specialist authorities remain distinct.
-- Manager behavior remains separate from football utility.
+- Preserve `P ⊕ D ⊕ K`; compose only at complete-roster boundaries.
+- Player-only and specialist trade authorities remain distinct.
+- Ownership perturbations must respect transaction effective time.
+- Manager behavior remains separate from intrinsic football utility.
 - `screen != authority`; raw measurements outrank derived classifiers.
-- Missing legal action coverage is `INCOMPLETE_COVERAGE`, never implicit HOLD.
-- Current-week lock semantics must include kickoff/snapshot timing where the
-  commissioned authority does.
-- Do not convert the disabled general two-kicker `CARRY2` policy into evidence that
-  an otherwise league-legal open-slot kicker acquisition is irrelevant.
-- No future IR-capacity credit is authorized while B2b is deferred.
+- Missing legal coverage fails closed; do not assume commissioner early processing.
+- No future IR-capacity credit while B2b is deferred.
 - `v0.X` remains a-priori; observed 2026 outcomes may not tune it.
 
 ## Exact Next Action
 
-Create a **new decision-time Week 4 snapshot and prospective capture** through the
-corrected commissioned `v0.36-repack1` runtime, then rerun the complete
-nine-channel weekly decision receipt and operational-health matrix.
+Stage the exact locally applied 9-path source/test candidate together with this
+durable-memory update in an isolated checkpoint; validate staged clean-filter
+identities, schema-2 memory manifest, strict memory health, staged tree, and zero
+residue. Then publish through the separate guarded publication package.
 
-Preserve current lock semantics. Do not reuse the October 4 21:30 UTC
-snapshot/capture as current authorization, do not execute its defective lineup
-action, and do not execute any of its four specialist offers unless a fresh
-post-commissioning receipt reauthorizes them.
+After source publication, commission the exact published production source into
+`v0.36-repack1`. Only after runtime commissioning may a new decision-time Week 4
+snapshot/capture and complete 9-channel cycle reauthorize trade actions.
 
-B2b remains deferred/fail-closed and contributes no future IR-capacity credit.
+Do not execute Kamara -> Bills D/ST. B2b remains deferred/fail-closed.
 
 ## Relevant References
 
 - `AGENTS.md`
 - `MEMORY.md`
-- `MAINTENANCE.md`
 - `USER.md`
 - `patches/PATCH_PROTOCOL.md`
 - `architecture/WEEKLY_DECISION_COMPLETION.md`
-- `evidence/WEEK4_IR_COMPLETION_FRONTIER_AND_B2B_CORRECTION_2026-10-02.md`
-- `evidence/WEEK4_IR_ADAPTER_PREFLIGHT_REALIGNMENT_2026-10-02.md`
-- `evidence/WEEK4_IR_MOVE_PLUS_ADD_SOURCE_VALIDATION_2026-10-02.md`
-- `evidence/WEEK4_IR_MOVE_PLUS_ADD_RUNTIME_COMMISSIONING_2026-10-02.md`
-- `evidence/WEEK4_SPECIALIST_TRADE_MULTI_K_BOUNDARY_2026-10-03.md`
-- `evidence/WEEK4_SPECIALIST_TRADE_MULTI_K_RUNTIME_COMMISSIONING_2026-10-03.md`
-- `evidence/WEEK4_LINEUP_LOCK_AUTHORITY_DEFECT_2026-10-04.md`
 - `evidence/WEEK4_LINEUP_LOCK_AUTHORITY_RUNTIME_COMMISSIONING_2026-10-04.md`
+- `evidence/WEEK4_TRADE_EFFECTIVE_TIMING_BOUNDARY_2026-10-05.md`
 - `roadmap/SEASON_2026.md`
 - `roadmap/STATUS.md`
 - `../KNOWN_ISSUES.md`

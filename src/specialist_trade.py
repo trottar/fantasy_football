@@ -19,6 +19,7 @@ from .season_utility import week_weights
 from .specialist_policy_v032 import (
     SpecialistPolicyResult,
     _compose_state,
+    _scenario_h2h_utility_against,
     _static_team_weekly,
 )
 from .transaction_manager import (
@@ -32,6 +33,12 @@ from .transaction_manager import (
     evaluate_roster_utility,
 )
 from .weekly_manager import resolve_team
+from .trade_timing import (
+    require_trade_settings,
+    resolve_trade_timing,
+    season_ppg_from_weekly,
+    splice_effective_week,
+)
 
 
 SPECIALIST_POSITIONS = ("DST", "K")
@@ -462,7 +469,7 @@ def _baseline_state(
     *,
     progress_callback: McProgressCallback | None = None,
     progress_label: str,
-) -> tuple[UtilityContext, np.ndarray, np.ndarray]:
+) -> tuple[UtilityContext, np.ndarray, np.ndarray, np.ndarray]:
     ctx = _context(snapshot, league, model, values_path, team_id, scenarios)
     ctx.ensure_predictive_opponent_reference()
     _, utility, weekly = evaluate_roster_predictive(
@@ -472,7 +479,13 @@ def _baseline_state(
         progress_callback=progress_callback,
         progress_label=progress_label,
     )
-    return ctx, np.asarray(utility, dtype=float), np.asarray(weekly, dtype=float)
+    opponent = np.asarray(ctx.opponent_predictive, dtype=float)
+    return (
+        ctx,
+        np.asarray(utility, dtype=float),
+        np.asarray(weekly, dtype=float),
+        opponent,
+    )
 
 
 def _composed_after_state(
@@ -486,7 +499,7 @@ def _composed_after_state(
     *,
     progress_callback: McProgressCallback | None = None,
     progress_label: str,
-) -> tuple[UtilityContext, np.ndarray, np.ndarray]:
+) -> tuple[UtilityContext, np.ndarray, np.ndarray, np.ndarray]:
     hybrid_ctx = _context(hybrid_snapshot, league, model, values_path, team_id, scenarios)
     final_ctx = _context(final_snapshot, league, model, values_path, team_id, scenarios)
     hybrid_ctx.ensure_predictive_opponent_reference()
@@ -505,7 +518,7 @@ def _composed_after_state(
     k_final = _static_team_weekly(final_ctx, "K")
     d_policy = _fixed_ownership_policy("DST", d_final, final_ctx)
     k_policy = _fixed_ownership_policy("K", k_final, final_ctx)
-    final_weekly, _, final_utility = _compose_state(
+    final_weekly, final_opponent, final_utility = _compose_state(
         np.asarray(player_weekly, dtype=float),
         base_opponent,
         hybrid_ctx,
@@ -514,7 +527,12 @@ def _composed_after_state(
         d_static=d_static,
         k_static=k_static,
     )
-    return hybrid_ctx, np.asarray(final_utility, dtype=float), np.asarray(final_weekly, dtype=float)
+    return (
+        hybrid_ctx,
+        np.asarray(final_utility, dtype=float),
+        np.asarray(final_weekly, dtype=float),
+        np.asarray(final_opponent, dtype=float),
+    )
 
 
 def _package_family(give_ids: Iterable[int], receive_ids: Iterable[int]) -> str:
@@ -599,19 +617,13 @@ def evaluate_specialist_trade(
             "player-only packages remain under market_manager.evaluate_trade"
         )
 
+    require_trade_settings(snapshot)
+
     user_after, user_drops, user_adds = apply_specialist_trade_package(
-        user_ctx.roster,
-        give_ids,
-        receive,
-        league=league,
-        ctx=user_ctx,
+        user_ctx.roster, give_ids, receive, league=league, ctx=user_ctx,
     )
     partner_after, partner_drops, partner_adds = apply_specialist_trade_package(
-        partner_ctx.roster,
-        receive_ids,
-        give,
-        league=league,
-        ctx=partner_ctx,
+        partner_ctx.roster, receive_ids, give, league=league, ctx=partner_ctx,
     )
 
     user_after = _normalize_incoming_assignments(
@@ -636,50 +648,83 @@ def evaluate_specialist_trade(
     _assert_supported_trade_specialist_state(user_after, side="user")
     _assert_supported_trade_specialist_state(partner_after, side="partner")
 
-    final_snapshot = _snapshot_with_rosters(
+    timing = resolve_trade_timing(
         snapshot,
-        {int(user_tid): user_after, int(partner_tid): partner_after},
-    )
-    hybrid_snapshot = _hybrid_player_snapshot(
-        snapshot,
-        final_snapshot,
-        (int(user_tid), int(partner_tid)),
+        user_ctx.week,
+        [
+            *[("user_give", p, user_ctx) for p in give],
+            *[("partner_receive", p, partner_ctx) for p in receive],
+            *[("user_auto_drop", p, user_ctx) for p in user_drops],
+            *[("partner_auto_drop", p, partner_ctx) for p in partner_drops],
+            *[("user_auto_add", p, user_ctx) for p in user_adds],
+            *[("partner_auto_add", p, partner_ctx) for p in partner_adds],
+        ],
     )
 
-    ub_ctx, user_base_u, user_base_w = _baseline_state(
+    final_snapshot = _snapshot_with_rosters(
+        snapshot, {int(user_tid): user_after, int(partner_tid): partner_after},
+    )
+    hybrid_snapshot = _hybrid_player_snapshot(
+        snapshot, final_snapshot, (int(user_tid), int(partner_tid)),
+    )
+
+    ub_ctx, user_base_u, user_base_w, user_base_o = _baseline_state(
         snapshot, league, local_model, values_path, int(user_tid), scenarios,
         progress_callback=progress_callback,
         progress_label="specialist trade user baseline",
     )
-    pb_ctx, partner_base_u, partner_base_w = _baseline_state(
+    pb_ctx, partner_base_u, partner_base_w, partner_base_o = _baseline_state(
         snapshot, league, local_model, values_path, int(partner_tid), scenarios,
         progress_callback=progress_callback,
         progress_label="specialist trade partner baseline",
     )
-    ua_ctx, user_after_u, user_after_w = _composed_after_state(
+    ua_ctx, _user_after_u_immediate, user_after_w_immediate, user_after_o_immediate = _composed_after_state(
         hybrid_snapshot, final_snapshot, league, local_model, values_path,
         int(user_tid), scenarios,
         progress_callback=progress_callback,
         progress_label="specialist trade user after",
     )
-    pa_ctx, partner_after_u, partner_after_w = _composed_after_state(
+    pa_ctx, _partner_after_u_immediate, partner_after_w_immediate, partner_after_o_immediate = _composed_after_state(
         hybrid_snapshot, final_snapshot, league, local_model, values_path,
         int(partner_tid), scenarios,
         progress_callback=progress_callback,
         progress_label="specialist trade partner after",
     )
 
-    user_base_s = _scenario_season_ppg(user_base_w, ub_ctx)
-    partner_base_s = _scenario_season_ppg(partner_base_w, pb_ctx)
-    user_after_s = _scenario_season_ppg(user_after_w, ua_ctx)
-    partner_after_s = _scenario_season_ppg(partner_after_w, pa_ctx)
+    user_after_w = splice_effective_week(
+        user_base_w, user_after_w_immediate, timing.effective_week
+    )
+    partner_after_w = splice_effective_week(
+        partner_base_w, partner_after_w_immediate, timing.effective_week
+    )
+    user_after_o = splice_effective_week(
+        user_base_o, user_after_o_immediate, timing.effective_week
+    )
+    partner_after_o = splice_effective_week(
+        partner_base_o, partner_after_o_immediate, timing.effective_week
+    )
+    user_after_u = _scenario_h2h_utility_against(user_after_w, user_after_o, ua_ctx)
+    partner_after_u = _scenario_h2h_utility_against(
+        partner_after_w, partner_after_o, pa_ctx
+    )
+
+    user_base_s = season_ppg_from_weekly(user_base_w, ub_ctx.league, ub_ctx.week)
+    partner_base_s = season_ppg_from_weekly(
+        partner_base_w, pb_ctx.league, pb_ctx.week
+    )
+    user_after_s = season_ppg_from_weekly(user_after_w, ua_ctx.league, ua_ctx.week)
+    partner_after_s = season_ppg_from_weekly(
+        partner_after_w, pa_ctx.league, pa_ctx.week
+    )
 
     user_delta = user_after_s - user_base_s
     partner_delta = partner_after_s - partner_base_s
     user_utility_delta = user_after_u - user_base_u
     partner_utility_delta = partner_after_u - partner_base_u
     user_week_delta = user_after_w[:, ub_ctx.week - 1] - user_base_w[:, ub_ctx.week - 1]
-    partner_week_delta = partner_after_w[:, pb_ctx.week - 1] - partner_base_w[:, pb_ctx.week - 1]
+    partner_week_delta = (
+        partner_after_w[:, pb_ctx.week - 1] - partner_base_w[:, pb_ctx.week - 1]
+    )
 
     partner_market_receive = sum(perceived_market_value(player, partner_ctx) for player in give)
     partner_market_give = sum(perceived_market_value(player, partner_ctx) for player in receive)
@@ -720,11 +765,12 @@ def evaluate_specialist_trade(
 
     return {
         "schema_version": 1,
-        "model_version": "0.36-specialist-trade-v001",
+        "model_version": "0.36-specialist-trade-timing-v001",
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "snapshot_utc": snapshot.get("snapshot_utc"),
         "season": int((snapshot.get("espn", snapshot).get("season") or 2026)),
         "week": int((snapshot.get("espn", snapshot).get("week") or 1)),
+        "trade_timing": timing.as_dict(),
         "package_family": family,
         "specialist_inclusive": True,
         "user_team": {"team_id": int(user_tid), "name": user_team.get("name")},
@@ -759,6 +805,7 @@ def evaluate_specialist_trade(
         "specialist_composition": "P_PLUS_D_PLUS_K_AT_COMPLETE_ROSTER_BOUNDARY",
         "notes": [
             "Player-only Gate B3 authority is unchanged; this evaluator is specialist-inclusive only.",
+            "Trade ownership, automatic releases, and guaranteed fills are applied only from the causally legal effective week; commissioner early processing is never assumed.",
             "Player ownership is propagated first; DST/K ownership is valued through specialist response machinery and composed only at the complete-roster boundary.",
             "Automatic mixed-package releases are ranked by complete-roster utility, never individual cross-channel asset comparison.",
             "Guaranteed FREEAGENT fills may include DST/K only when required to restore that same specialist channel's roster minimum; waiver success is never assumed.",
@@ -958,6 +1005,7 @@ def search_specialist_trades(
     mc_scenarios: int | None = None,
     progress_callback: McProgressCallback | None = None,
 ) -> list[dict[str, Any]]:
+    require_trade_settings(snapshot)
     cfg = model.get("market_manager") or {}
     screen_limit = max(
         int(limit),

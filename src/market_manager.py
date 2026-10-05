@@ -12,6 +12,12 @@ import numpy as np
 
 from .observability.behavior_shadow import shadow_behavior_call
 from .season_utility import week_weights
+from .trade_timing import (
+    require_trade_settings,
+    resolve_trade_timing,
+    season_ppg_from_weekly,
+    splice_effective_week,
+)
 from .transaction_manager import (
     POSITIONS,
     PLAYER_POSITIONS,
@@ -398,9 +404,6 @@ def evaluate_trade(
     if _finite_int(partner.get("team_id")) == _finite_int(user_team.get("team_id")):
         raise ValueError("trade partner must be another team")
 
-    # UtilityContext keeps mutable MC-size state inside the model dictionary.  Trade
-    # searches often use a smaller candidate-generation N, so isolate that state from
-    # the live GUI/service model before changing predictive_scenarios.
     local_model = json.loads(json.dumps(model))
     user_ctx = UtilityContext(snapshot, league, local_model, values_path, user_team)
     partner_ctx = UtilityContext(snapshot, league, local_model, values_path, partner)
@@ -430,23 +433,28 @@ def evaluate_trade(
             + ", ".join(specialist_names)
         )
 
+    require_trade_settings(snapshot)
+
     user_after, user_auto_drops, user_auto_adds = apply_trade_package(
-        user_ctx.roster,
-        give_ids,
-        receive,
-        league=league,
-        ctx=user_ctx,
+        user_ctx.roster, give_ids, receive, league=league, ctx=user_ctx,
     )
     partner_after, partner_auto_drops, partner_auto_adds = apply_trade_package(
-        partner_ctx.roster,
-        receive_ids,
-        give,
-        league=league,
-        ctx=partner_ctx,
+        partner_ctx.roster, receive_ids, give, league=league, ctx=partner_ctx,
     )
 
-    # Four visible passes: user baseline/after and partner baseline/after.  Each pass
-    # uses the same player-keyed random streams within that manager context.
+    timing = resolve_trade_timing(
+        snapshot,
+        user_ctx.week,
+        [
+            *[("user_give", p, user_ctx) for p in give],
+            *[("partner_receive", p, partner_ctx) for p in receive],
+            *[("user_auto_drop", p, user_ctx) for p in user_auto_drops],
+            *[("partner_auto_drop", p, partner_ctx) for p in partner_auto_drops],
+            *[("user_auto_add", p, user_ctx) for p in user_auto_adds],
+            *[("partner_auto_add", p, partner_ctx) for p in partner_auto_adds],
+        ],
+    )
+
     weeks = max(1, 18 - max(user_ctx.week, 1))
     per_pass = weeks * user_ctx.predictive_scenarios
     total_work = 4 * per_pass
@@ -455,7 +463,7 @@ def evaluate_trade(
         progress_callback=progress_callback, progress_offset=0,
         progress_total=total_work, progress_label="trade user baseline",
     )
-    ua, user_after_s, user_after_w = evaluate_roster_season_scenarios(
+    _ua_immediate, _user_after_s_immediate, user_after_w_immediate = evaluate_roster_season_scenarios(
         user_after, user_ctx,
         progress_callback=progress_callback, progress_offset=per_pass,
         progress_total=total_work, progress_label="trade user after",
@@ -465,23 +473,44 @@ def evaluate_trade(
         progress_callback=progress_callback, progress_offset=2 * per_pass,
         progress_total=total_work, progress_label="trade partner baseline",
     )
-    pa, partner_after_s, partner_after_w = evaluate_roster_season_scenarios(
+    _pa_immediate, _partner_after_s_immediate, partner_after_w_immediate = evaluate_roster_season_scenarios(
         partner_after, partner_ctx,
         progress_callback=progress_callback, progress_offset=3 * per_pass,
         progress_total=total_work, progress_label="trade partner after",
     )
 
+    user_after_w = splice_effective_week(
+        user_base_w, user_after_w_immediate, timing.effective_week
+    )
+    partner_after_w = splice_effective_week(
+        partner_base_w, partner_after_w_immediate, timing.effective_week
+    )
+    user_after_s = season_ppg_from_weekly(user_after_w, user_ctx.league, user_ctx.week)
+    partner_after_s = season_ppg_from_weekly(
+        partner_after_w, partner_ctx.league, partner_ctx.week
+    )
+    ua = _quantile_summary(user_after_s, user_after_w[:, user_ctx.week - 1])
+    pa = _quantile_summary(partner_after_s, partner_after_w[:, partner_ctx.week - 1])
+
     user_delta = np.asarray(user_after_s) - np.asarray(user_base_s)
     partner_delta = np.asarray(partner_after_s) - np.asarray(partner_base_s)
-    user_week_delta = np.asarray(user_after_w[:, user_ctx.week - 1]) - np.asarray(user_base_w[:, user_ctx.week - 1])
-    partner_week_delta = np.asarray(partner_after_w[:, partner_ctx.week - 1]) - np.asarray(partner_base_w[:, partner_ctx.week - 1])
+    user_week_delta = (
+        np.asarray(user_after_w[:, user_ctx.week - 1])
+        - np.asarray(user_base_w[:, user_ctx.week - 1])
+    )
+    partner_week_delta = (
+        np.asarray(partner_after_w[:, partner_ctx.week - 1])
+        - np.asarray(partner_base_w[:, partner_ctx.week - 1])
+    )
 
     cfg = local_model.get("market_manager") or {}
     partner_market_receive = sum(perceived_market_value(p, partner_ctx) for p in give)
     partner_market_give = sum(perceived_market_value(p, partner_ctx) for p in receive)
     partner_market_drop = sum(perceived_market_value(p, partner_ctx) for p in partner_auto_drops)
     partner_market_fill = sum(perceived_market_value(p, partner_ctx) for p in partner_auto_adds)
-    partner_market_delta = float(partner_market_receive - partner_market_give - partner_market_drop + partner_market_fill)
+    partner_market_delta = float(
+        partner_market_receive - partner_market_give - partner_market_drop + partner_market_fill
+    )
 
     response = trade_response_probabilities(
         partner_delta_season_ppg=float(np.mean(partner_delta)),
@@ -519,11 +548,12 @@ def evaluate_trade(
 
     return {
         "schema_version": 1,
-        "model_version": "0.30",
+        "model_version": "0.30-trade-timing-v001",
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "snapshot_utc": snapshot.get("snapshot_utc"),
         "season": int((snapshot.get("espn", snapshot).get("season") or 2026)),
         "week": int((snapshot.get("espn", snapshot).get("week") or 1)),
+        "trade_timing": timing.as_dict(),
         "user_team": {"team_id": _finite_int(user_team.get("team_id")), "name": user_team.get("name")},
         "partner_team": {"team_id": _finite_int(partner.get("team_id")), "name": partner.get("name")},
         "give": [dict(p) for p in give],
@@ -555,10 +585,11 @@ def evaluate_trade(
         "mc_scenarios": user_ctx.predictive_scenarios,
         "notes": [
             "Trade value and partner response probability are separate layers.",
+            "Trade ownership is applied only from the causally legal effective week; commissioner early processing is never assumed.",
             "Both managers' roster deltas use the same commissioned player-yield, K, interaction, availability, bye, and lock-aware predictive machinery.",
             "Partner acceptance/counter/reject probabilities are explicitly uncalibrated v0.30 manager-behavior priors and do not alter our player valuation.",
             "No external trade-value chart is used; the independent market-perception feature is derived from ESPN projections plus public ownership/trend observables.",
-            "Unequal package sizes may trigger a modeled best legal post-trade release and/or guaranteed free-agent slot fill; both are surfaced explicitly.",
+            "Unequal package sizes may trigger a modeled best legal post-trade release and/or guaranteed free-agent slot fill; both effects begin at the same trade effective week.",
         ],
     }
 
@@ -854,6 +885,7 @@ def search_trades(
     mc_scenarios: int | None = None,
     progress_callback: McProgressCallback | None = None,
 ) -> list[dict[str, Any]]:
+    require_trade_settings(snapshot)
     cfg = model.get("market_manager") or {}
     max_package = min(
         2,

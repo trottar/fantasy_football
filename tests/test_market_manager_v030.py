@@ -117,6 +117,15 @@ def snapshot(available=None):
             ],
             "matchups": [{"week": 1, "home_team_id": 1, "away_team_id": 2}],
             "available_players": available or [],
+            "transaction_settings": {
+                "trade_review_hours": 48,
+                "trade_veto_votes_required": 4,
+                "trade_deadline_date": 1796371200000,
+                "trade_max": -1,
+                "lineup_locktime_type": "INDIVIDUAL_GAME",
+                "roster_locktime_type": "INDIVIDUAL_GAME",
+                "transaction_locking_enabled": False,
+            },
         },
     }
 
@@ -158,6 +167,10 @@ def test_trade_eval_values_both_sides_and_keeps_response_separate(tmp_path):
     assert report["give"][0]["name"] == "U RB3"
     assert report["receive"][0]["name"] == "P TE Star"
     assert set(report["response"]) >= {"p_accept", "p_counter", "p_reject"}
+    assert report["trade_timing"]["effective_week"] == 2
+    assert report["trade_timing"]["current_week_effective"] is False
+    assert report["user"]["delta_current_week"]["mean"] == 0.0
+    assert report["partner"]["delta_current_week"]["mean"] == 0.0
 
 
 def test_unequal_trade_surfaces_modeled_post_trade_release(tmp_path):

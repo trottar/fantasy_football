@@ -249,3 +249,93 @@ def test_specialist_trade_multi_k_guard_is_after_legal_normalization():
     assert source.index(user_legal) < source.index(partner_legal)
     assert source.index(partner_legal) < source.index(user_guard)
     assert source.index(user_guard) < source.index(partner_guard)
+
+def test_specialist_trade_review_window_defers_current_week_state(monkeypatch):
+    snap = {
+        "snapshot_utc": "2026-10-05T01:26:55.901034+00:00",
+        "espn": {
+            "season": 2026,
+            "week": 4,
+            "transaction_settings": {
+                "trade_review_hours": 48,
+                "trade_veto_votes_required": 4,
+                "trade_deadline_date": 1796371200000,
+                "trade_max": -1,
+                "lineup_locktime_type": "INDIVIDUAL_GAME",
+                "roster_locktime_type": "INDIVIDUAL_GAME",
+                "transaction_locking_enabled": False,
+            },
+            "teams": [
+                {"team_id": 1, "name": "Us", "roster": base_roster()},
+                {"team_id": 2, "name": "Them", "roster": base_roster(100)},
+            ],
+        },
+    }
+
+    class Ctx:
+        def __init__(self, team_id, roster):
+            self.team_id = team_id
+            self.roster = copy.deepcopy(roster)
+            self.actionable_available = []
+            self.week = 4
+            self.seed = 19
+            self.league = league()
+            self.model = {"market_manager": {}}
+
+    contexts = {
+        1: Ctx(1, base_roster()),
+        2: Ctx(2, base_roster(100)),
+    }
+    monkeypatch.setattr(
+        st, "_context",
+        lambda snapshot, league, model, values_path, team_id, scenarios:
+            contexts[int(team_id)],
+    )
+    monkeypatch.setattr(
+        st,
+        "apply_specialist_trade_package",
+        lambda roster, outgoing_ids, incoming, **kwargs: (
+            [dict(p) for p in roster if st._pid(p) not in set(outgoing_ids)]
+            + [dict(p) for p in incoming],
+            [],
+            [],
+        ),
+    )
+    monkeypatch.setattr(st, "perceived_market_value", lambda *args, **kwargs: 0.0)
+
+    baseline = np.ones((4, 17))
+    immediate = np.full((4, 17), 2.0)
+    base_utility = np.full(4, 1.0)
+    immediate_utility = np.full(4, 2.0)
+    opponent = np.ones((4, 17))
+
+    def fake_baseline(snapshot, league, model, values_path, team_id, scenarios, **kwargs):
+        return contexts[int(team_id)], base_utility.copy(), baseline.copy(), opponent.copy()
+
+    def fake_after(hybrid_snapshot, final_snapshot, league, model, values_path, team_id, scenarios, **kwargs):
+        return contexts[int(team_id)], immediate_utility.copy(), immediate.copy(), opponent.copy()
+
+    monkeypatch.setattr(st, "_baseline_state", fake_baseline)
+    monkeypatch.setattr(st, "_composed_after_state", fake_after)
+    monkeypatch.setattr(
+        st,
+        "_scenario_h2h_utility_against",
+        lambda weekly, opponent, ctx: np.mean(weekly, axis=1),
+    )
+
+    report = st.evaluate_specialist_trade(
+        snap,
+        league(),
+        {"market_manager": {"trade_max_players_per_side": 2}},
+        values_path="unused.csv",
+        user_team={"team_id": 1, "name": "Us"},
+        partner_team_id=2,
+        give_ids=[6],
+        receive_ids=[106],
+        mc_scenarios=4,
+    )
+    assert report["trade_timing"]["effective_week"] == 5
+    assert report["trade_timing"]["current_week_effective"] is False
+    assert report["user"]["delta_current_week"]["mean"] == 0.0
+    assert report["partner"]["delta_current_week"]["mean"] == 0.0
+    assert report["user"]["delta_season_ppg"]["mean"] > 0.0

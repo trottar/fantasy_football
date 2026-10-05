@@ -33,7 +33,18 @@ def player_entry(pid=10, name="Test Runner", pos=2, team=1, slot=2, status=None)
 def test_normalize_private_league_roster_and_matchup():
     payload = {
         "id": 123,
-        "settings": {"name": "Hail to Pitt"},
+        "settings": {
+            "name": "Hail to Pitt",
+            "tradeSettings": {
+                "revisionHours": 48, "vetoVotesRequired": 4,
+                "deadlineDate": 1796371200000, "max": -1,
+            },
+            "rosterSettings": {
+                "lineupLocktimeType": "INDIVIDUAL_GAME",
+                "rosterLocktimeType": "INDIVIDUAL_GAME",
+            },
+            "acquisitionSettings": {"transactionLockingEnabled": False},
+        },
         "status": {"currentScoringPeriod": 1, "currentMatchupPeriod": 1},
         "teams": [
             {"id": 2, "name": "I'm sorry Wilson!", "waiverRank": 4,
@@ -48,6 +59,11 @@ def test_normalize_private_league_roster_and_matchup():
     }
     out = normalize_league(payload, 2026, 1)
     assert out["league_name"] == "Hail to Pitt"
+    assert out["transaction_settings"]["trade_review_hours"] == 48
+    assert out["transaction_settings"]["trade_veto_votes_required"] == 4
+    assert out["transaction_settings"]["lineup_locktime_type"] == "INDIVIDUAL_GAME"
+    assert out["transaction_settings"]["roster_locktime_type"] == "INDIVIDUAL_GAME"
+    assert out["transaction_settings"]["transaction_locking_enabled"] is False
     assert out["teams"][0]["roster"][0]["weekly_projection"] == 14.5
     assert out["teams"][0]["roster"][0]["season_projection"] == 230.0
     assert out["teams"][0]["roster"][0]["droppable"] is False

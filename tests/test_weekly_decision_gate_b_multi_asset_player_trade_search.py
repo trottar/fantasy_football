@@ -139,6 +139,15 @@ def snapshot():
                 {"team_id": 3, "name": "Other", "roster": other_roster()},
             ],
             "available_players": [],
+            "transaction_settings": {
+                "trade_review_hours": 48,
+                "trade_veto_votes_required": 4,
+                "trade_deadline_date": 1796371200000,
+                "trade_max": -1,
+                "lineup_locktime_type": "INDIVIDUAL_GAME",
+                "roster_locktime_type": "INDIVIDUAL_GAME",
+                "transaction_locking_enabled": False,
+            },
         },
     }
 

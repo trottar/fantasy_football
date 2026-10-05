@@ -5,7 +5,7 @@
 - Runtime baseline: `v0.36-repack1` — **COMMISSIONED**
 - Internal version: `0.36`
 - Week 4 prospective captures: **VALID / PRESERVED**
-- Week 4 roster-wide decision completion: **LINEUP LOCK FIX SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / FRESH RERUN REQUIRED**
+- Week 4 roster-wide decision completion: **TRADE EFFECTIVE-TIMING DEFECT / SOURCE CANDIDATE LOCAL-APPLIED / RUNTIME COMMISSIONING PENDING**
 - Gate A fail-closed weekly control plane: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B capability closure: **CURRENT-WEEK ACTION COVERAGE COMMISSIONED / B2B DEFERRED**
 - Gate B1 specialist current-WAIVER coverage: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
@@ -102,12 +102,35 @@ from an over-broad parent-record timestamp fallback; corrected claim-local
 freshness retained zero qualifying claims. Do not backfill a horizon and do not
 credit future IR capacity.
 
+## Trade Effective Timing Boundary
+
+The October 5 fresh post-lineup-lock cycle passed all nine coverage channels,
+operational health, and lineup legality, but its sole action was an
+Alvin Kamara -> Bills D/ST specialist trade. The incoming Bills D/ST was already
+locked, while frozen ESPN settings showed a 48-hour trade review period and
+individual-game roster/lineup locks.
+
+Classification:
+`TRADE_EFFECTIVE_TIMING_LOCK_BOUNDARY_DEFECT`.
+
+Both player and specialist trade evaluators were applying post-trade ownership
+immediately to the current scoring week. The authorized candidate now normalizes
+ESPN transaction timing, defers positive-review-window packages to the next
+scoring week, fails closed on unresolved zero-review lock timing, and temporally
+splices ownership only from the legal effective week. The exact nine-path
+candidate passed source preflight v4 and is locally applied/validated in the
+control root; runtime commissioning is still pending.
+
+The Oct. 5 snapshot/capture remain valid prospective evidence, but the
+pre-correction Kamara -> Bills offer is not executable.
+
 ## Next Gate
 
-Create a new decision-time Week 4 snapshot/capture through the corrected
-commissioned lineup authority and rerun the complete nine-channel weekly receipt.
-Do not execute the defective October 4 lineup action or its four specialist offers
-unless the fresh receipt reauthorizes them.
+Stage and publish the exact nine-path trade-effective-timing source/test candidate
+together with its durable-memory update. Then separately commission the published
+production source into `v0.36-repack1` and take a new decision-time snapshot,
+prospective capture, and complete nine-channel weekly receipt before any trade
+execution.
 
 ## Boundary Conditions
 
