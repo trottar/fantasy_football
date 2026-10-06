@@ -15,7 +15,7 @@
 - Specialist-inclusive trade composition: **MULTI-K CORRECTION SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Current IR move-plus-add adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / GATE B5**
 - Week 3 Data/MC closure: **UNBLOCKED BY FRESH COMPLETE WEEKLY RECEIPT**
-- Active development workstream: **WEEK 3 HISTORICAL REPLAY / INPUT ADAPTER VALIDATED / BLIND CANDIDATE EVALUATION NEXT**
+- Active development workstream: **WEEK 3 HISTORICAL REPLAY / PHASE-A EVALUATOR VALIDATED / FINAL BLIND FREEZE NEXT**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
 
@@ -58,10 +58,21 @@
   commissioned evaluator instead uses positive latent value when available, else
   frozen ESPN season/weekly projection fallback. v2 mirrors and validates that
   exact branch.
-- Replay next implementation gate: materialize all four chronological Week 3
-  mixed-provenance decision states, enumerate/evaluate the complete supported
-  legal Phase-A action space with observed outcomes unavailable, and freeze one
-  immutable Phase-A receipt per replayable decision point.
+- Authority-frontier repair probe: all eight required Week 3 action families are
+  representable when the immutable adapter state is deep-thawed for authority
+  execution and trade timing is normalized from frozen raw ESPN mSettings.
+- All four Week 3 raw mSettings artifacts preserve the same 48-hour review and
+  individual-game lineup/roster locks; no current ESPN state is substituted.
+- Replay-only Phase-A evaluator: **IMPLEMENTED / VALIDATED IN THIS CHECKPOINT**;
+  production authority remains unchanged, frozen capture values are injected only
+  inside the replay context, and uncaptured player-market values remain explicitly
+  reconstructed.
+- Validation: 37 focused replay tests, 632 full-repository tests, `compileall`,
+  strict memory health, `git diff --check`, and `4 / 4` real Week 3 states through
+  a 64-scenario no-outcome commissioning probe.
+- Replay next execution gate: freeze and reload/hash-verify one final immutable
+  Phase-A receipt for each of the four chronological Week 3 decision points using
+  commissioned/default predictive scenario settings.
 
 ## Blocking Recovery Contract
 
@@ -194,15 +205,15 @@ MC, or the football decision. This is a nonblocking representation gap.
 
 ## Next Gate
 
-Use the validated Week 3 replay-input adapter across all four chronological frozen
-decision points and implement complete supported legal Phase-A candidate
-enumeration/evaluation.
+Freeze the final blind Phase-A receipts for all four chronological Week 3 decision
+points using the published replay-input/evaluator contract and commissioned/default
+predictive scenario settings. Reload and hash-verify every receipt before any
+Phase-B attachment.
 
-Preserve historical legality, locks, transaction timing, availability, and
-`P ⊕ D ⊕ K`; use cheap screens only as candidate generators; require
-uncertainty-aware predictive authority for ranking/model choice; and freeze a
-separate immutable Phase-A receipt for each replayable decision point before any
-Phase-B outcome attachment.
+Preserve per-channel weekly-authority selection semantics and `P ⊕ D ⊕ K`; do not
+invent a global cross-channel asset ranking. Observed outcomes, oracle scoring,
+realized regret, and v0.X tuning remain blocked until all four Phase-A receipts
+are immutable and verified.
 
 The Week 4 Kamara -> Bills D/ST action remains a preserved pending operational
 side-state, not the active development workstream. If execution is later resumed,

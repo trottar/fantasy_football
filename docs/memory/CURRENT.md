@@ -26,13 +26,15 @@ Phase-A receipt/model choice before any Phase-B outcome attachment.
 
 **WEEK 3 HISTORICAL REPLAY - BLIND PHASE-A CANDIDATE ENUMERATION / EVALUATION.**
 
-The mixed-provenance Week 3 replay-input adapter is implemented and validated in
-this checkpoint against all four frozen Week 3 snapshot/capture pairs. It binds
-the frozen rostered-player and specialist surfaces and marks only the
-player waiver/free-agent predictive-values layer as reconstructed.
+The replay-input adapter is published and the replay-only Phase-A evaluator is
+implemented and validated in this checkpoint. A read-only authority-frontier
+repair probe established that all eight required action families are representable
+when immutable replay state is deep-thawed into an isolated authority working copy
+and transaction timing is bound from the same snapshot's frozen raw ESPN mSettings.
 
-The next implementation slice is complete legal Phase-A candidate generation and
-uncertainty-aware evaluation for each replayable Week 3 decision point.
+The next replay operation is the final blind Phase-A freeze across all four
+chronological Week 3 decision points under commissioned/default predictive
+scenario settings.
 
 Week 3 replay mode is:
 
@@ -74,6 +76,15 @@ recomputed merely because another material layer is reconstructed.
 - Player-values fallback: eligible players without a positive reconstructed
   latent mean follow the commissioned frozen ESPN season/weekly projection
   fallback; this is explicit adapter metadata, not a missing dependency.
+- Week 3 authority-frontier repair probe: all eight required action families are
+  representable on the earliest state; zero outcome reads and no mutation.
+- Frozen raw ESPN trade settings exist for all four Week 3 snapshots: 48-hour
+  review, `INDIVIDUAL_GAME` lineup lock, and `INDIVIDUAL_GAME` roster lock.
+- Phase-A evaluator: `src/historical_replay_phase_a.py`; production authority is
+  unchanged and replay-only frozen numerical overlays are restored after use.
+- Phase-A evaluator validation: 37 focused replay tests and 632 full-repository
+  tests plus `compileall`, strict memory health, `git diff --check`, and a
+  `4 / 4` real-state 64-scenario no-outcome commissioning probe.
 - Observed Week 3 outcomes attached to replay: none.
 - Football-model tuning from 2026 outcomes: false.
 - Replay transaction execution: none.
@@ -113,28 +124,17 @@ a genuinely new capture deadline arises.
 
 ## Exact Next Action
 
-Use the validated Week 3 replay-input adapter to materialize the four chronological
-mixed-provenance decision states, then implement the **complete supported legal
-Phase-A candidate enumerator/evaluator**.
+Execute the final blind Phase-A freeze for all four chronological Week 3 decision
+points using the published replay-input/evaluator contract and commissioned/default
+uncertainty-aware scenario settings.
 
-For each decision point, cover the weekly-contract families supported by the
-historical state: lineup/availability, player waiver/free agent, DST, kicker,
-IR/open-slot/injury replacement, one-for-one player trades, supported unequal or
-multi-player trades, and specialist-inclusive trades. Preserve transaction timing,
-locks, roster legality, availability state, and `P ⊕ D ⊕ K`.
-
-Cheap screens may generate frontiers, but predictive uncertainty-aware response
-machinery must authorize rankings and model choice. Freeze a separate immutable
-Phase-A receipt for each replayable decision point with candidate predictions,
-uncertainty, ranking, selected action, source identities, and provenance.
+Persist one immutable Phase-A receipt per decision point, then immediately reload
+and hash-verify every receipt. Preserve the per-channel weekly-authority selection
+semantics; do not invent a cross-channel asset ranking.
 
 Do **not** attach Week 3 outcomes, compute hindsight oracles, calculate realized
-regret, or use any result for v0.X tuning until each corresponding Phase-A receipt
-is frozen and verified.
-
-If a historical dependency or legal branch cannot be represented without leakage,
-classify it explicitly and fail closed rather than silently narrowing the action
-space.
+regret, or use any result for v0.X tuning until all four Phase-A receipts are
+frozen and verified.
 
 ## Relevant References
 
