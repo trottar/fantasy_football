@@ -15,7 +15,7 @@
 - Specialist-inclusive trade composition: **MULTI-K CORRECTION SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Current IR move-plus-add adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / GATE B5**
 - Week 3 Data/MC closure: **UNBLOCKED BY FRESH COMPLETE WEEKLY RECEIPT**
-- Active development workstream: **WEEK 3 HISTORICAL REPLAY / PHASE-A EVALUATOR VALIDATED / FINAL BLIND FREEZE NEXT**
+- Active development workstream: **WEEK 3 HISTORICAL REPLAY / PHASE-A FROZEN / PHASE-B OUTCOME ATTACHMENT NEXT**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
 
@@ -63,16 +63,29 @@
   execution and trade timing is normalized from frozen raw ESPN mSettings.
 - All four Week 3 raw mSettings artifacts preserve the same 48-hour review and
   individual-game lineup/roster locks; no current ESPN state is substituted.
-- Replay-only Phase-A evaluator: **IMPLEMENTED / VALIDATED IN THIS CHECKPOINT**;
-  production authority remains unchanged, frozen capture values are injected only
-  inside the replay context, and uncaptured player-market values remain explicitly
-  reconstructed.
+- Replay-only Phase-A evaluator: **SOURCE-PUBLISHED / REMOTE VERIFIED** at commit
+  `58fd202fdcdcfc997d95860df0b51fa63b3b0463`, tree
+  `c6e17cacb8e6b20a7c49ce2f9629121cf079294a`; production authority remains
+  unchanged, frozen capture values are injected only inside the replay context,
+  and uncaptured player-market values remain explicitly reconstructed.
 - Validation: 37 focused replay tests, 632 full-repository tests, `compileall`,
   strict memory health, `git diff --check`, and `4 / 4` real Week 3 states through
   a 64-scenario no-outcome commissioning probe.
-- Replay next execution gate: freeze and reload/hash-verify one final immutable
-  Phase-A receipt for each of the four chronological Week 3 decision points using
-  commissioned/default predictive scenario settings.
+- Final blind Phase-A freeze: **COMPLETE / IMMUTABLE / RELOAD-HASH VERIFIED**.
+  Receipt-set SHA-256:
+  `54171a0681a1fd4a36f971fac33e591f1e5d1228b0e4de437f1d67dc9391bc51`.
+- Final commissioned/default settings: player MC `16384`, specialist MC `2048`,
+  trade MC `4096`, trade frontier limit `6`.
+- Receipt candidate counts: `237`, `77`, `75`, `73`; authorized counts:
+  `1`, `7`, `4`, `4`.
+- Frozen action pattern: lineup ACTION at all four decision points;
+  specialist-inclusive trade ACTION at the final three; all other action
+  families HOLD at all four.
+- Independent receipt-set verifier confirmed exact set/file/receipt hashes and
+  `8 / 8` channel selections per receipt with outcome reads `0`, Phase B `NONE`,
+  and no mutation.
+- Replay next execution gate: attach observed Week 3 outcomes in Phase B only
+  after reloading and verifying the immutable Phase-A receipt set.
 
 ## Blocking Recovery Contract
 
@@ -205,15 +218,13 @@ MC, or the football decision. This is a nonblocking representation gap.
 
 ## Next Gate
 
-Freeze the final blind Phase-A receipts for all four chronological Week 3 decision
-points using the published replay-input/evaluator contract and commissioned/default
-predictive scenario settings. Reload and hash-verify every receipt before any
-Phase-B attachment.
+Reload/hash-verify the immutable Week 3 Phase-A receipt set, then attach observed
+Week 3 outcomes in Phase B and compute actual/model/oracle comparator results,
+regret, matchup-flip, residual, and channel-decomposition diagnostics.
 
-Preserve per-channel weekly-authority selection semantics and `P ⊕ D ⊕ K`; do not
-invent a global cross-channel asset ranking. Observed outcomes, oracle scoring,
-realized regret, and v0.X tuning remain blocked until all four Phase-A receipts
-are immutable and verified.
+Phase B may classify structural contradictions and open narrow investigations.
+It may not mutate the frozen Phase-A receipts or tune v0.X coefficients, priors,
+thresholds, or weights from observed 2026 results.
 
 The Week 4 Kamara -> Bills D/ST action remains a preserved pending operational
 side-state, not the active development workstream. If execution is later resumed,
