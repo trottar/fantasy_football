@@ -15,7 +15,7 @@
 - Specialist-inclusive trade composition: **MULTI-K CORRECTION SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Current IR move-plus-add adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / GATE B5**
 - Week 3 Data/MC closure: **UNBLOCKED BY FRESH COMPLETE WEEKLY RECEIPT**
-- Active development workstream: **WEEK 3 HISTORICAL REPLAY / PHASE-A FROZEN / PHASE-B OUTCOME ATTACHMENT NEXT**
+- Active development workstream: **WEEK 3 HISTORICAL REPLAY / OUTCOME AUTHORITY FROZEN / PHASE-B SCORER NEXT**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
 
@@ -84,8 +84,18 @@
 - Independent receipt-set verifier confirmed exact set/file/receipt hashes and
   `8 / 8` channel selections per receipt with outcome reads `0`, Phase B `NONE`,
   and no mutation.
-- Replay next execution gate: attach observed Week 3 outcomes in Phase B only
-  after reloading and verifying the immutable Phase-A receipt set.
+- Week 3 Phase-B outcome authority: **CAPTURED / IMMUTABLE / HASH-VERIFIED**.
+  Contract `WEEK3_PHASE_B_OUTCOME_AUTHORITY_V001`; manifest SHA-256
+  `892763082b1a03e5f9789c31e7c2961692392e027413611403ffa7e93649fd11`.
+- Direct ESPN candidate scoring-period-3 actuals: `144 / 144`; historical
+  boxscore: `6 / 6` matchups, `12` lineup sides, `199` entries, `108` starters.
+- Public cross-checks: nflverse ESPN-ID mapping `142 / 144`, direct Week 3
+  player-stat rows `105`, plus cached PBP SHA-256
+  `f4e671b46c24a81b6d57b9581367a2100afe4bf24f0dd34e987cf44f65774286`.
+- Raw authenticated ESPN authority is local-only; no secret/private identifier
+  or raw response is staged for Git.
+- Replay next execution gate: implement and validate the Phase-B scorer against
+  the frozen Phase-A receipt set and exact outcome-authority manifest.
 
 ## Blocking Recovery Contract
 
@@ -218,13 +228,16 @@ MC, or the football decision. This is a nonblocking representation gap.
 
 ## Next Gate
 
-Reload/hash-verify the immutable Week 3 Phase-A receipt set, then attach observed
-Week 3 outcomes in Phase B and compute actual/model/oracle comparator results,
-regret, matchup-flip, residual, and channel-decomposition diagnostics.
+Implement and validate the Week 3 Phase-B scorer against the immutable Phase-A
+receipt set and frozen outcome authority. Score historical actual, frozen
+model-action, and hindsight oracle-best feasible comparator states under the same
+transaction timing and lineup legality; calculate regret, matchup-flip, residual,
+and channel-decomposition diagnostics.
 
-Phase B may classify structural contradictions and open narrow investigations.
-It may not mutate the frozen Phase-A receipts or tune v0.X coefficients, priors,
-thresholds, or weights from observed 2026 results.
+Do not attach Phase B to the immutable receipts until scorer authority joins and
+scoring invariants are validated. Phase B may open structural investigations but
+may not tune v0.X coefficients, priors, thresholds, or weights from observed 2026
+results.
 
 The Week 4 Kamara -> Bills D/ST action remains a preserved pending operational
 side-state, not the active development workstream. If execution is later resumed,
