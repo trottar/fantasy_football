@@ -520,6 +520,27 @@ def _player_receipt(report: Mapping[str, Any]) -> ChannelReceipt:
 
 def _specialist_receipt(key: str, label: str, report: Mapping[str, Any], authority: str) -> ChannelReceipt:
     block = report.get("one_slot_policy") if isinstance(report.get("one_slot_policy"), Mapping) else {}
+    # A physically missing mandatory kicker must not inherit an optional-upgrade
+    # HOLD classification from the stochastic complete-roster utility gate.
+    feasibility = report.get("kicker_feasibility") if key == KICKER else None
+    if isinstance(feasibility, Mapping) and feasibility.get("required") is True:
+        detail = dict(feasibility)
+        if (detail.get("status") == "FEASIBILITY_REPAIR_ACTION"
+                and isinstance(detail.get("transaction"), Mapping)
+                and detail.get("candidate_id") is not None
+                and detail.get("drop_id") is not None
+                and isinstance(detail.get("paired_complete_state_delta"), Mapping)):
+            return ChannelReceipt(
+                key, label, STATUS_ACTION, authority,
+                evidence={"feasibility": detail, "optional_policy": {"recommended_current_action": dict((block or {}).get("recommended_current_action") or {}), "authoritative_current_action": bool((block or {}).get("authoritative_current_action")), "paired_classification": ((block or {}).get("complete_state_delta") or {}).get("classification")}},
+                scope="mandatory current-week K feasibility, guaranteed FREEAGENT legal swap with paired complete-state MC",
+                action={"kind": "KICKER_FEASIBILITY_REPAIR", "repair": detail},
+            )
+        return ChannelReceipt(
+            key, label, "INCOMPLETE_COVERAGE:KICKER_FEASIBILITY_REPAIR", authority,
+            evidence={"feasibility": detail, "optional_policy": {"recommended_current_action": dict((block or {}).get("recommended_current_action") or {}), "authoritative_current_action": bool((block or {}).get("authoritative_current_action")), "paired_classification": ((block or {}).get("complete_state_delta") or {}).get("classification")}},
+            gap="mandatory K slot unresolved: " + str(detail.get("reason") or "unknown feasibility state"),
+        )
     excluded = int((block or {}).get("excluded_current_waivers") or 0)
     modeled = int((block or {}).get("modeled_current_waivers") or 0)
     coverage_complete = bool((block or {}).get("current_waiver_coverage_complete")) if excluded > 0 else True

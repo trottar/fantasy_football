@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-08T22:00:34.357326-04:00",
+  "generated_at": "2026-10-09T01:30:13.046192-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6344,
-      "sha256": "7d0fa9f2edcedc8e1d3402a0fd464a2d3db19c4eee0138932375e99667d7df99"
+      "bytes": 6150,
+      "sha256": "a4f82538fe89647060a71e50d8c551ee41ce053da50c196b60e03db2ebc9465d"
     },
     {
       "path": "LEARNINGS.md",
@@ -678,6 +678,11 @@
       "path": "evidence/WEEK5_BYE_LOCK_AUTHORITY_CORRECTION_2026-10-08.md",
       "bytes": 3734,
       "sha256": "4b2fb58255726006d47e36539b114d0e32382f9ffc6eae6758c4b768eca37cb6"
+    },
+    {
+      "path": "evidence/WEEK5_KICKER_FEASIBILITY_STRUCTURAL_CORRECTION_2026-10-09.md",
+      "bytes": 3401,
+      "sha256": "1bbb872f7119843ffdfe4ab511eadbcc2d7f497bb54c3cbd6196579028e630ea"
     },
     {
       "path": "evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md",

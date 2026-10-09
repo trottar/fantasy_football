@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import timezone
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -10,9 +11,11 @@ from .observability.dst_shadow import shadow_dst_call
 from .observability.k_shadow import shadow_k_call
 
 from .season_utility import week_weights
+from .data_sources.nflverse_matchups import normalize_team
 from .specialist_channels import (
     _best_player_slot_release,
     _is_current_week_locked,
+    _snapshot_time,
     _specialist_week_samples,
     evaluate_defense_channel as _evaluate_defense_static,
     evaluate_kicker_channel as _evaluate_kicker_static,
@@ -652,6 +655,173 @@ def _temporal_player_baseline_to_activation(
     return out, path
 
 
+def _required_kicker_feasibility_repair(
+    ctx: UtilityContext,
+    *,
+    base_weekly: np.ndarray,
+    base_opponent: np.ndarray,
+    dst_policy: SpecialistPolicyResult,
+    hold_policy: SpecialistPolicyResult,
+    dst_static: dict[int, np.ndarray],
+    kicker_static: dict[int, np.ndarray],
+) -> dict[str, Any]:
+    """Require a legal K starter before comparing optional same-channel upgrades.
+
+    The raw FREEAGENT frontier is a screen; only a legal selected repair with
+    paired complete-roster MC response can become a repair action.  This is a
+    lexicographic feasibility requirement, not a retuned utility threshold.
+    """
+    owned = _position_rows(ctx.roster, "K")
+    bye_table = ctx.league.get("bye_weeks_2026") or {}
+    week = int(ctx.week)
+
+    def on_known_bye(player: dict[str, Any]) -> bool:
+        team = normalize_team(player.get("nfl_team")) or ""
+        raw = bye_table.get(team)
+        try:
+            return raw is not None and int(raw) == week
+        except (ValueError, TypeError):
+            return False
+
+    # With any non-bye owned kicker, this narrow structural repair has no
+    # authority to replace the lineup optimizer's injury/lock assessment.
+    if any(not on_known_bye(player) for player in owned):
+        return {"required": False, "status": "NOT_REQUIRED_K_PRESENT"}
+
+    base = {
+        "required": True,
+        "status": "INCOMPLETE_COVERAGE:KICKER_FEASIBILITY_REPAIR",
+        "owned_kickers": len(owned),
+        "owned_known_bye": sum(on_known_bye(player) for player in owned),
+        "acquisition_state": "FREEAGENT",
+        "screen_is_authority": False,
+        "mc_candidate_count": 0,
+    }
+    if len(owned) != 1:
+        # Zero/multiple owned K require an explicit capacity/lineup-state model,
+        # not an assumed free roster slot or an arbitrary release.
+        return {**base, "reason": "K_ROSTER_CAPACITY_OR_DROP_STATE_UNRESOLVED"}
+    drop = owned[0]
+    if not _legal_drop(drop) or _is_current_week_locked(drop, ctx):
+        return {**base, "reason": "OWNED_K_NOT_LEGALLY_DROPPABLE"}
+    now = _snapshot_time(ctx)
+    if now is None:
+        return {**base, "reason": "DECISION_TIME_MISSING"}
+    drop_id = _pid(drop)
+    if drop_id is None:
+        return {**base, "reason": "OWNED_K_ID_MISSING"}
+
+    free, waivers = _guaranteed_free_pool(ctx, "K")
+    contenders = []
+    excluded_unresolved = 0
+    excluded_locked = 0
+    candidate_cache: dict = {}
+    for candidate_id, player in sorted(free.items()):
+        if on_known_bye(player):
+            continue
+        timing = ctx.lock_timing(player, week)
+        kickoff = getattr(timing, "kickoff", None)
+        if kickoff is None or getattr(kickoff, "tzinfo", None) is None:
+            excluded_unresolved += 1
+            continue
+        if kickoff.astimezone(timezone.utc) <= now or _is_current_week_locked(player, ctx):
+            excluded_locked += 1
+            continue
+        _samples, mean, _detail = _cache_week(player, ctx, week, candidate_cache)
+        if not np.isfinite(mean) or mean <= EPS:
+            continue
+        contenders.append((float(mean), int(candidate_id), player))
+
+    base.update({
+        "eligible_feasible_frontier": len(contenders),
+        "excluded_unresolved_timing": excluded_unresolved,
+        "excluded_locked": excluded_locked,
+        "current_waiver_candidates": waivers,
+        "freeagent_pool_count": len(free),
+    })
+    if not contenders:
+        return {**base, "reason": "NO_K_WITH_KNOWN_UNLOCKED_KICKOFF_AND_POSITIVE_RESPONSE"}
+
+    # Every feasible current FREEAGENT swap is evaluated with the same
+    # stochastic complete-roster response machinery.  The pregame K screen
+    # orders candidate evaluation but does not authorize/rank final actions.
+    contenders.sort(key=lambda row: (-row[0], row[1]))
+    _w0, _o0, hold_u = _compose_state(
+        base_weekly, base_opponent, ctx, d_policy=dst_policy, k_policy=hold_policy,
+        d_static=dst_static, k_static=kicker_static,
+    )
+    if not np.all(np.isfinite(hold_u)):
+        return {**base, "reason": "NONFINITE_HOLD_MC_BASELINE"}
+    evaluated = []
+    for mean, candidate_id, candidate in contenders:
+        policy = simulate_specialist_market_policy(
+            ctx,
+            position="K",
+            user_mode="ONE_SLOT",
+            pre_acquire_espn_id=candidate_id,
+            pre_drop_espn_id=int(drop_id),
+        )
+        transaction = next((row for row in policy.transactions
+                            if int(row.get("week") or -1) == week
+                            and int(row.get("team_id") or -1) == int(ctx.team_id)), None)
+        if (not transaction
+                or int(transaction.get("add_espn_id") or -1) != candidate_id
+                or int(transaction.get("drop_espn_id") or -1) != int(drop_id)):
+            return {**base, "mc_candidate_count": len(evaluated),
+                    "reason": "FEASIBLE_FRONTIER_TRANSACTION_NOT_REPRESENTED"}
+        _w, _o, repaired_u = _compose_state(
+            base_weekly, base_opponent, ctx, d_policy=dst_policy, k_policy=policy,
+            d_static=dst_static, k_static=kicker_static,
+        )
+        if not np.all(np.isfinite(repaired_u)):
+            return {**base, "mc_candidate_count": len(evaluated),
+                    "reason": "NONFINITE_PAIRED_MC_RESPONSE"}
+        paired = _paired_stats(np.asarray(repaired_u) - np.asarray(hold_u), ctx, 32003 + candidate_id)
+        if not all(np.isfinite(float(paired.get(k, float("nan")))) for k in ("mean", "p_better", "p_tie", "p_worse")):
+            return {**base, "mc_candidate_count": len(evaluated),
+                    "reason": "NONFINITE_MC_SUMMARY"}
+        evaluated.append({
+            "candidate_id": candidate_id,
+            "candidate_name": candidate.get("name"),
+            "expected_k_points": mean,
+            "transaction": dict(transaction),
+            "paired_complete_state_delta": paired,
+        })
+
+    if len(evaluated) != len(contenders):
+        return {**base, "mc_candidate_count": len(evaluated),
+                "reason": "INCOMPLETE_PAIRED_MC_FEASIBLE_FRONTIER"}
+    # Feasibility is lexicographically mandatory, but the best feasible
+    # complete-roster MC response chooses among candidates.  A broad confidence
+    # gate applies to optional upgrades only, never to infeasible HOLD.
+    evaluated.sort(key=lambda x: (
+        -float(x["paired_complete_state_delta"]["mean"]),
+        -float(x["expected_k_points"]),
+        int(x["candidate_id"]),
+    ))
+    best = evaluated[0]
+    return {
+        **base,
+        "status": "FEASIBILITY_REPAIR_ACTION",
+        "reason": "MANDATORY_K_SLOT_WITH_NO_NONBYE_OWNED_K",
+        "mc_candidate_count": len(evaluated),
+        "frontier_complete": True,
+        "candidate_id": int(best["candidate_id"]),
+        "candidate_name": best["candidate_name"],
+        "drop_id": int(drop_id),
+        "drop_name": drop.get("name"),
+        "expected_k_points": best["expected_k_points"],
+        "transaction": best["transaction"],
+        "paired_complete_state_delta": best["paired_complete_state_delta"],
+        "feasible_candidate_mc_rankings": [{
+            "candidate_id": row["candidate_id"],
+            "expected_k_points": row["expected_k_points"],
+            "paired_complete_state_delta": row["paired_complete_state_delta"],
+        } for row in evaluated],
+        "comparison_constraint": "MANDATORY_FEASIBILITY_NOT_OPTIONAL_SIGNIFICANCE",
+    }
+
+
 def _evaluate_policy_channel(
     snapshot: dict[str, Any], league: dict[str, Any], model: dict[str, Any], *,
     position: str, values_path="data/processed/player_values_2026.csv", team_name=None,
@@ -1175,6 +1345,16 @@ def _evaluate_policy_channel(
             "Post-activation response is expanded through the bounded v0.36 order-2+ player-channel cascade; unrelated league transactions remain outside the local perturbation.",
         ],
     })
+    if position == "K":
+        report["kicker_feasibility"] = _required_kicker_feasibility_repair(
+            ctx,
+            base_weekly=base_weekly,
+            base_opponent=base_opponent,
+            dst_policy=d1,
+            hold_policy=k_hold,
+            dst_static=d_static,
+            kicker_static=k_static,
+        )
     return report
 
 
