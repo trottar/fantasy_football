@@ -290,7 +290,17 @@ def _default_lineup(
                 kickoff = getattr(timing, "kickoff", None)
                 source = str(getattr(timing, "source", None) or "UNKNOWN")
                 if kickoff is None:
-                    legality_gaps.append(f"lock_timing_unknown:{player_id}:{source}")
+                    # A verified bye has no kickoff by design, not an unknown lock.
+                    # This only repairs lock representation: optimize_lineup still
+                    # excludes the bye player and can report a required empty slot.
+                    bye_week = (league.get("bye_weeks_2026") or {}).get(
+                        str(player.get("nfl_team") or "").strip().upper()
+                    )
+                    if source == "NO_SCHEDULE" and _finite_int(bye_week) == int(ctx.week):
+                        state = "UNLOCKED"
+                        source = "CONFIGURED_BYE_NO_SCHEDULE"
+                    else:
+                        legality_gaps.append(f"lock_timing_unknown:{player_id}:{source}")
                 elif kickoff.tzinfo is None:
                     legality_gaps.append(f"lock_timing_naive:{player_id}:{source}")
                 else:
