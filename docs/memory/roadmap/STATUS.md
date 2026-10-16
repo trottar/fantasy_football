@@ -2,24 +2,16 @@
 
 ## Current Frontier
 
-- Runtime baseline: `v0.36-repack1` — **COMMISSIONED**
-- Internal version: `0.36`
-- Week 4 prospective captures: **VALID / PRESERVED**
-- Week 5 kicker feasibility: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / OCTOBER 9 USER-REPORTED SWAP / POST-TRANSACTION ESPN VERIFICATION OPEN**
-- Week 6 current prospective authority: **NO VERIFIED CAPTURE IN OCTOBER 15 HANDOFF; CALENDAR PRIORITY**
-- Week 4 roster-wide decision completion: **COMPLETE / ACTION_REQUIRED / FRESH POST-TIMING AUTHORITY**
-- Gate A fail-closed weekly control plane: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Gate B capability closure: **CURRENT-WEEK ACTION COVERAGE COMMISSIONED / B2B DEFERRED**
-- Gate B1 specialist current-WAIVER coverage: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Gate B2a current IR/open-slot representation: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Gate B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED / CLAIM-LOCAL QUALIFYING CLAIMS = 0**
-- Gate B3 automated multi-asset/unequal player trade search: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Specialist-inclusive trade composition: **MULTI-K CORRECTION SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
-- Current IR move-plus-add adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / GATE B5**
-- Week 3 Data/MC closure: **UNBLOCKED BY FRESH COMPLETE WEEKLY RECEIPT**
-- Active development workstream: **WEEK 6 PROSPECTIVE CALENDAR CAPTURE FIRST; WEEK 5 POST-TRANSACTION VERIFICATION/CLOSURE NEXT; WEEK 3 REPLAY DEFERRED**
-- Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
-- No observed 2026 outcome has tuned v0.X.
+- Runtime baseline: `v0.36-repack1` — **COMMISSIONED / UNCHANGED**; internal `VERSION=0.36`.
+- Week 6 calendar capture: **PARTIAL RECORD-LEVEL PROSPECTIVE FREEZE PRESERVED**; 189 pre-kickoff, 15 post-lock, 33 kickoff-unknown, across 173 all-league players plus 64 specialists.
+- Week 6 recovered-state October 16 15:17 UTC: **SIX PROVIDERS / CAPTURE INTEGRITY / SNAPSHOT BINDING PASS**; ownership, market, transactions, matchup context drifted versus prior saved decision.
+- Week 6 16:36 UTC nine-channel paired MC: **HEALTH PASS / 8 HOLD + SPECIALIST TRADE ACTION**; native `COMPLETE / ACTION_REQUIRED` is **NOT UNQUALIFIED WEEK-WIDE PROSPECTIVE COMPLETENESS**.
+- Week 6 lineup: **CURRENT AT FROZEN STATE / HOLD**. Specialist-inclusive offers: **2 CANDIDATES / WEEK 7 EFFECT / NOT SUBMITTED / FRESH LIVE CHECK REQUIRED**.
+- Week 5 kicker transaction: **OCTOBER 9 USER REPORT NOW CONFIRMED BY OCTOBER 16 ESPN ROSTER / BASS IN STARTING K**.
+- Current workstream: **WEEK 5 IMMUTABLE CAPTURE -> OBSERVED ESPN SCORING -> DATA/MC CLOSURE / MEASUREMENT-COVERAGE AUDIT**; no hindsight prediction freeze.
+- v0.29 closure ledger: **ONLY LEGACY `players` BLOCK**; v0.34 all-league/DST/K/behavioral measurement closure remains explicitly uncommissioned.
+- Gate A, B1, B2a, B3, specialist trade and current IR adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / UNCHANGED**. B2b: **DEFERRED / FAIL-CLOSED**.
+- Week 3 historical IR move-to-IR join: **DEFERRED** pending Week 5 closure. No observed 2026 outcome has tuned v0.X.
 
 ## Historical Counterfactual Replay / Regret
 
