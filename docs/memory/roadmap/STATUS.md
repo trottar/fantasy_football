@@ -5,6 +5,8 @@
 - Runtime baseline: `v0.36-repack1` — **COMMISSIONED**
 - Internal version: `0.36`
 - Week 4 prospective captures: **VALID / PRESERVED**
+- Week 5 kicker feasibility: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / OCTOBER 9 USER-REPORTED SWAP / POST-TRANSACTION ESPN VERIFICATION OPEN**
+- Week 6 current prospective authority: **NO VERIFIED CAPTURE IN OCTOBER 15 HANDOFF; CALENDAR PRIORITY**
 - Week 4 roster-wide decision completion: **COMPLETE / ACTION_REQUIRED / FRESH POST-TIMING AUTHORITY**
 - Gate A fail-closed weekly control plane: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Gate B capability closure: **CURRENT-WEEK ACTION COVERAGE COMMISSIONED / B2B DEFERRED**
@@ -15,7 +17,7 @@
 - Specialist-inclusive trade composition: **MULTI-K CORRECTION SOURCE-PUBLISHED / RUNTIME-COMMISSIONED**
 - Current IR move-plus-add adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / GATE B5**
 - Week 3 Data/MC closure: **UNBLOCKED BY FRESH COMPLETE WEEKLY RECEIPT**
-- Active development workstream: **WEEK 3 HISTORICAL REPLAY / V002 OUTCOME AUTHORITY FROZEN / IR TRANSITION CHECK NEXT**
+- Active development workstream: **WEEK 6 PROSPECTIVE CALENDAR CAPTURE FIRST; WEEK 5 POST-TRANSACTION VERIFICATION/CLOSURE NEXT; WEEK 3 REPLAY DEFERRED**
 - Phase 1E persistence: **RUNTIME COMMISSIONED / DISABLED / ACTIVATION NOT AUTHORIZED**
 - No observed 2026 outcome has tuned v0.X.
 
@@ -45,7 +47,7 @@
 - Phase A predictions/model choice freeze before Phase B observed-outcome/oracle
   attachment.
 - v0.X outcome-driven empirical tuning remains prohibited.
-- Active development focus is the Week 3 previous-week replay checks. The pending
+- Deferred historical development focus is the Week 3 previous-week replay checks. The pending
   Week 4 Kamara -> Bills D/ST action remains preserved, unexecuted, and
   state-sensitive, but is not the active development workstream.
 - Week 3 replay-input adapter: **IMPLEMENTED / VALIDATED IN THIS CHECKPOINT**.
@@ -238,7 +240,9 @@ MC, or the football decision. This is a nonblocking representation gap.
 
 ## Next Gate
 
-Resolve the Week 3 IR open-slot transition from frozen decision-time evidence.
+WEEK6_CALENDAR_CAPTURE_HANDOFF_20261015: inspect the runtime for an existing timely Week 6 freeze; otherwise run current Week 6 season sync and capture prior to still-unobserved outcomes. Then verify the user-reported Butker -> Bass swap from current ESPN roster/lineup, rebuild state-bound health/weekly decisions, and close Week 5 from frozen predictions and observed scores. Do not backfill any already-observed game as prospective.
+
+Deferred work: Resolve the Week 3 IR open-slot transition from frozen decision-time evidence.
 Determine whether every Phase-A `IR_MOVE_PLUS_ADD` candidate can be joined
 deterministically to the unique legal `move_to_ir` transition required by
 commissioned Gate B2a before its add frontier was emitted.
