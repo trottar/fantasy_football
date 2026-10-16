@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-16T13:22:55.079986-04:00",
+  "generated_at": "2026-10-16T18:28:01.650764-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7615,
-      "sha256": "b52651d609292d518c8efa8b43a8f8c465b1307da0e4eac264e490d489685e34"
+      "bytes": 7924,
+      "sha256": "0cad67b23c2491b7959f37638e494958a693f6e96d35af387b7a931808c6f72c"
     },
     {
       "path": "LEARNINGS.md",
@@ -685,6 +685,11 @@
       "sha256": "4f6b172740d03517a29eb98d1f671a21ad4331cd86edb44bce782d8e2b1f1bf3"
     },
     {
+      "path": "evidence/WEEK5_PROSPECTIVE_YIELD_CLOSURE_OBSERVATION_RECOVERY_2026-10-16.md",
+      "bytes": 5711,
+      "sha256": "392860648e97bb39825d4ecd3deaa47e64f596d488980d834a9c0dde44399b4f"
+    },
+    {
       "path": "evidence/WEEK6_PROSPECTIVE_CAPTURE_AND_NINE_CHANNEL_RECOVERY_2026-10-16.md",
       "bytes": 5854,
       "sha256": "3e1c9b4f99456a1643da7b83d31439a79dcd78a8bd1feac0ebb0e5326532a1c0"
@@ -911,8 +916,8 @@
     },
     {
       "path": "roadmap/STATUS.md",
-      "bytes": 15751,
-      "sha256": "b898c6d5ca830ab066b51b93bd97252623cf9a7615c5cfe4e14414fac1f78c74"
+      "bytes": 15770,
+      "sha256": "296c97ae3956e018a6b70cb3335798549159e2bdb6c4f2049a9d3ead5aefe404"
     },
     {
       "path": "templates/CURRENT_HANDOFF.md",

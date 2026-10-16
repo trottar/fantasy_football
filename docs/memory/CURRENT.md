@@ -4,8 +4,8 @@
 state_updated: 2026-10-16
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
-active_phase: week6_partial_capture_verified_week5_closure_next
-active_workstream: week5_data_mc_closure_and_week6_live_state_guard
+active_phase: week5_yield_observation_closure_week6_live_gate_next
+active_workstream: week6_pre_sunday_live_state_guard_and_week5_component_open
 memory_refinement_step: none
 nfl_week: 6
 fantasy_stage: regular_season
@@ -14,29 +14,28 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Preserve the immutable, partially prospective 2026 Week 6 capture and distinguish frozen decision coverage from live execution authority. The commissioned v0.36-repack1 runtime and all nine weekly channels passed at the October 16 15:17 UTC recovered state. Later material state changes require a new decision-time evaluation; no football predictions may be relabeled after kickoff. Week 5 Data/MC closure from October 9 immutable captures is now the next observational work item. No 2026 outcomes tune v0.X.
+The 2026 Week 5 selected pre-kickoff fantasy-yield forecasts are now paired with exact Week 5 ESPN actual scores in all four measured channels, after a targeted player-card recovery resolved historical roster/market observation gaps. This closes selected Week 5 fantasy-point observation coverage only; missing player component predictions, independent active/inactive truth, full matchup/regret reconciliation, and long-run calibration remain separate evidence gates. Preserve the Week 6 partial prospective freeze and evaluate live roster/lock state again before consequential Sunday/Monday actions. v0.36-repack1 remains unchanged; no 2026 outcomes tune v0.X.
 
 ## Current Work Item
 
-**WEEK 6 FREEZE VERIFIED / WEEK 5 PROSPECTIVE DATA/MC CLOSURE NEXT.**
+**WEEK 5 SELECTED PROSPECTIVE FANTASY-YIELD OUTCOMES RECONCILED; WEEK 6 LIVE CALENDAR GATE NEXT.**
 
-The October 16 Week 6 calendar gate captured 189 pre-kickoff player/specialist prediction records; 15 post-lock and 33 unknown-kickoff records are explicitly excluded. The October 16 15:17 UTC state was recovered after a diagnostic-only Windows relative-path error and reevaluated by full paired MC at 16:36 UTC. All nine channels and operational health passed, with lineup HOLD and two DST-inclusive trade offers as the sole ACTION channel; ESPN's 48-hour review makes those offers Week 7-effective. Model-native `COMPLETE / ACTION_REQUIRED` is not unrestricted week-wide prospective authority. None of these results authorizes current transaction submission without a fresh state check.
+All 3 frozen Week 5 captures passed integrity and exact snapshot binding. ESPN's roster+market query scored six matchups but omitted 39 unique Week 5 actuals. The targeted player-card query recovered all 39, including three valid zeros. The final selected pre-kickoff forecast comparisons are legacy 31/31, all-league 158/158, DST 29/29 and K 29/29. This is not component or behavior/availability calibration closure. The last Week 6 state-bound MC remains the October 16 15:17 UTC state; any material change invalidates action authority. The two DST-inclusive offers remain modeled Week 7-effective candidates, not submitted transactions.
 
 ## Verified State
 
-- Latest published repository checkpoint reference remains `771fafbc95bb6c78df63de4024a32ce3f0cc54b3` (October 15 memory checkpoint). The validated Windows runtime remains `v0.36-repack1`, internal `VERSION = 0.36`; no source or behavior changes were made by the October 16 diagnostics.
-- October 16 13:34 UTC Week 6 partial capture: 173 all-league player and 64 specialist records; 189 pre-kickoff, 15 post-lock (DEN/SEA), 33 unknown. Integrity, snapshot binding, and all six providers PASS.
-- October 16 13:44 UTC nine-channel receipt `weekly_decision_receipt_20261016T142626Z.json` SHA-256 `a69b8168def073fa1f39657059ff2a278ae27a070d000374ef739beae79c8b85`: healthy, lineup and specialist-inclusive trade ACTION, but its source state subsequently changed materially.
-- The October 16 15:17 UTC fresh snapshot/capture from a diagnostic whose post-capture relative-path display raised `ValueError` were recovered without repeat network requests. Immutable capture `pregame_2026_w06_20261016T151756Z.json`, SHA-256 `24624fbb13b6688383f952ec5d912333dbd59f20f46fd737354c3aa5fd806a1b`, integrity/binding/providers PASS. Compared with prior state: owned roster, market, transactions, and matchup context drifted; original actions are stale.
-- Reconstructed frozen nine-slot lineup from the prior receipt was legal, 116.009 expected points, but current ESPN starter set had changed; replay is evidence only, not permission to move players.
-- October 16 recovered-state full nine-channel MC receipt `weekly_decision_receipt_20261016T163643Z.json`, SHA-256 `a7f163cb673235ff144990cf830f3a995121bb1a5fe2232ac0c10d0171989be0`: health PASS, eight channels HOLD, specialist-inclusive trade ACTION with two 4096-scenario DST packages. Native state `COMPLETE / ACTION_REQUIRED`; per-record prospective authority remains partial. No trade was submitted; 48-hour ESPN review defers potential ownership effect to Week 7. A new decision-time ESPN check is necessary before any submission.
-- The October 9 user-reported Butker-to-Bass swap is now ESPN-confirmed: Bass owned and assigned starting K; Butker not owned. No repeat transaction is needed.
-- Week 5 immutable October 9 captures and earlier Week 3 frozen evidence remain untouched. Week 5 observed-outcome reconciliation, component-measurement gaps, specialist and full-league closure still require an explicit evidence-quality audit. The inherited v0.29 postgame ledger consumes only the older `players` block; do not present it as full v0.34 all-league/DST/K closure.
-- No October 16 diagnostics changed source, private authenticated data publication, Git index, remote repository, ESPN transactions, or v0.X empirical parameters. The Week 3 `IR_MOVE_PLUS_ADD` historical join remains deferred.
+- Published Week 6 checkpoint commit `66d523c5d63fae9244f54ef7e5e9baf47efb09e6`, verified October 16 with tree `885d29c8987277f62d1225d6590b1e7172f1d364`. Runtime `v0.36-repack1` and internal `VERSION=0.36` remain commissioned and unchanged. The containing checkpoint's future commit SHA is not assumed.
+- Week 5 frozen captures: October 8 23:39 UTC, October 9 05:54 UTC, and October 9 16:02 UTC; 3/3 canonical integrity and 3/3 snapshot bindings PASS. The late October 9 captures preserve 15 post-lock and 24 unknown-kickoff forecasts; only individually verified pre-kickoff records are eligible for prospective scoring.
+- First Week 5 historical ESPN query: six of six scored matchups, 1,052 source rows, 187 unique scored IDs. It yielded 29/31 legacy, 151/158 all-league, 14/29 DST, and 12/29 K scored selected forecasts. Missingness was distinguished from legitimate zero scores, position mismatches, and conflicts; no missing score was imputed as zero.
+- Targeted exact-2026-Week-5 player-card observation recovery returned 39 of 39 missing unique IDs, 3 exact zero scores, no wrong-week/position/conflict results. Final selected forecast coverage is legacy **31/31**, all-league **158/158**, DST **29/29**, K **29/29**. Legacy overlaps all-league.
+- Final residual (observed minus frozen expected fantasy points), MAE and RMSE: legacy **+0.6585 / 6.0009 / 7.6221**; all-league **+0.9658 / 6.0716 / 7.9818**; DST **+1.0856 / 5.4669 / 6.8012**; K **+1.7872 / 4.4240 / 5.8559**. Metrics apply to selected pre-kickoff forecasts only.
+- Week 5 component measurements remain missing for the player channels: zero component predictions in legacy and all-league frozen blocks. DST captures contain 1,080 component fields across the three artifacts, but independent DST component observation closure is not established; the kicker FG/XP component model was unavailable a priori. The legacy v0.29 ledger covers only its own `players` block, not all-league/DST/K. Active-truth labels cannot be inferred from zero fantasy points or later ESPN `active` fields.
+- Week 6 partial freeze remains 189 pre-kickoff, 15 post-lock and 33 kickoff-unknown records. Fresh 15:17 UTC state-bound nine-channel MC receipt `weekly_decision_receipt_20261016T163643Z.json` SHA-256 `a7f163cb673235ff144990cf830f3a995121bb1a5fe2232ac0c10d0171989be0`: operational health PASS, eight channels HOLD and two DST-inclusive offers as the specialist ACTION. Both hypothetical trades take effect Week 7 under 48-hour review, need fresh ownership/legality checks, and were not submitted. Bass remains independently confirmed owned and in the starting K slot as of the 15:17 UTC snapshot.
+- The three Week 5 audits were diagnostics only: no post-hoc prediction capture, MC rerun, outcome file writes, tuning, private ESPN data publication, ESPN transaction, source/runtime change, or Git write. Week 3 historical IR-move join remains deferred.
 
 ## Calendar / Evidence Gates
 
-Week 6's Thursday game was already locked before the October 16 captures. Preserve only the 189 record-level pre-kickoff forecasts as prospective; exclude 15 post-lock and 33 unknown-timing records from causal evaluation. The valid 15:17 UTC capture cannot be backfilled to authorize Thursday results. Sunday/Monday prospective action decisions require timely current roster/lock/health evidence if material state changes arise. Week 5 retrospective observations belong strictly downstream of frozen Week 5 predictions. `MC -> Data -> closure -> diagnosis -> calibration` and the `v0.X`/`v1.X` boundary are unchanged.
+Week 5 yield closure is **per-asset prospective and observed-point complete only for selected eligible forecasts**, not a claim that post-lock/unknown predictions or all 2026 modeling components have valid causal closure. The Week 6 Thursday game was locked before Friday captures; only the 189 individual pre-kickoff forecast records are prospectively usable, and the 15 post-lock plus 33 unknown remain excluded. The Week 6 saved receipt cannot authorize Sunday/Monday actions after material state drift. Capture fresh evidence before still-unplayed kickoffs when required, never after outcomes. `MC -> Data -> closure -> diagnosis -> calibration` and the frozen v0.X boundary remain enforced.
 
 ## Scientific / Architectural Boundaries
 
@@ -48,15 +47,14 @@ Week 6's Thursday game was already locked before the October 16 captures. Preser
 
 ## Exact Next Action
 
-**Week 5 Data/MC closure from immutable evidence.** First audit the October 9 Week 5 frozen captures, actual observed ESPN scores and coverage, capture timing, and v0.29 versus v0.34/DST/K measurement capability. Reuse frozen records; never run `closure-capture` retrospectively or substitute late observations for decision-time forecasts. Reconcile yield residuals, pulls, coverage, available component measurements, specialist outcomes, lineup/matchup context, and missingness as separately qualified channels. Publish sanitized evidence and update durable memory through the normal guarded `.ffpkg` checkpoint workflow. In parallel, preserve Week 6 frozen capture and only rerun the health-backed nine-channel MC if a fresh state comparison shows material drift before a consequential transaction. The two Week 7-effective trade candidates require live ESPN legality/ownership verification and explicit operator approval; no trade is authorized by the saved receipt alone. Defer Week 3 replay IR join until the Week 5 closure gate is settled.
+**Week 6 live-state freshness gate before consequential Sunday/Monday actions.** On the Windows runtime, compare current ESPN roster, lineup/locks, player availability, market and pending transactions with the frozen October 16 15:17 UTC snapshot. If a material change exists, capture a fresh state and run the health-backed complete nine-channel decision authority with record-level kickoff exclusions before the relevant kickoff. Revalidate legal lineup slots, Bass in K, and any trade effective-time/ownership conditions. Do not submit the two old DST offers without fresh acceptance/legality evidence and explicit operator approval. Keep Week 5 yield observations closed only at the selected forecast level; separately investigate player component-prediction absence, DST component truth, availability labels, and lineup/matchup/regret with immutable decision-time provenance. No v0.X empirical tuning. Week 3 replay IR join remains deferred until the Week 6 calendar gate is secured.
 
 ## Relevant References
 
+- `evidence/WEEK5_PROSPECTIVE_YIELD_CLOSURE_OBSERVATION_RECOVERY_2026-10-16.md`
 - `evidence/WEEK6_PROSPECTIVE_CAPTURE_AND_NINE_CHANNEL_RECOVERY_2026-10-16.md`
 - `architecture/WEEKLY_DECISION_COMPLETION.md`
 - `roadmap/STATUS.md`, `roadmap/SEASON_2026.md`
-- `../../src/closure.py`, `../../src/prospective_measurement_v034.py`
+- `../../src/closure.py`, `../../src/prospective_measurement_v034.py`, `../../src/data_sources/espn_league.py`
 - `../../src/weekly_decision_cycle.py`, `../../src/specialist_trade.py`
-- `evidence/WEEK5_KICKER_FEASIBILITY_STRUCTURAL_CORRECTION_2026-10-09.md`
-- `evidence/WEEK3_PHASE_B_OUTCOME_AUTHORITY_V002_CORRECTION_2026-10-07.md`
 - `patches/PATCH_PROTOCOL.md`, `TOOLS.md`, `MEMORY.md`, `USER.md`

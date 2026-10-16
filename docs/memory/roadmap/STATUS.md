@@ -2,16 +2,15 @@
 
 ## Current Frontier
 
-- Runtime baseline: `v0.36-repack1` — **COMMISSIONED / UNCHANGED**; internal `VERSION=0.36`.
-- Week 6 calendar capture: **PARTIAL RECORD-LEVEL PROSPECTIVE FREEZE PRESERVED**; 189 pre-kickoff, 15 post-lock, 33 kickoff-unknown, across 173 all-league players plus 64 specialists.
-- Week 6 recovered-state October 16 15:17 UTC: **SIX PROVIDERS / CAPTURE INTEGRITY / SNAPSHOT BINDING PASS**; ownership, market, transactions, matchup context drifted versus prior saved decision.
-- Week 6 16:36 UTC nine-channel paired MC: **HEALTH PASS / 8 HOLD + SPECIALIST TRADE ACTION**; native `COMPLETE / ACTION_REQUIRED` is **NOT UNQUALIFIED WEEK-WIDE PROSPECTIVE COMPLETENESS**.
-- Week 6 lineup: **CURRENT AT FROZEN STATE / HOLD**. Specialist-inclusive offers: **2 CANDIDATES / WEEK 7 EFFECT / NOT SUBMITTED / FRESH LIVE CHECK REQUIRED**.
-- Week 5 kicker transaction: **OCTOBER 9 USER REPORT NOW CONFIRMED BY OCTOBER 16 ESPN ROSTER / BASS IN STARTING K**.
-- Current workstream: **WEEK 5 IMMUTABLE CAPTURE -> OBSERVED ESPN SCORING -> DATA/MC CLOSURE / MEASUREMENT-COVERAGE AUDIT**; no hindsight prediction freeze.
-- v0.29 closure ledger: **ONLY LEGACY `players` BLOCK**; v0.34 all-league/DST/K/behavioral measurement closure remains explicitly uncommissioned.
-- Gate A, B1, B2a, B3, specialist trade and current IR adapter: **SOURCE-PUBLISHED / RUNTIME-COMMISSIONED / UNCHANGED**. B2b: **DEFERRED / FAIL-CLOSED**.
-- Week 3 historical IR move-to-IR join: **DEFERRED** pending Week 5 closure. No observed 2026 outcome has tuned v0.X.
+- Runtime `v0.36-repack1`, internal `VERSION=0.36`: **COMMISSIONED / UNCHANGED**; no outcome-informed retuning.
+- Week 5 capture integrity: **3/3 PASS**; latest pre-kickoff eligible predictions selected individually, with post-lock/unknown excluded.
+- Week 5 exact-score recovery: ESPN roster/market left 39 unique actuals missing; targeted player-card returned **39/39**, three valid zero scores, no conflicts or mismatched positions.
+- Week 5 selected prospective fantasy-yield observed coverage: **legacy 31/31; all-league 158/158; DST 29/29; K 29/29**. Legacy overlaps all-league; no disjoint sum.
+- Week 5 full observed-subset metrics (bias / MAE / RMSE): legacy **+0.6585 / 6.0009 / 7.6221**; all-league **+0.9658 / 6.0716 / 7.9818**; DST **+1.0856 / 5.4669 / 6.8012**; K **+1.7872 / 4.4240 / 5.8559**.
+- Week 5 measurement gaps: **player component predictions = 0**, DST component truth not closed, kicker FG/XP model unavailable, independent activity labels not established; legacy v0.29 ledger is **NOT** all-league/DST/K closure.
+- Week 6 freeze: **189 PRE / 15 POST_LOCK / 33 UNKNOWN**; healthy 15:17 UTC state-bound complete nine-channel search gave eight HOLD + specialist trade ACTION, two Week 7-effective offers **NOT SUBMITTED**.
+- Next calendar gate: **FRESH WEEK 6 ESPN ROSTER / LINEUP / MARKET / INJURY / LOCK COMPARISON BEFORE CONSEQUENTIAL SUNDAY/MONDAY ACTIONS**; current frozen receipt is not perpetual authorization.
+- B2b multiweek absence horizon: **DEFERRED / FAIL-CLOSED**; historical Week 3 IR replay join **DEFERRED**. Preserve `P ⊕ D ⊕ K` and no v0.X outcome tuning.
 
 ## Historical Counterfactual Replay / Regret
 
@@ -232,21 +231,11 @@ MC, or the football decision. This is a nonblocking representation gap.
 
 ## Next Gate
 
-WEEK6_CALENDAR_CAPTURE_HANDOFF_20261015: inspect the runtime for an existing timely Week 6 freeze; otherwise run current Week 6 season sync and capture prior to still-unobserved outcomes. Then verify the user-reported Butker -> Bass swap from current ESPN roster/lineup, rebuild state-bound health/weekly decisions, and close Week 5 from frozen predictions and observed scores. Do not backfill any already-observed game as prospective.
+Week 5 selected pre-kickoff fantasy-yield outcome coverage is reconciled, with legacy 31/31, all-league 158/158, DST 29/29, and K 29/29 exact ESPN Week 5 actuals, recovered without imputing zero or rewriting forecasts. **This does not close missing player components, independent DST/K component truth, availability outcomes or historical regret.**
 
-Deferred work: Resolve the Week 3 IR open-slot transition from frozen decision-time evidence.
-Determine whether every Phase-A `IR_MOVE_PLUS_ADD` candidate can be joined
-deterministically to the unique legal `move_to_ir` transition required by
-commissioned Gate B2a before its add frontier was emitted.
+**Next calendar gate:** before consequential Week 6 Sunday/Monday actions, compare fresh roster, status, lineup locks, transaction settings, and actionable market with the frozen October 16 15:17 UTC state. Recapture and rerun the health-backed nine-channel response if material drift is present; preserve per-record kickoff exclusions. Do not submit stale Week 7-effective offers. After the calendar gate, audit Week 5 component and independent availability/matchup evidence without retuning v0.X.
 
-If exact reconstruction is possible, record the join and proceed to Phase-B
-scorer implementation without mutating Phase A. Otherwise classify a
-state-representation gap and repair replay representation before scoring.
-
-Do not attach Phase B until this transition boundary and scorer joins are
-validated. No observed Week 3 result may tune v0.X.
-
-The Week 4 Kamara -> Bills D/ST side-state remains preserved and unexecuted.
+Deferred historical development: exact Week 3 `IR_MOVE_PLUS_ADD` join to frozen move-to-IR state prior to Phase B. Never attach hindsight outcomes to Phase A. Preserve the older Week 4 Kamara-to-Bills candidate as historical, unexecuted evidence.
 
 ## Boundary Conditions
 
