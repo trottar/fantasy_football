@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-16T18:28:01.650764-04:00",
+  "generated_at": "2026-10-17T01:27:00.546071-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7924,
-      "sha256": "0cad67b23c2491b7959f37638e494958a693f6e96d35af387b7a931808c6f72c"
+      "bytes": 7280,
+      "sha256": "474cbbb0867810af41d77380fa3c86e1a8ab92ca65c7dfffe3a4e19040a1917f"
     },
     {
       "path": "LEARNINGS.md",
@@ -688,6 +688,11 @@
       "path": "evidence/WEEK5_PROSPECTIVE_YIELD_CLOSURE_OBSERVATION_RECOVERY_2026-10-16.md",
       "bytes": 5711,
       "sha256": "392860648e97bb39825d4ecd3deaa47e64f596d488980d834a9c0dde44399b4f"
+    },
+    {
+      "path": "evidence/WEEK6_LIVE_IR_MARKET_DRIFT_RECOVERY_2026-10-17.md",
+      "bytes": 5813,
+      "sha256": "ff191af48f8440b141da1f3a406cdd1ce957ce069ed5a98de5698498dd6ec1f0"
     },
     {
       "path": "evidence/WEEK6_PROSPECTIVE_CAPTURE_AND_NINE_CHANNEL_RECOVERY_2026-10-16.md",
