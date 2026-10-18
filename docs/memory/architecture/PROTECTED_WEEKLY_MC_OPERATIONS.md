@@ -28,7 +28,7 @@ Atypical Thursday, Friday, Saturday, Monday, international, and holiday games ov
 6. A nine-channel overall `INCOMPLETE_COVERAGE` (including IR) stays incomplete. Scoped lineup or other channel findings may be discussed only with their own evidenced boundaries; no roster-wide COMPLETE/HOLD is inferred. `P ⊕ D ⊕ K`, utility composition, and manager behavior remain separate.
 7. Keep both reference and consequential decision-time prospective captures immutable, exclude post-lock and unknown kickoffs from prospective closure, and avoid any backfill. Store secrets/raw authenticated data locally.
 
-## First reusable preflight (not yet commissioned as an automatic gate)
+## Standalone deadline preflight and opt-in guarded MC launcher
 
 `tools/operations/deadline_budget.py` is pure Python with no ESPN, network, MC, filesystem write, or Git operation. Example with an independently confirmed applicable individual lock:
 
@@ -41,3 +41,28 @@ The example timestamp is **illustrative only, not a verified NFL kickoff**. `--d
 ## Release / validation boundary
 
 This first slice consists only of this canonical policy, sanitized evidence, coherent `CURRENT.md`, pure preflight helper, and deterministic tests. It does not edit v0.36 source, installed runtime, game schedule, ESPN, `.env`, MC scenarios, or transaction logic. Future integration must follow the full separate `local apply -> stage -> guarded publish -> runtime validation/commission` chain, with negative tests for near-lock and unknown-lock cases and a real read-only run receipt. A later control-plane implementation must guard before any costly MC starts; a CLI helper alone does **not** claim that protection is automated.
+
+## Opt-in source-bound Wednesday/Saturday MC launcher (pending local apply)
+
+`tools/operations/guarded_weekly_cycle.py` is an explicitly invoked control-root
+pre-MC guard; it is **not** wired into the existing direct `fantasy.py weekly-cycle`
+or older packages. It reads (never modifies) one immutable fresh six-provider
+snapshot, its bound prospective capture, commissioned identity and strict memory
+health evidence. It derives the earliest still-future kickoff from the frozen
+player and specialist records, requires known own-roster locks, and checks the
+80-minute budget before launching the unchanged native nine-channel command.
+The same budget is checked again immediately before the native call.
+
+Only an explicit `--execute` launches MC; by default, it reports a read-only
+preflight. After MC it reserves only the 15+15+10 minute remaining verification,
+approval and safety budget, not a second MC runtime. It reports only receipt
+identity and timing limitations, never authorizes lineup, IR or trade actions.
+The verified capture has prospective value even if action feasibility expires.
+A fresh live ESPN/legal-slot/transaction-drift check and user approval remain
+separate hard gates. Private child logs never enter Git or public output.
+
+This initial integration assumes fresh snapshot/capture/health/commissioning
+artifacts have already been created by the protected weekly preparation step.
+A fully automatic six-provider sync/capture/launcher orchestration and runtime
+commissioning remain separate work. Do not rely on an opt-in wrapper to protect
+legacy unguarded callers.

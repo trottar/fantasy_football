@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-18T14:33:28.365597-04:00",
+  "generated_at": "2026-10-18T15:33:23.579952-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 8010,
-      "sha256": "f1eb2a2e9f7a1c1eac227d406945478968e82217071ca730d4f3bcc2f45e25d2"
+      "bytes": 6917,
+      "sha256": "a0d6c79d5c7e59c54ff01063914b2f8c537dce8343885d256caeb0b47e7a96ee"
     },
     {
       "path": "LEARNINGS.md",
@@ -96,8 +96,8 @@
     },
     {
       "path": "architecture/PROTECTED_WEEKLY_MC_OPERATIONS.md",
-      "bytes": 5900,
-      "sha256": "03bb7ccd6338b5a21c124d92e04ac65823fb1e1cc2c53622f75800d4e09bf864"
+      "bytes": 7485,
+      "sha256": "10a947d2b88f31750b908787a15ce7d4fa0308a631ace95621612ae3bb65baf1"
     },
     {
       "path": "architecture/SPECIALIST_CHANNELS.md",
