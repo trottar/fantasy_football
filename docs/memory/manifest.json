@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-17T01:27:00.546071-04:00",
+  "generated_at": "2026-10-18T14:33:28.365597-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7280,
-      "sha256": "474cbbb0867810af41d77380fa3c86e1a8ab92ca65c7dfffe3a4e19040a1917f"
+      "bytes": 8010,
+      "sha256": "f1eb2a2e9f7a1c1eac227d406945478968e82217071ca730d4f3bcc2f45e25d2"
     },
     {
       "path": "LEARNINGS.md",
@@ -93,6 +93,11 @@
       "path": "architecture/PROBLEM_SOLVING_METHOD.md",
       "bytes": 4203,
       "sha256": "ae499e06d7a18cf893650895bf07b6db2f815ff1ff6b8520208508fa07bffad0"
+    },
+    {
+      "path": "architecture/PROTECTED_WEEKLY_MC_OPERATIONS.md",
+      "bytes": 5900,
+      "sha256": "03bb7ccd6338b5a21c124d92e04ac65823fb1e1cc2c53622f75800d4e09bf864"
     },
     {
       "path": "architecture/SPECIALIST_CHANNELS.md",
@@ -698,6 +703,11 @@
       "path": "evidence/WEEK6_PROSPECTIVE_CAPTURE_AND_NINE_CHANNEL_RECOVERY_2026-10-16.md",
       "bytes": 5854,
       "sha256": "3e1c9b4f99456a1643da7b83d31439a79dcd78a8bd1feac0ebb0e5326532a1c0"
+    },
+    {
+      "path": "evidence/WEEK6_SUNDAY_MC_DEADLINE_INCIDENT_2026-10-18.md",
+      "bytes": 3821,
+      "sha256": "c2768cdfaea31c2ed3e3ed71b5cd084d9e98cdb39c9b2b8ecb7f12d2ed3d7d62"
     },
     {
       "path": "evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md",
