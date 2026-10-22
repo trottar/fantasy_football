@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-18T15:33:23.579952-04:00",
+  "generated_at": "2026-10-21T20:07:48.059208-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6917,
-      "sha256": "a0d6c79d5c7e59c54ff01063914b2f8c537dce8343885d256caeb0b47e7a96ee"
+      "bytes": 5312,
+      "sha256": "9dd63e09b208c94b79d59cea4df295f5a49c7b6cb5c5f9c26c75122d31a02482"
     },
     {
       "path": "LEARNINGS.md",
@@ -110,9 +110,19 @@
       "sha256": "67e17b1a6a067ca867b8ed382008e349e9b243f662a1e859cd2a6afa1d96beb0"
     },
     {
+      "path": "architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_A.md",
+      "bytes": 2698,
+      "sha256": "c7bb18cfae2511d0577ba2ef349a9d8b7979e8e323fdab19bbfc31e490407aef"
+    },
+    {
       "path": "architecture/WEEKLY_DECISION_COMPLETION.md",
       "bytes": 7177,
       "sha256": "0c10104d1d444e7f0f81146290579b80c03591a428eb2021d257ab203511ff4d"
+    },
+    {
+      "path": "architecture/WEEKLY_DECISION_OPERATOR_V2_SPEC.md",
+      "bytes": 30075,
+      "sha256": "21ae03edecbd317aa96e3be6f3bea875e4562fe69f013e212bd0a66a05fa9073"
     },
     {
       "path": "chats/README.md",

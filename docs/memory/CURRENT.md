@@ -1,53 +1,52 @@
 # Current Project State
 
 ---
-state_updated: 2026-10-18
+state_updated: 2026-10-21
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
-active_phase: week7_protected_decision_operations
-active_workstream: guarded_wednesday_saturday_mc_launch
+active_phase: week7_protected_operations_and_week8_procedure_preparation
+active_workstream: week8_action_certification_slice_a
 memory_refinement_step: none
-nfl_week: 6
+nfl_week: 7
 fantasy_stage: regular_season
 maintenance_status: healthy
 ---
 
 ## Active Objective
 
-Operate protected **Wednesday and Saturday** six-provider prospective captures and complete nine-channel Monte Carlo runs with sufficient time for legality verification, approval, and actual player-specific lineup locks. Sunday morning must not be required. Keep commissioned v0.36-repack1, causal capture rules, and all football valuation machinery unchanged.
+Protect Week 7 causal operations and Thursday/Saturday individual locks while preparing the read-only, one-command Week 8 decision workflow. Keep commissioned v0.36-repack1 and the existing `P ⊕ D ⊕ K` MC physics unchanged. Week 8 production recommendation authority requires a separate fully certified action portfolio and runtime commissioning; source work is not permission to submit ESPN actions.
 
 ## Current Work Item
 
-**WEEK 6 DEADLINE LOSS CLASSIFIED; WEDNESDAY/SATURDAY OPERATING CONTRACT PUBLISHED; GUARDED MC LAUNCHER NEXT.**
+**WEEK 7 WEDNESDAY NINE-CHANNEL MC IS FROZEN; TRADE AUTHORITY BLOCKED BY POST-MC DRIFT; WEEK 8 CERTIFICATION SCAFFOLD FIRST.**
 
-A pre-kickoff Sunday October 18 Week 6 snapshot/capture passed integrity, but the approximately 40-minute nine-channel MC finished after the 9:30 a.m. EDT London kickoff. The recommended Jakobi Meyers-for-Mark Andrews lineup was no longer legal because a proposed starter was locked on the bench. The old Sunday operation checked capture timing rather than completion plus approval/action time. The local Sunday guard later confirmed material ESPN state drift. No lineup, waiver, IR, or trade was submitted. The 80-minute deadline-budget helper is source-published and tested but was not wired into the 40-minute MC entrypoint.
+Wednesday October 21 2026 at 15:24 UTC six-provider snapshot `20261021T152438Z` (SHA-256 `b3b1bdd93050c244ae085f9342650b16e05a0b4c744f2cdd2bc3530fbe40c5c2`) and bound prospective capture `20261021T152510Z` (SHA-256 `6c0b1860285fb4caa1a156c2f9cac654b89962c73d0b0eae75957bf6b47c0fe4`) were validated. Native nine-channel receipt `weekly_decision_receipt_20261021T161455Z.json` (SHA-256 `069527ff0e86ecf05d0b96d9ebf8c59eb223705b48f25f20f97278f59c9f9708`) reported `COMPLETE / ACTION_REQUIRED`, with player/lineup/DST/K/IR narrow HOLD and actionable multi-asset and specialist-inclusive trades. Post-MC ESPN drift invalidated action authority. Subsequent read-only audit at 19:26 UTC showed unchanged owned roster, Butker active starting K, four trade offers with no direct participant/fill drift, and two others involving changed partner state; **none** received fresh transaction authority. No ESPN trades were submitted through diagnostics.
+
+The Lamar Jackson → CeeDee Lamb + Ravens D/ST native offer exposed a modeled mandatory Brissett release and sole remaining QUESTIONABLE Baker Mayfield. An action label without rigorous post-trade QB/depth and future-fill certification is insufficient. The proposed Week 8 procedure v2 was downloaded by the user; read-only `tools/operations/action_certification.py` plus targeted tests/architecture form an initial candidate scaffold, **not** the complete one-command workflow and not commissioned football action logic.
 
 ## Verified State
 
-- **Published checkpoint:** `1aef72976fb78195148111a1d32fe1684ccb8bfb` is remote-verified, parent `68dfabed5088a6ddf90a5d3af4f5497bf25f334a`; exact six paths were staged and published with 193 schema-2 memory-manifest entries. This checkpoint established `architecture/PROTECTED_WEEKLY_MC_OPERATIONS.md`, `tools/operations/deadline_budget.py`, and its tests. Commissioned runtime `fantasy_season_v0_36_repack1` (`VERSION=0.36`) was not modified or resynchronized.
-- **Sunday Week 6 frozen evidence:** snapshot `data/season_snapshots/20261018T131404Z/snapshot.json` UTC `2026-10-18T13:14:28.631418+00:00`; bound capture `data/season_predictions/closure/pregame_2026_w06_20261018T131437Z.json` SHA-256 `120761014402f7c145c5b80a4f78a71467cc30be024b7266b6ea39ba6ab35c1b`; 6 providers PASS, 190 PRE, 15 POST_LOCK, 33 UNKNOWN. Only PRE is prospective; others cannot be backfilled.
-- **Sunday nine-channel receipt:** `data/season_decisions/weekly_decision_receipt_20261018T135542Z.json` SHA-256 `937501f0a6b28e5297aa693b98679fb10542f3766b0071c271d011e38d411984`. Health PASS; proposed lineup Meyers in/Andrews out, projected 114.8884; three specialist-inclusive trade offers have 48-hour review and Week 7 effect. Other acquisition/player-trade channels returned narrowly scoped HOLD. IR `INCOMPLETE_COVERAGE:GATE_B_IR_MOVE_PLUS_ADD_VALUE_ADAPTER`, native overall `INCOMPLETE_COVERAGE`; no ESPN action authority.
-- **Post-MC ESPN guard:** 2026-10-18 16:46 UTC live ESPN read found one saved selected bench player locked, with 2 owner moves, 33 roster-state changes, 2 market membership changes, 101 market-state changes, changed transactions, and blocked saved slot assignment. Bass remained starting K. No ESPN/Git writes.
-- **New launcher development boundary:** `tools/operations/guarded_weekly_cycle.py` is an opt-in source-bound control-root launcher that checks fresh six-provider snapshot/capture integrity, owned and candidate kickoff times, and 80-minute budget **before** native MC invocation. It rechecks just before launching and marks an expired completion window after MC; it cannot certify fresh live ESPN legality or transaction permission. This is not an in-place patch to commissioned `fantasy.py` and does not intercept other unguarded callers. Requires independent local apply, staging/publication, and operator acceptance before production use.
-- Week 5 closure is partially complete: exact observed ESPN fantasy yield exists, while component, availability, matchup/regret and calibration closure remain open. Do not use 2026 outcomes to tune a-priori v0.X. Earlier captures and receipts are immutable.
+- Commissioned authoritative runtime: `fantasy_season_v0_36_repack1`, `VERSION=0.36`; no MC/physics/config/ESPN production writes authorized by this preparation.
+- Previously remote-verified predecessor for Week 7 operational guard records: `1aef72976fb78195148111a1d32fe1684ccb8bfb`. Later candidate source/release stages require their own evidence; the control root and remote are separate authorities.
+- The first Slice A checkpoint is limited to read-only diagnostic tool, synthetic tests, canonical v2 procedure contract, scoped architecture note, and this coherent active memory. `PACKAGE-VALIDATED` is not `LOCAL-APPLIED`, `STAGED`, `PUSHED/REMOTE VERIFIED`, or `COMMISSIONED`.
+- Full roster completeness at frozen Wednesday snapshot does not cure later ESPN drift. Trade effective timing with configured 48-hour review is modeled conservatively from Week 8, while exact ESPN app processing must be verified independently.
 
 ## Calendar / Evidence Gates
 
-Wednesday October 21 is the protected Week 7 primary run; Saturday October 24 is the second run. The earliest affected individual Thursday, Saturday, Sunday, Monday, international or holiday kickoff overrides weekday defaults. Budget initially MC 40 minutes + verification 15 + user action 15 + safety 10 = 80 minutes **before kickoff**. Unknown owned-player lock or insufficient slack must block actionable MC launch. Material fresh status, trade, market, ownership or lineup changes require re-evaluation without backdating. A preflight PASS is timing-only; **post-MC ESPN recheck of exact roster, injury, lock and slots is mandatory**; human approval required before any ESPN transaction. Sunday is optional fast recheck, never mandatory early full MC. Full roster-wide `COMPLETE/HOLD` is forbidden while IR or any required nine-channel receipt is incomplete.
+Thursday October 22 and Saturday October 24 individual affected locks and Week 7 Saturday protected capture outrank procedure development. MC budget uses 40+15+15+10 minutes minimum before earliest affected verified kickoff, revised only from evidence. Never recapture prospectively after results/locks or retune v0.X from 2026 outcomes. `screen != authority`; no silent market/IR/waiver gap promotion. No roster-wide HOLD where coverage is incomplete.
 
 ## Scientific / Architectural Boundaries
 
-Preserve `N_fantasy ~ L x sigma x A x epsilon`, `P ⊕ D ⊕ K`, uncertainty-aware paired MC and complete-roster `Delta U = U(S + delta S) - U(S)`. Football response remains distinct from manager behavior; `screen != authority`. Maintain `MC -> Data -> closure -> diagnosis -> calibration`, pre-outcome frozen predictions and `v0.X` a-priori isolation. Secrets and authenticated ESPN payloads stay local. Control-root local apply, staged clone, commit/push, remote verification, runtime synchronization and commissioning are separate authorities.
+`N_fantasy ~ L × sigma × A × epsilon`; player/DST/K internal independence and complete-roster `ΔU`; common-random-number MC; separate behavior and football physics; frozen predictions before outcomes; exact source/receipt authority; local secrets and raw authenticated data only. Source-published, local-applied, runtime-commissioned and action-authorized states are distinct. No GitHub connector writes.
 
 ## Exact Next Action
 
-**Validate and locally apply the source-bound protected MC launcher on the control root.** Verify exact current source identities, existing `deadline_budget.py`, targeted success and failure fixtures, source/compiled output, strict memory health, idempotent apply and rollback. The launcher must block too-late or unverified runs *before* calling `fantasy.py weekly-cycle`, without changing its model/MC. After operator receipt: stage exact reviewed paths with schema-2 manifest, separately publish under guards, then run an explicit local check-only probe and commission the **opt-in launcher workflow** before Wednesday Week 7. Until accepted, use the existing commissioned runtime and protected schedule, never claim automatic enforcement from a standalone helper. Prepare Week 7 first run well ahead of first affected lock; repeat Saturday, defer unrelated development.
+**After guarded local Slice A application, obtain the operator's local QA receipt; separately stage and publish the reviewed scope, then begin a bounded event-epoch controller integration without modifying commissioned football logic.** Build the missing paired post-trade alternatives and coherent portfolio checks before any recommendation-ready claim. Keep Week 7 Saturday protected capture as the overriding calendar gate. No source application, staging, publication or commissioning is implied by this memory document alone.
 
 ## Relevant References
 
-- `architecture/PROTECTED_WEEKLY_MC_OPERATIONS.md`
-- `evidence/WEEK6_SUNDAY_MC_DEADLINE_INCIDENT_2026-10-18.md`
-- `architecture/WEEKLY_DECISION_COMPLETION.md`; `roadmap/SEASON_2026.md`
-- `patches/PATCH_PROTOCOL.md`; `COMMUNICATION.md`; `USER.md`
-- `../../tools/operations/deadline_budget.py`; `../../tools/operations/guarded_weekly_cycle.py`
-- `../../src/weekly_decision_cycle.py`; `../../fantasy.py`
+- `architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_A.md`; `architecture/WEEKLY_DECISION_OPERATOR_V2_SPEC.md`; `architecture/WEEKLY_DECISION_COMPLETION.md`
+- `architecture/PROTECTED_WEEKLY_MC_OPERATIONS.md`; `patches/PATCH_PROTOCOL.md`
+- `../../tools/operations/action_certification.py`; `../../tests/test_action_certification_v2.py`
+- `../../tools/operations/guarded_weekly_cycle.py`; `../../src/weekly_decision_cycle.py`
+- `roadmap/SEASON_2026.md`; `USER.md`
