@@ -4,8 +4,8 @@
 state_updated: 2026-10-22
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
-active_phase: week7_protected_operations_and_week8_procedure_preparation
-active_workstream: week8_frozen_fill_portfolio_slice_b2b2
+active_phase: week7_protected_operations_and_weekly_operator_implementation
+active_workstream: weekly_operator_readonly_decision_triage_mvp
 memory_refinement_step: none
 nfl_week: 7
 fantasy_stage: regular_season
@@ -14,40 +14,40 @@ maintenance_status: healthy
 
 ## Active Objective
 
-Preserve protected Week 7 Thursday/Saturday individual locks and Saturday six-provider prospective capture plus nine-channel MC, while incrementally building Week 8's read-only, provenance-bound decision workflow. Commissioned `fantasy_season_v0_36_repack1` (`VERSION=0.36`) and `P ⊕ D ⊕ K` stochastic football physics remain unchanged. Published source diagnostics are not runtime commissioning, MC evidence from private data or ESPN action authority.
+Deliver a permanent one-command, state-bound weekly decision controller rather than repeatedly relying on conversational and one-off diagnostics. Protect Thursday October 22 individual locks and the Saturday October 24 prospective six-provider capture plus nine-channel MC. Keep commissioned `fantasy_season_v0_36_repack1`, internal `VERSION=0.36`, the `P ⊕ D ⊕ K` physics, and separate manager behavior unchanged. An MC candidate action is not an executable ESPN transaction.
 
 ## Current Work Item
 
-**WEEK 7 CAPTURE PRIORITY; SLICES A/B1/B2A/B2B1 SOURCE PUBLISHED; B2B2 FROZEN FUTURE-FILL AND COUPLED-PORTFOLIO DIAGNOSTIC IS THE NEXT NARROW CANDIDATE.**
+**WEEK 7 PROTECTED CAPTURE; SOURCE SLICES A/B1/B2A/B2B1/B2B2 REMOTE VERIFIED; FIRST PERMANENT READ-ONLY WEEKLY OPERATOR TRIAGE IS THE NARROW CANDIDATE.**
 
-Wednesday October 21, 2026 at 15:24 UTC six-provider snapshot `20261021T152438Z` (SHA-256 `b3b1bdd93050c244ae085f9342650b16e05a0b4c744f2cdd2bc3530fbe40c5c2`) and bound prospective capture `20261021T152510Z` (SHA-256 `6c0b1860285fb4caa1a156c2f9cac654b89962c73d0b0eae75957bf6b47c0fe4`) were validated. Native nine-channel receipt `weekly_decision_receipt_20261021T161455Z.json` (SHA-256 `069527ff0e86ecf05d0b96d9ebf8c59eb223705b48f25f20f97278f59c9f9708`) reported `COMPLETE / ACTION_REQUIRED` at the *then-frozen* state. Later ESPN drift invalidated transaction authority. A narrow 19:26 UTC audit identified partner/transaction changes; **none** of the trade offers gained renewed action authority. Frozen Wednesday data cannot authorize current transactions.
+The Thursday October 22 fresh six-provider snapshot `20261022T135837Z` (SHA-256 `7c90ca5ff9ebf87ae1ae97dde20d98c0bdde0eeef1b79dd97c28783bacca21db`) and immutable bound prospective capture `pregame_2026_w07_20261022T135909Z` (SHA-256 `a3afb25ff1d312ca3c47641475a750d94ad01db45a0f00aee58592ccc4c07b87`) were validated in a local operator receipt. Existing native nine-channel MC completed as `weekly_decision_receipt_20261022T144605Z.json` (SHA-256 `24ce0bab9c05e862e6d647493cc9abaf101b24cbba935b151b55ca5e2b6f1965`). It reported `COMPLETE / ACTION_REQUIRED`: lineup, multi-player trades and specialist-inclusive trades ACTION, other channels HOLD. DST one-slot model recommendation was HOLD; its paired complete-state delta `NO_RESOLVED_EDGE` and market coverage was complete.
 
-The Lamar Jackson for CeeDee Lamb plus Ravens D/ST candidate exposed native modeled Brissett release and only questionable Baker Mayfield, motivating complete post-trade depth and alternative MC certification. A/B1/B2a/B2b1 built immutable provenance, structural alternative rosters, opt-in user paired MC and opt-in conditional partner paired MC. No native B2a/B2b1 execution on the user's private snapshot is established by publishing these tools. B2b2 is a distinct *read-only structural* candidate: enumerate modeled future fill success/failure branches for both managers and detect mutually exclusive or coupled native offers without assuming FREEAGENT or WAIVER success, assigning manager probabilities, summing individual gains, or running MC.
+A subsequent two-GET ESPN read at `2026-10-22T14:57:24Z` found no owned-roster changes but **one changed market asset**, preserving a scoped lineup comparison while invalidating the market-dependent transaction claims. The optimizer's QB selection replaced starting Jacoby Brissett with questionable Lamar Jackson. This remained a **conditional** lineup selection with exact ESPN slot mapping unresolved. Four native actionable trade offers remained uncertified due to partner, future-fill, review-timing, joint-portfolio and ESPN app legality gaps. Patriots D/ST was owned and starting, unlocked at the earlier frozen check; the current standalone DST policy recommended HOLD. No ESPN writes or final transaction approval occurred.
+
+The architectural failure is an absent permanent controller between frozen native MC/channel evidence and a human-ready decision queue. `tools/operations/weekly_operator_review.py` provides a narrow first read-only reporting implementation, not a full automatic sync/capture/MC/event scheduler. It discovers the latest frozen epoch, enforces integrity/source/dependency joins, reads ESPN twice, classifies scoped action/hold/required recheck with event-time constraints, and never promotes a native trade offer to authorized action. The applicable contract and limitations are `architecture/WEEKLY_OPERATOR_READONLY_TRIAGE_MVP.md`.
 
 ## Verified State
 
-- **Runtime:** commissioned `fantasy_season_v0_36_repack1`, `VERSION=0.36`, unchanged by all Week 8 procedure/source publications. No model/ESPN/config or runtime writes permitted by these diagnostics.
-- **Slice A:** `ba5458a31f57d9227b6d528b635e2a8ec5cb9f5b`, tree `6a319ee52c1db757b1b99fa563e600c9af8b9545`, independently remote verified; isolated suite 701 passed.
-- **Slice B1:** `ad5df6d73e434443c1c7061e6d0b51e43de795ca`, tree `042fc4bfee6bb8dba307187d085a96cf566ea31e`, independently remote verified; isolated suite 715 passed.
-- **Slice B2a:** `60ca28207f075ac412e32f59637a862220e57a7a`, tree `9c63998ab0afb618203613d9c2c4995b2b383fa8`, independently remote verified; isolated suite 727 passed.
-- **Slice B2b1:** `1f7daa57256653fa6fa501f1a6b938a322c667d9`, parent `60ca28207f075ac412e32f59637a862220e57a7a`, tree `01c6b7209c58953a52c58a9e72631ad67cf90886`, independently remote verified; isolated full checkout 739 passed, compileall, strict memory and 198-entry manifest. Published read-only source only, not runtime commissioned.
-- **Slice B2b2:** proposed four-file diagnostic/test/architecture/active-state local-apply checkpoint. Package creation and local application, full isolated staging, publication and runtime validation are **separate gates**. No action approval or live ESPN legality is implied.
+- Commissioned authoritative runtime `fantasy_season_v0_36_repack1`, `VERSION=0.36`, is unchanged by every Week 8 diagnostic and this operator source candidate. No model/config/ESPN transaction changes are authorized.
+- Slice A (`ba5458a31f57d9227b6d528b635e2a8ec5cb9f5b`), B1 (`ad5df6d73e434443c1c7061e6d0b51e43de795ca`), B2a (`60ca28207f075ac412e32f59637a862220e57a7a`), B2b1 (`1f7daa57256653fa6fa501f1a6b938a322c667d9`) and B2b2 (`b45ba6abea843bed95ea1fabacc323bdb7b96399`) are independently remote-verified. B2b2 tree `f40f2c50f3a98b506ed62777e6f1202b4573995e` passed the complete isolated suite (755 tests), compilation, strict memory, 199-entry Git schema-2 manifest, and exactly five staged paths. None of A/B1/B2a/B2b1/B2b2 is runtime commissioned or transaction authority.
+- The 2026-10-22 prospective capture and MC were executed locally against the unchanged commissioned runtime and had a passing native receipt. The later live ESPN market drift still prevents reusing all its action claims globally.
+- The permanent review module, architecture, tests and this CURRENT are a **new four-file local-apply candidate**, not yet locally applied, full-staged, published, live-tested or commissioned merely by package construction. Synthetic tests are not private live acceptance evidence.
 
 ## Calendar / Evidence Gates
 
-Thursday October 22 and Saturday October 24 player-specific locks plus Week 7 Saturday protected prospective capture/MC outrank any engineering. For protected MC use 40+15+15+10 minutes minimum before earliest relevant independently verified future lock; this is a planning estimate, not an observed guarantee. Never backfill missed pregame capture; never infer that a stale Wednesday trade receipt is actionable. Observed 2026 outcomes cannot tune v0.X. Unknown roster/market/IR/lock status remains blocked, not HOLD.
+The verified next Thursday NE-at-CHI game lock is `2026-10-23T00:15:00Z`; the latest observed Patriots D/ST was unlocked. Individual ESPN lock and roster eligibility still require current action-screen verification. A full refresh/MC before a time-critical lock needs at least 40+15+15+10 minutes plus refresh time, per `architecture/PROTECTED_WEEKLY_MC_OPERATIONS.md`. Saturday October 24 protected prospective six-provider capture and nine-channel MC outrank development. Never backfill a missed causal prediction or tune v0.X with Week 7 outcomes. A stale outcome is `CAPTURE_REQUIRED`/`BLOCKED`, never silent HOLD.
 
 ## Scientific / Architectural Boundaries
 
-`N_fantasy ~ L × sigma × A × epsilon`; independent player, DST, kicker channels; complete-roster `ΔU`, common-random-number MC, manager behavior separate from intrinsic football utility; frozen decision-time inputs. `screen != authority`. The B2b2 branch lattice is *hypothetical* evidence, not acquisition probability or native predictive utility. Cannot sum two standalone MC trade gains. Both managers, trade timing, injury, manager acceptance, joint roster state and ESPN app legality require separate proof. Secrets, ESPN raw responses and private data remain local. No direct GitHub connector writes.
+`N_fantasy ~ L × sigma × A × epsilon`; player/DST/kicker `P ⊕ D ⊕ K` internals separate with cross-channel complete-roster utility only; common-random-number MC, immutable decision-time predictions; manager behavior distinct from intrinsic physics. `screen != authority`. Do not sum standalone trade gains or equate probable waiver/future free-agent availability with a guaranteed fill. Keep local identities/secrets/raw ESPN evidence out of public Git. Operator reporting, runtime commissioning and human-authorized ESPN execution are distinct transitions.
 
 ## Exact Next Action
 
-**Guardedly apply and validate the exact scoped B2b2 deterministic fill/portfolio exposure source package, then separately stage in a complete checkout, run full `pytest`, `compileall`, strict memory/manifest and Git index QA, and only then publish by distinct human-run guarded package.** Independently remote verify the resulting Git checkpoint. Subsequent B2 work must add joint native branch-level paired MC and behavior/timing/legality; B2b2 by itself certifies no trade. The Saturday October 24 prospective six-provider capture and nine-channel MC have absolute operational priority.
+**Guardedly apply the permanent read-only weekly operator reporting MVP from the exact B2b2 remote-verified predecessor, validate its installed synthetic tests and strict memory, then stage/test the complete checkout separately and publish with the distinct guarded package.** Next perform a single read-only live operator acceptance run against the existing Thursday capture/receipt and two ESPN GETs. Classify exact report evidence before broader integration. Do not prematurely claim that an opt-in report command has commissioned an automatic controller or scheduled availability alerts. The subsequent phases are complete event-epoch orchestration (conditional refresh/capture/MC with restart receipts), explicit exact ESPN slot and transaction certificate, and decision-time monitoring/scheduled delivery. Saturday's protected capture remains highest priority.
 
 ## Relevant References
 
-- `architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_B2B2.md`; `architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_B2B1.md`; `architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_B2A.md`; `architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_B1.md`
-- `architecture/WEEKLY_DECISION_OPERATOR_V2_SPEC.md`; `architecture/WEEKLY_DECISION_COMPLETION.md`; `architecture/PROTECTED_WEEKLY_MC_OPERATIONS.md`; `patches/PATCH_PROTOCOL.md`
-- `../../tools/operations/action_portfolio_b2b2.py`; `../../tests/test_action_portfolio_b2b2.py`; `../../tools/operations/action_partner_b2b.py`; `../../tools/operations/action_predictive_b2.py`; `../../tools/operations/action_frontier.py`; `../../tools/operations/action_certification.py`
+- `architecture/WEEKLY_OPERATOR_READONLY_TRIAGE_MVP.md`; `architecture/WEEKLY_DECISION_OPERATOR_V2_SPEC.md`; `architecture/WEEKLY_DECISION_COMPLETION.md`; `architecture/PROTECTED_WEEKLY_MC_OPERATIONS.md`; `patches/PATCH_PROTOCOL.md`
+- `architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_B2B2.md`; `architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_B2B1.md`; `architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_B2A.md`
+- `../../tools/operations/weekly_operator_review.py`; `../../tests/test_weekly_operator_review.py`; `../../tools/operations/guarded_weekly_cycle.py`; `../../src/weekly_decision_cycle.py`
 - `roadmap/SEASON_2026.md`; `USER.md`
