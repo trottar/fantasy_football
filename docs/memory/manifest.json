@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-22T16:43:44.767752-04:00",
+  "generated_at": "2026-10-23T11:56:28.427748-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6608,
-      "sha256": "240e29e947a914a89f19fb510bf695c654f9d33da04795a56d78014820a03c20"
+      "bytes": 7517,
+      "sha256": "cb482586fea3bdf251333febbb25f6e1ce0f9c873229090121c74c9ff5c9f34a"
     },
     {
       "path": "LEARNINGS.md",
@@ -148,6 +148,11 @@
       "path": "architecture/WEEKLY_OPERATOR_M1A_RESTART_CONTROLLER.md",
       "bytes": 4701,
       "sha256": "5afbebc9becc55902812dc68d8c84c1517c626f1069c0b77bea5d8e20baf46e8"
+    },
+    {
+      "path": "architecture/WEEKLY_OPERATOR_M1B_DEADLINE_AUTHORITY.md",
+      "bytes": 6386,
+      "sha256": "53ad6464ce03cfe61335f8153ddad60f6f8fa74dd31350a58b07496e46502f59"
     },
     {
       "path": "architecture/WEEKLY_OPERATOR_M1B_FIRST_LOCK_PREFLIGHT.md",
