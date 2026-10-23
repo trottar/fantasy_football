@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-22T16:06:57.881205-04:00",
+  "generated_at": "2026-10-22T16:43:44.767752-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6944,
-      "sha256": "64f0703d576ac4bf1a0172247c6c59f8223eb3040bd90f897e7f10d2fb80006f"
+      "bytes": 6608,
+      "sha256": "240e29e947a914a89f19fb510bf695c654f9d33da04795a56d78014820a03c20"
     },
     {
       "path": "LEARNINGS.md",
@@ -158,6 +158,11 @@
       "path": "architecture/WEEKLY_OPERATOR_M1B_INDEPENDENT_CALENDAR.md",
       "bytes": 4093,
       "sha256": "35660749b71fd8837e2295db53b5405e3d07808d62da2bc0d67e7934a79c6641"
+    },
+    {
+      "path": "architecture/WEEKLY_OPERATOR_M1B_PRE_REFRESH_LIVE_OWNER_LOCK.md",
+      "bytes": 4378,
+      "sha256": "0fe405587982234088d8cf186ba3b33e3b313af43d010678a287ef1d10c0b1f1"
     },
     {
       "path": "architecture/WEEKLY_OPERATOR_READONLY_TRIAGE_MVP.md",
