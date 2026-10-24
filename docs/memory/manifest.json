@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-24T00:12:57.864965-04:00",
+  "generated_at": "2026-10-24T13:02:10.736964-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6521,
-      "sha256": "bdf81068fab81ceecb599cf887d5777a6cb440c32b9e46932b2491cc71842a9f"
+      "bytes": 6687,
+      "sha256": "01d81aeacff2682e1c0383533ae2a7a1ec0c7e942e4449c8c9b4970479a0e832"
     },
     {
       "path": "LEARNINGS.md",
@@ -108,6 +108,11 @@
       "path": "architecture/STATE_MODEL.md",
       "bytes": 675,
       "sha256": "67e17b1a6a067ca867b8ed382008e349e9b243f662a1e859cd2a6afa1d96beb0"
+    },
+    {
+      "path": "architecture/WEEK7_SATURDAY_MC_GUARD_OWNERSHIP_BYE_FIX.md",
+      "bytes": 5508,
+      "sha256": "d984d24b3c5f89a2691c5768fc3a70c16e29c783e197320b5ee66ae4443dd000"
     },
     {
       "path": "architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_A.md",

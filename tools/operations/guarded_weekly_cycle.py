@@ -100,29 +100,98 @@ def validate_root(root: Path) -> Path:
     return runtime
 
 
-def _lock_candidates(capture: dict[str, Any], now: datetime) -> dict[str, Any]:
-    player_rows = (capture.get("league_player_predictions") or {}).get("records")
-    specialist_rows = (capture.get("specialist_predictions") or {}).get("records")
+def _verified_owned_bye(item: dict[str, Any], week: int, snapshot: dict[str, Any] | None,
+                        league: dict[str, Any] | None, official_byes: dict[str, int] | None) -> bool:
+    """Never turn an unknown owned lock into a bye without three independent joins."""
+    if not isinstance(snapshot, dict) or not isinstance(league, dict) or not isinstance(official_byes, dict):
+        return False
+    if (snapshot.get('espn') or {}).get('season') != 2026 or (snapshot.get('espn') or {}).get('week') != week:
+        return False
+    team = str(item.get('nfl_team') or '').strip().upper()
+    if team not in official_byes or official_byes[team] != week:
+        return False
+    if str((league.get('bye_weeks_2026') or {}).get(team)) != str(week):
+        return False
+    schedule = (snapshot.get('matchup_context') or {}).get('team_week')
+    if not isinstance(schedule, dict):
+        return False
+    rows = schedule.get(team)
+    return isinstance(rows, dict) and rows.get(str(week)) is None
+
+
+def _source_bound_official_byes(root: Path) -> dict[str, int]:
+    """Read the published official-bye literal without importing network-capable code."""
+    import ast
+    path = root/'tools/operations/weekly_operator_calendar_evidence.py'
+    require(path.is_file() and not path.is_symlink(), 'OFFICIAL_BYE_SOURCE_MISSING')
+    raw = path.read_bytes()
+    require(_git_blob(raw) == 'b5d488ebc6b476629a38f610c122ed57c6aec779',
+            'OFFICIAL_BYE_SOURCE_IDENTITY_CHANGED')
+    nodes = ast.parse(raw.decode('utf-8-sig')).body
+    matches = [n.value for n in nodes if isinstance(n, ast.Assign) and any(
+        isinstance(t, ast.Name) and t.id == 'OFFICIAL_2026_BYES' for t in n.targets)]
+    require(len(matches) == 1, 'OFFICIAL_BYE_LITERAL_MISSING')
+    value = ast.literal_eval(matches[0])
+    require(isinstance(value, dict) and len(value) == 32 and all(
+        isinstance(k, str) and len(k) in (2,3) and type(v) is int and 1 <= v <= 18
+        for k,v in value.items()), 'OFFICIAL_BYE_LITERAL_INVALID')
+    return value
+
+
+def _lock_candidates(capture: dict[str, Any], now: datetime, *,
+                     snapshot: dict[str, Any] | None = None,
+                     league: dict[str, Any] | None = None,
+                     official_byes: dict[str, int] | None = None) -> dict[str, Any]:
+    player_rows = (capture.get('league_player_predictions') or {}).get('records')
+    specialist_rows = (capture.get('specialist_predictions') or {}).get('records')
     require(isinstance(player_rows, list) and player_rows and isinstance(specialist_rows, list) and specialist_rows,
-            "CAPTURE_P_D_K_RECORDS_REQUIRED")
-    user_team_id = capture.get("team_id")
-    require(user_team_id is not None, "CAPTURE_USER_TEAM_UNRESOLVED")
-    values = []
-    owned = []
-    unknown_all = 0
-    expired = 0
+            'CAPTURE_P_D_K_RECORDS_REQUIRED')
+    user_team_id = capture.get('team_id')
+    require(type(user_team_id) is int, 'CAPTURE_USER_TEAM_UNRESOLVED')
+    week = capture.get('week')
+    if snapshot is not None:
+        # Production inspect always supplies the immutable snapshot. The pure
+        # helper also supports legacy compact unit fixtures without a week;
+        # those fixtures cannot claim real MC-launch authority.
+        require(type(week) is int and 1 <= week <= 18, 'CAPTURE_WEEK_INVALID')
+        require(isinstance(league, dict) and isinstance(official_byes, dict),
+                'OWNED_LOCK_EVIDENCE_MISSING')
+        # Captured league-wide player blocks identify owners by fantasy_team_id,
+        # not side='US'. Refuse schema regression rather than silently checking
+        # only the two specialist assets again.
+        require(all(isinstance(p, dict) and (p.get('side') != 'LEAGUE' or
+                type(p.get('fantasy_team_id')) is int) for p in player_rows),
+                'LEAGUE_PLAYER_OWNER_ID_MISSING')
+    values: list[datetime] = []
+    owned: list[datetime] = []
+    owned_players = owned_specialists = verified_byes = unknown_all = expired = 0
     for item, is_player in [(p, True) for p in player_rows] + [(p, False) for p in specialist_rows]:
-        require(isinstance(item, dict), "CAPTURE_RECORD_NOT_OBJECT")
-        pid = item.get("espn_id")
-        pos = str(item.get("position") or "").upper()
-        is_user = item.get("side") == "US" if is_player else item.get("owner_team_id") == user_team_id
+        require(isinstance(item, dict), 'CAPTURE_RECORD_NOT_OBJECT')
+        pos = str(item.get('position') or '').upper()
         if not pos:
             continue
-        kickoff = _time(item.get("kickoff_utc"))
+        # Legacy compact test fixtures use side=US. A real league-wide capture
+        # carries fantasy_team_id on every player and must use that identity.
+        if is_player:
+            if type(item.get('fantasy_team_id')) is int:
+                is_user = item['fantasy_team_id'] == user_team_id
+            else:
+                is_user = item.get('side') == 'US'
+        else:
+            is_user = item.get('owner_team_id') == user_team_id
+        if is_user:
+            if is_player:
+                owned_players += 1
+            else:
+                owned_specialists += 1
+        kickoff = _time(item.get('kickoff_utc'))
         if kickoff is None:
-            unknown_all += 1
             if is_user:
-                raise Blocked("UNKNOWN_OWNED_PLAYER_LOCK")
+                if is_player and _verified_owned_bye(item, week, snapshot, league, official_byes):
+                    verified_byes += 1
+                    continue
+                raise Blocked('UNKNOWN_OWNED_PLAYER_LOCK')
+            unknown_all += 1
             continue
         if is_user:
             owned.append(kickoff)
@@ -130,11 +199,14 @@ def _lock_candidates(capture: dict[str, Any], now: datetime) -> dict[str, Any]:
             values.append(kickoff)
         else:
             expired += 1
-    require(bool(owned), "CAPTURE_USER_ROSTER_LOCKS_MISSING")
-    require(any(t > now for t in owned), "NO_UNLOCKED_OWNED_ASSETS")
-    require(bool(values), "NO_FUTURE_VERIFIABLE_LOCKS")
-    return {"deadline": min(values), "owned_records": len(owned), "unknown_all": unknown_all,
-            "expired_records": expired, "known_future_records": len(values)}
+    require(owned_players > 0, 'OWNED_PLAYER_COVERAGE_MISSING')
+    require(bool(owned), 'CAPTURE_USER_ROSTER_LOCKS_MISSING')
+    require(any(t > now for t in owned), 'NO_UNLOCKED_OWNED_ASSETS')
+    require(bool(values), 'NO_FUTURE_VERIFIABLE_LOCKS')
+    return {'deadline': min(values), 'owned_records': owned_players + owned_specialists,
+            'owned_players': owned_players, 'owned_specialists': owned_specialists,
+            'verified_owned_byes': verified_byes, 'unknown_all': unknown_all,
+            'expired_records': expired, 'known_future_records': len(values)}
 
 
 def inspect(root: Path, runtime: Path, snapshot_rel: str, capture_rel: str,
@@ -182,7 +254,16 @@ def inspect(root: Path, runtime: Path, snapshot_rel: str, capture_rel: str,
     firewall = capture.get("pre_data_firewall") or {}
     for k in ("2026_game_outcomes_used_for_tuning", "automatic_refit", "automatic_calibration"):
         require(firewall.get(k) is False, "PRE_DATA_FIREWALL_INVALID")
-    return _lock_candidates(capture, now), {"snapshot": snapshot, "capture": capture,
+    candidate_bye = any(isinstance(p, dict) and (
+        (type(p.get('fantasy_team_id')) is int and p.get('fantasy_team_id') == capture.get('team_id')) or
+        (p.get('fantasy_team_id') is None and p.get('side') == 'US'))
+        and _time(p.get('kickoff_utc')) is None
+        for p in (capture.get('league_player_predictions') or {}).get('records', []))
+    calendar_path = root/'tools/operations/weekly_operator_calendar_evidence.py'
+    verified_map = (_source_bound_official_byes(root) if candidate_bye and calendar_path.is_file() else {})
+    league = (_json(runtime / DEPENDENCIES['league_config']) if verified_map else {})
+    return _lock_candidates(capture, now, snapshot=snapshot, league=league,
+                            official_byes=verified_map), {"snapshot": snapshot, "capture": capture,
             "capture_sha256": _sha256(capture_path.read_bytes()),
             "snapshot_sha256": _sha256(snapshot_path.read_bytes())}
 
