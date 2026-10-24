@@ -5,7 +5,7 @@ state_updated: 2026-10-23
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: week7_protected_operations_and_week8_operator_implementation
-active_workstream: weekly_operator_m1b_source_bound_live_evidence_owner_candidate
+active_workstream: weekly_operator_m1b_measured_sync_duration_receipt_candidate
 memory_refinement_step: none
 nfl_week: 7
 fantasy_stage: regular_season
@@ -18,23 +18,22 @@ Deliver the standalone weekly decision operator specified in `architecture/WEEKL
 
 ## Current Work Item
 
-**M1b source-bound live evidence owner candidate:** new read-only
-`tools/operations/weekly_operator_source_evidence_owner.py` and targeted
-synthetic tests plus `architecture/WEEKLY_OPERATOR_M1B_SOURCE_EVIDENCE_OWNER.md`.
-The candidate reuses one published live roster/calendar observation, verifies
-exact published source blobs and local immutable snapshot bytes before and
-after the read, and feeds the result to the published pure deadline classifier.
-It must not synthesize a six-provider measured-refresh receipt or a per-candidate
-ESPN transaction cutoff. It grants no sync/capture/MC or ESPN action authority.
+**M1b next narrow source-only candidate:** opt-in, in-process six-provider
+refresh-duration observer and private receipt reader
+(`tools/operations/weekly_operator_refresh_duration_receipt.py`), synthetic
+regressions, and `architecture/WEEKLY_OPERATOR_M1B_REFRESH_DURATION_RECEIPT.md`.
+It wraps **only an independently authorized existing sync callable**, measuring
+UTC/monotonic elapsed time and binding a fully healthy six-provider snapshot.
+No sync is initiated by package installation, and no previous runtime phase,
+MC, capture, ESPN transaction or observed football result is changed.
 
 ## Verified State
 
-- **Baseline:** commissioned `v0.36-repack1` / version `0.36`, physics `P ⊕ D ⊕ K` unchanged. Week 7 Thursday immutable snapshot SHA-256 `7c90ca5ff9ebf87ae1ae97dde20d98c0bdde0eeef1b79dd97c28783bacca21db`, prospective capture `a3afb25ff1d312ca3c47641475a750d94ad01db45a0f00aee58592ccc4c07b87`, nine-channel MC receipt `24ce0bab9c05e862e6d647493cc9abaf101b24cbba935b151b55ca5e2b6f1965`. Do not replay, overwrite, or backfill this epoch.
-- **M1a:** restart-safe controller published (`09f63740413564fa0a569a8c5921167de8a7e897`) and live tested: existing native MC reused; scoped lineup review required, market/partner drift blocks actions. All ESPN action authority remains `NONE`.
-- **M1b prior observations:** frozen-source preflight `ce00430bc0f78461c23531419b7cdb7c152411a5`; independent calendar `0964d0a4fd4b252ef83a958d10381375119866e5`; live owner/lock diagnostic `0d0b59b290df97bbdf1416564c2cb84373befc8e` (833 isolated pytest passed). Private Week 7 read: 16 owned; 14 unlocked future, one elapsed, one verified bye, zero unknown, four changed assets. New capture needed for changed state; no refresh or transaction authority.
-- **M1b deadline classifier:** exact predecessor `4d4808cdc14c79d56d9e55662204eb6838386e40`, published/remote-verified; staged tree `5456c77c4c0845c568332b80e565d760e8c8ad76`; 205-entry manifest and 876 full isolated pytest passes. It structurally checks refresh, game-lock and candidate cutoff envelopes only: no source receipt authentication or execution authority. Private `mSettings` v3 proved rule field shapes, **not** exact claims/trade deadlines or measured refresh duration.
-- **M1b owner checkpoint:** v2 guarded local apply and isolated staging passed (tree `3d54f2aba3cd8b71206a383e5a4573742deaa67b`, 206 memory entries); full isolated QA was **blocked**: 899 passed, one Windows BOM/CRLF fixture failed, no commit/push. This v3 source-only correction canonicalizes test inputs before constructing BOM+CRLF variants; source guard and commissioned runtime remain unchanged. The v2 staged tree is superseded.
-- **Downstream:** M1b six-provider automatic orchestration, M2 transaction/portfolio certification, M3 scheduling remain unimplemented. Previous A/B1/B2a/B2b1/B2b2 diagnostics are not ESPN action certificates.
+- **Commissioned baseline:** `v0.36-repack1` (`VERSION=0.36`), physics `P ⊕ D ⊕ K` intact. Week 7 Thursday immutable snapshot SHA-256 `7c90ca5ff9ebf87ae1ae97dde20d98c0bdde0eeef1b79dd97c28783bacca21db`, prospective capture `a3afb25ff1d312ca3c47641475a750d94ad01db45a0f00aee58592ccc4c07b87`, native nine-channel MC receipt `24ce0bab9c05e862e6d647493cc9abaf101b24cbba935b151b55ca5e2b6f1965`. Never backfill or rerun that epoch.
+- **M1a:** read-only restart-safe controller remote verified at `09f63740413564fa0a569a8c5921167de8a7e897`; existing MC reused. Live lineup review was scoped, and market/partner drift blocked action approval. Action authority `NONE`.
+- **M1b prior slices:** first lock preflight `ce00430bc0f78461c23531419b7cdb7c152411a5`; public calendar `0964d0a4fd4b252ef83a958d10381375119866e5`; private live owner/lock `0d0b59b290df97bbdf1416564c2cb84373befc8e`; deadline classifier `4d4808cdc14c79d56d9e55662204eb6838386e40`. The classifier checks source shapes and chronology only: it does not authenticate refresh-duration or cutoff receipt bytes.
+- **Source-bound live evidence owner:** v3 checkpoint `98371db7a152d071a3f2ac831dd3d7b85bf26f26` remote verified, tree `653a3cdd92517f12f3540598c86ae8f5ad8a3c0d`, 206-entry manifest, 901 full isolated pytest passed. The preceding v2 staging/test fixture defect is resolved; source owner and commissioned runtime unchanged. No private live acceptance of this owner yet.
+- **Missing evidence:** no source-bound measured six-provider refresh duration, independently verified per-candidate waiver/trade submission cutoff, or certified transaction effective time. ESPN `mSettings` field shapes alone never establish them. M1b native refresh/capture orchestration, M2 complete-roster/legal portfolio certification and M3 scheduling remain unimplemented.
 
 ## Calendar / Evidence Gates
 
@@ -46,19 +45,18 @@ Protected Week 7 capture/MC operations remain a separate calendar obligation; do
 
 ## Exact Next Action
 
-Promote this narrow v3 fixture correction only through guarded local apply,
-new exact isolated staging, full tests, separate authorized publication, and
-remote verification; the prior v2 staging tree cannot be published. Once those
-gates pass, implement the next *source-bound measured six-provider sync-duration
-receipt producer*. Cutoff timestamps remain blocked until a separate verified
-per-candidate ESPN source proves their semantics. Do not infer refresh/transaction
-authority from a shape, timing guess or synthetic proof. Preserve finite MC
-recovery, frozen prospective captures, commissioned P/D/K physics and human
-ESPN approval; protected operations are independent of this work item.
+Apply and targeted-test the source-only M1b six-provider duration observer and
+private receipt verifier, then exact isolated staging/manifest and full QA;
+separately authorize publication only after those gates pass and verify remote
+read-only. Next integrate the observer into a **separately authorized** real
+six-provider refresh path so actual elapsed time and source bytes can be
+measured without replay/backfill. No measured receipt exists yet. Keep fresh
+per-candidate ESPN cutoff verification, prospective capture gates and complete
+M2 action certification independent. Automatic MC or ESPN writes remain forbidden.
 
 ## Relevant References
 
-- `architecture/WEEKLY_OPERATOR_M1B_SOURCE_EVIDENCE_OWNER.md`; `architecture/WEEKLY_OPERATOR_M1B_DEADLINE_AUTHORITY.md`; `architecture/WEEKLY_OPERATOR_M1B_PRE_REFRESH_LIVE_OWNER_LOCK.md`; `architecture/WEEKLY_OPERATOR_M1B_INDEPENDENT_CALENDAR.md`; `architecture/WEEKLY_OPERATOR_M1B_FIRST_LOCK_PREFLIGHT.md`; `architecture/WEEKLY_OPERATOR_M1A_RESTART_CONTROLLER.md`
+- `architecture/WEEKLY_OPERATOR_M1B_REFRESH_DURATION_RECEIPT.md`; `architecture/WEEKLY_OPERATOR_M1B_SOURCE_EVIDENCE_OWNER.md`; `architecture/WEEKLY_OPERATOR_M1B_DEADLINE_AUTHORITY.md`; `architecture/WEEKLY_OPERATOR_M1B_PRE_REFRESH_LIVE_OWNER_LOCK.md`; `architecture/WEEKLY_OPERATOR_M1B_INDEPENDENT_CALENDAR.md`; `architecture/WEEKLY_OPERATOR_M1B_FIRST_LOCK_PREFLIGHT.md`; `architecture/WEEKLY_OPERATOR_M1A_RESTART_CONTROLLER.md`
 - `architecture/WEEKLY_DECISION_OPERATOR_V2_SPEC.md`; `architecture/PROTECTED_WEEKLY_MC_OPERATIONS.md`; `architecture/WEEKLY_DECISION_COMPLETION.md`
 - `patches/PATCH_PROTOCOL.md`; `roadmap/SEASON_2026.md`; `USER.md`
-- `../../tools/operations/weekly_operator_source_evidence_owner.py`; `../../tools/operations/weekly_operator_deadline_authority.py`; `../../tools/operations/weekly_operator_live_lock_evidence.py`; `../../tools/operations/weekly_operator_calendar_evidence.py`; `../../tools/operations/weekly_operator_lock_preflight.py`; `../../tools/operations/weekly_operator_controller.py`
+- `../../tools/operations/weekly_operator_refresh_duration_receipt.py`; `../../tools/operations/weekly_operator_source_evidence_owner.py`; `../../tools/operations/weekly_operator_deadline_authority.py`; `../../tools/operations/weekly_operator_live_lock_evidence.py`; `../../tools/operations/weekly_operator_calendar_evidence.py`; `../../tools/operations/weekly_operator_lock_preflight.py`; `../../tools/operations/weekly_operator_controller.py`
