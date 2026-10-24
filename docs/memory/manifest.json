@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-23T14:27:22.426994-04:00",
+  "generated_at": "2026-10-24T00:12:57.864965-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6251,
-      "sha256": "78043ede5484792129941ae7874e7dd471352acf9d04d01be7393e221fff1aad"
+      "bytes": 6521,
+      "sha256": "bdf81068fab81ceecb599cf887d5777a6cb440c32b9e46932b2491cc71842a9f"
     },
     {
       "path": "LEARNINGS.md",
@@ -163,6 +163,11 @@
       "path": "architecture/WEEKLY_OPERATOR_M1B_INDEPENDENT_CALENDAR.md",
       "bytes": 4093,
       "sha256": "35660749b71fd8837e2295db53b5405e3d07808d62da2bc0d67e7934a79c6641"
+    },
+    {
+      "path": "architecture/WEEKLY_OPERATOR_M1B_NATIVE_SYNC_ADAPTER.md",
+      "bytes": 3317,
+      "sha256": "dcb40c10b036bbcffcf19a8a9383a7d1d0f76a22bbd2a35f93928dc4393c5672"
     },
     {
       "path": "architecture/WEEKLY_OPERATOR_M1B_PRE_REFRESH_LIVE_OWNER_LOCK.md",
