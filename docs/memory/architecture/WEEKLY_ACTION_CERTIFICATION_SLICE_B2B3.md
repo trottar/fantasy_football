@@ -1,0 +1,29 @@
+# Week 8 Action Certification — B2b3 Conditional Fill Paired MC
+
+**Checkpoint candidate:** `week8_b2b3_conditional_fill_paired_mc_source_20261025_v2`.
+**Published predecessor:** `6596f30c538304201f88a6cff2384684a58cb1c5`; B2b2 exact source Git blob `85a6608ad1fbb6d6a62ff9bbd634e41caac801f4`; B2b1 Git blob `d6ae2e3d1fb811638a0c36054fd86da14416df53`.
+**Status:** source-only, opt-in, non-commissioned conditional predictive diagnostic. The v1 carrier passed archive preflight but failed *before preflight or file writes* because the installer rejected the generic runner's required `--package-id` argument. V2 accepts and checks that argument. The diagnostic code, synthetic tests, and unchanged predecessor state are reused; no v1 local apply occurred. No live provider or native MC was run during source development. No approval-ready football action is created.
+
+## Hypothesis and narrow implementation
+
+B2b2 already enumerates up to 2^4 structural success/failure branches for modeled future FREEAGENT fills, and explicitly retains the no-fill case and overlapping-trade conflicts. Its `frozen_static_constraints_pass` deliberately fails for assumed future successes because *executability is unverified*. That is correct for a transaction certificate but prevents the diagnostic comparison: B2b3 must separate a **conditional hypothetical acquisition** from proof that acquisition will be possible or successful after review.
+
+`tools/operations/action_fill_predictive_b2b3.py` reuses B2b2's full frozen verified offer and branch frontier and B1's matching stable offer ID. It selects one offer and exact user-drop set; it must never hide/truncate branches or silently substitute a preferred drop. It retains B2b2 future-fill timing warnings as **conditional assumptions**, while continuing to block all other source/identity/permission, unknown-asset, waiver, partner-drop and static roster legality defects. For each structurally legal conditional branch, the module reconstitutes both managers' complete post-trade rosters. Conditional successful fills require frozen market identity and status `FREEAGENT`, are removed from the *copied* available pool and inserted into the copied acquiring roster; failure branches receive no asset. The known current FREEAGENT status is **not** a future availability certificate.
+
+The optional native kernel calls the same commissioned `specialist_trade` complete-roster composition and temporal-splice functions as B2b1. Preserve distinct P, DST and K calculations; shared scenario draws are paired **within each manager** through reused baseline arrays. Never treat separate managers' arrays as a joint accepted-trade distribution. Positive trade review conservatively affects the next week only, not a certified ESPN effective time. Compare legal branches against HOLD and—only when the no-fill branch itself was evaluated—against conditional no-fill within each manager. Report paired mean/dispersion and quantiles through B2a's `paired_summary`, without probability-weighted averaging across branches.
+
+Bound to at most four future-fill assets, 16 conditional branches, 16–512 native scenarios per selected offer/drop option. Default is **CHECK_ONLY**; `--execute-native` is explicit and requires the commissioned runtime source/version guard. CLI outputs no private roster/asset details by default, and optional JSON is restricted to a new private runtime `data/` path. No automatic refresh, capture, ESPN read/write, native football or behavior code change, staging or publication during installation.
+
+## Non-authority and failure modes
+
+The resulting `BLOCKED_B2B3_CONDITIONAL_FILL_MC_ONLY` report always has `certified_actions=0` and `espn_action_authority=NONE`. `FUTURE_FILL_AT_PROCESSING_UNVERIFIED` is an *explicit hypothesis label*, not an executable transaction. A missing prospective frozen fill/market status, unknown drop permission or lock, illegal conditional roster, unsupported multi-K state, zero/unknown review window, missing identity or source drift blocks that branch. Native runtime failure stays blocked and is not replaced by approximate static value. Partial branches are reported, not silently discarded.
+
+Still unresolved: calibrated probabilities and correlations for future free-agent/waiver success, manager acceptance, injury/availability joint downside, legal sequential joint trades/waivers and field response, exact ESPN action-screen processing, independent candidate cutoffs, live event-epoch reconciliation, complete paired alternative portfolio, and explicit approval. Do not conflate Monte Carlo evaluations of conditional states with an acquisition-probability model. No v0.X empirical tuning.
+
+## Acceptance, protected operations and next gate
+
+Synthetic tests must demonstrate no-fill vs successful conditional branches, invalid future fill evidence, user/partner drop/lock blockers, bounded full lattice without silent thinning, both managers' paired arrays, common baselines, frozen immutability, conditional temporal splice, malformed kernel and no-authorization semantics. Validate the *exact extracted delivery carrier* and rendered memory, then Windows local targeted tests, compileall, strict memory health, isolated full pytest, exact Git staged representations/schema-2 manifest and guarded publication independently. B2b3 source publishing does **not** runtime-commission any tool or grant a live native MC run.
+
+Week 7 Saturday snapshot/capture and native nine-channel receipt remain immutable; user has closed Week 7 operations. Do not rerun or backfill them. Week 8 protected capture/deadline windows outrank this development slice. Next B2b4 candidate should model evidenced correlated future acquisitions and complete joint transaction/field response—not invent a probability or approve a trade based on standalone gains.
+
+`durable_memory_updated: true`

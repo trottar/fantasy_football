@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-24T13:02:10.736964-04:00",
+  "generated_at": "2026-10-25T14:19:26.535306-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6687,
-      "sha256": "01d81aeacff2682e1c0383533ae2a7a1ec0c7e942e4449c8c9b4970479a0e832"
+      "bytes": 8028,
+      "sha256": "c385ca4455269a13dd556a9e37346430073703a991b5426e1af27afd6c4727b6"
     },
     {
       "path": "LEARNINGS.md",
@@ -138,6 +138,11 @@
       "path": "architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_B2B2.md",
       "bytes": 5210,
       "sha256": "35754d2dd4108fb8e5c8f944f97c63da9e9bda7f3f23f82c48e4056dfdcf32d9"
+    },
+    {
+      "path": "architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_B2B3.md",
+      "bytes": 5871,
+      "sha256": "fef5e722344f1684b64e8da9f9a3a543c347fadde1741e8185e47fa080c689c6"
     },
     {
       "path": "architecture/WEEKLY_DECISION_COMPLETION.md",
