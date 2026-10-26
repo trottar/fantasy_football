@@ -22,6 +22,8 @@ import sys
 from typing import Any, Callable
 
 CONTRACT = 'WEEK8_INTEGRATED_OPERATOR_V2_SOURCE_CANDIDATE_V1'
+PHASE_CONTRACT = 'WEEK8_V2_PHASE_BOUND_RECEIPT_V1'
+MAX_PHASE_AGE = timedelta(hours=2)
 FIRST_MONDAY = date(2026, 9, 7)
 MIN_LEAD = timedelta(minutes=80)
 PHASES = ('CALENDAR', 'SYNC', 'CAPTURE', 'MC', 'REVIEW', 'REPORT')
@@ -134,6 +136,69 @@ def atomic_private_json(path: Path, data: dict) -> None:
         os.fsync(f.fileno())
 
 
+
+def phase_path(folder: Path, slot_id: str, phase: str, kind: str) -> Path:
+    require(phase in ('SYNC', 'CAPTURE', 'MC') and kind in ('start', 'done'),
+            'PHASE_RECEIPT_NAME_INVALID')
+    return folder / (slot_id + '.' + phase.lower() + '.' + kind + '.json')
+
+
+def phase_begin(folder: Path, slot_id: str, phase: str, *,
+                launch_sha256: str, dependencies: dict, source_sha256: str) -> tuple[Path, bool]:
+    """A create-only intent is durable BEFORE starting an expensive operation."""
+    path = phase_path(folder, slot_id, phase, 'start')
+    expected = {'contract': PHASE_CONTRACT, 'phase': phase,
+                'launch_sha256': launch_sha256, 'dependencies': dependencies,
+                'source_sha256': source_sha256}
+    if path.exists():
+        require(jsonfile(path) == expected, 'PHASE_BEGIN_IDENTITY_CHANGED_' + phase)
+        return path, False
+    atomic_private_json(path, expected)
+    return path, True
+
+
+def phase_complete(folder: Path, slot_id: str, phase: str,
+                   *, begin: Path, facts: dict) -> dict:
+    """The output can be reused only with its matching verified intent."""
+    path = phase_path(folder, slot_id, phase, 'done')
+    expected = {'contract': PHASE_CONTRACT, 'phase': phase,
+                'begin_sha256': digest(begin), 'facts': facts}
+    if path.exists():
+        require(jsonfile(path) == expected, 'PHASE_RESULT_IDENTITY_CHANGED_' + phase)
+    else:
+        atomic_private_json(path, expected)
+    return expected
+
+
+def prior_phase(folder: Path, slot_id: str, phase: str,
+                *, begin: Path, live_facts: dict) -> bool:
+    """Refuse an uncertain started-but-not-completed phase; no retry by guess."""
+    path = phase_path(folder, slot_id, phase, 'done')
+    if not path.exists():
+        raise Blocked('PHASE_OUTCOME_UNCERTAIN_' + phase)
+    phase_complete(folder, slot_id, phase, begin=begin, facts=live_facts)
+    return True
+
+
+def snapshot_reuse(runtime: Path, week: int, *, now: datetime) -> dict:
+    actual = snapshot_identity(runtime, week, now=now)
+    stamp = datetime.fromisoformat(str(actual['timestamp']).replace('Z', '+00:00'))
+    require(stamp.tzinfo is not None and timedelta(0) <= now - stamp <= MAX_PHASE_AGE,
+            'SAVED_SYNC_TOO_OLD_FOR_PROSPECTIVE_CAPTURE')
+    return actual
+
+
+def capture_reuse(runtime: Path, snapshot: dict, week: int,
+                  *, now: datetime) -> dict:
+    actual = capture_identity(runtime, snapshot, week)
+    created = datetime.fromisoformat(str(actual['captured_utc']).replace('Z', '+00:00'))
+    require(created.tzinfo is not None and timedelta(0) <= now - created <= MAX_PHASE_AGE,
+            'SAVED_CAPTURE_TOO_OLD_FOR_NATIVE_MC')
+    # The published M1a controller independently verifies integrity, firewall,
+    # commissioning identity and source dependencies before launching native MC.
+    return actual
+
+
 def public_lock_preflight(*, now: datetime, week: int, scoreboard: dict) -> dict:
     """No past game may be falsely treated as a full-week prospective freeze."""
     import weekly_operator_calendar_evidence as calendar
@@ -213,59 +278,110 @@ def execute(root: Path, *, now: datetime, week: int | None = None,
     commissioning = runtime / 'data/season_decisions/weekly_operator_v2_commissioning.json'
     require(commissioning.is_file(), 'V2_WORKFLOW_NOT_COMMISSIONED')
     activated = jsonfile(commissioning)
+    source_sha = digest(Path(__file__))
     require(activated.get('contract') == CONTRACT and activated.get('commissioned') is True
-            and activated.get('operator_source_sha256') == digest(Path(__file__))
+            and activated.get('operator_source_sha256') == source_sha
             and activated.get('runtime_version') == '0.36', 'V2_ACTIVATION_IDENTITY_INVALID')
     ops = root / 'tools/operations'
     if str(ops) not in sys.path:
         sys.path.insert(0, str(ops))
     import weekly_operator_calendar_evidence as calendar
     observations = runtime / 'data/season_decisions'
-    stamp = now.astimezone(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     slot_id = f'operator_v2_2026_w{week:02d}_{slot}_{eastern(now).date():%Y%m%d}'
-    # A marker represents the invocation's ownership, not a successful phase.
-    # If interrupted after an uncertain sync, refuse to replay it silently.
     marker = observations / (slot_id + '.launch.json')
     report_file = observations / (slot_id + '.report.json')
-    if report_file.is_file():
+    if report_file.exists():
         prior = jsonfile(report_file)
-        require(prior.get('contract') == CONTRACT and prior.get('week') == week,
+        require(prior.get('contract') == CONTRACT and prior.get('week') == week and
+                prior.get('slot') == slot and prior.get('operator_state') in
+                ('INCOMPLETE_COVERAGE', 'SCOPED_READY', 'BLOCKED_HEALTH',
+                 'BLOCKED_SOURCE', 'CAPTURE_REQUIRED'),
                 'EXISTING_REPORT_IDENTITY_DRIFT')
         return prior
-    require(not marker.exists(), 'PRIOR_SLOT_ATTEMPT_UNCERTAIN_DO_NOT_REPEAT')
     controller = controller or __import__('weekly_operator_controller')
     done: list[str] = []
     blocker: str | None = None
     queue: list = []
     status = 'BLOCKED_HEALTH'
-    atomic_private_json(marker, {'contract': CONTRACT, 'week': week, 'slot': slot,
-                                 'started_utc': now.astimezone(timezone.utc).isoformat(),
-                                 'no_automatic_repeat': True})
+    expected_launch = {'contract': CONTRACT, 'week': week, 'slot': slot,
+                       'source_sha256': source_sha, 'no_automatic_repeat': True}
+    if marker.exists():
+        first = jsonfile(marker)
+        require(all(first.get(k) == v for k,v in expected_launch.items()),
+                'EXISTING_LAUNCH_IDENTITY_DRIFT')
+        started = datetime.fromisoformat(str(first.get('started_utc')).replace('Z','+00:00'))
+        require(started.tzinfo is not None and timedelta(0) <= now - started <= MAX_PHASE_AGE,
+                'SAVED_LAUNCH_TOO_OLD_FOR_RESUME')
+    else:
+        atomic_private_json(marker, {**expected_launch,
+            'started_utc': now.astimezone(timezone.utc).isoformat()})
+    launch_sha = digest(marker)
     try:
-        board = scoreboard_fetch() if scoreboard_fetch else calendar.public_scoreboard(season=2026,week=week)[0]
-        public_lock_preflight(now=now,week=week,scoreboard=board)
+        # A public GET and current calendar checks are cheap and repeated on
+        # resume: a previously future kickoff may have become elapsed.
+        board = scoreboard_fetch() if scoreboard_fetch else calendar.public_scoreboard(
+            season=2026, week=week)[0]
+        public_lock_preflight(now=now, week=week, scoreboard=board)
         done.append('CALENDAR')
-        # The commissioned CLI performs the native six-provider refresh.
-        run_native_cli(runtime, 'season-sync', '--week', str(week),timeout=1200,
-                       launcher=native_launcher)
-        snap = snapshot_identity(runtime,week,now=datetime.now(timezone.utc))
+
+        sync_start, fresh = phase_begin(observations, slot_id, 'SYNC',
+                launch_sha256=launch_sha, dependencies={'week': week}, source_sha256=source_sha)
+        if fresh:
+            run_native_cli(runtime, 'season-sync', '--week', str(week), timeout=1200,
+                           launcher=native_launcher)
+            snap = snapshot_identity(runtime, week, now=datetime.now(timezone.utc))
+            phase_complete(observations, slot_id, 'SYNC', begin=sync_start, facts=snap)
+        else:
+            # If native sync started but its receipt was not durably committed,
+            # the side effect is uncertain. Never issue another six-provider sync.
+            sync_done = phase_path(observations, slot_id, 'SYNC', 'done')
+            require(sync_done.exists(), 'PHASE_OUTCOME_UNCERTAIN_SYNC')
+            snap = snapshot_reuse(runtime, week, now=now)
+            prior_phase(observations,slot_id,'SYNC',begin=sync_start,live_facts=snap)
         done.append('SYNC')
-        run_native_cli(runtime,'closure-capture','--snapshot','data/season_snapshots/latest.json',
-                       timeout=600,launcher=native_launcher)
-        cap = capture_identity(runtime,snap,week)
+
+        capture_start, fresh = phase_begin(observations, slot_id, 'CAPTURE',
+                launch_sha256=launch_sha, dependencies={'week':week,'snapshot':snap},
+                source_sha256=source_sha)
+        if fresh:
+            run_native_cli(runtime,'closure-capture','--snapshot',
+                           'data/season_snapshots/latest.json',
+                           timeout=600,launcher=native_launcher)
+            cap = capture_identity(runtime,snap,week)
+            phase_complete(observations, slot_id, 'CAPTURE', begin=capture_start, facts=cap)
+        else:
+            # An incomplete capture is NOT reconstructed after the fact.
+            capture_done = phase_path(observations, slot_id, 'CAPTURE', 'done')
+            require(capture_done.exists(), 'PHASE_OUTCOME_UNCERTAIN_CAPTURE')
+            cap = capture_reuse(runtime,snap,week,now=now)
+            prior_phase(observations,slot_id,'CAPTURE',begin=capture_start,live_facts=cap)
         done.append('CAPTURE')
-        # Reuse the existing M1a restart-safe controller; no additional MC loop.
+
+        mc_start, _ = phase_begin(observations, slot_id, 'MC',
+                launch_sha256=launch_sha,
+                dependencies={'snapshot_sha256':snap['sha256'],
+                              'capture_sha256':cap['sha256']},
+                source_sha256=source_sha)
+        # M1a has independent launch-before-execute / exact-receipt guards. An
+        # interruption here may resume review or reuse committed MC; an uncertain
+        # launch without a receipt remains blocked by M1a, never rerun blindly.
         plan = controller.run(root,now=datetime.now(timezone.utc),week=week,mode='resume-mc')
         require(plan.get('phase') == 'READONLY_DECISION_REVIEW',
                 'GUARDED_MC_INCOMPLETE_' + str(plan.get('phase')))
-        done.append('MC')
-        # M1a already invokes the source-bound live reviewer (two read-only
-        # ESPN GETs); never duplicate its read and reintroduce untracked drift.
         require(plan.get('authority') == 'NONE', 'REVIEW_ESCALATED_AUTHORITY')
+        receipt_sha = ((plan.get('planner') or {}).get('receipt_sha256') or
+                       plan.get('receipt_sha256'))
+        require(isinstance(receipt_sha,str) and len(receipt_sha)==64 and
+                all(c in '0123456789abcdef' for c in receipt_sha),
+                'NATIVE_MC_RECEIPT_IDENTITY_MISSING')
+        # Freeze the identity of the MC output, not the ephemeral live review.
+        phase_complete(observations, slot_id, 'MC', begin=mc_start,
+                       facts={'snapshot_sha256':snap['sha256'],
+                              'capture_sha256':cap['sha256'],
+                              'receipt_sha256':receipt_sha})
+        done.append('MC')
         queue = plan.get('queue') if isinstance(plan.get('queue'), list) else []
         done.append('REVIEW')
-        # Current certification scaffold is not complete. No positive ESPN
-        # execution/approval certificate can be made by this coordinator.
         status = 'INCOMPLETE_COVERAGE'
         blocker = 'FULL_ACTION_CERTIFICATION_NOT_COMMISSIONED'
     except Blocked as exc:
@@ -281,7 +397,6 @@ def execute(root: Path, *, now: datetime, week: int | None = None,
                          observation_utc=datetime.now(timezone.utc).isoformat())
     atomic_private_json(report_file,report)
     return report
-
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)

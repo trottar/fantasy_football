@@ -27,3 +27,31 @@ This is **not yet a functioning autonomous weekly system**: the native phase-cha
 Sunday October 25 belongs to Week **7**; Week **8** runs October 29–November 2. The 29-archive inventory on October 25 was a bounded observation before the Week 8 frozen-capture window and was not evidence of a missed Week 8 prediction. This correction does not invalidate the actual inventory values. Protect Week 8 captures starting Monday October 26 and the exact pre-waiver/first-game deadlines, not a fabricated Week 9 pivot.
 
 `durable_memory_updated: true`
+
+## Successor: source-bound phase receipts and restart gate (2026-10-25)
+
+`week8_v2_phase_receipt_recovery_20261025_v1` addresses the original
+single-launch-marker limitation without changing commissioned physics or live
+permissions. The v2 entrypoint stores create-only `SYNC`, `CAPTURE`, and `MC`
+phase intents and verified completions under the private runtime
+`data/season_decisions` directory. Each intent binds the immutable launch
+marker, exact operator source hash and immediate input dependencies. Saved sync
+and capture identities must still match the actual immutable files, week,
+source and launch and remain no more than two hours old. A started phase without
+its completion has uncertain external effects; the controller must not rerun
+sync or prospective capture. MC recovery remains delegated to M1a's
+launch-before-execute/validated-native-receipt guard, not a new predictive
+shortcut. Previously completed MC phases are never repeated merely to refresh
+an ESPN review. Receipt corruption blocks the run.
+
+Tests exercise a kill after completed capture (reuse without new refresh or
+capture), kills during sync/capture (no duplicate side effect), source/dependency
+identity drift, output-receipt tampering, insufficient freshness and a missing
+native MC receipt. This is a **source-only** candidate, not a scheduler,
+transaction certificate, permission escalation, validated live commissioning,
+or complete v2 operator. Next acceptance gate is a real source-bound phase-chain
+and bounded drift recovery, followed by all v2 §5A transaction/risk fixtures and
+one coherent recommendation report before scheduler activation. A missed Week 8
+prospective capture is never repaired by running this code after outcomes.
+
+`durable_memory_updated: true`

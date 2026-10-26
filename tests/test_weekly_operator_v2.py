@@ -182,7 +182,8 @@ def test_complete_routing_never_yields_uncertified_action(tmp_path,monkeypatch):
     monkeypatch.setattr(m,'snapshot_identity',lambda rt,week,**kw:{'timestamp':W8.isoformat(),'sha256':'sha'})
     monkeypatch.setattr(m,'capture_identity',lambda rt,snap,week:{'sha256':'cap','path':'capture.json'})
     controller=SimpleNamespace(run=lambda root,**kw:{'phase':'READONLY_DECISION_REVIEW',
-                   'authority':'NONE','queue':[{'kind':'TRADE'}]})
+                   'authority':'NONE','queue':[{'kind':'TRADE'}],
+                   'receipt_sha256':'a'*64})
     a=m.execute(root,now=W8,scoreboard_fetch=lambda:{},controller=controller)
     assert call==['season-sync','closure-capture']
     assert a['completed_phases']==['CALENDAR','SYNC','CAPTURE','MC','REVIEW']
@@ -209,3 +210,140 @@ def test_direct_source_never_posts_transactions():
     assert all(token not in code for token in ('requests.post(', 'requests.patch(',
                  'requests.delete(', 'fetch_private_league(', 'modify_lineup(',
                  'submit_waiver(', 'sync_season_snapshot(', 'evaluate_trade('))
+
+
+def _fake_frozen_phase_evidence(monkeypatch):
+    monkeypatch.setattr(m,'snapshot_identity',lambda rt,week,**kw:
+                        {'timestamp':W8.astimezone(timezone.utc).isoformat(),
+                         'sha256':'a'*64,'week':week})
+    monkeypatch.setattr(m,'capture_identity',lambda rt,snap,week:
+                        {'sha256':'b'*64,'path':'data/season_predictions/closure/pregame_2026_w08_x.json',
+                         'captured_utc':W8.astimezone(timezone.utc).isoformat()})
+    monkeypatch.setattr(m,'snapshot_reuse',lambda rt,week,**kw:
+                        m.snapshot_identity(rt,week))
+    monkeypatch.setattr(m,'capture_reuse',lambda rt,snap,week,**kw:
+                        m.capture_identity(rt,snap,week))
+
+
+def _mc_ok(*args, **kwargs):
+    return {'phase':'READONLY_DECISION_REVIEW','authority':'NONE','queue':[],
+            'receipt_sha256':'c'*64}
+
+
+def test_crash_after_capture_resumes_without_repeat_sync_capture(tmp_path,monkeypatch):
+    root,rt,_=setup_activation(tmp_path,monkeypatch)
+    scoreboard(monkeypatch)
+    _fake_frozen_phase_evidence(monkeypatch)
+    native=[]
+    monkeypatch.setattr(m,'run_native_cli',lambda rt,*args,**kwargs:native.append(args[0]))
+    def crash(*args,**kwargs):raise KeyboardInterrupt('simulated process termination')
+    with pytest.raises(KeyboardInterrupt):
+        m.execute(root,now=W8,scoreboard_fetch=lambda:{},
+                  controller=SimpleNamespace(run=crash))
+    assert native==['season-sync','closure-capture']
+    out=m.execute(root,now=W8,scoreboard_fetch=lambda:{},
+                  controller=SimpleNamespace(run=_mc_ok))
+    assert native==['season-sync','closure-capture']
+    assert out['completed_phases']==['CALENDAR','SYNC','CAPTURE','MC','REVIEW']
+    assert out['operator_state']=='INCOMPLETE_COVERAGE'
+    receipts=list((rt/'data/season_decisions').glob('*.done.json'))
+    assert len(receipts)==3
+    assert {json.loads(f.read_text())['phase'] for f in receipts}=={'SYNC','CAPTURE','MC'}
+    assert m.execute(root,now=W8,scoreboard_fetch=lambda:pytest.fail('DUPLICATE_GET'))==out
+
+
+def test_crash_during_sync_blocks_new_sync(tmp_path,monkeypatch):
+    root,rt,_=setup_activation(tmp_path,monkeypatch)
+    scoreboard(monkeypatch)
+    native=[]
+    def die(rt,*args,**kwargs):
+        native.append(args[0]);raise KeyboardInterrupt('process stopped')
+    monkeypatch.setattr(m,'run_native_cli',die)
+    with pytest.raises(KeyboardInterrupt):
+        m.execute(root,now=W8,scoreboard_fetch=lambda:{},controller=SimpleNamespace())
+    assert native==['season-sync']
+    result=m.execute(root,now=W8,scoreboard_fetch=lambda:{},controller=SimpleNamespace())
+    assert result['blocker']=='PHASE_OUTCOME_UNCERTAIN_SYNC'
+    assert native==['season-sync'] and result['completed_phases']==['CALENDAR']
+    assert result['transaction_authority']=='NONE'
+
+
+def test_crash_during_capture_does_not_reinvoke_capture(tmp_path,monkeypatch):
+    root,rt,_=setup_activation(tmp_path,monkeypatch)
+    scoreboard(monkeypatch)
+    _fake_frozen_phase_evidence(monkeypatch)
+    native=[]
+    def launch(rt,*args,**kwargs):
+        native.append(args[0])
+        if args[0]=='closure-capture':raise KeyboardInterrupt('capture interrupted')
+    monkeypatch.setattr(m,'run_native_cli',launch)
+    with pytest.raises(KeyboardInterrupt):
+        m.execute(root,now=W8,scoreboard_fetch=lambda:{},controller=SimpleNamespace())
+    result=m.execute(root,now=W8,scoreboard_fetch=lambda:{},controller=SimpleNamespace())
+    assert native==['season-sync','closure-capture']
+    assert result['blocker']=='PHASE_OUTCOME_UNCERTAIN_CAPTURE'
+    assert result['completed_phases']==['CALENDAR','SYNC']
+
+
+def test_corrupted_sync_phase_receipt_rejected_on_resume(tmp_path,monkeypatch):
+    root,rt,_=setup_activation(tmp_path,monkeypatch)
+    scoreboard(monkeypatch)
+    _fake_frozen_phase_evidence(monkeypatch)
+    monkeypatch.setattr(m,'run_native_cli',lambda rt,*a,**k:None)
+    with pytest.raises(KeyboardInterrupt):
+        m.execute(root,now=W8,scoreboard_fetch=lambda:{},
+                  controller=SimpleNamespace(run=lambda *a,**k:(_ for _ in ()).throw(KeyboardInterrupt())))
+    receipt=next((rt/'data/season_decisions').glob('*.sync.done.json'))
+    raw=json.loads(receipt.read_text())
+    raw['facts']['sha256']='x'*64
+    receipt.write_text(json.dumps(raw))
+    result=m.execute(root,now=W8,scoreboard_fetch=lambda:{},controller=SimpleNamespace(run=_mc_ok))
+    assert result['blocker']=='PHASE_RESULT_IDENTITY_CHANGED_SYNC'
+    assert result['completed_phases']==['CALENDAR']
+
+
+def test_phase_begin_rejects_source_or_dependency_identity_change(tmp_path):
+    folder=tmp_path/'private';folder.mkdir()
+    begin,first=m.phase_begin(folder,'w8','SYNC',launch_sha256='a'*64,
+                               dependencies={'week':8},source_sha256='b'*64)
+    assert first and begin.exists()
+    same,again=m.phase_begin(folder,'w8','SYNC',launch_sha256='a'*64,
+                               dependencies={'week':8},source_sha256='b'*64)
+    assert not again and same==begin
+    with pytest.raises(m.Blocked,match='PHASE_BEGIN_IDENTITY_CHANGED_SYNC'):
+        m.phase_begin(folder,'w8','SYNC',launch_sha256='a'*64,
+                      dependencies={'week':9},source_sha256='b'*64)
+    m.phase_complete(folder,'w8','SYNC',begin=begin,facts={'sha256':'c'*64})
+    with pytest.raises(m.Blocked,match='PHASE_RESULT_IDENTITY_CHANGED_SYNC'):
+        m.phase_complete(folder,'w8','SYNC',begin=begin,facts={'sha256':'d'*64})
+
+
+def test_saved_phase_max_age_and_tampered_snapshot(tmp_path):
+    rt=tmp_path/'runtime';base=rt/'data/season_snapshots';archive=base/'epoch'
+    archive.mkdir(parents=True)
+    snap={'snapshot_utc':W8.astimezone(timezone.utc).isoformat(),
+          'espn':{'season':2026,'week':8},
+          'source_status':{k:{'ok':True} for k in
+             ('espn','sleeper','nflverse_rosters','nflverse_matchups',
+              'nfl_official_rosters','nfl_official')}}
+    raw=json.dumps(snap).encode();(archive/'snapshot.json').write_bytes(raw)
+    (base/'latest.json').write_bytes(raw)
+    assert m.snapshot_reuse(rt,8,now=W8+timedelta(minutes=60))['sha256'] == hashlib.sha256(raw).hexdigest()
+    with pytest.raises(m.Blocked,match='SAVED_SYNC_TOO_OLD'):
+        m.snapshot_reuse(rt,8,now=W8+timedelta(hours=3))
+    (base/'latest.json').write_bytes(b'{}')
+    with pytest.raises(m.Blocked,match='FRESH_SNAPSHOT_WRONG_WEEK'):
+        m.snapshot_reuse(rt,8,now=W8+timedelta(minutes=5))
+
+
+def test_native_mc_receipt_required_before_done_phase(tmp_path,monkeypatch):
+    root,rt,_=setup_activation(tmp_path,monkeypatch)
+    scoreboard(monkeypatch)
+    _fake_frozen_phase_evidence(monkeypatch)
+    monkeypatch.setattr(m,'run_native_cli',lambda *a,**k:None)
+    def no_receipt(*a,**k):return {'phase':'READONLY_DECISION_REVIEW','authority':'NONE','queue':[]}
+    result=m.execute(root,now=W8,scoreboard_fetch=lambda:{},
+                     controller=SimpleNamespace(run=no_receipt))
+    assert result['blocker']=='NATIVE_MC_RECEIPT_IDENTITY_MISSING'
+    assert not list((rt/'data/season_decisions').glob('*.mc.done.json'))
+    assert result['transaction_authority']=='NONE'
