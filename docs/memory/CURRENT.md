@@ -1,13 +1,13 @@
 # Current Project State
 
 ---
-state_updated: 2026-10-25
+state_updated: 2026-10-26
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
 active_phase: week8_standalone_operator_and_action_certification
-active_workstream: week8_v2_supervised_trial_m1a_evidence
+active_workstream: week8_native_health_checkpoint_contract_repair
 memory_refinement_step: none
-nfl_week: 7
+nfl_week: 8
 fantasy_stage: regular_season
 maintenance_status: healthy
 ---
@@ -18,14 +18,14 @@ maintenance_status: healthy
 
 ## Current Work Item
 
-**Week 8 v2 supervised live acceptance and M1a evidence bridge, source candidate.** The phase-recovery predecessor is published/remote-verified at `b43b98596c5d5da24464e444fe24e0abb5a2dbdf` (tree `00e4c43e212abbe0a358c2db3347450436714205`, 1053 full isolated tests, schema-2 manifest 217). Source inspection identifies a commissioning circularity: `run` requires a preexisting positive v2 receipt, preventing the first observed live acceptance chain. It also depends on recent v0.36 runtime-identity/strict-memory receipts that the controller cannot generate itself. The successor introduces an explicit `trial --ack-live-readonly` route (uncommissioned, unscheduled, no ESPN writes), protected phase receipts, and fresh independently checked M1a identity/health receipts bound to the exact installed runtime and dependency bytes. The trial returns evidence, never v2 commissioning or a positive transaction certificate. It distinguishes trial from production slot identity and blocks a same-slot duplicate. Canonical source evidence: `evidence/WEEK8_V2_COMMISSIONING_TRIAL_SOURCE_2026-10-25.md`.
+**Week 8 live trial evidence: native receipt health join blocked.** The supervised-trial bridge is remote verified at `4295520b67c0d5cbd5c98c328575a969b3b02151` (tree `6c0b8260ca26c965fc00f296ced9392da0a22de8`; 1058 full tests; manifest 218). On Monday October 26, the user-run trial completed calendar, six-provider sync, and immutable capture, then returned `STAGE_EXCEPTION_Blocked` before a v2 MC completion. Two subsequent read-only diagnostic receipts verified the frozen snapshot/capture and one matching **native nine-channel receipt**, but native `review.discover` rejected the native receipt as `NATIVE_RECEIPT_HEALTH_OR_CHRONOLOGY_INVALID`. The exact published v2 receipt writer omits `source_checkpoint` from its strict-memory input, while native Gate A requires it equal the runtime-identity source checkpoint: a deterministic contract defect even with valid memory health. The native receipt's precise blocker set must still be treated as unverified until examined; the Monday native receipt is immutable and **must not be modified, reclassified as PASS, or followed by a duplicate MC**. Apply only a prospective source/test fix adding the independently derived checkpoint to future strict-memory input receipts. Evidence: `evidence/WEEK8_V2_NATIVE_HEALTH_CHECKPOINT_MISMATCH_2026-10-26.md`.
 
 ## Verified State
 
-- **Predecessor source authority:** remote `main` `b43b98596c5d5da24464e444fe24e0abb5a2dbdf`, parent `bc3575407f73bc1dc282deb208632af0746b9000`, exact tree `00e4c43e212abbe0a358c2db3347450436714205`, six paths / 217 manifest entries. Local isolated validation: 23 phase-recovery tests and 1053 full repository tests PASS. The source is published but has never been runtime commissioned or scheduled.
-- **Runtime baseline:** commissioned `fantasy_season_v0_36_repack1`, internal `VERSION=0.36`, unchanged. No successful v2 supervised live phase chain, no authorized v2 commissioning file, no Windows scheduler, and no ESPN submission authority.
-- **Calendar:** Sunday October 25 NFL Week 7, Monday October 26 Week 8 operator opening; first Week 8 kickoff Thursday October 29. Protect future Week 8 prospective captures and real verified claim/lock windows ahead of optional engineering. An October 25 archive inventory with zero Week 8 snapshots was not evidence of missed Week 8 prospective capture.
-- **Unfinished:** actual Week 8 supervised trial and verified native MC/review receipt; bounded material-drift recovery; full §5A legal alternative/manager-field risk and all eight fixtures; single complete ranked portfolio and alerts; Task Scheduler installation/live activation. `processDate` is not certified effect-time evidence. No v0.X outcome tuning.
+- **Source authority:** GitHub `main` `4295520b67c0d5cbd5c98c328575a969b3b02151`, parent `b43b98596c5d5da24464e444fe24e0abb5a2dbdf`, tree `6c0b8260ca26c965fc00f296ced9392da0a22de8`, 6 exact files and 218 manifest entries, 1058 isolated full tests; source published, v2 not commissioned.
+- **Frozen Monday Week 8 evidence:** successful Week 8 calendar, sync, capture phases; create-only SYNC/CAPTURE completion bound, valid snapshot and prospective capture, canonical snapshot binding and pre-data firewall, one M1a/native MC launch marker and one matching native receipt. No v2 MC completion; the native health/chronology validator blocks. No second MC launch. The user's read-only diagnostics made zero ESPN requests or project writes.
+- **Source defect identified:** fresh v2 `memory_health` evidence is missing `source_checkpoint` required by native Gate A, although its sibling commissioned-runtime identity carries the field. Earlier synthetic test asserted `strict` but not checkpoint parity. Fix only future input receipts, leaving previously frozen native outcomes and phase markers unchanged.
+- **Commissioned baseline:** `fantasy_season_v0_36_repack1` / `VERSION=0.36` unchanged. No v2 full-chain commissioning or Windows scheduler. Comprehensive action certification, §5A fixtures, ranked report, bounded drift recovery and verified claim timing remain incomplete. ESPN auto-writes prohibited. No 2026 outcome tuning of v0.X.
 
 ## Calendar / Evidence Gates
 
@@ -37,9 +37,9 @@ Protect Week **8** genuinely prospective windows now: Monday October 26 week-ope
 
 ## Exact Next Action
 
-**Guardedly apply and full-QA the v2 supervised commissioning-trial/M1a-evidence bridge source, preserving installed runtime and scheduler.** Exact predecessor blob/allowlist, rollback, 28 synthetic v2 tests, action/controller regressions, strict memory health, isolated full pytest, compileall, schema-2 manifest, and separate guarded publication. Next, on the installed Windows root and at a genuinely protected Week 8 slot, explicitly authorize one *supervised, read-only-to-ESPN* `trial --ack-live-readonly` invocation. Validate exact six-provider snapshot, prospective frozen capture, native M1a receipt, live read-only ESPN review and private report, plus rerun idempotence. A trial must never self-commission, auto-POST, or install the scheduler; it may return `INCOMPLETE_COVERAGE` on missing action certification. Failures classify a specific real operational boundary without speculative retries. Protect actual Week 8 capture gates ahead of nonessential development. Following the observed chain, complete bounded drift, §5A certification/eight fixtures, ranked report and scheduler commissioning. Do not claim complete autonomy before those gates pass.
+**Apply and validate the narrow native Gate A memory-checkpoint source contract fix** in `weekly_operator_v2.py` and tests. Confirm the published `4295520b` predecessor blobs, exact affected-file scope, rollback and code-owned structural regression; run targeted + full isolated QA, memory health, schema-2 manifest and separate guarded publication. Do not alter Monday runtime receipts, frozen capture, MC launch marker or report; do not relaunch Monday MC or call ESPN. Then protect the next real Week 8 decision-time prospective slot (Tuesday pre-waiver only if independently before the real cutoff; Wednesday and Saturday with proper future-game scope), with a **new independently verified** native health input and one guarded MC per new immutable capture, not a retrospective repair. Source publication is not commissioning. Following prospective evidence, complete material-drift recovery, full §5A/eight-scenario action certification, ranked approval report and scheduler acceptance. Never call INCOMPLETE_COVERAGE a HOLD or certify a rejected native receipt.
 
 ## Relevant References
 
-- `architecture/WEEK8_WEEKLY_OPERATOR_V2_INTEGRATION_GATE.md`; `evidence/WEEK8_V2_COMMISSIONING_TRIAL_SOURCE_2026-10-25.md`; `evidence/WEEK8_V2_PHASE_RECOVERY_SOURCE_2026-10-25.md`; `architecture/WEEKLY_DECISION_OPERATOR_V2_SPEC.md`; `architecture/WEEKLY_DECISION_COMPLETION.md`; `patches/PATCH_PROTOCOL.md`; `USER.md`
+- `architecture/WEEK8_WEEKLY_OPERATOR_V2_INTEGRATION_GATE.md`; `evidence/WEEK8_V2_NATIVE_HEALTH_CHECKPOINT_MISMATCH_2026-10-26.md`; `evidence/WEEK8_V2_COMMISSIONING_TRIAL_SOURCE_2026-10-25.md`; `evidence/WEEK8_V2_PHASE_RECOVERY_SOURCE_2026-10-25.md`; `architecture/WEEKLY_DECISION_OPERATOR_V2_SPEC.md`; `architecture/WEEKLY_DECISION_COMPLETION.md`; `patches/PATCH_PROTOCOL.md`; `USER.md`
 - `../../tools/operations/weekly_operator_v2.py`; `../../tools/operations/weekly_operator_controller.py`; `../../tools/operations/guarded_weekly_cycle.py`; `../../tests/test_weekly_operator_v2.py`

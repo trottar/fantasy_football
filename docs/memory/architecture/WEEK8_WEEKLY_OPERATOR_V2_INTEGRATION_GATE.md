@@ -88,3 +88,25 @@ positive action certification and Task Scheduler activation require separate
 real acceptance receipts.
 
 `durable_memory_updated: true`
+
+## Monday Week 8 live acceptance — native health checkpoint mismatch (2026-10-26)
+
+Checkpoint `week8_v2_native_health_checkpoint_join_20261026_v2` is the source-only
+correction; it does not rewrite any runtime evidence.
+
+A user-run `trial --ack-live-readonly` completed CALENDAR/SYNC/CAPTURE and
+left a verified immutable Week 8 snapshot and capture. Independent read-only
+triage found one launch marker, one corresponding native decision receipt,
+no v2 MC-done receipt, and a rejected native health/chronology check.
+Native Gate A (`src/weekly_operational_health.py`) requires its `memory_health`
+input's `source_checkpoint` to equal the commissioned runtime identity
+`source_checkpoint`. The v2 `write_verified_mc_evidence` bridge omitted it.
+Only add that source-owned checkpoint to **new** memory-health evidence. Do not
+recreate or reclassify the Monday native receipt, silently reenter MC, or treat
+subsystem existence as a certified transaction. Full root-cause classification
+of all Monday operational blockers requires inspecting that native receipt's
+individual health items; never infer that the single identified defect was the
+only blocker. New Week 8 decision-time snapshots need independently confirmed
+calendar/claim locks and native Gate A health acceptance before read-only review.
+
+`durable_memory_updated: true`

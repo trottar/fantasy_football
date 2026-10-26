@@ -248,6 +248,11 @@ def write_verified_mc_evidence(root: Path, runtime: Path, *, now: datetime, slot
     }
     memory_receipt = {
         'contract':'WEEK8_V2_FRESH_M1A_MEMORY_EVIDENCE_V1',
+        # Native Gate A joins strict-memory proof to the same commissioned
+        # v0.36 source checkpoint as its runtime-identity receipt. Omitting
+        # this key manufactures a BLOCKED_HEALTH native receipt despite a
+        # successful independent strict-memory check.
+        'source_checkpoint':guarded.EXPECTED_SOURCE_CHECKPOINT,
         'status':'PASS','strict':True,'checked_utc':stamp.isoformat(),
         'operator_v2_commissioned':False,'action_authority':'NONE',
     }

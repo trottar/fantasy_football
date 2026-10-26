@@ -415,7 +415,12 @@ def test_verified_m1a_evidence_from_fresh_runtime_and_memory(tmp_path,monkeypatc
     assert item['dependencies']['league_config']==hashlib.sha256(config.read_bytes()).hexdigest()
     assert item['source_checkpoint']=='validated_fixture_release' and item['commissioned'] is True
     assert item['operator_v2_commissioned'] is False
-    assert json.loads(mem[0].read_text())['strict'] is True
+    memory=json.loads(mem[0].read_text())
+    assert memory['strict'] is True
+    assert memory['source_checkpoint']==item['source_checkpoint']=='validated_fixture_release'
+    # The commissioned Gate A contract requires both identity and strict
+    # memory receipts to carry the same exact v0.36 source checkpoint.
+    assert memory['operator_v2_commissioned'] is False
     assert called and any('check_memory_health.py' in str(x) for x in called[0])
 
 
@@ -447,3 +452,24 @@ def test_trial_success_exit_is_not_transaction_approval(monkeypatch,capsys):
     output=capsys.readouterr().out
     assert 'FULL_ACTION_CERTIFICATION_NOT_COMMISSIONED' in output
     assert 'ESPN_ACTION_AUTHORITY=NONE' in output
+
+
+def test_native_operational_health_contract_rejects_missing_checkpoint(monkeypatch):
+    from src import weekly_operational_health as gate_a
+    monkeypatch.setattr(gate_a,'capture_integrity_state',lambda cap:(True,[]))
+    expected='validated_fixture_release'
+    identity={'commissioned':True,'source_checkpoint':expected,'runtime_version':'0.36',
+              'dependencies':{'league_config':'a'*64}}
+    common=dict(snapshot={'source_status':{
+                p:({'complete':True} if p=='nfl_official_rosters' else {'ok':True})
+                for p in gate_a.REQUIRED_PROVIDER_KEYS}}, capture={'present':True},
+                commissioning_identity=identity, observed_dependencies={'league_config':'a'*64},
+                observed_runtime_version='0.36',persistence_state=SimpleNamespace(failed=False))
+    valid=gate_a.build_operational_health_receipt(**common,memory_health={
+            'status':'PASS','strict':True,'source_checkpoint':expected})
+    assert valid.status=='PASS'
+    invalid=gate_a.build_operational_health_receipt(**common,memory_health={
+            'status':'PASS','strict':True})
+    assert invalid.status=='BLOCKED_HEALTH'
+    assert any(str(x).startswith('memory_health:') for x in invalid.blockers)
+    assert all(not str(x).startswith('memory_health:') for x in valid.blockers)
