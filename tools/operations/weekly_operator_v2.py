@@ -199,6 +199,71 @@ def capture_reuse(runtime: Path, snapshot: dict, week: int,
     return actual
 
 
+def write_verified_mc_evidence(root: Path, runtime: Path, *, now: datetime, slot_id: str) -> dict:
+    """Re-attest the already commissioned v0.36 runtime and strict memory state.
+
+    These are FRESH INPUT RECEIPTS for M1a, not v2 commissioning or action
+    approval. Never trust a previous Boolean in place of validating live bytes.
+    """
+    require(now.tzinfo is not None, 'HEALTH_CLOCK_NOT_AWARE')
+    import guarded_weekly_cycle as guarded
+    require(Path(guarded.__file__).resolve() ==
+            (root/'tools/operations/guarded_weekly_cycle.py').resolve(),
+            'HEALTH_GUARD_SOURCE_ORIGIN_INVALID')
+    require(guarded.validate_root(root).resolve() == runtime.resolve(),
+            'HEALTH_RUNTIME_SOURCE_DRIFT')
+    deps = {}
+    for key, rel in guarded.DEPENDENCIES.items():
+        file = runtime/rel
+        require(file.is_file() and not file.is_symlink(),
+                'HEALTH_DEPENDENCY_MISSING_' + key.upper())
+        deps[key] = digest(file)
+    try:
+        checked = subprocess.run(
+            [sys.executable, '-B', str(root/'tools/check_memory_health.py'),
+             '--root', str(root), '--strict', '--json'],
+            cwd=str(root), capture_output=True, text=True, timeout=120, check=False)
+        require(checked.returncode == 0, 'HEALTH_STRICT_MEMORY_COMMAND_FAILED')
+        health = json.loads(checked.stdout)
+        require(isinstance(health, dict) and health.get('healthy') is True and
+                not health.get('issues'), 'HEALTH_STRICT_MEMORY_RESULT_BLOCKED')
+    except Blocked:
+        raise
+    except (OSError, ValueError, TypeError, subprocess.TimeoutExpired) as exc:
+        raise Blocked('HEALTH_STRICT_MEMORY_EXCEPTION_' + type(exc).__name__) from None
+    stamp = datetime.now(timezone.utc)
+    require(stamp >= now.astimezone(timezone.utc) - timedelta(minutes=60),
+            'HEALTH_CLOCK_DRIFT')
+    timecode = stamp.strftime('%Y%m%dT%H%M%S%fZ')
+    out = runtime/'data/season_decisions'
+    runtime_receipt = {
+        'contract':'WEEK8_V2_FRESH_M1A_RUNTIME_EVIDENCE_V1',
+        'commissioned':True,
+        'source_checkpoint': guarded.EXPECTED_SOURCE_CHECKPOINT,
+        'runtime_version':guarded.EXPECTED_VERSION,
+        'dependencies':deps,
+        'verified_utc':stamp.isoformat(),
+        'operator_v2_commissioned':False,
+        'action_authority':'NONE',
+    }
+    memory_receipt = {
+        'contract':'WEEK8_V2_FRESH_M1A_MEMORY_EVIDENCE_V1',
+        'status':'PASS','strict':True,'checked_utc':stamp.isoformat(),
+        'operator_v2_commissioned':False,'action_authority':'NONE',
+    }
+    identity_path = out/(slot_id+'_'+timecode+'_commissioned_identity.json')
+    memory_path = out/(slot_id+'_'+timecode+'_memory_health.json')
+    atomic_private_json(identity_path, runtime_receipt)
+    atomic_private_json(memory_path, memory_receipt)
+    # Read back both create-only files before allowing M1a to discover them.
+    require(jsonfile(identity_path) == runtime_receipt and
+            jsonfile(memory_path) == memory_receipt,
+            'FRESH_M1A_EVIDENCE_READBACK_FAILED')
+    return {'runtime_identity_sha256':digest(identity_path),
+            'memory_health_sha256':digest(memory_path),
+            'runtime_commissioned':True, 'operator_v2_commissioned':False}
+
+
 def public_lock_preflight(*, now: datetime, week: int, scoreboard: dict) -> dict:
     """No past game may be falsely treated as a full-week prospective freeze."""
     import weekly_operator_calendar_evidence as calendar
@@ -252,7 +317,8 @@ def preflight(root: Path, now: datetime, week: int) -> Path:
 
 def safe_report(root: Path, runtime: Path, *, week: int, slot: str,
                 state: str, stages: list[str], blocker: str | None,
-                observation_utc: str, queue: Any = None) -> dict:
+                observation_utc: str, queue: Any = None,
+                commissioning_trial: bool = False) -> dict:
     """Reports remain private even when the outcome is incomplete or blocked."""
     allowed = {'SCOPED_READY', 'CAPTURE_REQUIRED', 'BLOCKED_SOURCE',
                'BLOCKED_HEALTH', 'INCOMPLETE_COVERAGE'}
@@ -262,6 +328,7 @@ def safe_report(root: Path, runtime: Path, *, week: int, slot: str,
             'completed_phases': stages, 'blocker': blocker,
             'recommendation_certified': False, 'transaction_authority': 'NONE',
             'espn_writes': False,
+            'commissioning_trial': commissioning_trial,
             'queue': queue if isinstance(queue, list) else [],
             'next_step': ('REVIEW_PRIVATE_REPORT' if state == 'SCOPED_READY' else
                           'RESOLVE_EXPLICIT_BLOCKER_NO_ESPN_SUBMISSION')}
@@ -270,24 +337,32 @@ def safe_report(root: Path, runtime: Path, *, week: int, slot: str,
 def execute(root: Path, *, now: datetime, week: int | None = None,
             scoreboard_fetch: Callable | None = None,
             native_launcher: Callable | None = None,
-            controller: Any = None) -> dict:
+            controller: Any = None, commissioning_trial: bool = False) -> dict:
     week = selected_week(now) if week is None else week
     slot = planned_slot(now, week)
     require(slot in ('MON', 'TUE', 'WED', 'SAT'), 'NOT_A_PROTECTED_OPERATION_SLOT')
     runtime = preflight(root, now, week)
     commissioning = runtime / 'data/season_decisions/weekly_operator_v2_commissioning.json'
-    require(commissioning.is_file(), 'V2_WORKFLOW_NOT_COMMISSIONED')
-    activated = jsonfile(commissioning)
     source_sha = digest(Path(__file__))
-    require(activated.get('contract') == CONTRACT and activated.get('commissioned') is True
-            and activated.get('operator_source_sha256') == source_sha
-            and activated.get('runtime_version') == '0.36', 'V2_ACTIVATION_IDENTITY_INVALID')
+    if not commissioning_trial:
+        require(commissioning.is_file(), 'V2_WORKFLOW_NOT_COMMISSIONED')
+        activated = jsonfile(commissioning)
+        require(activated.get('contract') == CONTRACT and activated.get('commissioned') is True
+                and activated.get('operator_source_sha256') == source_sha
+                and activated.get('runtime_version') == '0.36', 'V2_ACTIVATION_IDENTITY_INVALID')
+    # Trial is an explicit, supervised real-read acceptance attempt. It NEVER
+    # creates the permanent v2 commissioning receipt or enables scheduling.
     ops = root / 'tools/operations'
     if str(ops) not in sys.path:
         sys.path.insert(0, str(ops))
     import weekly_operator_calendar_evidence as calendar
     observations = runtime / 'data/season_decisions'
-    slot_id = f'operator_v2_2026_w{week:02d}_{slot}_{eastern(now).date():%Y%m%d}'
+    standard_slot = f'operator_v2_2026_w{week:02d}_{slot}_{eastern(now).date():%Y%m%d}'
+    trial_slot = standard_slot.replace('operator_v2_', 'operator_v2_trial_', 1)
+    if not commissioning_trial:
+        require(not (observations/(trial_slot+'.launch.json')).exists(),
+                'TRIAL_SLOT_EXISTS_NO_PRODUCTION_DOUBLE_RUN')
+    slot_id = trial_slot if commissioning_trial else standard_slot
     marker = observations / (slot_id + '.launch.json')
     report_file = observations / (slot_id + '.report.json')
     if report_file.exists():
@@ -304,7 +379,8 @@ def execute(root: Path, *, now: datetime, week: int | None = None,
     queue: list = []
     status = 'BLOCKED_HEALTH'
     expected_launch = {'contract': CONTRACT, 'week': week, 'slot': slot,
-                       'source_sha256': source_sha, 'no_automatic_repeat': True}
+                       'source_sha256': source_sha, 'no_automatic_repeat': True,
+                       'commissioning_trial': commissioning_trial}
     if marker.exists():
         first = jsonfile(marker)
         require(all(first.get(k) == v for k,v in expected_launch.items()),
@@ -357,6 +433,10 @@ def execute(root: Path, *, now: datetime, week: int | None = None,
             prior_phase(observations,slot_id,'CAPTURE',begin=capture_start,live_facts=cap)
         done.append('CAPTURE')
 
+        # M1a needs freshly verified identities; producing them here removes a
+        # weekly manual operator dependency without commissioning v2 by fiat.
+        write_verified_mc_evidence(root, runtime, now=datetime.now(timezone.utc),
+                                   slot_id=slot_id)
         mc_start, _ = phase_begin(observations, slot_id, 'MC',
                 launch_sha256=launch_sha,
                 dependencies={'snapshot_sha256':snap['sha256'],
@@ -394,7 +474,8 @@ def execute(root: Path, *, now: datetime, week: int | None = None,
         status = 'BLOCKED_HEALTH'
     report = safe_report(root,runtime,week=week,slot=slot,state=status,stages=done,
                          blocker=blocker,queue=queue,
-                         observation_utc=datetime.now(timezone.utc).isoformat())
+                         observation_utc=datetime.now(timezone.utc).isoformat(),
+                         commissioning_trial=commissioning_trial)
     atomic_private_json(report_file,report)
     return report
 
@@ -402,7 +483,8 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--project-root',type=Path,default=Path('.'))
     ap.add_argument('--week',type=int)
-    ap.add_argument('--mode',choices=('status','run'),default='status')
+    ap.add_argument('--mode',choices=('status','trial','run'),default='status')
+    ap.add_argument('--ack-live-readonly',action='store_true')
     args = ap.parse_args(argv)
     now = datetime.now(timezone.utc)
     print('WEEK8 V2 INTEGRATED WEEKLY OPERATOR SOURCE CANDIDATE',flush=True)
@@ -413,13 +495,25 @@ def main(argv: list[str] | None = None) -> int:
                  'mode':'SOURCE_ONLY_STATUS','production_commissioned':False,
                  'espn_writes':False,'transaction_authority':'NONE'},sort_keys=True),flush=True)
             return 0
-        result = execute(args.project_root.resolve(),now=now,week=wk)
+        require(args.mode != 'trial' or args.ack_live_readonly,
+                'EXPLICIT_LIVE_TRIAL_ACK_REQUIRED')
+        require(args.mode != 'run' or not args.ack_live_readonly,
+                'LIVE_TRIAL_ACK_NOT_VALID_FOR_PRODUCTION_RUN')
+        result = execute(args.project_root.resolve(),now=now,week=wk,
+                         commissioning_trial=args.mode=='trial')
         # No raw provider exception, ID or player/league private data in console.
         public = {k:result[k] for k in ('contract','season','week','slot','operator_state',
-                                        'completed_phases','blocker','transaction_authority')}
+                                        'completed_phases','blocker','transaction_authority',
+                                        'commissioning_trial')}
         print('WEEKLY_OPERATOR_RESULT='+json.dumps(public,sort_keys=True),flush=True)
         print('NO_ESPN_WRITES=TRUE;ESPN_ACTION_AUTHORITY=NONE',flush=True)
-        return 0 if result['operator_state']=='SCOPED_READY' else 3
+        # A full *trial phase chain* is a useful acceptance result even while
+        # the transaction/report product correctly remains incomplete.
+        trial_chain = (args.mode == 'trial' and
+                       result['operator_state']=='INCOMPLETE_COVERAGE' and
+                       result['completed_phases']==list(PHASES[:-1]) and
+                       result['blocker']=='FULL_ACTION_CERTIFICATION_NOT_COMMISSIONED')
+        return 0 if (trial_chain or result['operator_state']=='SCOPED_READY') else 3
     except (Blocked,ValueError,OSError) as exc:
         print('WEEKLY_OPERATOR_BLOCKED='+str(exc),flush=True)
     except Exception as exc:

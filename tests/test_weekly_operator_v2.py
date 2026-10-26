@@ -151,6 +151,7 @@ def setup_activation(tmp_path,monkeypatch):
     rt=root/m.NATIVE_RUNTIME
     (rt/'data/season_decisions').mkdir(parents=True)
     monkeypatch.setattr(m,'preflight',lambda root,now,week:rt)
+    monkeypatch.setattr(m,'write_verified_mc_evidence',lambda *a,**kw:{'operator_v2_commissioned':False})
     activation=rt/'data/season_decisions/weekly_operator_v2_commissioning.json'
     activation.write_text(json.dumps({'contract':m.CONTRACT,'commissioned':True,
        'operator_source_sha256':m.digest(PATH),'runtime_version':'0.36'}))
@@ -347,3 +348,102 @@ def test_native_mc_receipt_required_before_done_phase(tmp_path,monkeypatch):
     assert result['blocker']=='NATIVE_MC_RECEIPT_IDENTITY_MISSING'
     assert not list((rt/'data/season_decisions').glob('*.mc.done.json'))
     assert result['transaction_authority']=='NONE'
+
+
+def test_trial_entrypoint_requires_explicit_ack(monkeypatch,capsys):
+    seen=[]
+    monkeypatch.setattr(m, 'execute',lambda *args,**kw:seen.append(kw))
+    # Avoid mixing real current week with the pinned 2026 week fixture.
+    monkeypatch.setattr(m,'selected_week',lambda now:8)
+    assert m.main(['--week','8','--mode','trial'])==3
+    assert not seen
+    assert 'EXPLICIT_LIVE_TRIAL_ACK_REQUIRED' in capsys.readouterr().out
+
+
+def test_trial_executes_without_fabricated_v2_activation(tmp_path,monkeypatch):
+    root,rt,activation=setup_activation(tmp_path,monkeypatch)
+    activation.unlink()
+    scoreboard(monkeypatch)
+    _fake_frozen_phase_evidence(monkeypatch)
+    invoked=[]
+    monkeypatch.setattr(m,'run_native_cli',lambda rt,*args,**kw:invoked.append(args[0]))
+    result=m.execute(root,now=W8,scoreboard_fetch=lambda:{},
+                     controller=SimpleNamespace(run=_mc_ok),commissioning_trial=True)
+    assert result['commissioning_trial'] is True
+    assert result['operator_state']=='INCOMPLETE_COVERAGE'
+    assert result['recommendation_certified'] is False
+    assert result['transaction_authority']=='NONE'
+    assert result['completed_phases']==list(m.PHASES[:-1])
+    assert invoked==['season-sync','closure-capture']
+    assert not activation.exists()
+    assert any('trial' in p.name for p in (rt/'data/season_decisions').glob('*.launch.json'))
+    assert m.execute(root,now=W8,scoreboard_fetch=lambda:pytest.fail('SECOND_NETWORK_CALL'),
+                     commissioning_trial=True)==result
+    activation.write_text(json.dumps({'contract':m.CONTRACT,'commissioned':True,
+       'operator_source_sha256':m.digest(PATH),'runtime_version':'0.36'}))
+    with pytest.raises(m.Blocked,match='TRIAL_SLOT_EXISTS_NO_PRODUCTION_DOUBLE_RUN'):
+        m.execute(root,now=W8)
+
+
+def test_verified_m1a_evidence_from_fresh_runtime_and_memory(tmp_path,monkeypatch):
+    import types
+    root=tmp_path/'fantasy_football';root.mkdir()
+    rt=root/m.NATIVE_RUNTIME
+    decision_dir=rt/'data/season_decisions';decision_dir.mkdir(parents=True)
+    config=rt/'config/league.json';config.parent.mkdir(parents=True)
+    config.write_text('public safe config fixture')
+    expected_module=root/'tools/operations/guarded_weekly_cycle.py'
+    expected_module.parent.mkdir(parents=True);expected_module.write_text('# guard fixture')
+    guard=types.ModuleType('guarded_weekly_cycle')
+    guard.__file__=str(expected_module)
+    guard.DEPENDENCIES={'league_config':'config/league.json'}
+    guard.EXPECTED_SOURCE_CHECKPOINT='validated_fixture_release'
+    guard.EXPECTED_VERSION='0.36'
+    guard.validate_root=lambda root_:rt
+    monkeypatch.setitem(sys.modules,'guarded_weekly_cycle',guard)
+    called=[]
+    def fake_subprocess(*args,**kwargs):
+        called.append(args[0])
+        return SimpleNamespace(returncode=0,stdout=json.dumps({'healthy':True,'issues':[]}))
+    monkeypatch.setattr(m.subprocess,'run',fake_subprocess)
+    out=m.write_verified_mc_evidence(root,rt,now=datetime.now(timezone.utc),slot_id='week8')
+    assert out['operator_v2_commissioned'] is False
+    ids=list(decision_dir.glob('*commissioned_identity.json'))
+    mem=list(decision_dir.glob('*memory_health.json'))
+    assert len(ids)==len(mem)==1
+    item=json.loads(ids[0].read_text())
+    assert item['dependencies']['league_config']==hashlib.sha256(config.read_bytes()).hexdigest()
+    assert item['source_checkpoint']=='validated_fixture_release' and item['commissioned'] is True
+    assert item['operator_v2_commissioned'] is False
+    assert json.loads(mem[0].read_text())['strict'] is True
+    assert called and any('check_memory_health.py' in str(x) for x in called[0])
+
+
+def test_m1a_evidence_failure_never_creates_identity(tmp_path,monkeypatch):
+    import types
+    root=tmp_path/'fantasy_football';root.mkdir(); rt=root/m.NATIVE_RUNTIME
+    (rt/'data/season_decisions').mkdir(parents=True)
+    guard=types.ModuleType('guarded_weekly_cycle')
+    p=root/'tools/operations/guarded_weekly_cycle.py';p.parent.mkdir(parents=True);p.touch()
+    guard.__file__=str(p);guard.validate_root=lambda _:rt
+    guard.DEPENDENCIES={};guard.EXPECTED_SOURCE_CHECKPOINT='fixture';guard.EXPECTED_VERSION='0.36'
+    monkeypatch.setitem(sys.modules,'guarded_weekly_cycle',guard)
+    monkeypatch.setattr(m.subprocess,'run',lambda *args,**kwargs:
+                        SimpleNamespace(returncode=1,stdout='{}',stderr='SECRET'))
+    with pytest.raises(m.Blocked,match='HEALTH_STRICT_MEMORY_COMMAND_FAILED'):
+        m.write_verified_mc_evidence(root,rt,now=datetime.now(timezone.utc),slot_id='w8')
+    assert not list((rt/'data/season_decisions').glob('*commissioned_identity.json'))
+
+
+def test_trial_success_exit_is_not_transaction_approval(monkeypatch,capsys):
+    monkeypatch.setattr(m,'selected_week',lambda now:8)
+    monkeypatch.setattr(m,'execute',lambda *args,**kw: {
+        'contract':m.CONTRACT,'season':2026,'week':8,'slot':'MON',
+        'operator_state':'INCOMPLETE_COVERAGE',
+        'completed_phases':list(m.PHASES[:-1]),
+        'blocker':'FULL_ACTION_CERTIFICATION_NOT_COMMISSIONED',
+        'transaction_authority':'NONE','commissioning_trial':True})
+    assert m.main(['--week','8','--mode','trial','--ack-live-readonly'])==0
+    output=capsys.readouterr().out
+    assert 'FULL_ACTION_CERTIFICATION_NOT_COMMISSIONED' in output
+    assert 'ESPN_ACTION_AUTHORITY=NONE' in output

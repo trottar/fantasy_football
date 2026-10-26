@@ -55,3 +55,36 @@ one coherent recommendation report before scheduler activation. A missed Week 8
 prospective capture is never repaired by running this code after outcomes.
 
 `durable_memory_updated: true`
+
+## Successor: supervised v2 live acceptance and fresh M1a receipts (2026-10-25)
+
+`week8_v2_supervised_trial_m1a_evidence_20261025_v1` removes the first-run
+commissioning circularity without inventing a positive operational receipt.
+The v2 `trial --ack-live-readonly` mode is an explicitly authorized one-slot
+acceptance attempt, **not** the scheduled/commissioned `run` mode. Both routes
+require published runtime source and strict-memory preflight. The trial can
+run the protected existing six-provider native sync, exact-bound prospective
+capture, M1a MC, and ESPN GET-only review; it reports `INCOMPLETE_COVERAGE`
+until full action certification is provided. It never commissions v2,
+installs a Windows task, calibrates v0.X, or submits ESPN transactions. A
+trial slot is idempotent, source-bound and distinct from scheduled production;
+production is barred in a slot already used by a trial.
+
+Prior to MC, the coordinator re-attests the *already commissioned* v0.36
+runtime through the existing exact-source `guarded_weekly_cycle.validate_root`,
+hashes exact model/league/value dependencies, runs strict memory health
+from actual source, and persists fresh, private, create-only M1a identity and
+memory receipts. `commissioned=true` in the v0.36 identity attests the
+pre-existing v0.36 runtime only; `operator_v2_commissioned=false` explicitly
+prevents upgrading that fact into v2 commissioning. Failure to verify source,
+health or dependencies blocks MC and cannot fabricate a successful receipt.
+
+Synthetic integration tests cover uncommissioned trial eligibility, explicit
+acknowledgment, end-to-end phase routing, duplicate-suppression across trial
+and production, runtime dependency identity, strict-memory failure, privacy
+and transaction-authority boundaries. They are **not** evidence that the real
+2026 Week 8 six-provider capture/MC has already run. Live commissioning,
+positive action certification and Task Scheduler activation require separate
+real acceptance receipts.
+
+`durable_memory_updated: true`
