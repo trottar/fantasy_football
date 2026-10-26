@@ -34,3 +34,9 @@ This result does **not** prove there are no Week 8 files anywhere outside the ex
 Do not reconstruct a Week 8 pre-outcome freeze after relevant games have begun or finished. Continue only with genuinely future available decision-time epochs, verified player/game and acquisition locks, sufficient lead, fresh source/capture health and explicit approval. Prioritize Week 9 week-open/pre-waiver and protected Wednesday/Saturday prospective evidence. An optional B2b4d authenticated shape inspection may be attempted separately only after a causally valid matching freeze; it is not a substitute for freeze/MC and does not certify events or cutoffs.
 
 `durable_memory_updated: true`
+
+## Calendar correction, October 25 (superseding prospective-loss interpretation)
+
+On Sunday October 25, the current NFL scoring week for played games was **Week 7**, not Week 8. The following Week 8 game window begins Thursday October 29 and runs through Monday November 2. The 29 inspected archive records and zero Week 8 matches are genuine observations, but a missing Week 8 archive **before the Week 8 capture window is not a missed prospective freeze**. The former instruction to cease Week 8 prospective captures and pivot to Week 9 was an interpretation error and is explicitly withdrawn. Protect future Week 8 week-open/decision-time captures from Monday October 26 onward, with league-specific waiver and player locks separately verified. Do not backfill any *already elapsed* Week 7 outcomes or assert Week 8 transaction evidence was obtained.
+
+Correction authority: the season calendar in `../roadmap/SEASON_2026.md` and `../architecture/WEEKLY_DECISION_OPERATOR_V2_SPEC.md`; user returned raw inventory/probe receipts above remain unchanged.
