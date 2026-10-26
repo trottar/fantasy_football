@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-25T19:48:10.536617-04:00",
+  "generated_at": "2026-10-25T20:56:27.924132-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6434,
-      "sha256": "c134e8c5cdaf9baeeed1b6dc78d7b15a04ea86536080e99766ec4921e739f39f"
+      "bytes": 6181,
+      "sha256": "6b6b28e64f2dfb9c1955b9426cf3c41b58647a89c62771aa89e7840789b36de5"
     },
     {
       "path": "LEARNINGS.md",
@@ -813,6 +813,11 @@
       "path": "evidence/WEEK6_SUNDAY_MC_DEADLINE_INCIDENT_2026-10-18.md",
       "bytes": 3821,
       "sha256": "c2768cdfaea31c2ed3e3ed71b5cd084d9e98cdb39c9b2b8ecb7f12d2ed3d7d62"
+    },
+    {
+      "path": "evidence/WEEK8_B2B4D_FROZEN_ARCHIVE_GATE_2026-10-25.md",
+      "bytes": 3124,
+      "sha256": "d26e85336952253b7f247f3af8191bd887b43a88056302ee4041a42dd45961f0"
     },
     {
       "path": "evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md",
