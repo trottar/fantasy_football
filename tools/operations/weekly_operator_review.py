@@ -146,9 +146,21 @@ def discover(runtime:Path, now:datetime, *, verify_capture:Callable[[dict],bool]
     require(rt is not None and ct<=rt<=now and uid(rec.get('season'))==season and
             uid(rec.get('week'))==week and (rec.get('operational_health') or {}).get('status')=='PASS',
             'NATIVE_RECEIPT_HEALTH_OR_CHRONOLOGY_INVALID')
-    require(rec.get('overall_state') in {'COMPLETE / ACTION_REQUIRED','COMPLETE / NO_ACTION'},
-            'NATIVE_RECEIPT_NOT_COMPLETE')
-    receipt_channels(rec)
+    # A native healthy-but-incomplete receipt is valid scoped evidence, never
+    # a roster-wide decision certificate. The actual nine-channel gap must be
+    # present; no blocked health channel may be smuggled into scoped review.
+    channels = receipt_channels(rec)
+    overall = rec.get('overall_state')
+    incomplete = [key for key, row in channels.items()
+                  if str(row.get('status') or '').startswith('INCOMPLETE_COVERAGE')]
+    blocked = [key for key, row in channels.items()
+               if str(row.get('status') or '').startswith('BLOCKED_HEALTH')]
+    if overall == 'INCOMPLETE_COVERAGE':
+        require(bool(incomplete) and not blocked,
+                'NATIVE_INCOMPLETE_SCOPE_IDENTITY_INVALID')
+    else:
+        require(overall in {'COMPLETE / ACTION_REQUIRED', 'COMPLETE / NO_ACTION'}
+                and not incomplete and not blocked, 'NATIVE_RECEIPT_NOT_COMPLETE')
     identity_rows=[item.get('evidence') for item in ((rec.get('operational_health') or {}).get('items') or [])
                    if isinstance(item,dict) and item.get('key')=='runtime_identity']
     require(len(identity_rows)==1 and isinstance(identity_rows[0],dict),

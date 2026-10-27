@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-26T12:02:21.393974-04:00",
+  "generated_at": "2026-10-26T19:53:44.352650-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6902,
-      "sha256": "6e6e9f08c331202bb7a357dfc16d50975568e7422f95d90a93743cc082ad57ac"
+      "bytes": 7334,
+      "sha256": "97ca8b598d00d85039074b526942a08bd92aedbc2a341f32c83cd60c5d3885c5"
     },
     {
       "path": "LEARNINGS.md",
@@ -116,8 +116,8 @@
     },
     {
       "path": "architecture/WEEK8_WEEKLY_OPERATOR_V2_INTEGRATION_GATE.md",
-      "bytes": 10814,
-      "sha256": "c80aced0db3bddfdae8ccdd14fdbf63413264084740f70c89b65934e15957f88"
+      "bytes": 11937,
+      "sha256": "827cc8cf7eae8e069da180d06f8223fa9ac860804db79eaebe1c68ed634deb5d"
     },
     {
       "path": "architecture/WEEKLY_ACTION_CERTIFICATION_SLICE_A.md",
@@ -823,6 +823,11 @@
       "path": "evidence/WEEK8_B2B4D_FROZEN_ARCHIVE_GATE_2026-10-25.md",
       "bytes": 4179,
       "sha256": "6af144312c9c63dfa177a8a81cbc5e3a6d73aabb7708bcfbd97a5fae6679fd4f"
+    },
+    {
+      "path": "evidence/WEEK8_HEALTHY_INCOMPLETE_REVIEW_BOUNDARY_2026-10-26.md",
+      "bytes": 2714,
+      "sha256": "9befb681db73902a92e8df8938506aed2e3f8b842a4bf6717db5ae09e65de74b"
     },
     {
       "path": "evidence/WEEK8_V2_COMMISSIONING_TRIAL_SOURCE_2026-10-25.md",

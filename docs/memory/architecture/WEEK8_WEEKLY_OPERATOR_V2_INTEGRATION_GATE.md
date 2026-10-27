@@ -110,3 +110,22 @@ only blocker. New Week 8 decision-time snapshots need independently confirmed
 calendar/claim locks and native Gate A health acceptance before read-only review.
 
 `durable_memory_updated: true`
+
+## Healthy native incomplete receipt: read-only review boundary (2026-10-26)
+
+Monday's saved native receipt has one verified memory-checkpoint health blocker;
+its hypothetical health-only classification is still `INCOMPLETE_COVERAGE`
+because the IR channel is incomplete. Source-owned `weekly_operator_review.discover`
+currently accepts only native `COMPLETE` receipts. Consequently it prevents
+live read-only drift reconciliation even when all runtime health and causality
+gates pass and the outcome legitimately documents an unsupported action family.
+
+A narrowly scoped source correction admits the exactly bound, health-PASS
+`INCOMPLETE_COVERAGE` receipt to the **read-only reviewer only**, with an actual
+incomplete channel and no blocked channel status. It preserves original overall
+state, nine-key uniqueness, snapshot/capture chronology, dependency identity,
+and the existing `action_authority=NONE`. No `COMPLETE`, whole-roster HOLD,
+`RECOMMEND_FOR_APPROVAL`, automatic MC replay, ESPN POST, scheduler, or v2
+commissioning follows. The IR capability gap is not waived or retuned.
+
+`durable_memory_updated: true`

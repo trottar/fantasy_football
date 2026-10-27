@@ -189,3 +189,53 @@ def test_dependency_drift_never_produces_decision(tmp_path):
         (rt/path).write_bytes(raw)
     with pytest.raises(op.Blocked,match='COMMISSIONED_DEPENDENCY_DRIFT:model_config'):
         op.discover(rt,NOW,verify_capture=lambda x:True,canonical=op._canon)
+
+
+def _incomplete_native_fixture(tmp_path, *, health='PASS', overall='INCOMPLETE_COVERAGE',
+                               ir_status='INCOMPLETE_COVERAGE:IR_CAPACITY_GAP'):
+    s,c,r,e,m=fixtures()
+    r['operational_health']['status']=health
+    r['overall_state']=overall
+    r['channels'][4]['status']=ir_status
+    rt=tmp_path/'fantasy_football'/'fantasy_season_v0_36_repack1'
+    for part in ('data/season_snapshots/clock','data/season_predictions/closure',
+                 'data/season_decisions','config','data/processed'):
+        (rt/part).mkdir(parents=True,exist_ok=True)
+    for path,obj in [('data/season_snapshots/clock/snapshot.json',s),
+        ('data/season_snapshots/latest.json',s),
+        ('data/season_predictions/closure/pregame_2026_w07_x.json',c),
+        ('data/season_decisions/weekly_decision_receipt_x.json',r)]:
+        (rt/path).write_text(json.dumps(obj))
+    for path,raw in [('config/league.json',b'league'),('config/model.json',b'model'),
+                     ('data/processed/player_values_2026.csv',b'values')]:
+        (rt/path).write_bytes(raw)
+    return rt,s,c,r,e,m
+
+
+def test_healthy_incomplete_native_receipt_gets_scoped_review_only(tmp_path):
+    rt,s,c,r,e,m=_incomplete_native_fixture(tmp_path)
+    before={p.relative_to(rt).as_posix():op.sha(p.read_bytes())
+            for p in rt.rglob('*') if p.is_file()}
+    got=op.run(rt.parent,now=NOW,fetch=lambda:(e,m),runtime_guard=lambda root:rt,
+               verify_capture=lambda x:True,canonical=op._canon,memory_guard=lambda root:None)
+    after={p.relative_to(rt).as_posix():op.sha(p.read_bytes())
+           for p in rt.rglob('*') if p.is_file()}
+    assert before==after
+    assert got['native_overall']=='INCOMPLETE_COVERAGE'
+    assert got['operator_state']=='SCOPED_REVIEW_REQUIRED'
+    assert got['action_authority']=='NONE'
+    assert got['channel_statuses']['ir_reserve_open_slot_injury_replacement'].startswith('INCOMPLETE_COVERAGE')
+    assert any(row['family']=='IR' and row['state'].startswith('NATIVE_INCOMPLETE_COVERAGE')
+               for row in got['queue'])
+
+
+@pytest.mark.parametrize('overall,ir_status,health,expected', [
+    ('INCOMPLETE_COVERAGE','PASS / HOLD:IR_REPLACEMENT','PASS','NATIVE_INCOMPLETE_SCOPE_IDENTITY_INVALID'),
+    ('INCOMPLETE_COVERAGE','BLOCKED_HEALTH:IR_SOURCE','PASS','NATIVE_INCOMPLETE_SCOPE_IDENTITY_INVALID'),
+    ('COMPLETE / ACTION_REQUIRED','INCOMPLETE_COVERAGE:IR_GAP','PASS','NATIVE_RECEIPT_NOT_COMPLETE'),
+    ('INCOMPLETE_COVERAGE','INCOMPLETE_COVERAGE:IR_GAP','BLOCKED_HEALTH','NATIVE_RECEIPT_HEALTH_OR_CHRONOLOGY_INVALID'),
+])
+def test_incomplete_native_review_fail_closed_contract(tmp_path,overall,ir_status,health,expected):
+    rt,*_= _incomplete_native_fixture(tmp_path,health=health,overall=overall,ir_status=ir_status)
+    with pytest.raises(op.Blocked,match=expected):
+        op.discover(rt,NOW,verify_capture=lambda x:True,canonical=op._canon)
