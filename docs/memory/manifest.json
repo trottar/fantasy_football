@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-28T11:28:40.359075-04:00",
+  "generated_at": "2026-10-28T18:52:13.580616-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7405,
-      "sha256": "26830ff64f6e4e9cddb64be068c42cfd560066811fb276d4804db63edc0372b7"
+      "bytes": 6545,
+      "sha256": "22fca9da462ae2807871d7e0d2027ca1f4f822bc11b6c5e17a19ec27037dbf1d"
     },
     {
       "path": "LEARNINGS.md",
@@ -825,6 +825,11 @@
       "sha256": "6af144312c9c63dfa177a8a81cbc5e3a6d73aabb7708bcfbd97a5fae6679fd4f"
     },
     {
+      "path": "evidence/WEEK8_B2B5_FROZEN_TRADE_PORTFOLIO_GATE_2026-10-28.md",
+      "bytes": 2719,
+      "sha256": "9190abc630b83a3bb51818142db6e3a38836ae479a6e3032866444c0ba6b27e5"
+    },
+    {
       "path": "evidence/WEEK8_EVALUATED_ALTERNATIVES_RETENTION_2026-10-28.md",
       "bytes": 7048,
       "sha256": "63824822a03047ea989c03ffea89d79d8c63125e4d655860144fd127c4da0feb"
@@ -848,6 +853,11 @@
       "path": "evidence/WEEK8_V2_PHASE_RECOVERY_SOURCE_2026-10-25.md",
       "bytes": 2759,
       "sha256": "e639a14ff7b11dbf941d03e88bc39650628505e651c4a769c8b27c0913b6c7b7"
+    },
+    {
+      "path": "evidence/WEEK8_WEDNESDAY_SPECIALIST_GUI_DISPLAY_2026-10-28.md",
+      "bytes": 3262,
+      "sha256": "3fcf881edb6bb65099c94c1ae111d4cbd25f1b7cca75f1a121625c51c3403efa"
     },
     {
       "path": "evidence/WEEKLY_DECISION_GATE_A_RUNTIME_COMMISSIONING_2026-09-30.md",

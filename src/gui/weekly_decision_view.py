@@ -53,6 +53,52 @@ def _clean_text(value: Any, limit: int = 100) -> str:
     return value
 
 
+def _trade_asset_label(row: dict, singular: str, plural: str) -> str | None:
+    """Only source-provided identities; never invent or infer trade assets."""
+    names = row.get(plural)
+    if isinstance(names, list) and 1 <= len(names) <= 2:
+        if all(isinstance(n, str) and _clean_text(n, 100) == n for n in names):
+            return ' + '.join(names)
+        return None
+    one = row.get(singular)
+    if one is None:
+        one = row.get({'give_name': 'give', 'receive_name': 'receive'}.get(singular, singular))
+    if isinstance(one, str) and _clean_text(one, 130) == one:
+        return one
+    return None
+
+
+def _specialist_row_key(row: dict) -> tuple | None:
+    """Exact native numeric tuple for unique saved action-to-evidence matching."""
+    fields = ('expected_offer_value', 'p_accept', 'our_delta_season_ppg',
+              'partner_delta_season_ppg')
+    values = tuple(_finite_number(row.get(k)) for k in fields)
+    family = row.get('package_family')
+    if None in values or not isinstance(family, str) or not family:
+        return None
+    return (family, str(row.get('classification')), *values)
+
+
+def _resolve_trade_assets(key: str, row: dict, action_rows: list) -> tuple[str, str] | None:
+    """Use receipt-retained native identities only; fail closed on ambiguity."""
+    give = _trade_asset_label(row, 'give_name', 'give_names')
+    receive = _trade_asset_label(row, 'receive_name', 'receive_names')
+    if give and receive:
+        return give, receive
+    if key != 'trade_specialist_inclusive':
+        return None
+    target = _specialist_row_key(row)
+    if target is None:
+        return None
+    matches = [r for r in action_rows if isinstance(r, dict)
+               and _specialist_row_key(r) == target]
+    if len(matches) != 1:
+        return None
+    give = _trade_asset_label(matches[0], 'give_name', 'give_names')
+    receive = _trade_asset_label(matches[0], 'receive_name', 'receive_names')
+    return (give, receive) if give and receive else None
+
+
 def _finite_number(value: Any):
     import math
     if isinstance(value, bool):
@@ -148,6 +194,49 @@ def _parse_trial(runtime: Path) -> tuple[dict, dict, str]:
     raise DecisionViewBlocked('NO_VALID_COMPLETED_SUPERVISED_TRIAL')
 
 
+def _frozen_trade_certification(runtime: Path, snapshot: dict, native: dict,
+                                trial: dict) -> dict:
+    """Reuse existing provenance-bound Slice A; no provider, MC, or writes.
+
+    If the runtime's latest snapshot is not this receipt's frozen epoch, block
+    instead of silently treating current roster state as historical authority.
+    """
+    import importlib
+    import sys
+    from ..weekly_trade_portfolio_gate import assemble
+
+    need(snapshot.get('snapshot_utc') == (native.get('provenance') or {}).get('snapshot_utc'),
+         'FROZEN_WEDNESDAY_SNAPSHOT_NOT_CURRENT_LATEST')
+    need((snapshot.get('espn') or {}).get('week') == native.get('week'),
+         'FROZEN_SNAPSHOT_WEEK_MISMATCH')
+    base = runtime / 'data/season_predictions/closure'
+    captures = []
+    for path in sorted(base.glob(f"pregame_2026_w{native['week']:02d}_*.json")):
+        if path.is_file() and not path.is_symlink():
+            value = read_json(path)
+            if value.get('snapshot_utc') == snapshot['snapshot_utc']:
+                captures.append(value)
+    need(len(captures) == 1, 'FROZEN_CAPTURE_EPOCH_NOT_UNIQUE')
+    operations = runtime.parent / 'tools/operations'
+    expected = {
+        'action_certification.py': '4780d467874920333141f55ddf65ed20fb02ba61',
+    }
+    for file, oid in expected.items():
+        path = operations / file
+        need(path.is_file() and not path.is_symlink(), 'CERTIFICATION_SOURCE_MISSING')
+        raw = path.read_bytes().removeprefix(b'\xef\xbb\xbf').replace(b'\r\n', b'\n').replace(b'\r', b'\n')
+        blob = hashlib.sha1(b'blob ' + str(len(raw)).encode('ascii') + b'\0' + raw).hexdigest()
+        need(blob == oid, 'CERTIFICATION_SOURCE_UNVERIFIED')
+    loc = str(operations.resolve())
+    if loc not in sys.path:
+        sys.path.insert(0, loc)
+    module = importlib.import_module('action_certification')
+    need(Path(module.__file__).resolve() == (operations / 'action_certification.py').resolve(),
+         'CERTIFICATION_IMPORT_ORIGIN_INVALID')
+    cert = module.certify_receipt(snapshot, captures[0], native)
+    return assemble(cert, native, trial)
+
+
 def collect(runtime: Path) -> dict:
     """A private local presentation, never an ESPN transaction certificate."""
     need((runtime / 'VERSION').is_file() and
@@ -161,6 +250,8 @@ def collect(runtime: Path) -> dict:
     rows = {r['key']: r for r in native['channels']}
     result = {
         'week': native['week'], 'receipt_hash_short': sha[:16],
+        'slot': _clean_text(trial.get('slot'), 10),
+        'observed_utc': _clean_text(trial.get('created_utc'), 45),
         'native_overall': _clean_text(native.get('overall_state'), 80),
         'trial_state': _clean_text(trial.get('operator_state'), 80),
         'health': 'PASS', 'action_authority': 'NONE',
@@ -182,6 +273,10 @@ def collect(runtime: Path) -> dict:
         channel = {'name': key, 'status': status, 'evaluated': count,
                    'gap': _clean_text(r.get('gap')) if r.get('gap') else ''}
         result['channels'].append(channel)
+        action = r.get('action') or {}
+        native_offers = action.get('offers') if isinstance(action, dict) else None
+        if not isinstance(native_offers, list):
+            native_offers = []
         alt = evidence.get('evaluated_alternatives')
         if isinstance(alt, dict) and alt.get('authority') == 'OBSERVATION_ONLY':
             result['alternatives_available'] = True
@@ -201,8 +296,9 @@ def collect(runtime: Path) -> dict:
                     score = _finite_number(row.get('expected_delta_utility'))
                     p = _finite_number(row.get('p_acquire'))
                 else:
-                    desc = (_clean_text(row.get('give'), 130) + ' -> ' +
-                            _clean_text(row.get('receive'), 130))
+                    identities = _resolve_trade_assets(key, row, native_offers)
+                    desc = (' -> '.join(identities) if identities else
+                            'Trade assets not uniquely retained — do not act')
                     score = _finite_number(row.get('expected_offer_value'))
                     p = _finite_number(row.get('p_accept'))
                 result['alternatives'].append({
@@ -231,8 +327,9 @@ def collect(runtime: Path) -> dict:
                     if not isinstance(p, dict):
                         continue
                     if key in TRADE_KEYS:
-                        desc = (_clean_text(p.get('give_name') or 'Give assets', 130) +
-                                ' -> ' + _clean_text(p.get('receive_name') or 'Receive assets', 130))
+                        identities = _resolve_trade_assets(key, p, native_offers)
+                        desc = (' -> '.join(identities) if identities else
+                                'Trade assets not uniquely retained — do not act')
                         score = _finite_number(p.get('expected_offer_value'))
                         clas = _clean_text(p.get('classification'), 75)
                     elif key == 'player_waiver_free_agent':
@@ -270,6 +367,12 @@ def collect(runtime: Path) -> dict:
                                      'name': _clean_text(athlete.get('name'), 90),
                                      'position': _clean_text(athlete.get('position'), 10),
                                      'state': reason})
+    try:
+        result['portfolio_gate'] = _frozen_trade_certification(runtime, snapshot, native, trial)
+        result['portfolio_gate_blocker'] = None
+    except (DecisionViewBlocked, ValueError, OSError, KeyError, TypeError, ImportError):
+        result['portfolio_gate'] = None
+        result['portfolio_gate_blocker'] = 'FROZEN_CERTIFICATION_INPUT_OR_SOURCE_NOT_VERIFIED'
     result['review'] = [
         {'family': _clean_text(q.get('family')), 'state': _clean_text(q.get('state'), 120)}
         for q in queue if isinstance(q, dict) and q.get('family') not in ('LINEUP',)
@@ -295,7 +398,7 @@ def render_panel(runtime: Path) -> None:
                 except (DecisionViewBlocked, ValueError, OSError, KeyError, TypeError):
                     ui.label('No validated native weekly receipt available. No action authority.').classes('text-amber-400')
                     return
-                ui.label(f"Week {data['week']} · native {data['native_overall']} · health {data['health']}").classes('font-semibold')
+                ui.label(f"Week {data['week']} · {data['slot']} saved report {data['observed_utc']} · native {data['native_overall']} · health {data['health']}").classes('font-semibold')
                 ui.label(f"Source {data['receipt_hash_short']}… · trial {data['trial_state']} · ESPN authority NONE").classes('text-sm')
                 ui.label('The native model selects football actions. Live legality and approval are independent.').classes('text-sm')
                 with ui.card().classes('w-full p-3'):
@@ -324,11 +427,27 @@ def render_panel(runtime: Path) -> None:
                             prob = f" · behavior P {p['probability']:.1%}" if p['probability'] is not None else ''
                             stage = f" · {p['stage']}" if p['stage'] and p['stage'] != 'Unavailable' else ''
                             parked = ' · stopped for futility at reported MC stage' if p['futility_stop'] else ''
-                            interval = (f" · paired mean interval [{p['interval_p16']:+.4f}, {p['interval_p84']:+.4f}]"
+                            interval = (f" · conditional paired mean interval [{p['interval_p16']:+.4f}, {p['interval_p84']:+.4f}]"
                                         if p['interval_p16'] is not None and p['interval_p84'] is not None else '')
                             ppg = (f" · our/partner ΔPPG {p['our_ppg']:+.2f}/{p['partner_ppg']:+.2f}"
                                    if p['our_ppg'] is not None and p['partner_ppg'] is not None else '')
                             ui.label(f"{p['family']}: {p['description']} · {p['classification']}{delta}{interval}{ppg}{prob}{stage}{parked} · UNCERTIFIED")
+                    ui.label('Expected waiver value includes acquisition uncertainty; the paired interval is conditional on acquisition. Trade response probabilities are uncalibrated behavior estimates.').classes('text-sm')
+                with ui.card().classes('w-full p-3'):
+                    ui.label('Joint trade safety / certification — BLOCKED until verified').classes('font-semibold')
+                    portfolio = data.get('portfolio_gate')
+                    if not portfolio:
+                        ui.label('Frozen certification cannot be verified for this receipt. No trade may be promoted to approval.')
+                    else:
+                        ui.label(f"{portfolio['candidate_count']} trade candidates; {portfolio['conflict_count']} potentially incompatible pairs; 0 approval-ready actions.")
+                        for p in portfolio['candidates']:
+                            reasons = ', '.join(p['blockers'][:5])
+                            drops = ' + '.join(p['mandatory_user_drops']) or 'none in native model'
+                            qbs = ' + '.join(p['remaining_qbs']) or 'none'
+                            ui.label(f"#{p['ordinal']} {p['give_label']} -> {p['receive_label']}: BLOCKED | native drops {drops} | retained QBs {qbs} | {reasons}")
+                        for pair in portfolio['conflicts']:
+                            ui.label(f"Candidates #{pair['first_ordinal']} and #{pair['second_ordinal']}: {pair['kind']} — joint execution unverified")
+                        ui.label('No-action and alternate-drop paired comparisons, trade effective timing, future fills, injury contingencies and current ESPN legality remain independent mandatory gates. No offer is approved.')
                 with ui.card().classes('w-full p-3'):
                     ui.label('Nine-channel completion and evaluation scope').classes('font-semibold')
                     for c in data['channels']:
