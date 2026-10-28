@@ -6,6 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
+from .weekly_decision_alternatives import player_alternatives, trade_alternatives  # WEEK8_EVALUATED_ALTERNATIVES_SOURCE_V1
 
 from .weekly_operational_health import (
     BLOCKED as HEALTH_BLOCKED,
@@ -506,6 +507,7 @@ def _player_receipt(report: Mapping[str, Any]) -> ChannelReceipt:
         "waiver_reported": len(report.get("waiver_actions") or []),
         "actionable_edges": len(actionable),
         "market_channel": report.get("market_channel"),
+        "evaluated_alternatives": player_alternatives(report),
     }
     return ChannelReceipt(
         PLAYER,
@@ -652,6 +654,7 @@ def _trade_receipts(rows: Sequence[Mapping[str, Any]]) -> list[ChannelReceipt]:
                 "evaluated_reported": len(one_rows),
                 "actionable_offers": len(one_actionable),
                 "supported_package_families": ["1x1"],
+                "evaluated_alternatives": trade_alternatives(one_rows, family="1x1"),
             },
             scope="automated one-for-one QB/RB/WR/TE offers through cheap screen -> paired predictive MC",
             action={
@@ -669,6 +672,7 @@ def _trade_receipts(rows: Sequence[Mapping[str, Any]]) -> list[ChannelReceipt]:
                 "actionable_offers": len(multi_actionable),
                 "evaluated_by_family": family_counts,
                 "supported_package_families": ["1x2", "2x1", "2x2"],
+                "evaluated_alternatives": trade_alternatives(multi_rows, family="MULTI"),
                 "max_players_per_side": 2,
             },
             scope=(
@@ -791,6 +795,7 @@ def _specialist_trade_receipt(rows: Sequence[Mapping[str, Any]]) -> ChannelRecei
         "screen_authority": False,
         "player_trade_authority_unchanged": "market_manager.evaluate_trade",
         "composition": "P_PLUS_D_PLUS_K_AT_COMPLETE_ROSTER_BOUNDARY",
+        "evaluated_alternatives": trade_alternatives(normalized, family="SPECIALIST"),
     }
     return ChannelReceipt(
         TRADE_SPECIALIST,

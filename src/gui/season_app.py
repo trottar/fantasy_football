@@ -187,6 +187,7 @@ def run_season_gui(
                 tab_specialists = ui.tab('Specialists', icon='shield')
                 tab_trades = ui.tab('Trades', icon='handshake')
                 tab_closure = ui.tab('Data / MC', icon='monitoring')
+                tab_native_decisions = ui.tab('Weekly decisions', icon='fact_check')  # WEEK8_NATIVE_WEEKLY_DECISION_VIEW_PORTABLE_V1
 
             with ui.tab_panels(tabs, value=tab_matchup).classes('w-full bg-transparent'):
                 with ui.tab_panel(tab_matchup).classes('p-0'):
@@ -321,6 +322,10 @@ def run_season_gui(
                                 ui.label('League-wide one-for-one search').classes('text-lg font-semibold')
                                 ui.label('Search-stage MC is candidate generation. Re-evaluate a selected offer at the full GUI MC count before acting.').classes('subtle text-sm')
                                 trade_search_container = ui.column().classes('w-full mt-2')
+
+                with ui.tab_panel(tab_native_decisions).classes('p-0'):
+                    from .weekly_decision_view import render_panel as _render_native_decisions
+                    _render_native_decisions(Path(__file__).resolve().parents[2])
 
                 with ui.tab_panel(tab_closure).classes('p-0'):
                     closure_metrics = ui.row().classes('w-full gap-3 flex-wrap')

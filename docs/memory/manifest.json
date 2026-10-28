@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-26T19:53:44.352650-04:00",
+  "generated_at": "2026-10-28T11:28:40.359075-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7334,
-      "sha256": "97ca8b598d00d85039074b526942a08bd92aedbc2a341f32c83cd60c5d3885c5"
+      "bytes": 7405,
+      "sha256": "26830ff64f6e4e9cddb64be068c42cfd560066811fb276d4804db63edc0372b7"
     },
     {
       "path": "LEARNINGS.md",
@@ -823,6 +823,11 @@
       "path": "evidence/WEEK8_B2B4D_FROZEN_ARCHIVE_GATE_2026-10-25.md",
       "bytes": 4179,
       "sha256": "6af144312c9c63dfa177a8a81cbc5e3a6d73aabb7708bcfbd97a5fae6679fd4f"
+    },
+    {
+      "path": "evidence/WEEK8_EVALUATED_ALTERNATIVES_RETENTION_2026-10-28.md",
+      "bytes": 7048,
+      "sha256": "63824822a03047ea989c03ffea89d79d8c63125e4d655860144fd127c4da0feb"
     },
     {
       "path": "evidence/WEEK8_HEALTHY_INCOMPLETE_REVIEW_BOUNDARY_2026-10-26.md",
