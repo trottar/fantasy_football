@@ -106,6 +106,50 @@ def _candidate(incoming: Mapping[int, Mapping[str, Any]],
     }
 
 
+def _native_position_rebalance_drop_count(
+    channel: str, user: Mapping[int, Mapping[str, Any]],
+    give: tuple[int, ...], incoming: Mapping[int, Mapping[str, Any]],
+    user_drops: tuple[int, ...], user_adds: tuple[int, ...],
+    snapshot: Mapping[str, Any], must_drop: int, must_fill: int,
+) -> int | None:
+    """Represent only evidenced equal-count specialist position repairs.
+
+    The native specialist normalizer can perform a drop plus a conditional
+    FREEAGENT fill even when trade headcount is balanced.  This is frozen
+    structural evidence, not a guarantee of future acquisition or ESPN action.
+    B2b2 remains authoritative for actual league min/max legality per branch.
+    """
+    extra = len(user_drops)
+    if (channel != "trade_specialist_inclusive" or must_drop or must_fill or
+            extra < 1 or extra > 2 or len(user_adds) != extra or
+            tuple(sorted(user_drops)) != user_drops or
+            not set(user_drops).issubset(set(user) - set(give))):
+        return None
+    original = Counter(_position(p) for p in user.values())
+    direct = Counter(_position(p) for pid, p in user.items() if pid not in give)
+    direct.update(_position(p) for p in incoming.values())
+    espn = snapshot.get("espn", snapshot)
+    pool = espn.get("available_players") if isinstance(espn, Mapping) else None
+    if not isinstance(pool, list):
+        return None
+    matched = []
+    for pid in user_adds:
+        rows = [p for p in pool if isinstance(p, Mapping) and
+                type(p.get("espn_id")) is int and p["espn_id"] == pid]
+        if (len(rows) != 1 or
+                str(rows[0].get("fantasy_status") or "").upper() != "FREEAGENT" or
+                _position(rows[0]) not in ("DST", "K") or
+                (pid < 0 and _position(rows[0]) != "DST")):
+            return None
+        matched.append(rows[0])
+    fills = Counter(_position(p) for p in matched)
+    # Exact specialist deficit relative to frozen original, not a headcount guess.
+    if not any(direct[pos] < original[pos] and fills[pos] > 0
+               for pos in ("DST", "K")):
+        return None
+    return extra
+
+
 def _enumerate_offer(offer: Mapping[str, Any], channel: str,
                      user: Mapping[int, dict[str, Any]], snapshot: Mapping[str, Any],
                      *, limit: int = MAX_ALTERNATIVES) -> dict[str, Any]:
@@ -137,9 +181,15 @@ def _enumerate_offer(offer: Mapping[str, Any], channel: str,
     count_without_fills = len(retained) + len(incoming)
     must_drop = max(0, count_without_fills - len(user))
     must_fill = max(0, len(user) - count_without_fills)
+    repair_drops = _native_position_rebalance_drop_count(
+        channel, user, give, incoming, user_drops, user_adds, snapshot,
+        must_drop, must_fill)
+    enumerate_drop_count = repair_drops if repair_drops is not None else must_drop
     normalize = []
     if len(user_drops) != must_drop or len(user_adds) != must_fill:
-        normalize.append("NATIVE_NORMALIZATION_COUNT_INCONSISTENT_WITH_FROZEN_ROSTER")
+        normalize.append("NATIVE_POSITION_REBALANCE_CONDITIONAL_FROZEN_FILL"
+                         if repair_drops is not None else
+                         "NATIVE_NORMALIZATION_COUNT_INCONSISTENT_WITH_FROZEN_ROSTER")
     if partner_adds or user_adds:
         normalize.append("FUTURE_FREEAGENT_FILL_UNPROVEN")
 
@@ -148,7 +198,7 @@ def _enumerate_offer(offer: Mapping[str, Any], channel: str,
     # but the native choice is always shown with explicit evidence warnings.
     structurally_droppable = sorted(i for i, p in retained.items()
                                     if p.get("droppable") is True and p.get("lineup_locked") is False)
-    combos = itertools.combinations(structurally_droppable, must_drop)
+    combos = itertools.combinations(structurally_droppable, enumerate_drop_count)
     inspected = []
     for combo in itertools.islice(combos, limit + 1):
         inspected.append(combo)
@@ -157,7 +207,7 @@ def _enumerate_offer(offer: Mapping[str, Any], channel: str,
     # Include native selected drop even when its frozen ESPN legality is unknown.
     native_tuple = tuple(sorted(user_drops))
     alt = []
-    if len(user_drops) == must_drop:
+    if len(user_drops) == enumerate_drop_count:
         alt.append(_candidate(incoming, retained, native_tuple, len(user), native=True))
     for combo in inspect_pairs:
         if combo != native_tuple:
@@ -168,7 +218,7 @@ def _enumerate_offer(offer: Mapping[str, Any], channel: str,
     warnings = ["STATIC_FRONTIER_ONLY_NO_NATIVE_PAIRED_MC_OR_ESPN_ACTION_AUTHORITY"] + normalize
     if truncated:
         warnings.append("STRUCTURAL_ALTERNATIVES_TRUNCATED")
-    if must_drop and not inspect_pairs:
+    if enumerate_drop_count and not inspect_pairs:
         warnings.append("NO_FROZEN_PROVEN_UNLOCKED_DROPPABLE_ALTERNATIVES")
     return {
         "offer_id": identity,

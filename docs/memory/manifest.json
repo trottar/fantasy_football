@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-28T22:46:01.745898-04:00",
+  "generated_at": "2026-10-29T00:55:37.134942-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6729,
-      "sha256": "cb5dc509c99c566a967c858fca86a447ffabd19f76fa4464d703a6eac2afb92e"
+      "bytes": 7845,
+      "sha256": "db9c493386536df441b752980b571a18fb4058d0632802a5613967771eb7e73a"
     },
     {
       "path": "LEARNINGS.md",
@@ -818,6 +818,11 @@
       "path": "evidence/WEEK6_SUNDAY_MC_DEADLINE_INCIDENT_2026-10-18.md",
       "bytes": 3821,
       "sha256": "c2768cdfaea31c2ed3e3ed71b5cd084d9e98cdb39c9b2b8ecb7f12d2ed3d7d62"
+    },
+    {
+      "path": "evidence/WEEK8_B1_EQUAL_COUNT_POSITION_REBALANCE_2026-10-29.md",
+      "bytes": 3408,
+      "sha256": "e0388ca88bf96508a2db0e0c81967c9758653b4981e4038929dc9a2a4cdee1b4"
     },
     {
       "path": "evidence/WEEK8_B2B4D_FROZEN_ARCHIVE_GATE_2026-10-25.md",

@@ -25,7 +25,7 @@ MAX_DROP_OPTIONS = 24
 MAX_CONDITIONAL_CASES = 128
 MAX_SCENARIOS = 128
 SOURCE_BLOBS = {
-    'tools/operations/action_frontier.py': 'a80813df470d48f46ae2e2b93c85178f3e960cc7',
+    'tools/operations/action_frontier.py': '675aad726a966bd0ccc2addc5b6ce068f9421b1f',
     'tools/operations/action_fill_predictive_b2b3.py': '46ef614b639b09b02c588cb3d70ea86b70f030d6',
     'tools/operations/action_predictive_b2.py': '6b8352590eb7b898483c335b1f4532ed0860c62d',
     'tools/operations/action_partner_b2b.py': 'd6ae2e3d1fb811638a0c36054fd86da14416df53',
