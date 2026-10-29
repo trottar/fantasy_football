@@ -160,17 +160,71 @@ def test_malformed_signed_specialist_roster_identity_rejected(monkeypatch):
         b1.build_frontier(snap,cap,receipt)
 
 
-def test_position_repair_never_promotes_future_k_fill_to_mc_authority(monkeypatch):
+def test_position_repair_conditional_mock_mc_still_has_no_action_authority(monkeypatch):
+    import numpy as np
     _inject(monkeypatch)
     snap,cap,receipt,league=frozen()
+    saved=copy.deepcopy((snap,cap,receipt,league))
     offer=b1.build_frontier(snap,cap,receipt)['offers'][0]
     calls=[]
-    def forbidden_native(*args):
-        calls.append(True)
-        raise AssertionError('conditional future fill may not become guaranteed')
+    def conditional_mock(_snap,_league,_model,_values,_offer,opt,branch,user,n,_runtime,cache):
+        assert user==1 and all(x['conditional_success'] and
+               x['materialized_from_frozen_market'] for x in branch['fill_outcomes'])
+        calls.append(tuple(opt['drop_ids']))
+        return {1:(np.zeros(n),np.ones(n)),2:(np.zeros(n),np.full(n,.25))},{}
     result=b2b6.evaluate(snap,cap,receipt,league,{},Path('none.csv'),Path('none'),
-                        offer['offer_id'],scenarios=16,kernel=forbidden_native)
-    assert calls==[] and result['native_mc_cases_evaluated']==0
+                         offer['offer_id'],scenarios=16,kernel=conditional_mock)
+    assert result['native_mc_cases_evaluated']==len(calls)>0
     assert result['certified_actions']==0 and result['espn_action_authority']=='NONE'
-    assert any('FUTURE_USER_FILL_REQUIRED_NO_GUARANTEE' in row['blockers']
-               for row in result['options'])
+    assert result['future_fill_joint_probability']=='UNKNOWN'
+    assert (snap,cap,receipt,league)==saved
+    rows=result['options']
+    assert all(x['state']=='BLOCKED' for x in rows if
+               not all(z['conditional_success'] for z in x['fill_state']))
+    assert all(x['conditional_rebalance_success_assumed'] for x in rows
+               if x['state'].startswith('CONDITIONAL_MC_'))
+    assert any(x['native_selected'] and x['state'].startswith('CONDITIONAL_MC_')
+               for x in rows)
+
+
+def test_conditional_success_gate_only_exempts_proven_frozen_specialist_repair():
+    helper=b2b6._conditional_rebalance_success
+    offer={'blocking_evidence':['NATIVE_POSITION_REBALANCE_CONDITIONAL_FROZEN_FILL'],
+           'modeled_native_auto_add_ids':[301],
+           'required_user_drops_by_count':0,'required_user_fills_by_count':0}
+    row={'fill_outcomes':[{'side':'user','id':301,
+                           'conditional_success':True,
+                           'materialized_from_frozen_market':True}]}
+    assert helper(offer,row) is True
+    for invalid in [
+        {'fill_outcomes':[dict(row['fill_outcomes'][0],conditional_success=False)]},
+        {'fill_outcomes':[dict(row['fill_outcomes'][0],materialized_from_frozen_market=False)]},
+        {'fill_outcomes':[dict(row['fill_outcomes'][0],id=302)]},
+        {'fill_outcomes':[dict(row['fill_outcomes'][0],id='301')]},
+        {'fill_outcomes':[dict(row['fill_outcomes'][0],side='partner')]},
+        {'fill_outcomes':[]},
+    ]:
+        assert helper(offer,invalid) is False
+    for field,value in [('blocking_evidence',[]),('required_user_fills_by_count',1),
+                        ('modeled_native_auto_add_ids',[301,302])]:
+        altered=copy.deepcopy(offer);altered[field]=value
+        assert helper(altered,row) is False
+
+
+def test_conditional_gate_does_not_exempt_other_source_or_lock_blockers(monkeypatch):
+    _inject(monkeypatch)
+    snap,cap,receipt,league=frozen()
+    snap['espn']['teams'][0]['roster'][0]['lineup_locked']=True
+    offer=b1.build_frontier(snap,cap,receipt)['offers'][0]
+    import numpy as np
+    called=[]
+    def allowed_alternate(_snap,_league,_model,_values,_offer,opt,_branch,user,n,_runtime,cache):
+        assert opt['drop_ids']!=[101]
+        called.append(tuple(opt['drop_ids']))
+        return {1:(np.zeros(n),np.ones(n)),2:(np.zeros(n),np.ones(n))},{}
+    result=b2b6.evaluate(snap,cap,receipt,league,{},Path('none.csv'),Path('none'),
+                         offer['offer_id'],scenarios=16,kernel=allowed_alternate)
+    assert all(x!='FROZEN_LOCK_EVIDENCE_NOT_EXPLICITLY_UNLOCKED' for x in called)
+    assert any('FROZEN_LOCK_EVIDENCE_NOT_EXPLICITLY_UNLOCKED' in x['blockers']
+               for x in result['options'] if x['native_selected'])
+    assert result['espn_action_authority']=='NONE'

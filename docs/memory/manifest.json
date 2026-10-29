@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-29T00:55:37.134942-04:00",
+  "generated_at": "2026-10-29T02:28:18.934772-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7845,
-      "sha256": "db9c493386536df441b752980b571a18fb4058d0632802a5613967771eb7e73a"
+      "bytes": 7228,
+      "sha256": "3a6333ad108b853918016bce3760d99c4921cbf3b806363dc73072cc57cc56fe"
     },
     {
       "path": "LEARNINGS.md",
@@ -833,6 +833,11 @@
       "path": "evidence/WEEK8_B2B5_FROZEN_TRADE_PORTFOLIO_GATE_2026-10-28.md",
       "bytes": 2719,
       "sha256": "9190abc630b83a3bb51818142db6e3a38836ae479a6e3032866444c0ba6b27e5"
+    },
+    {
+      "path": "evidence/WEEK8_B2B6_CONDITIONAL_POSITION_REBALANCE_GATE_2026-10-29.md",
+      "bytes": 3573,
+      "sha256": "096625d5f10a8cbdc42fc80584dfb7d0124699ad7c381e6740f05628dcc53493"
     },
     {
       "path": "evidence/WEEK8_B2B6_MATCHED_FILL_ALTERNATE_DROP_2026-10-28.md",

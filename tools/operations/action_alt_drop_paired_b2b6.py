@@ -62,6 +62,42 @@ def _signature(branch: dict) -> tuple[tuple[str, int, bool], ...]:
     return tuple(signature)
 
 
+def _conditional_rebalance_success(offer: dict, branch: dict) -> bool:
+    """Gate only *hypothetical* success of frozen specialist position repair.
+
+    This never certifies acquiring the specialist. B2b2's recorded no-guarantee
+    warning is retained in its source receipt. Failure/unproven branches and
+    unrelated future-fill paths continue to obey the existing blocker rule.
+    """
+    evidence = offer.get('blocking_evidence')
+    additions = offer.get('modeled_native_auto_add_ids')
+    if (type(evidence) is not list or
+            'NATIVE_POSITION_REBALANCE_CONDITIONAL_FROZEN_FILL' not in evidence or
+            type(additions) is not list or not additions or
+            any(type(pid) is not int or pid == 0 for pid in additions) or
+            len(set(additions)) != len(additions) or
+            offer.get('required_user_drops_by_count') != 0 or
+            offer.get('required_user_fills_by_count') != 0):
+        return False
+    outcomes = branch.get('fill_outcomes')
+    if type(outcomes) is not list:
+        return False
+    if any(type(x) is not dict or
+           x.get('side') not in ('user', 'partner') or
+           type(x.get('id')) is not int or
+           type(x.get('conditional_success')) is not bool or
+           type(x.get('materialized_from_frozen_market')) is not bool
+           for x in outcomes):
+        return False
+    user_rows = [x for x in outcomes if x['side'] == 'user']
+    return (len(user_rows) == len(additions) and
+            {x['id'] for x in user_rows} == set(additions) and
+            all(x['conditional_success'] and x['materialized_from_frozen_market']
+                for x in user_rows) and
+            all(not x['conditional_success'] or x['materialized_from_frozen_market']
+                for x in outcomes))
+
+
 def _checked_response(response: dict, user: int, partner: int, count: int) -> dict:
     import numpy as np
     require(type(response) is dict and set(response) == {user, partner},
@@ -166,9 +202,15 @@ def evaluate(snapshot: dict, capture: dict, receipt: dict, league: dict,
             sig = _signature(branch)
             # Frozen static and drop proof must be affirmative to run the native
             # kernel; hypothetical fills never become guaranteed acquisitions.
-            allowed = {'FUTURE_FILL_AT_PROCESSING_UNVERIFIED:'}
+            conditional_rebalance = _conditional_rebalance_success(offer, branch)
+            # Waive only the *blanket no-guarantee* warning for an expressly
+            # assumed-success, frozen-market specialist repair. All other
+            # unresolved source/position/permission blockers stay fail-closed.
             notes = [str(b) for b in branch['unresolved']]
-            blockers = [b for b in notes if not any(b.startswith(prefix) for prefix in allowed)]
+            blockers = [b for b in notes if not (
+                b.startswith('FUTURE_FILL_AT_PROCESSING_UNVERIFIED:') or
+                (conditional_rebalance and
+                 b == 'FUTURE_USER_FILL_REQUIRED_NO_GUARANTEE'))]
             blockers += partner_proof
             blockers += [x for x in ('FROZEN_ESPN_DROPPABLE_NOT_TRUE',
                        'FROZEN_LOCK_EVIDENCE_NOT_EXPLICITLY_UNLOCKED')
@@ -179,7 +221,8 @@ def evaluate(snapshot: dict, capture: dict, receipt: dict, league: dict,
                  'fill_state': [{'side':s,'asset_id':i,'conditional_success':yes} for s,i,yes in sig],
                  'state':'BLOCKED', 'blockers':sorted(set(blockers)),
                  'hypothetical_future_fill':any(yes for _,_,yes in sig),
-                 'future_fill_probability':'UNKNOWN', 'espn_action_authority':'NONE'}
+                 'future_fill_probability':'UNKNOWN', 'espn_action_authority':'NONE',
+                 'conditional_rebalance_success_assumed': conditional_rebalance}
             if not row['blockers']:
                 try:
                     raw,cache_candidate=kernel_impl(snapshot,league,model,values,joined,opt,branch,
