@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-10-28T19:57:06.560968-04:00",
+  "generated_at": "2026-10-28T22:46:01.745898-04:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7291,
-      "sha256": "79cd72dfbfd90b3d70316dfcf23ad705f0855c1c541fb1e835dfbe246d92b3c2"
+      "bytes": 6729,
+      "sha256": "cb5dc509c99c566a967c858fca86a447ffabd19f76fa4464d703a6eac2afb92e"
     },
     {
       "path": "LEARNINGS.md",
@@ -843,6 +843,11 @@
       "path": "evidence/WEEK8_HEALTHY_INCOMPLETE_REVIEW_BOUNDARY_2026-10-26.md",
       "bytes": 2714,
       "sha256": "9befb681db73902a92e8df8938506aed2e3f8b842a4bf6717db5ae09e65de74b"
+    },
+    {
+      "path": "evidence/WEEK8_SIGNED_DST_FROZEN_TRADE_ID_CONTRACT_2026-10-28.md",
+      "bytes": 3366,
+      "sha256": "05aa3db98edb96c7ca10326d3a58fd48fb955b7869b2c3578f2c845b1a974ba2"
     },
     {
       "path": "evidence/WEEK8_V2_COMMISSIONING_TRIAL_SOURCE_2026-10-25.md",

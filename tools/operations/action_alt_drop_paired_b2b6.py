@@ -25,11 +25,11 @@ MAX_DROP_OPTIONS = 24
 MAX_CONDITIONAL_CASES = 128
 MAX_SCENARIOS = 128
 SOURCE_BLOBS = {
-    'tools/operations/action_frontier.py': '06598c712e2d88c6a997d1f202e84b29109cd838',
+    'tools/operations/action_frontier.py': 'a80813df470d48f46ae2e2b93c85178f3e960cc7',
     'tools/operations/action_fill_predictive_b2b3.py': '46ef614b639b09b02c588cb3d70ea86b70f030d6',
     'tools/operations/action_predictive_b2.py': '6b8352590eb7b898483c335b1f4532ed0860c62d',
     'tools/operations/action_partner_b2b.py': 'd6ae2e3d1fb811638a0c36054fd86da14416df53',
-    'tools/operations/action_portfolio_b2b2.py': '85a6608ad1fbb6d6a62ff9bbd634e41caac801f4',
+    'tools/operations/action_portfolio_b2b2.py': '1dc736a6edf0cd766a8477071a10ca980d731a45',
     'tools/operations/action_certification.py': '4780d467874920333141f55ddf65ed20fb02ba61',
 }
 
@@ -53,7 +53,7 @@ def _signature(branch: dict) -> tuple[tuple[str, int, bool], ...]:
     signature = []
     for x in rows:
         require(type(x) is dict and x.get('side') in ('user', 'partner') and
-                type(x.get('id')) is int and x['id'] >= 0 and
+                type(x.get('id')) is int and x['id'] != 0 and
                 type(x.get('conditional_success')) is bool,
                 'B2B6_FILL_IDENTITY_INVALID')
         signature.append((x['side'], x['id'], x['conditional_success']))

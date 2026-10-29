@@ -37,7 +37,7 @@ def _need(ok: bool, reason: str) -> None:
 def _ids_strict(offer: Mapping[str, Any], key: str) -> tuple[int, ...]:
     raw = offer.get(key)
     _need(isinstance(raw, list), "NATIVE_OFFER_IDS_NOT_LIST:" + key)
-    _need(all(type(v) is int and v >= 0 for v in raw), "NATIVE_OFFER_IDS_INVALID:" + key)
+    _need(all(type(v) is int and v != 0 for v in raw), "NATIVE_OFFER_IDS_INVALID:" + key)
     _need(len(set(raw)) == len(raw), "DUPLICATE_OFFER_IDS:" + key)
     return tuple(raw)
 
@@ -45,6 +45,9 @@ def _ids_strict(offer: Mapping[str, Any], key: str) -> tuple[int, ...]:
 def _exact_roster(team: Mapping[str, Any]) -> dict[int, dict[str, Any]]:
     roster = team.get("roster")
     _need(isinstance(roster, list) and roster, "TEAM_ROSTER_UNAVAILABLE")
+    _need(all(type(p.get("espn_id")) is int and p["espn_id"] != 0 and
+              (p["espn_id"] > 0 or _position(p) == "DST") for p in roster),
+          "ROSTER_ASSET_ID_SIGN_OR_POSITION_INVALID")
     out = _lookup(roster)
     _need(len(out) == len(roster), "DUPLICATE_OR_UNIDENTIFIED_ROSTER_ASSETS")
     return out

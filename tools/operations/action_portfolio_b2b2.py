@@ -39,7 +39,8 @@ def _team(snapshot: dict[str, Any], tid: int) -> dict[str, Any]:
 def _owned(team: dict[str, Any]) -> dict[int, dict[str, Any]]:
     roster = team.get('roster')
     need(isinstance(roster, list) and roster, 'FROZEN_TEAM_ROSTER_UNAVAILABLE')
-    need(all(isinstance(p, dict) and type(p.get('espn_id')) is int and p['espn_id'] >= 0
+    need(all(isinstance(p, dict) and type(p.get('espn_id')) is int and p['espn_id'] != 0
+             and (p['espn_id'] > 0 or str(p.get('position') or '').upper() == 'DST')
              and str(p.get('position') or '').upper() in POSITIONS for p in roster),
          'FROZEN_ROSTER_IDENTITIES_OR_POSITIONS_UNSUPPORTED')
     out = {p['espn_id']:p for p in roster}
@@ -104,7 +105,10 @@ def _future_fill_rows(snapshot: dict[str,Any],
     if fills and not isinstance((snapshot.get('espn') or {}).get('available_players'), list):
         blockers.append('FROZEN_AVAILABLE_POOL_NOT_PRESENT_UNVERIFIED')
     for side,pid in fills:
-        need(type(pid) is int and pid >= 0, 'FUTURE_FILL_ID_INVALID')
+        need(type(pid) is int and pid != 0, 'FUTURE_FILL_ID_INVALID')
+        if pid < 0:
+            need(pid in available and str(available[pid].get('position') or '').upper() == 'DST',
+                 'FUTURE_NEGATIVE_ID_NOT_FROZEN_DST')
         if pid in frozen_owned:
             blockers.append('NATIVE_FILL_ALREADY_OWNED:' + side)
         elif pid not in available:
