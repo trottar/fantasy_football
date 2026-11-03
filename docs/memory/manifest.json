@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-11-02T20:20:59.756309-05:00",
+  "generated_at": "2026-11-02T21:34:11.337331-05:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7533,
-      "sha256": "df70d71333779806289af153e10e68e6d5fbba758905c4d8a8bdb779092cffa1"
+      "bytes": 5962,
+      "sha256": "1ee9e7b015626b16eafe3332f698a80d7a450843776cf1d2a2ea8f39c1bb0b43"
     },
     {
       "path": "LEARNINGS.md",
@@ -885,6 +885,11 @@
       "sha256": "3fcf881edb6bb65099c94c1ae111d4cbd25f1b7cca75f1a121625c51c3403efa"
     },
     {
+      "path": "evidence/WEEK9_MC_DECISION_BOARD_2026-11-02.md",
+      "bytes": 2561,
+      "sha256": "729321c4ef838c110ff60879ddcb9db5bd6b2034cc9f06d3aa63a22e4c805e1a"
+    },
+    {
       "path": "evidence/WEEK9_PORTABLE_V2_FROZEN_TRADE_JOIN_2026-11-02.md",
       "bytes": 3165,
       "sha256": "3af2756bbea74ccec93cd460c99f268d6c474e302b3f8ad7d386882f28e9f4f1"
@@ -971,8 +976,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 1519,
-      "sha256": "ed38e1e76985302391eaf1ef29f4dd97f76486e72851b3682808999911e641ce"
+      "bytes": 1814,
+      "sha256": "1c2a74eb41ba6aa7de90d1449a42d3b19299d1c8d53e527c0ba2661def647d7f"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",

@@ -401,6 +401,26 @@ def render_panel(runtime: Path) -> None:
                 ui.label(f"Week {data['week']} · {data['slot']} saved report {data['observed_utc']} · native {data['native_overall']} · health {data['health']}").classes('font-semibold')
                 ui.label(f"Source {data['receipt_hash_short']}… · trial {data['trial_state']} · ESPN authority NONE").classes('text-sm')
                 ui.label('The native model selects football actions. Live legality and approval are independent.').classes('text-sm')
+                # Human-first MC opportunity report; all evidence remains read-only.
+                from src.gui.weekly_mc_decision_board import build_board
+                board = build_board(data)
+                with ui.card().classes('w-full p-3'):
+                    ui.label(f"Ranked MC decision board | Week {board['week_now']}").classes('text-lg font-semibold')
+                    ui.label(f"Saved native Week {board['week_saved']} | {board['state']}").classes('font-semibold')
+                    if not board['current_week']:
+                        ui.label('Historical MC only. This is not a current-week recommendation.').classes('text-amber-400')
+                    ui.label(board['explanation']).classes('text-sm')
+                    if not board['items']:
+                        ui.label('No retained MC transaction or lineup proposals. This is not a roster-wide HOLD.')
+                    for item in board['items'][:16]:
+                        ui.label(f"#{item['ordinal']} [{item['family_label']}] {item['description']} | {item['state']}")
+                        if item['detail']:
+                            ui.label(item['detail']).classes('text-sm')
+                    if len(board['items']) > 16:
+                        ui.label(f"{len(board['items'])-16} additional retained observations in the detailed panels below.")
+                    if board['channel_gaps']:
+                        ui.label('Incomplete native channels: ' + ', '.join(board['channel_gaps'])).classes('text-amber-400')
+                    ui.label('MC model opportunity != executable ESPN transaction. Nothing is submitted.').classes('text-sm')
                 with ui.card().classes('w-full p-3'):
                     ui.label('Lineup — native proposals / live constraints').classes('font-semibold')
                     if not data['lineup']:
