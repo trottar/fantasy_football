@@ -1,17 +1,16 @@
 # Current Handoff
 
-`CURRENT.md` is the sole authoritative resumable state. This handoff records only exceptional transfer state and cannot override `CURRENT.md`.
+`CURRENT.md` is the sole authoritative resumable state. This file records only exceptional transfer state and cannot override `CURRENT.md`.
 
 ## Transfer State
 
-- The user operates Windows 10 and specifically wants the **existing October 27 portable v2**, not another exporter. The working tree is `L:\Projects\fantasy_football_portable_win10_11_20261027_v2\fantasy_football` with the nested `fantasy_season_v0_36_repack1` runtime. The verified launcher is `L:\Projects\fantasy_football_portable_win10_11_20261027_v2\Start_Fantasy_Football.cmd`.
-- November 3 cleanup archived 604 root `.ffpkg` carriers, 46 historical staging clones, and four additional historical roots (29 checkpoint children) reversibly into `L:\Projects\_fantasy_football_archive_20261103`. No permanent deletion, ESPN, MC, or Git publication. The active control root, portable v2, private Week 8 backup, and ZIP recovery copy were preserved.
-- The November 3 GUI restart was user-verified. The current display is frozen Week 8, labeled `SAVED_WEEK_NOT_CURRENT_DO_NOT_ACT` on the ranked Week 9 board. Saved-report refresh does not perform provider/capture/MC work by design. The user explicitly authorized adding a supervised real evaluation workflow.
-- The six-file November 3 supervised-GUI **source package** passed local apply, targeted tests, and compile checks, with runtime unchanged. The first staging package failed before staging on strict durable-memory health: the generated CURRENT and handoff headings were not canonical. A narrowly guarded two-memory-file correction is required before a second isolated staging attempt. The app and football kernels are unchanged; do not repeat the successful six-file local apply.
-- The resulting GUI candidate invokes the existing explicit supervised v2 operator trial with observable phase/failure states and still has **no section-5A positive action certification, no unattended scheduler, and no ESPN writes**. Protected prospective captures and MC one-start/phase-reuse guards remain binding.
+- The user needs the **existing October 27 Windows 10/11 portable v2** at `L:\Projects\fantasy_football_portable_win10_11_20261027_v2\fantasy_football`, launched via `L:\Projects\fantasy_football_portable_win10_11_20261027_v2\Start_Fantasy_Football.cmd`; do not rebuild it or require a primary-PC-only intervention.
+- The supervised GUI source is published at `0ae154a8ed97954233914cdfa0878b76dafe26d4` and its two GUI modules are **SYNCED_ACCEPTED** in portable v2. A user-launched Tuesday Week 9 supervised trial returned `BLOCKED_NO_VALID_PUBLIC_RESULT` **before** any trial launch/SYNC/CAPTURE/MC/REPORT receipt was created; repeat-trial protection and frozen evidence remain binding.
+- Read-only diagnostics established `MEMORY_HEALTH=PASS` and exposed the precise stale guard pin: portable `src/weekly_decision_cycle.py` is published blob `1c4c40ffc856e27d7b8c0919ee363ec15ce21f89` but `guarded_weekly_cycle.py` requires old `c4c7fafbdeabb9454b8eb0c82a5aa4a466f7d12a`. `fantasy.py` and `src/closure.py` match their strict pins. Do not restore old football source or disable the integrity check.
+- The next source-only five-path correction is **not yet applied/staged/published/runtime-synced**. Preserve the strict `.ffpkg` actor sequence and distinct `LOCAL-APPLIED`, `STAGED`, `PUSHED / REMOTE VERIFIED`, `SYNCED`, and live preflight / commissioning states. Do not run ESPN, capture or MC to test infrastructure.
 
 ## Resume
 
-Follow `../CURRENT.md`'s exact next action, with strict memory health rechecked after the two-file correction. Preserve `LOCAL-APPLIED`, `STAGED`, `PUSHED/REMOTE VERIFIED`, portable `SYNCED`, and `COMMISSIONED` as separate gates. Save/run `.ffpkg` from `L:\Projects\fantasy_football`, never Downloads. Request concise success summaries and full failure logs only when needed.
+Follow `../CURRENT.md` for the exact next action. Return concise success receipts and full failure logs only on errors. Save `.ffpkg` files under `L:\Projects\fantasy_football`. Full action certification, scheduler and automatic ESPN transactions remain uncommissioned.
 
 `durable_memory_updated: true`

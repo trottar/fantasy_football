@@ -20,7 +20,7 @@ EXPECTED_VERSION = "0.36"
 EXPECTED_SOURCE_CHECKPOINT = "68dfabed5088a6ddf90a5d3af4f5497bf25f334a"
 EXPECTED_BLOBS = {
     "fantasy.py": "dd3a0a2b39ea1c6b424e71f6a11273f2503ccc64",
-    "src/weekly_decision_cycle.py": "c4c7fafbdeabb9454b8eb0c82a5aa4a466f7d12a",
+    "src/weekly_decision_cycle.py": "1c4c40ffc856e27d7b8c0919ee363ec15ce21f89",
     "src/closure.py": "9e7602dde722a999c5077904cb5d485d9015f34e",
 }
 PROVIDERS = ("espn", "sleeper", "nflverse_rosters", "nflverse_matchups", "nfl_official_rosters", "nfl_official")
