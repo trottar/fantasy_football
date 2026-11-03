@@ -1,13 +1,13 @@
 # Current Project State
 
 ---
-state_updated: 2026-10-29
+state_updated: 2026-11-02
 authoritative_release: v0.36-repack1
 internal_version: "0.36"
-active_phase: week8_portable_v2_operator_completion
-active_workstream: existing_oct27_portable_v2_runtime_and_operator_reconciliation
+active_phase: week9_portable_v2_operator_completion
+active_workstream: existing_portable_v2_frozen_certificate_report_join
 memory_refinement_step: none
-nfl_week: 8
+nfl_week: 9
 fantasy_stage: regular_season
 maintenance_status: healthy
 ---
@@ -18,10 +18,10 @@ maintenance_status: healthy
 
 ## Current Work Item
 
-- GitHub `main` at **`5d50694ccdcca4c08b03ff6f19d45bf61e4f6998`** (verified during the October 29 continuity audit) already publishes the opt-in B2b6 conditional specialist-fill source correction, its regression, and its evidence. Its parent is `73e255e56763b2955be29feca141a7efc4303a71`. **Do not redeliver the B2b6 source patch as an outstanding task.** This SHA is an observed source baseline, not the unknown SHA of this future memory checkpoint.
+- GitHub historical source checkpoint **`5d50694ccdcca4c08b03ff6f19d45bf61e4f6998`** (verified during the October 29 continuity audit) already publishes the opt-in B2b6 conditional specialist-fill source correction, its regression, and its evidence. Its parent is `73e255e56763b2955be29feca141a7efc4303a71`. **Do not redeliver the B2b6 source patch as an outstanding task.** This SHA is an observed source baseline, not the unknown SHA of this future memory checkpoint.
 - The committed `CURRENT.md` falsely listed that patch as unpublished and its delivery as the next action. This was a semantic-memory defect.
 - **Separate authorities:** GitHub published source, `L:\Projects\fantasy_football\` control root, commissioned `fantasy_season_v0_36_repack1` runtime, October 27 portable candidate/v2, local staged Git state, and remote-verified state. None implies another is synchronized or commissioned. Do not assert a Windows runtime source/hash without local direct evidence.
-- Existing **October 27 portable v2** is documented in prior project conversation. Known candidate references include `L:\Projects\fantasy_football_portable_candidate_20261027` and `L:\Projects\fantasy_football_portable_win10_11_20261027_v2`. The exact runnable root, layout, copied private evidence, and independent-machine acceptance are **not yet reconciled**; do not infer a missing runtime merely from the failed guessed `fantasy_season_v0_36_repack1\data\season_decisions` path. The October 30 proposed exporter is redundant and not the deployment baseline.
+- November 2 direct read-only Windows reconciliation located the **existing portable v2** at `L:\Projects\fantasy_football_portable_win10_11_20261027_v2\fantasy_football\fantasy_season_v0_36_repack1`, with companion `tools/operations` under its `fantasy_football` parent. The installed v0.36 `fantasy.py`, bootstrap, weekly GUI view, operator and Slice-A certifier match published source identities. The private runtime contains 3 frozen captures, 2 native weekly receipts and 2 operator trial reports; historical count mismatch with the original is not current-epoch failure. Cross-machine startup/restart remains **unverified**, and no scheduled task or ESPN action authority is established.
 
 ## Verified State
 
@@ -33,7 +33,7 @@ maintenance_status: healthy
 
 ## Calendar / Evidence Gates
 
-Thursday October 29 kickoff has occurred. Saturday October 31 is a protected **future-games-only** prospective follow-up, not a chance to backfill Thursday. The user has stated they will be away: do not prescribe a manual Saturday primary-PC operation as though they can perform it. If no independently verified machine/scheduler captures in time, preserve and label the missing prospective observation. Do not install/enable a Task Scheduler job before live end-to-end commissioning. Do not invent player-specific locks, waiver deadlines, transaction acceptance or probabilities.
+Week 9 Monday is November 2, 2026; a fresh Week 9 prospective capture and exact decision-time evidence, if not already frozen before relevant individual kickoffs, are mandatory before action. Weeks 7-8 historical observations must not become current authority or be backfilled. Protect the next real game/claim deadlines; no uncommissioned scheduler or automatic ESPN writes. The current change is code/source-only and must not read private evidence, run MC or cause a capture during installation.
 
 ## Scientific / Architectural Boundaries
 
@@ -41,14 +41,13 @@ Preserve `N_fantasy ~ L × sigma × A × epsilon`; `P ⊕ D ⊕ K`; `Delta U = U
 
 ## Exact Next Action
 
-**Read-only reconciliation of the existing October 27 portable v2 installation against the already-published control-root/operator source and the commissioned runtime**, not a rebuild and not an exploratory MC run. Establish the actual runnable root, relative-path portability, GUI entrypoint, runtime/model/values identities, local private evidence location, source/receipt sync, and independent Windows acceptance status from direct local facts. Do not modify files based on assumed folder nesting. Reuse previous verified gates; identify only blockers which prevent the existing portable v2 from executing the approved one-entry-point procedure. Then implement and validate **one real integration blocker** within that existing build: full current nine-channel action/risk certificate and report first, followed by scheduler commissioning. Every changed code path must have deterministic fixtures, full applicable tests, exact package validation, separate staging/publication/runtime commissioning, and explicit current-state receipt. The user should not need another duplicate exporter or Saturday manual capture task.
-
-If the primary Windows installation is inaccessible while the user is away, do not imply this reconciliation or any live local install was performed. Retain this documented blocker and work on source-only evidence supported by exact public repository bytes without requesting speculative Windows runs.
+**Complete the guarded local source-only application of the existing operator's frozen Slice-A certificate join**, then validate targeted regressions and strict memory health, followed by isolated full `pytest`, `compileall`, manifest/staging and separate publication. Keep the commissioned v0.36 and October 27 portable runtime unchanged until explicit runtime-sync/commissioning gates. The join adds source-pinned nine-channel scope and frozen trade-blocker counts to the operator's private report; it unconditionally retains `INCOMPLETE_COVERAGE`, `recommendation_certified=False`, and `transaction_authority=NONE`. It does not resolve current ESPN action-screen legality, partner acceptance, effective-time/future-fill uncertainty or multi-action MC. Following the source gate, close these *actual current-state* section-5A transaction certifications and one approval-ready ranked report before scheduler activation. No extra portable exporter or replay of Week 8 MC.
 
 ## Relevant References
 
 - `USER.md`, `handoffs/CURRENT_HANDOFF.md`, `architecture/WEEK8_WEEKLY_OPERATOR_V2_INTEGRATION_GATE.md`, `architecture/WEEKLY_DECISION_OPERATOR_V2_SPEC.md`, `architecture/WEEKLY_DECISION_COMPLETION.md`.
 - `evidence/WEEK8_WEDNESDAY_SPECIALIST_GUI_DISPLAY_2026-10-28.md`; `evidence/WEEK8_B2B6_CONDITIONAL_POSITION_REBALANCE_GATE_2026-10-29.md`; `evidence/WEEK8_CONTINUITY_PORTABLE_V2_RECONCILIATION_2026-10-29.md`.
-- `../../tools/operations/weekly_operator_v2.py`; `../../tools/operations/weekly_operator_review.py`; `../../tools/operations/weekly_operator_controller.py`.
+- `../../tools/operations/weekly_operator_v2.py`; `../../tools/operations/action_certification.py`; `../../tools/operations/weekly_operator_review.py`; `../../tools/operations/weekly_operator_controller.py`.
+- `evidence/WEEK9_PORTABLE_V2_FROZEN_TRADE_JOIN_2026-11-02.md`.
 
 `durable_memory_updated: true`

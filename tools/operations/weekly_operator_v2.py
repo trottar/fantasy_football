@@ -320,10 +320,90 @@ def preflight(root: Path, now: datetime, week: int) -> Path:
     return runtime
 
 
+def frozen_trade_risk_join(root: Path, runtime: Path, *, snap: dict,
+                           cap: dict, receipt_sha: str) -> dict:
+    """Join existing immutable native MC to Slice-A frozen trade risk only.
+
+    Returns a bounded, source-pinned observational summary, never action
+    authority. The existing GUI's certification source pin is preserved.
+    """
+    import importlib.util
+
+    cert_path = root / 'tools/operations/action_certification.py'
+    require(cert_path.is_file() and not cert_path.is_symlink(),
+            'FROZEN_TRADE_CERTIFICATION_SOURCE_MISSING')
+    raw = cert_path.read_bytes().removeprefix(b'\xef\xbb\xbf').replace(b'\r\n', b'\n').replace(b'\r', b'\n')
+    blob = hashlib.sha1(b'blob ' + str(len(raw)).encode('ascii') + b'\x00' + raw).hexdigest()
+    require(blob == '4780d467874920333141f55ddf65ed20fb02ba61',
+            'FROZEN_TRADE_CERTIFICATION_SOURCE_DRIFT')
+    require(isinstance(receipt_sha, str) and len(receipt_sha) == 64 and
+            all(ch in '0123456789abcdef' for ch in receipt_sha),
+            'FROZEN_TRADE_RECEIPT_HASH_INVALID')
+
+    snapshot_path = runtime / 'data/season_snapshots/latest.json'
+    require(digest(snapshot_path) == snap.get('sha256'),
+            'FROZEN_TRADE_SNAPSHOT_IDENTITY_CHANGED')
+    capture_dir = (runtime / 'data/season_predictions/closure').resolve()
+    capture_path = (runtime / str(cap.get('path') or '')).resolve()
+    require(capture_path.is_relative_to(capture_dir) and
+            digest(capture_path) == cap.get('sha256'),
+            'FROZEN_TRADE_CAPTURE_IDENTITY_CHANGED')
+    receipt_dir = runtime / 'data/season_decisions'
+    require(receipt_dir.is_dir(), 'FROZEN_TRADE_RECEIPT_DIRECTORY_MISSING')
+    matches = [p for p in receipt_dir.glob('weekly_decision_receipt_*.json')
+               if p.is_file() and not p.is_symlink() and p.stat().st_size <= 32*1024*1024
+               and digest(p) == receipt_sha]
+    require(len(matches) == 1, 'FROZEN_TRADE_RECEIPT_JOIN_NOT_UNIQUE')
+    snapshot, capture, native = (jsonfile(p) for p in
+                                 (snapshot_path, capture_path, matches[0]))
+    require(native.get('season') == 2026 and native.get('week') == snap.get('week'),
+            'FROZEN_TRADE_NATIVE_WEEK_INVALID')
+    # Import only the exact source file whose Git blob is already GUI-pinned.
+    spec = importlib.util.spec_from_file_location('_v2_frozen_cert', cert_path)
+    require(spec is not None and spec.loader is not None,
+            'FROZEN_TRADE_IMPORT_INVALID')
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    cert = mod.certify_receipt(snapshot, capture, native)
+    require(cert.get('frozen_input_integrity') == 'PASS' and
+            cert.get('certified_action_count') == 0 and
+            cert.get('espn_action_authority') == 'NONE' and
+            cert.get('final_state') == 'BLOCKED_CERTIFICATION_NOT_COMMISSIONED',
+            'FROZEN_TRADE_SLICE_A_AUTHORITY_INVALID')
+    import weekly_operator_review as reviewer
+    matrix = reviewer.receipt_channels(native)
+    statuses = {}
+    for key, row in matrix.items():
+        st = str(row.get('status') or '')
+        statuses[key] = ('PASS' if st.startswith('PASS') else
+                         'INCOMPLETE_COVERAGE' if st.startswith('INCOMPLETE_COVERAGE') else
+                         'BLOCKED_HEALTH' if st.startswith('BLOCKED_HEALTH') else 'UNKNOWN')
+    blockers = {}
+    candidates = cert.get('candidates') or []
+    require(isinstance(candidates, list) and len(candidates) <= 64,
+            'FROZEN_TRADE_CERTIFICATE_BUDGET_INVALID')
+    for row in candidates:
+        require(isinstance(row, dict) and row.get('final_decision') == 'BLOCKED' and
+                row.get('espn_action_authority') == 'NONE',
+                'FROZEN_TRADE_CANDIDATE_AUTHORITY_INVALID')
+        for key in row.get('blockers') or []:
+            require(isinstance(key, str) and 0 < len(key) <= 120 and
+                    all(c.isupper() or c.isdigit() or c == '_' for c in key),
+                    'FROZEN_TRADE_BLOCKER_LABEL_INVALID')
+            blockers[key] = blockers.get(key, 0) + 1
+    require(len(blockers) <= 64, 'FROZEN_TRADE_BLOCKER_BUDGET_INVALID')
+    return {'state': 'FROZEN_SCOPE_ONLY', 'native_overall': str(native.get('overall_state')),
+            'native_channel_statuses': statuses, 'trade_candidate_count': len(candidates),
+            'trade_blocker_counts': dict(sorted(blockers.items())),
+            'certified_action_count': 0, 'action_authority': 'NONE',
+            'source': 'EXISTING_SLICE_A_PROVENANCE_VERIFIED'}
+
+
 def safe_report(root: Path, runtime: Path, *, week: int, slot: str,
                 state: str, stages: list[str], blocker: str | None,
                 observation_utc: str, queue: Any = None,
-                commissioning_trial: bool = False) -> dict:
+                commissioning_trial: bool = False,
+                frozen_trade_risk: Any = None) -> dict:
     """Reports remain private even when the outcome is incomplete or blocked."""
     allowed = {'SCOPED_READY', 'CAPTURE_REQUIRED', 'BLOCKED_SOURCE',
                'BLOCKED_HEALTH', 'INCOMPLETE_COVERAGE'}
@@ -335,7 +415,9 @@ def safe_report(root: Path, runtime: Path, *, week: int, slot: str,
             'espn_writes': False,
             'commissioning_trial': commissioning_trial,
             'queue': queue if isinstance(queue, list) else [],
-            'next_step': ('REVIEW_PRIVATE_REPORT' if state == 'SCOPED_READY' else
+            'frozen_trade_risk': frozen_trade_risk if isinstance(frozen_trade_risk, dict) else
+                                 {'state': 'NOT_EVALUATED', 'action_authority': 'NONE'},
+             'next_step': ('REVIEW_PRIVATE_REPORT' if state == 'SCOPED_READY' else
                           'RESOLVE_EXPLICIT_BLOCKER_NO_ESPN_SUBMISSION')}
 
 
@@ -383,6 +465,7 @@ def execute(root: Path, *, now: datetime, week: int | None = None,
     blocker: str | None = None
     queue: list = []
     status = 'BLOCKED_HEALTH'
+    frozen_trade_risk = {'state': 'NOT_EVALUATED', 'action_authority': 'NONE'}
     expected_launch = {'contract': CONTRACT, 'week': week, 'slot': slot,
                        'source_sha256': source_sha, 'no_automatic_repeat': True,
                        'commissioning_trial': commissioning_trial}
@@ -467,6 +550,18 @@ def execute(root: Path, *, now: datetime, week: int | None = None,
         done.append('MC')
         queue = plan.get('queue') if isinstance(plan.get('queue'), list) else []
         done.append('REVIEW')
+        # The frozen risk join is observational, not a current ESPN certificate.
+        # Missing/tampered evidence is recorded explicitly; never interpreted as HOLD.
+        try:
+            frozen_trade_risk = frozen_trade_risk_join(
+                root, runtime, snap=snap, cap=cap, receipt_sha=receipt_sha)
+        except Blocked as exc:
+            frozen_trade_risk = {'state': 'BLOCKED_FROZEN_JOIN', 'blocker': str(exc),
+                                 'action_authority': 'NONE'}
+        except Exception as exc:
+            frozen_trade_risk = {'state': 'BLOCKED_FROZEN_JOIN',
+                                 'blocker': 'EXCEPTION_' + type(exc).__name__,
+                                 'action_authority': 'NONE'}
         status = 'INCOMPLETE_COVERAGE'
         blocker = 'FULL_ACTION_CERTIFICATION_NOT_COMMISSIONED'
     except Blocked as exc:
@@ -480,7 +575,8 @@ def execute(root: Path, *, now: datetime, week: int | None = None,
     report = safe_report(root,runtime,week=week,slot=slot,state=status,stages=done,
                          blocker=blocker,queue=queue,
                          observation_utc=datetime.now(timezone.utc).isoformat(),
-                         commissioning_trial=commissioning_trial)
+                         commissioning_trial=commissioning_trial,
+                          frozen_trade_risk=frozen_trade_risk)
     atomic_private_json(report_file,report)
     return report
 
