@@ -1,8 +1,9 @@
-"""Local, read-only native weekly decision presentation for the portable NiceGUI.
+"""Local native weekly evidence display and supervised v2 operator entrypoint.
 
-A decision is never inferred from a screen: only existing native MC receipts are
-presented.  This module does not import the operator, run MC, contact ESPN, or
-write any file.  The GUI may refresh the view without changing an evidence epoch.
+Saved-report refresh remains read-only. An explicitly acknowledged, guarded
+supervised trial may run the separately source-pinned operator: provider reads,
+prospective capture, native MC, and read-only reconciliation. No ESPN writes,
+automatic scheduling, or positive transaction certification are authorized.
 """
 from __future__ import annotations
 
@@ -387,17 +388,22 @@ def render_panel(runtime: Path) -> None:
         with ui.row().classes('w-full items-center justify-between'):
             ui.label('Weekly MC evidence / action gating').classes('text-lg font-semibold')
             refresh = ui.button('Refresh saved decisions', icon='refresh')
-        ui.label('Existing frozen native MC and read-only review only. Refresh never runs ESPN, capture, or MC.').classes('text-sm')
+            evaluate = ui.button('Run supervised weekly evaluation', icon='play_arrow')
+        ui.label('Refresh re-reads saved reports only; it does not contact ESPN or run MC.').classes('text-sm')
+        ui.label('Supervised evaluation: current provider reads, immutable pregame capture, nine-channel native MC, and live read-only review. Uncommissioned trial; no ESPN transaction submission or automatic approval.').classes('text-sm')
+        consent = ui.checkbox('I authorize one new supervised read-only ESPN / prospective capture / native MC trial for the protected slot. No roster changes.')
+        execution_status = ui.label('NO_NEW_EVALUATION_STARTED | ESPN_ACTION_AUTHORITY=NONE').classes('text-sm')
         area = ui.column().classes('w-full gap-3')
+        execution = {'running': False, 'plan': None, 'last_receipt': None}
 
-        def redraw() -> None:
+        def redraw() -> tuple[str, str] | None:
             area.clear()
             with area:
                 try:
                     data = collect(runtime)
                 except (DecisionViewBlocked, ValueError, OSError, KeyError, TypeError):
                     ui.label('No validated native weekly receipt available. No action authority.').classes('text-amber-400')
-                    return
+                    return None
                 ui.label(f"Week {data['week']} · {data['slot']} saved report {data['observed_utc']} · native {data['native_overall']} · health {data['health']}").classes('font-semibold')
                 ui.label(f"Source {data['receipt_hash_short']}… · trial {data['trial_state']} · ESPN authority NONE").classes('text-sm')
                 ui.label('The native model selects football actions. Live legality and approval are independent.').classes('text-sm')
@@ -478,5 +484,66 @@ def render_panel(runtime: Path) -> None:
                     for q in data['review']:
                         ui.label(f"{q['family']}: {q['state']}")
                     ui.label('No ESPN transactions are submitted by this page.')
-        refresh.on_click(redraw)
-        redraw()
+            return (data['receipt_hash_short'], data['observed_utc'])
+        def refresh_only() -> None:
+            from datetime import datetime, timezone
+            prior = execution['last_receipt']
+            evidence = redraw()
+            execution['last_receipt'] = evidence
+            tag = ('SAVED_EVIDENCE_UNCHANGED' if evidence is not None and evidence == prior
+                   else 'SAVED_EVIDENCE_RELOADED' if evidence is not None
+                   else 'NO_VALID_SAVED_EVIDENCE')
+            execution_status.text = (tag + ' | ' + datetime.now(timezone.utc).strftime('%H:%M:%S UTC')
+                                     + ' | NO_ESPN_OR_MC_WORK')
+
+        async def launch_supervised() -> None:
+            import sys
+            from src.gui.weekly_evaluation_runner import (
+                EvaluationBlocked, prepare, supervised_run)
+            if execution['running']:
+                execution_status.text = 'BLOCKED_ALREADY_RUNNING'
+                return
+            if consent.value is not True:
+                execution_status.text = 'BLOCKED_EXPLICIT_SUPERVISED_TRIAL_ACK_REQUIRED'
+                return
+            try:
+                plan = prepare(runtime, Path(sys.executable))
+            except (EvaluationBlocked, OSError, ValueError) as exc:
+                reason = str(exc)
+                execution_status.text = ('BLOCKED_' + reason if reason.isascii() and
+                    len(reason) < 120 and all(c.isupper() or c.isdigit() or c == '_' for c in reason)
+                    else 'BLOCKED_PREFLIGHT_ERROR')
+                return
+            execution['running'] = True
+            execution['plan'] = plan
+            consent.value = False
+            evaluate.disable()
+            execution_status.text = ('PREFLIGHT_COMPLETE | Week ' + str(plan['week']) +
+                                     ' ' + plan['slot'] + ' | launching protected trial | ESPN_ACTION_AUTHORITY=NONE')
+            try:
+                result = await supervised_run(plan)
+                note = result.get('blocker') or 'NONE'
+                execution_status.text = (result['state'] + ' | blocker ' + note +
+                                         ' | ESPN_ACTION_AUTHORITY=NONE')
+                execution['last_receipt'] = redraw()
+            except (EvaluationBlocked, OSError, ValueError) as exc:
+                reason = str(exc)
+                execution_status.text = ('BLOCKED_' + reason if reason.isascii() and
+                    len(reason) < 120 and all(c.isupper() or c.isdigit() or c == '_' for c in reason)
+                    else 'BLOCKED_TRIAL_START_OR_EXECUTION')
+            finally:
+                execution['running'] = False
+                execution['plan'] = None
+                evaluate.enable()
+
+        def poll_supervised() -> None:
+            plan = execution['plan']
+            if execution['running'] and plan is not None:
+                from src.gui.weekly_evaluation_runner import phase_status
+                execution_status.text = ('SUPERVISED_TRIAL | ' + phase_status(plan) +
+                                         ' | ESPN_ACTION_AUTHORITY=NONE')
+
+        refresh.on_click(refresh_only)
+        evaluate.on_click(launch_supervised)
+        ui.timer(3.0, poll_supervised)
+        execution['last_receipt'] = redraw()
