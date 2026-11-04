@@ -25,7 +25,7 @@ def _ir_state(**updates):
     return base
 
 
-def test_capacity_accepts_only_single_ir_created_slot():
+def test_capacity_accepts_only_one_current_opened_slot():
     result = _resolve_current_capacity(_ir_state())
     assert result["coverage_complete"] is True
     assert result["reason"] == "IR_MOVE_OPENS_ONE_ACTIVE_SLOT"
@@ -34,8 +34,9 @@ def test_capacity_accepts_only_single_ir_created_slot():
         direct_open_slot_add_capacity=1, ir_move_plus_add_capacity=0,
         potential_add_capacity=1, ir_move_candidates=[],
     ))
-    assert direct["coverage_complete"] is False
-    assert direct["reason"] == "DIRECT_OPEN_ACTIVE_SLOT_OUT_OF_SCOPE"
+    assert direct["coverage_complete"] is True
+    assert direct["reason"] == "DIRECT_OPEN_ACTIVE_SLOT_CURRENT_ONLY"
+    assert direct["move_to_ir"] is None
 
     multiple = _resolve_current_capacity(_ir_state(
         ir_move_plus_add_capacity=2, potential_add_capacity=2,
@@ -169,3 +170,72 @@ def test_ir_receipt_accepts_enriched_hold_and_action():
 def test_raw_b2a_receipt_remains_fail_closed_for_backward_compatibility():
     receipt = _ir_receipt(_ir_state())
     assert receipt.status == "INCOMPLETE_COVERAGE:GATE_B_IR_REPLACEMENT_VALUE_AND_ABSENCE_HORIZON"
+
+
+def test_direct_open_active_slot_is_current_only_and_no_ir_move(monkeypatch):
+    import src.ir_replacement as module
+
+    state = _ir_state(
+        direct_open_slot_add_capacity=1, ir_move_plus_add_capacity=0,
+        potential_add_capacity=1, ir_move_candidates=[],
+    )
+    monkeypatch.setattr(module, "evaluate_ir_roster_state", lambda *args, **kwargs: state)
+    monkeypatch.setattr(module, "_player_candidates", lambda *args, **kwargs: ([{
+        "channel": "PLAYER", "add_espn_id": 21, "add_name": "Current candidate",
+        "add_position": "RB", "fantasy_status": "FREEAGENT",
+        "drop_espn_id": None, "drop_name": None, "p_acquire": 1.0,
+        "conditional_complete_state_delta": {
+            "mean": 0.08, "classification": "ACTIONABLE_EDGE",
+        },
+        "expected_complete_state_delta_mean": 0.08,
+        "classification": "ACTIONABLE_EDGE", "future_capacity_credit": False,
+        "information_policy": INFORMATION_POLICY,
+    }], {"preselected": 1, "predictive_frontier": 1, "screen_authority": False}))
+    monkeypatch.setattr(module, "_specialist_candidates", lambda *args, **kwargs: (
+        [], {"candidates_considered": 0, "open_slot_policy": "OPEN_SLOT_PLUS_ONE_CURRENT_ONLY"}
+    ))
+
+    report = evaluate_ir_replacement({}, {}, {})
+    assert report["authority"] == AUTHORITY
+    assert report["coverage_complete"] is True
+    assert report["coverage_reason"] == "DIRECT_OPEN_ACTIVE_SLOT_CURRENT_ONLY"
+    assert report["move_to_ir"] is None
+    assert report["future_capacity_credit"] is False
+    assert report["multiweek_absence_horizon_used"] is False
+    action = report["recommended_action"]
+    assert action["kind"] == "DIRECT_OPEN_SLOT_ADD"
+    assert action["move_to_ir"] is None
+    assert action["drop_espn_id"] is None
+    assert action["future_capacity_credit"] is False
+    assert action["add"]["add_espn_id"] == 21
+    assert _ir_receipt(report).status == "PASS / ACTION"
+
+
+def test_current_open_slot_never_implicitly_authorizes_two_slots():
+    more_than_one = _resolve_current_capacity(_ir_state(
+        direct_open_slot_add_capacity=2, ir_move_plus_add_capacity=0,
+        potential_add_capacity=2, ir_move_candidates=[],
+    ))
+    assert more_than_one["coverage_complete"] is False
+    assert more_than_one["reason"] == "MULTIPLE_CURRENT_OPEN_SLOTS_UNSUPPORTED"
+
+    mixed = _resolve_current_capacity(_ir_state(
+        direct_open_slot_add_capacity=1, ir_move_plus_add_capacity=1,
+        potential_add_capacity=2,
+    ))
+    assert mixed["coverage_complete"] is False
+    assert mixed["reason"] == "MULTIPLE_CURRENT_OPEN_SLOTS_UNSUPPORTED"
+
+
+def test_direct_open_slot_still_requires_full_position_headroom(monkeypatch):
+    import src.ir_replacement as module
+    state = _ir_state(
+        direct_open_slot_add_capacity=1, ir_move_plus_add_capacity=0,
+        potential_add_capacity=1, ir_move_candidates=[],
+    )
+    del state["position_headroom_total_roster"]["K"]
+    monkeypatch.setattr(module, "evaluate_ir_roster_state", lambda *args, **kwargs: state)
+    report = evaluate_ir_replacement({}, {}, {})
+    assert report["coverage_complete"] is False
+    assert report["coverage_reason"] == "POSITION_MAXIMUM_HEADROOM_INCOMPLETE"
+    assert report["recommended_action"] is None

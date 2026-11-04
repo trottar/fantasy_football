@@ -82,17 +82,26 @@ def _resolve_current_capacity(ir_state: Mapping[str, Any]) -> dict[str, Any]:
             "move_to_ir": None,
         }
 
-    if direct > 0:
-        return {
-            "coverage_complete": False,
-            "reason": "DIRECT_OPEN_ACTIVE_SLOT_OUT_OF_SCOPE",
-            "move_to_ir": None,
-        }
-
     if total > SUPPORTED_CAPACITY:
         return {
             "coverage_complete": False,
             "reason": "MULTIPLE_CURRENT_OPEN_SLOTS_UNSUPPORTED",
+            "move_to_ir": None,
+        }
+
+    # A present-day vacant active slot is already usable: no IR move and
+    # no speculative future injury/return-capacity assumption are needed.
+    if direct == 1 and move_capacity == 0 and total == 1:
+        return {
+            "coverage_complete": True,
+            "reason": "DIRECT_OPEN_ACTIVE_SLOT_CURRENT_ONLY",
+            "move_to_ir": None,
+        }
+
+    if direct > 0:
+        return {
+            "coverage_complete": False,
+            "reason": "DIRECT_OPEN_ACTIVE_SLOT_CAPACITY_AMBIGUOUS",
             "move_to_ir": None,
         }
 
@@ -458,7 +467,11 @@ def evaluate_ir_replacement(
     if actionable:
         best = dict(actionable[0])
         base["recommended_action"] = {
-            "kind": "IR_MOVE_PLUS_ADD",
+            "kind": (
+                "DIRECT_OPEN_SLOT_ADD"
+                if capacity.get("reason") == "DIRECT_OPEN_ACTIVE_SLOT_CURRENT_ONLY"
+                else "IR_MOVE_PLUS_ADD"
+            ),
             "move_to_ir": capacity.get("move_to_ir"),
             "add": best,
             "drop_espn_id": None,
