@@ -1,18 +1,17 @@
 # Current Handoff
 
-`CURRENT.md` is the sole authoritative resumable state. This file records only exceptional transfer state and cannot override `CURRENT.md`.
+`CURRENT.md` is the sole authoritative resumable state. This file records exceptional transfer state only and cannot override `CURRENT.md`.
 
 ## Transfer State
 
-- Continue using the **existing October 27 Windows 10/11 portable v2** at `L:\Projects\fantasy_football_portable_win10_11_20261027_v2\fantasy_football`. The mixed two-opening published checkpoint `36ea137388c8d6e505f805a1e73667dc80aebeaa` is remote verified, and `src/ir_replacement.py` blob `a0c1dffcf13385a44d7dbf6e4eb763e1a089e34e` has been offline-verified synchronized into the portable. Do not rebuild the portable or assume a future source push automatically syncs it.
-- The Week 9 Tuesday and Wednesday supervised MC/capture phase chains completed with bound frozen receipts. Preserve both irreversibly; never rerun or backfill them. No ESPN writes were made.
-- Frozen Wednesday IR occupancy was 15/16 active and 0/1 IR, with one direct vacancy and three alternative candidates to use the one IR slot. The deployed mixed-capacity adapter preserves the direct-add response but correctly leaves coupled two-add response incomplete. Four specialist-inclusive trade candidates have no action certification.
-- The first joint shadow local-apply carrier passed 21 targeted tests pre/post but strict memory health rejected its heading/authority wording, and the entire six-path apply rolled back. This corrected v2 carrier repairs only package/memory contracts; tested source remains unchanged.
-- The next candidate uses a disabled-by-default shadow two-acquisition paired complete-roster MC helper. It tests current-week IR move, P/D/K state compositions and conditional success/failure outcomes with common random numbers; joint manager-claim semantics and independent action certification remain missing. It must not promote `INCOMPLETE_COVERAGE` or recommend an ESPN transaction.
-- The control root is sparse; Windows local source/test preflight must reconstruct imports in a complete isolated stage-backed temporary tree. Keep `LOCAL-APPLIED`, `STAGED`, `PUSHED / REMOTE VERIFIED`, `PORTABLE SYNCED`, and `COMMISSIONED` distinct.
+- Continue using the **existing October 27 Windows 10/11 portable v2** at `L:\Projects\fantasy_football_portable_win10_11_20261027_v2\fantasy_football`; no rebuild or automatic sync is needed. Joint-shadow source was published from validated stage tree `2905499aaac479f4425bb430d2ec2f3a13e58aaa` to commit `60bc7f5c520ae491462afc831f8a12c76fdaa753`, and guarded runtime sync updated exactly `src/ir_replacement.py` and `src/ir_joint_response.py`. Offline source blob, guard, imports and shadow default checks passed.
+- The November 4 read-only offline synthetic acceptance package ran the two published regression files against portable source and reported **21 passed**, no real-data MC, network, ESPN, capture, Git or portable writes. This is not live MC commissioning and grants no action authority.
+- The Week 9 November 3/4 supervised phase receipts and snapshots are immutable. Wednesday IR capacity 15/16 active, 0/1 IR, three alternative move candidates for one IR opening; four specialist-inclusive trades remain uncertified. Do not replay or backfill frozen MC. Thursday November 5 and Saturday calendar opportunities outrank nonessential development.
+- The joint shadow remains disabled by default; supported evaluation is bounded. Missing same-channel specialist pairs, other IR alternatives, dependent joint waiver claims, complete legal composites, and section-5A certification stay **`INCOMPLETE_COVERAGE`** with `ACTION_AUTHORITY=NONE`.
+- The next narrow task is **read-only, source-grounded synthetic gap diagnosis**, not another sync or protected prospective MC run. No production logic change without explicit authorization. Control root and isolated stage/committed remote/portable have distinct identities; no Git connector writes.
 
 ## Resume
 
-Follow `../CURRENT.md` and its exact next action. Return concise PASS summary, full output only on failure. Local source `.ffpkg` must not write portable runtime, ESPN, frozen captures, native MC, or Git. No protected prospective trial is an infrastructure test.
+Follow `../CURRENT.md` for the exact next action and the evidence record `../evidence/WEEK9_IR_JOINT_SHADOW_OFFLINE_SYNTHETIC_ACCEPTANCE_2026-11-04.md`. Return concise PASS output; full logs only on failure.
 
 `durable_memory_updated: true`
