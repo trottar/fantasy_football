@@ -1,16 +1,16 @@
 # Current Handoff
 
-`CURRENT.md` is the sole authoritative resumable state. This file records only exceptional transfer state and cannot override `CURRENT.md`.
+`CURRENT.md` is the sole authoritative resumable state. This handoff contains only exceptional transfer state and cannot override `CURRENT.md`.
 
 ## Transfer State
 
-- Work continues on the **existing October 27 Windows 10/11 portable v2** at `L:\Projects\fantasy_football_portable_win10_11_20261027_v2\fantasy_football`, launched using `L:\Projects\fantasy_football_portable_win10_11_20261027_v2\Start_Fantasy_Football.cmd`. Do not rebuild it to hide a source, import, or preflight defect.
-- The guard-pin source repair is now committed on GitHub `main` at inspected predecessor `722ead079dba9aa4251a0beef55738c9bb918450`; its **portable-runtime sync remains unverified** in the current recovery evidence. Never assume that GitHub publication updated the installed portable.
-- The first Week 9 direct-open-slot source carrier rolled back on pytest collection error. The follow-up read-only diagnostic confirmed a missing `src.weekly_manager` import in the isolated test context; committed source does contain that module. An initial v2 successor was blocked before writing by an incorrect assumption that the sparse control root contained `src/weekly_manager.py`. The read-only layout probe confirmed two complete isolated stage trees with all five relevant exact source identities, plus missing control-root import dependencies. The corrected successor must use a stage-backed temporary complete tree to run targeted tests before and after any source-only apply, without writing to stages or portable runtime. Its successful local application is **not** staging, publication, runtime sync or operational commissioning.
-- Protect prospective Week 9 captures, keep the portable and commissioned kernels unchanged during source-only apply, and do not run a live trial or repeat uncertain MC as a packaging test.
+- Continue using the **existing October 27 Windows 10/11 portable v2** at `L:\Projects\fantasy_football_portable_win10_11_20261027_v2\fantasy_football`. Do not rebuild the release or assume Git publication updated the portable runtime.
+- Published direct-open source `fff9c2ad0cd1fdb6e32c4877c3c78aca2c62ecaa` is remote-verified and synced to the portable. Tuesday and Wednesday Week 9 supervised phase chains each completed with frozen snapshot/capture/MC receipt and review, no ESPN writes. Do not rerun or rewrite their native MC/captures.
+- The Wednesday source-bound frozen IR measurement is 15/16 active, 0/1 IR, one direct opening, three alternative current eligible IR moves for one additional opening, total capacity two. The one-opening adapter blocks whole-channel coverage. The new source-only candidate retains one direct branch as scoped evidence, enumerates bounded legal joint structural states, but deliberately blocks *joint football and manager behavior* authority until paired response is separately validated. No ESPN transaction is authorized.
+- The source-only patch must be stage-backed for imports because the control root contains only a subset of Python dependencies. Keep `LOCAL-APPLIED`, isolated staging, remote publication, portable sync, and actual commissioning distinct.
 
 ## Resume
 
-Follow `../CURRENT.md` for the exact next action. Return concise success summary or full failure output. Source-only `.ffpkg` steps stop before staging, commit, push, portable sync, ESPN or live MC.
+Follow `../CURRENT.md` and its exact next action. Return concise success summary or full failure log. Guarded source-only `.ffpkg` never writes to portable runtime, ESPN, capture, native MC or Git.
 
 `durable_memory_updated: true`

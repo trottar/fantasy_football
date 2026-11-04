@@ -224,7 +224,7 @@ def test_current_open_slot_never_implicitly_authorizes_two_slots():
         potential_add_capacity=2,
     ))
     assert mixed["coverage_complete"] is False
-    assert mixed["reason"] == "MULTIPLE_CURRENT_OPEN_SLOTS_UNSUPPORTED"
+    assert mixed["reason"] == "MIXED_DIRECT_PLUS_IR_MOVE_JOINT_RESPONSE_UNMODELED"
 
 
 def test_direct_open_slot_still_requires_full_position_headroom(monkeypatch):
@@ -239,3 +239,86 @@ def test_direct_open_slot_still_requires_full_position_headroom(monkeypatch):
     assert report["coverage_complete"] is False
     assert report["coverage_reason"] == "POSITION_MAXIMUM_HEADROOM_INCOMPLETE"
     assert report["recommended_action"] is None
+
+
+def test_mixed_one_direct_plus_ir_move_is_recognized_without_joint_authority():
+    state = _ir_state(
+        direct_open_slot_add_capacity=1, ir_move_plus_add_capacity=1,
+        potential_add_capacity=2,
+    )
+    found = _resolve_current_capacity(state)
+    assert found["coverage_complete"] is False
+    assert found["reason"] == "MIXED_DIRECT_PLUS_IR_MOVE_JOINT_RESPONSE_UNMODELED"
+    assert found["direct_only_supported"] is True
+    assert found["potential_current_additions"] == 2
+    assert len(found["ir_move_alternatives"]) == 1
+
+
+def test_mixed_frontier_counts_distinct_moves_and_joint_position_headroom():
+    import src.ir_replacement as module
+    state = _ir_state(
+        direct_open_slot_add_capacity=1, ir_move_plus_add_capacity=1,
+        potential_add_capacity=2,
+        ir_move_candidates=[
+            {"espn_id": 11, "position": "QB", "injury_status": "OUT", "lineup_locked": False},
+            {"espn_id": 12, "position": "RB", "injury_status": "INJURY_RESERVE", "lineup_locked": False},
+            {"espn_id": 13, "position": "WR", "injury_status": "OUT", "lineup_locked": False},
+        ],
+        position_headroom_total_roster={"QB": 1, "RB": 1, "WR": 1, "TE": 1, "DST": 1, "K": 1},
+    )
+    capacity = _resolve_current_capacity(state)
+    rows = [
+        {"add_espn_id": 201, "add_position": "RB"},
+        {"add_espn_id": 202, "add_position": "DST"},
+        {"add_espn_id": 203, "add_position": "K"},
+        {"add_espn_id": 204, "add_position": "RB"},
+    ]
+    report = module._mixed_two_opening_frontier(state, capacity, rows)
+    # Six unique pairs; the RB+RB pair violates the total-roster maximum.
+    assert report["move_alternatives"] == 3
+    assert report["screened_structural_joint_states"] == 15
+    assert report["joint_predictive_mc"] == "NOT_EVALUATED"
+    assert report["joint_acquisition_behavior"] == "NOT_EVALUATED"
+    assert report["all_legal_composites_certified"] is False
+    assert report["action_authority"] == "NONE"
+    assert all(len(x["add_espn_ids"]) == 2 for x in report["sample_joint_states"])
+
+
+def test_mixed_capacity_values_scoped_direct_add_but_never_recommends(monkeypatch):
+    import src.ir_replacement as module
+    state = _ir_state(direct_open_slot_add_capacity=1, ir_move_plus_add_capacity=1,
+                      potential_add_capacity=2)
+    monkeypatch.setattr(module, "evaluate_ir_roster_state", lambda *args, **kwargs: state)
+    monkeypatch.setattr(module, "_player_candidates", lambda *args, **kwargs: ([{
+        "channel": "PLAYER", "add_espn_id": 21, "add_position": "RB",
+        "classification": "ACTIONABLE_EDGE", "expected_complete_state_delta_mean": 0.3,
+    }], {"preselected": 1}))
+    monkeypatch.setattr(module, "_specialist_candidates", lambda *args, **kwargs: ([{
+        "channel": "DST", "add_espn_id": 22, "add_position": "DST",
+        "classification": "ACTIONABLE_EDGE", "expected_complete_state_delta_mean": 0.2,
+    }], {"candidates_considered": 1}))
+    report = evaluate_ir_replacement({}, {}, {})
+    assert report["status"] == "PASS"
+    assert report["coverage_complete"] is False
+    assert report["direct_open_slot_scoped_evaluated"] is True
+    assert len(report["direct_only_scoped_candidate_rows"]) == 2
+    assert report["joint_state_frontier"]["screened_structural_joint_states"] == 1
+    assert report["joint_complete_roster_response_evaluated"] is False
+    assert report["recommended_action"] is None
+    receipt = _ir_receipt(report)
+    assert receipt.status.startswith("INCOMPLETE_COVERAGE")
+    assert receipt.action is None
+
+
+def test_mixed_invalid_move_and_more_than_two_stay_blocked():
+    invalid = _resolve_current_capacity(_ir_state(
+        direct_open_slot_add_capacity=1, ir_move_plus_add_capacity=1,
+        potential_add_capacity=2,
+        ir_move_candidates=[{"espn_id": 11, "injury_status": "QUESTIONABLE", "lineup_locked": False}],
+    ))
+    assert invalid["reason"] == "MULTIPLE_CURRENT_OPEN_SLOTS_UNSUPPORTED"
+    three = _resolve_current_capacity(_ir_state(
+        direct_open_slot_add_capacity=2, ir_move_plus_add_capacity=1,
+        potential_add_capacity=3,
+    ))
+    assert three["reason"] == "MULTIPLE_CURRENT_OPEN_SLOTS_UNSUPPORTED"

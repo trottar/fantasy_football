@@ -4,7 +4,7 @@ from typing import Any, Mapping
 
 import numpy as np
 
-from .ir_roster_state import evaluate_ir_roster_state
+from .ir_roster_state import IR_MOVE_ELIGIBLE_STATUSES, evaluate_ir_roster_state
 from .specialist_channels import _is_current_week_locked
 from .specialist_policy_v032 import (
     _build_context as _build_specialist_context,
@@ -83,6 +83,29 @@ def _resolve_current_capacity(ir_state: Mapping[str, Any]) -> dict[str, Any]:
         }
 
     if total > SUPPORTED_CAPACITY:
+        # Directly vacant capacity and capacity created by a legal IR move are
+        # independent state perturbations.  Do not discard the direct branch
+        # or falsely promote their unmodeled joint response to a single add.
+        ids = [_finite_int(row.get("espn_id")) for row in candidates]
+        valid_moves = (
+            direct == 1 and move_capacity == 1 and total == 2
+            and bool(candidates) and all(pid is not None for pid in ids)
+            and len(set(ids)) == len(ids)
+            and all(
+                str(row.get("injury_status") or "").upper() in IR_MOVE_ELIGIBLE_STATUSES
+                and not bool(row.get("lineup_locked"))
+                for row in candidates
+            )
+        )
+        if valid_moves:
+            return {
+                "coverage_complete": False,
+                "reason": "MIXED_DIRECT_PLUS_IR_MOVE_JOINT_RESPONSE_UNMODELED",
+                "move_to_ir": None,
+                "direct_only_supported": True,
+                "ir_move_alternatives": candidates,
+                "potential_current_additions": 2,
+            }
         return {
             "coverage_complete": False,
             "reason": "MULTIPLE_CURRENT_OPEN_SLOTS_UNSUPPORTED",
@@ -370,6 +393,77 @@ def _specialist_candidates(
     }
 
 
+def _mixed_two_opening_frontier(
+    ir_state: Mapping[str, Any],
+    capacity: Mapping[str, Any],
+    rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Enumerate bounded *structural* joint states; never claim paired MC.
+
+    The two new assets increase total-roster position counts even when an
+    existing injured player is moved from active to IR.  A move is a choice,
+    not an independent extra IR slot.  A screen is not action authority.
+    """
+    headroom = ir_state.get("position_headroom_total_roster") or {}
+    moves = [dict(row) for row in capacity.get("ir_move_alternatives") or []]
+    frontier = []
+    distinct = {}
+    for row in rows:
+        if not isinstance(row, Mapping):
+            continue
+        pid = _finite_int(row.get("add_espn_id"))
+        position = str(row.get("add_position") or "").upper()
+        if pid is None or position not in {"QB", "RB", "WR", "TE", "DST", "K"}:
+            continue
+        if pid in distinct:
+            continue
+        distinct[pid] = dict(row)
+    candidates = [distinct[pid] for pid in sorted(distinct)]
+    combinations = 0
+    shown = 0
+    for move in moves:
+        mid = _finite_int(move.get("espn_id"))
+        for i, first in enumerate(candidates):
+            for second in candidates[i + 1:]:
+                a = _finite_int(first.get("add_espn_id"))
+                b = _finite_int(second.get("add_espn_id"))
+                if None in (a, b, mid) or mid in (a, b):
+                    continue
+                pos1 = str(first["add_position"]).upper()
+                pos2 = str(second["add_position"]).upper()
+                need = {pos1: 1}
+                need[pos2] = need.get(pos2, 0) + 1
+                if any(
+                    _finite_int(headroom.get(position)) is None
+                    or int(headroom[position]) < count
+                    for position, count in need.items()
+                ):
+                    continue
+                combinations += 1
+                if shown < 32:
+                    frontier.append({
+                        "move_to_ir_espn_id": mid,
+                        "add_espn_ids": [a, b],
+                        "add_positions": [pos1, pos2],
+                        "paired_complete_roster_response": "NOT_EVALUATED",
+                        "joint_acquisition_probability": "NOT_EVALUATED",
+                    })
+                    shown += 1
+    return {
+        "scope": "SCREENED_STRUCTURAL_ALTERNATIVES_ONLY",
+        "move_alternatives": len(moves),
+        "screened_single_add_candidates": len(candidates),
+        "screened_structural_joint_states": combinations,
+        "sample_joint_states": frontier,
+        "sample_truncated": combinations > len(frontier),
+        "joint_predictive_mc": "NOT_EVALUATED",
+        "joint_acquisition_behavior": "NOT_EVALUATED",
+        "all_legal_composites_certified": False,
+        "action_authority": "NONE",
+        "future_capacity_credit": False,
+    }
+
+
 def evaluate_ir_replacement(
     snapshot: Mapping[str, Any],
     league: Mapping[str, Any],
@@ -416,6 +510,32 @@ def evaluate_ir_replacement(
     }
 
     if not bool(capacity.get("coverage_complete")):
+        if capacity.get("reason") == "MIXED_DIRECT_PLUS_IR_MOVE_JOINT_RESPONSE_UNMODELED":
+            # The existing one-add P/D/K paired response is legal in the one
+            # already vacant active slot.  Keep its evidence, but never emit a
+            # recommendation until the second opening's joint response and
+            # acquisition branches have been evaluated against the same base.
+            player_rows, player_meta = _player_candidates(
+                snapshot, league, model, ir_state,
+                values_path=values_path, team_name=team_name, team_id=team_id,
+                mc_scenarios=player_mc_scenarios,
+            )
+            specialist_rows, specialist_meta = _specialist_candidates(
+                snapshot, league, model, ir_state,
+                values_path=values_path, team_name=team_name, team_id=team_id,
+                mc_scenarios=specialist_mc_scenarios,
+            )
+            single_rows = player_rows + specialist_rows
+            base["direct_only_scoped_candidate_rows"] = single_rows
+            base["direct_only_player_search"] = player_meta
+            base["direct_only_specialist_search"] = specialist_meta
+            base["joint_state_frontier"] = _mixed_two_opening_frontier(
+                ir_state, capacity, single_rows
+            )
+            base["direct_open_slot_scoped_evaluated"] = True
+            base["joint_complete_roster_response_evaluated"] = False
+            base["recommended_action"] = None
+            base["coverage_complete"] = False
         return base
     if str(capacity.get("reason")) == "NO_CURRENT_IR_OPENED_SLOT_CAPACITY":
         return base
