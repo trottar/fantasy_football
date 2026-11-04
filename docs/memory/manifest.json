@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-11-04T02:42:13.747911-05:00",
+  "generated_at": "2026-11-04T11:18:57.604137-05:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 6138,
-      "sha256": "455fd39c6b730e8e295f88cce4570cba464dd5c47ca50455955f200f1003ae56"
+      "bytes": 6872,
+      "sha256": "c2b04f15fe46ddddc88030a6b2cb78792f8298297e3fb671a574484d2baadf85"
     },
     {
       "path": "LEARNINGS.md",
@@ -900,6 +900,11 @@
       "sha256": "1c31ea010281bb1dc0243b795d04a60f15aca2028667f42c0fe4e3410ae522a9"
     },
     {
+      "path": "evidence/WEEK9_IR_JOINT_PAIRED_SHADOW_2026-11-04.md",
+      "bytes": 4343,
+      "sha256": "1c08c3b7bc98b3efb87e6d9d6f38e7736b2f9828c1afa8b9763565d9334dfc61"
+    },
+    {
       "path": "evidence/WEEK9_IR_MIXED_TWO_OPENINGS_SCOPED_RESPONSE_2026-11-04.md",
       "bytes": 3067,
       "sha256": "360d2dfe1144c9969f8cb3a68fe18d7fa3331ecd5e112f01411fe02ea6371741"
@@ -996,8 +1001,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 1730,
-      "sha256": "03a4809d9602aa0c8d71c5393daa7f4d275887d5edd640ec3cf2f046a3f349b8"
+      "bytes": 2422,
+      "sha256": "1412c3cbbf087f25f0ae067f38c14e37aa39e0aa438d40b46d2f2821a34b4a27"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",

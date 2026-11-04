@@ -532,6 +532,16 @@ def evaluate_ir_replacement(
             base["joint_state_frontier"] = _mixed_two_opening_frontier(
                 ir_state, capacity, single_rows
             )
+            # This deliberately runs only under an explicit experimental model
+            # configuration.  Its conditional P/D/K paired-MC evidence never
+            # upgrades the weekly coverage or action certification state.
+            if (dict(model).get("ir_joint_response") or {}).get("shadow_enabled") is True:
+                from .ir_joint_response import evaluate_bounded_joint_shadow
+                base["joint_mc_shadow"] = evaluate_bounded_joint_shadow(
+                    snapshot, league, model, ir_state, base["joint_state_frontier"],
+                    single_rows, values_path=values_path, team_name=team_name,
+                    team_id=team_id, mc_scenarios=specialist_mc_scenarios,
+                )
             base["direct_open_slot_scoped_evaluated"] = True
             base["joint_complete_roster_response_evaluated"] = False
             base["recommended_action"] = None
