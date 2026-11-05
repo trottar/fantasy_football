@@ -500,6 +500,21 @@ def _player_receipt(report: Mapping[str, Any]) -> ChannelReceipt:
         dict(row) for row in rows
         if str(row.get("combined_action_classification") or row.get("action_classification") or "") == "ACTIONABLE_EDGE"
     ]
+    open_slot_present = "open_slot_acquisitions" in report
+    open_slot = report.get("open_slot_acquisitions") or {}
+    if not isinstance(open_slot, Mapping):
+        open_slot = {"status": "INVALID_OPEN_SLOT_EVIDENCE", "actions": []}
+    add_only = [dict(row) for row in (open_slot.get("actions") or []) if isinstance(row, Mapping)]
+    add_only_edges = [row for row in add_only if row.get("mc_stage") == "FINAL" and
+                      row.get("combined_action_classification") == "ACTIONABLE_EDGE"]
+    # A new add-only result is candidate evidence, not a commissioned ESPN action.
+    # The existing add/drop candidate action payload remains unchanged.
+    missing_open_slot_authority = bool(add_only_edges) or (
+        int(open_slot.get("open_active_roster_slots") or 0) > 0 and
+        str(open_slot.get("status") or "") in {
+            "BLOCKED_IR_STATE", "BLOCKED_POSITION_LIMITS_UNKNOWN", "INVALID_OPEN_SLOT_EVIDENCE"
+        }
+    )
     evidence = {
         "candidate_pool_evaluated": report.get("candidate_pool_evaluated"),
         "legal_drop_players": report.get("legal_drop_players"),
@@ -509,14 +524,21 @@ def _player_receipt(report: Mapping[str, Any]) -> ChannelReceipt:
         "market_channel": report.get("market_channel"),
         "evaluated_alternatives": player_alternatives(report),
     }
+    if open_slot_present:
+        evidence["open_slot_acquisitions"] = dict(open_slot)
+        evidence["open_slot_predictive_actionable_uncertified"] = len(add_only_edges)
     return ChannelReceipt(
         PLAYER,
         "Player waiver / free-agent (QB/RB/WR/TE)",
-        STATUS_ACTION if actionable else _hold("PLAYER_WAIVER_FREE_AGENT"),
+        ("INCOMPLETE_COVERAGE:OPEN_SLOT_ADD_ONLY_CERTIFICATION_REQUIRED"
+         if missing_open_slot_authority else
+         STATUS_ACTION if actionable else _hold("PLAYER_WAIVER_FREE_AGENT")),
         "transaction_manager.evaluate_actions",
         evidence=evidence,
-        scope="whole actionable QB/RB/WR/TE pool x legal player drops",
+        scope=("whole actionable QB/RB/WR/TE pool x legal player drops plus independent direct-vacancy add-only response"
+               if open_slot_present else "whole actionable QB/RB/WR/TE pool x legal player drops"),
         action={"kind": "PLAYER_ADD_DROP", "candidates": actionable} if actionable else None,
+        gap="Add-only assessment or app legality incomplete" if missing_open_slot_authority else None,
     )
 
 

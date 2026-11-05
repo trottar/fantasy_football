@@ -3114,7 +3114,7 @@ def evaluate_actions(
     }
 
     _emit_mc_progress(progress_callback, 1, 1, "roster-actions complete")
-    return {
+    report = {
         "schema_version": 12,
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "snapshot_utc": snapshot.get("snapshot_utc"),
@@ -3183,6 +3183,14 @@ def evaluate_actions(
             "DST uses a separate component simulation because ESPN points-allowed and yards-allowed scoring is nonlinear.",
         ],
     }
+    # Separate legal direct-vacancy acquisition response: never invent a drop.
+    # Preserve the commissioned add/drop frontier and its original report fields.
+    from .open_slot_actions import evaluate_open_slot_actions
+    open_slot_report = evaluate_open_slot_actions(ctx, candidates, league, final_mc=final_mc)
+    # No real active vacancy: do not change established add/drop report schema.
+    if int(open_slot_report.get("open_active_roster_slots") or 0) > 0:
+        report["open_slot_acquisitions"] = open_slot_report
+    return report
 
 def save_action_report(report: dict[str, Any], out_dir: str | Path = "data/season_decisions") -> Path:
     out_dir = Path(out_dir)

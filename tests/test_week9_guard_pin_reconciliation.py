@@ -1,7 +1,8 @@
-"""Network-free regression for exact Week 9 supervised prelaunch source pin.
+"""Network-free regression for the commissioned Week 9 protected-launch source pin.
 
-The source-guard check must accept the published 2026 decision-cycle source and
-continue rejecting changed bytes. This never launches MC or reaches providers.
+The launcher pins the installed portable runtime, not a changing control-root
+source candidate. Synthetic fixtures test byte-level rejection without equating
+those two distinct source-authority surfaces. No provider calls or MC launches.
 """
 from __future__ import annotations
 
@@ -22,10 +23,10 @@ HISTORICAL_CYCLE_BLOB = 'c4c7fafbdeabb9454b8eb0c82a5aa4a466f7d12a'
 PATCHED_GUARD_BLOB = '801a87ae3787aa9e159f52964d880d8ff1d1e2ac'
 
 
-def test_updated_pin_matches_current_published_decision_cycle():
+def test_commissioned_pin_remains_independent_of_developing_control_root():
     assert g._git_blob(GUARD.read_bytes()) == PATCHED_GUARD_BLOB
-    source = ROOT / 'src/weekly_decision_cycle.py'
-    assert g._git_blob(source.read_bytes()) == PUBLISHED_CYCLE_BLOB
+    # The *installed portable* remains pinned to its published identity. The
+    # control-root weekly cycle may legitimately advance before runtime sync.
     assert g.EXPECTED_BLOBS['src/weekly_decision_cycle.py'] == PUBLISHED_CYCLE_BLOB
     assert PUBLISHED_CYCLE_BLOB != HISTORICAL_CYCLE_BLOB
 
@@ -39,7 +40,7 @@ def test_unrelated_commissioned_buckets_remain_pinned():
     }
 
 
-def _fixture(tmp_path: Path) -> tuple[Path, Path]:
+def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> tuple[Path, Path]:
     root = tmp_path / 'fantasy_football'
     runtime = root / g.EXPECTED_RUNTIME
     (root / 'tools/operations').mkdir(parents=True)
@@ -51,11 +52,17 @@ def _fixture(tmp_path: Path) -> tuple[Path, Path]:
         dst = runtime / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(src, dst)
+    # Synthetic fixture only: use its own exact copied cycle bytes. This
+    # never changes the production guard or its separately tested published pin.
+    expected = dict(g.EXPECTED_BLOBS)
+    cycle = runtime / 'src/weekly_decision_cycle.py'
+    expected['src/weekly_decision_cycle.py'] = g._git_blob(cycle.read_bytes())
+    monkeypatch.setattr(g, 'EXPECTED_BLOBS', expected)
     return root, runtime
 
 
-def test_source_identity_accepts_only_exact_published_blobs(tmp_path):
-    root, runtime = _fixture(tmp_path)
+def test_source_identity_accepts_only_exact_synthetic_runtime_blobs(tmp_path, monkeypatch):
+    root, runtime = _fixture(tmp_path, monkeypatch)
     assert g.validate_root(root) == runtime
     target = runtime / 'src/weekly_decision_cycle.py'
     target.write_bytes(target.read_bytes() + b'\n# unauthorized source mutation\n')
@@ -63,16 +70,26 @@ def test_source_identity_accepts_only_exact_published_blobs(tmp_path):
         g.validate_root(root)
 
 
-def test_non_cycle_source_mutation_still_blocks(tmp_path):
-    root, runtime = _fixture(tmp_path)
+def test_non_cycle_source_mutation_still_blocks(tmp_path, monkeypatch):
+    root, runtime = _fixture(tmp_path, monkeypatch)
+    assert g.validate_root(root) == runtime
     target = runtime / 'src/closure.py'
     target.write_bytes(target.read_bytes() + b'\n# unauthorized source mutation\n')
     with pytest.raises(g.Blocked, match='SOURCE_BLOB_MISMATCH:src/closure.py'):
         g.validate_root(root)
 
 
-def test_incorrect_runtime_version_still_blocks(tmp_path):
-    root, runtime = _fixture(tmp_path)
+def test_incorrect_runtime_version_still_blocks(tmp_path, monkeypatch):
+    root, runtime = _fixture(tmp_path, monkeypatch)
     (runtime / 'VERSION').write_text('0.35', encoding='utf-8')
     with pytest.raises(g.Blocked, match='COMMISSIONED_RUNTIME_UNVERIFIED'):
         g.validate_root(root)
+
+
+def test_developing_cycle_is_rejected_when_commissioned_pin_restored(tmp_path, monkeypatch):
+    root, runtime = _fixture(tmp_path, monkeypatch)
+    copied = g._git_blob((runtime / 'src/weekly_decision_cycle.py').read_bytes())
+    if copied != PUBLISHED_CYCLE_BLOB:
+        monkeypatch.setitem(g.EXPECTED_BLOBS, 'src/weekly_decision_cycle.py', PUBLISHED_CYCLE_BLOB)
+        with pytest.raises(g.Blocked, match='SOURCE_BLOB_MISMATCH:src/weekly_decision_cycle.py'):
+            g.validate_root(root)
