@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "representation": "git_index_blob_bytes",
-  "generated_at": "2026-11-04T20:27:24.594431-05:00",
+  "generated_at": "2026-11-04T22:15:49.120746-05:00",
   "durable_memory_updated": true,
   "files": [
     {
@@ -16,8 +16,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 7685,
-      "sha256": "095be535373afad325ee6c759465fb848b5d1ddea15fdd0aa7006cd24b5725fb"
+      "bytes": 8166,
+      "sha256": "b0afc3adadcab5ea4bdd1d9a8c14fbdb8678cc4f3025f6e239c8acace0d2eeb0"
     },
     {
       "path": "LEARNINGS.md",
@@ -920,6 +920,11 @@
       "sha256": "360d2dfe1144c9969f8cb3a68fe18d7fa3331ecd5e112f01411fe02ea6371741"
     },
     {
+      "path": "evidence/WEEK9_IR_SHADOW_ENTRYPOINT_PROVENANCE_GUARD_2026-11-04.md",
+      "bytes": 4499,
+      "sha256": "dab8f3a61a3cb6afa1b00fed8d9f2cd1afb416d42ecf1fb461d2192e212927bf"
+    },
+    {
       "path": "evidence/WEEK9_MC_DECISION_BOARD_2026-11-02.md",
       "bytes": 2561,
       "sha256": "729321c4ef838c110ff60879ddcb9db5bd6b2034cc9f06d3aa63a22e4c805e1a"
@@ -1011,8 +1016,8 @@
     },
     {
       "path": "handoffs/CURRENT_HANDOFF.md",
-      "bytes": 2965,
-      "sha256": "5ca2de12ed2d4faa7cab939acf77dda78aeb1114708d142ef7bd1e6856a9119e"
+      "bytes": 3654,
+      "sha256": "9ebe7c0231365825e7b98543aae746e1be03c1c209ee6859df141d7e08f5bd1d"
     },
     {
       "path": "history/2026-09-17_pre_maintenance/AGENTS.md",

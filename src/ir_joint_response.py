@@ -10,6 +10,7 @@ from typing import Any, Mapping
 import numpy as np
 
 from .transaction_manager import PLAYER_POSITIONS, evaluate_roster_predictive
+from .ir_roster_state import _normalized_status
 from .specialist_policy_v032 import (
     _build_context, _compose_state, _paired_stats,
     _static_team_weekly, simulate_specialist_market_policy,
@@ -97,10 +98,78 @@ def _require_current_move(ctx: Any, move_id: int) -> dict[str, Any]:
         raise UnsupportedJointState("SPECIALIST_IR_MOVE_NOT_YET_MODELED")
     if bool(move.get("lineup_locked")):
         raise UnsupportedJointState("IR_MOVE_ASSET_ALREADY_LOCKED")
-    status = str(move.get("injury_status") or "").upper()
+    if str(move.get("lineup_slot") or "").upper() in {"IR", "RESERVE"}:
+        raise UnsupportedJointState("IR_MOVE_ASSET_ALREADY_IN_IR")
+    status = _normalized_status(move.get("injury_status"))
     if status not in {"OUT", "IR", "INJURY_RESERVE", "INJURED_RESERVE", "INJURED_RESERVE_IR"}:
         raise UnsupportedJointState("IR_MOVE_INJURY_STATUS_UNSUPPORTED")
     return move
+
+
+def _require_ir_move_provenance(ir_state: Mapping[str, Any], move_id: int) -> dict[str, Any]:
+    """Fail closed on supplied IR state before constructing predictive MC context."""
+    if not isinstance(ir_state, Mapping) or ir_state.get("status") != "PASS":
+        raise UnsupportedJointState("IR_ROSTER_STATE_NOT_PASS")
+    if ir_state.get("new_acquisitions_blocked_by_ir_state") is not False:
+        raise UnsupportedJointState("IR_ACQUISITIONS_BLOCKED_OR_UNPROVEN")
+    if (not isinstance(ir_state.get("blockers"), list) or ir_state["blockers"]
+            or not isinstance(ir_state.get("invalid_current_ir_occupants"), list)
+            or ir_state["invalid_current_ir_occupants"]):
+        raise UnsupportedJointState("IR_OCCUPANCY_BLOCKERS_PRESENT_OR_UNPROVEN")
+    capacity = _finite_int(ir_state.get("ir_capacity"))
+    occupancy = _finite_int(ir_state.get("current_ir_occupancy"))
+    open_slots = _finite_int(ir_state.get("open_ir_slots"))
+    if (capacity is None or occupancy is None or open_slots is None
+            or capacity <= 0 or not 0 <= occupancy < capacity
+            or open_slots != capacity - occupancy or open_slots <= 0):
+        raise UnsupportedJointState("CURRENT_IR_CAPACITY_UNAVAILABLE_OR_INCONSISTENT")
+    direct = _finite_int(ir_state.get("direct_open_slot_add_capacity"))
+    moved = _finite_int(ir_state.get("ir_move_plus_add_capacity"))
+    potential = _finite_int(ir_state.get("potential_add_capacity"))
+    if (direct, moved, potential) != (1, 1, 2):
+        raise UnsupportedJointState("JOINT_TWO_OPENING_CAPACITY_UNPROVEN")
+    candidates = ir_state.get("ir_move_candidates")
+    count = _finite_int(ir_state.get("ir_move_candidate_count"))
+    if not isinstance(candidates, list) or count != len(candidates):
+        raise UnsupportedJointState("IR_MOVE_CANDIDATE_SET_UNPROVEN")
+    ids = [_finite_int(row.get("espn_id")) if isinstance(row, Mapping) else None
+           for row in candidates]
+    if any(pid is None for pid in ids) or len(ids) != len(set(ids)):
+        raise UnsupportedJointState("IR_MOVE_CANDIDATE_SET_INVALID")
+    if move_id not in ids:
+        raise UnsupportedJointState("IR_MOVE_NOT_IN_DECISION_TIME_CANDIDATES")
+    row = dict(candidates[ids.index(move_id)])
+    if (str(row.get("position") or "").upper() not in PLAYER_POSITIONS
+            or _normalized_status(row.get("injury_status")) not in {
+                "OUT", "IR", "INJURY_RESERVE", "INJURED_RESERVE", "INJURED_RESERVE_IR"}
+            or bool(row.get("lineup_locked"))
+            or str(row.get("lineup_slot") or "").upper() in {"IR", "RESERVE"}):
+        raise UnsupportedJointState("IR_MOVE_CANDIDATE_NOT_CURRENTLY_ELIGIBLE")
+    return row
+
+
+def _require_mover_agreement(ctx: Any, move_id: int, row: Mapping[str, Any]) -> None:
+    owned = _require_current_move(ctx, move_id)
+    if (str(owned.get("position") or "").upper() != str(row.get("position") or "").upper()
+            or _normalized_status(owned.get("injury_status")) !=
+            _normalized_status(row.get("injury_status"))):
+        raise UnsupportedJointState("IR_MOVE_CANDIDATE_ROSTER_STATE_MISMATCH")
+    actual_slot = str(owned.get("lineup_slot") or "").upper()
+    candidate_slot = str(row.get("lineup_slot") or "").upper()
+    if actual_slot and candidate_slot and actual_slot != candidate_slot:
+        raise UnsupportedJointState("IR_MOVE_CANDIDATE_LINEUP_SLOT_MISMATCH")
+
+
+def _shadow_summary(states: list[Any], results: list[dict[str, Any]],
+                    *, computed: bool) -> dict[str, Any]:
+    return {"status": "SCOPED_JOINT_SHADOW_ONLY", "sample_total": len(states),
+            "sample_evaluated": len(results),
+            "all_structural_states_evaluated": False,
+            "paired_candidates": results,
+            "joint_behavior_exact": False,
+            "joint_predictive_mc": "BOUNDED_SHADOW" if computed else "NOT_EVALUATED",
+            "coverage_complete": False, "action_authority": "NONE",
+            "future_capacity_credit": False}
 
 
 def evaluate_bounded_joint_shadow(
@@ -128,10 +197,49 @@ def evaluate_bounded_joint_shadow(
     states = frontier.get("sample_joint_states") or []
     if not isinstance(states, list):
         raise UnsupportedJointState("JOINT_FRONTIER_NOT_A_LIST")
+    # Validate direct frontier provenance before constructing MC context.
+    # Keep blocked results at their original sampled positions.
+    preblocked: dict[int, dict[str, Any]] = {}
+    preverified: dict[int, dict[str, Any]] = {}
+    for index, state in enumerate(states[:limit]):
+        if not isinstance(state, Mapping):
+            preblocked[index] = {"status": "BLOCKED_INVALID_FRONTIER_STATE"}
+            continue
+        move_id = _finite_int(state.get("move_to_ir_espn_id"))
+        adds = state.get("add_espn_ids")
+        if (move_id is None or not isinstance(adds, list) or len(adds) != 2
+                or any(_finite_int(pid) is None for pid in adds)):
+            preblocked[index] = {"status": "BLOCKED_INVALID_FRONTIER_IDENTITY"}
+            continue
+        ids = [_finite_int(pid) for pid in adds]
+        if len(set(ids + [move_id])) != 3:
+            preblocked[index] = {"status": "BLOCKED_DUPLICATE_ASSET"}
+            continue
+        try:
+            preverified[index] = _require_ir_move_provenance(ir_state, move_id)
+        except UnsupportedJointState as exc:
+            preblocked[index] = {"status": "BLOCKED_UNSUPPORTED_JOINT_STATE",
+                                 "reason": str(exc)}
+    if not preverified:
+        return _shadow_summary(states, [preblocked[i] for i in range(len(preblocked))],
+                               computed=False)
+
     rowmap = {_finite_int(row.get("add_espn_id")): dict(row) for row in single_rows
               if isinstance(row, Mapping) and _finite_int(row.get("add_espn_id")) is not None}
     ctx = _build_context(dict(snapshot), dict(league), dict(model), values_path,
                          team_name, team_id, trials)
+    # Ownership/lock/eligibility must be bound to the same context before baseline MC.
+    for index, candidate in tuple(preverified.items()):
+        move_id = _finite_int(states[index]["move_to_ir_espn_id"])
+        try:
+            _require_mover_agreement(ctx, move_id, candidate)
+        except UnsupportedJointState as exc:
+            preblocked[index] = {"status": "BLOCKED_UNSUPPORTED_JOINT_STATE",
+                                 "reason": str(exc)}
+            del preverified[index]
+    if not preverified:
+        return _shadow_summary(states, [preblocked[i] for i in range(len(preblocked))],
+                               computed=False)
     ctx.ensure_predictive_opponent_reference()
     d_static, k_static = _static_team_weekly(ctx, "DST"), _static_team_weekly(ctx, "K")
     d0 = simulate_specialist_market_policy(ctx, position="DST", user_mode="ONE_SLOT")
@@ -150,7 +258,10 @@ def evaluate_bounded_joint_shadow(
                  for row in ctx.actionable_available
                  if _finite_int(row.get("espn_id")) is not None}
     candidate_results = []
-    for state in states[:limit]:
+    for index, state in enumerate(states[:limit]):
+        if index in preblocked:
+            candidate_results.append(preblocked[index])
+            continue
         if not isinstance(state, Mapping):
             candidate_results.append({"status": "BLOCKED_INVALID_FRONTIER_STATE"})
             continue
@@ -242,14 +353,7 @@ def evaluate_bounded_joint_shadow(
         except UnsupportedJointState as exc:
             candidate_results.append({"status": "BLOCKED_UNSUPPORTED_JOINT_STATE",
                                       "reason": str(exc)})
-    return {"status": "SCOPED_JOINT_SHADOW_ONLY", "sample_total": len(states),
-            "sample_evaluated": len(candidate_results),
-            "all_structural_states_evaluated": False,
-            "paired_candidates": candidate_results,
-            "joint_behavior_exact": False,
-            "joint_predictive_mc": "BOUNDED_SHADOW",
-            "coverage_complete": False, "action_authority": "NONE",
-            "future_capacity_credit": False}
+    return _shadow_summary(states, candidate_results, computed=True)
 
 
 def _current_win(weekly: Any, opponent: Any, week: int) -> np.ndarray:

@@ -52,7 +52,19 @@ def _rows():
 
 
 def _ir_state():
-    return {"position_headroom_total_roster": {p: 2 for p in ("QB", "RB", "WR", "TE", "DST", "K")}}
+    return {
+        "status": "PASS", "ir_capacity": 1, "current_ir_occupancy": 0,
+        "open_ir_slots": 1, "blockers": [], "invalid_current_ir_occupants": [],
+        "new_acquisitions_blocked_by_ir_state": False,
+        "direct_open_slot_add_capacity": 1, "ir_move_plus_add_capacity": 1,
+        "potential_add_capacity": 2,
+        "ir_move_candidate_count": 1,
+        "ir_move_candidates": [
+            {"espn_id": 11, "position": "QB", "injury_status": "OUT",
+             "lineup_locked": False, "lineup_slot": "BE"},
+        ],
+        "position_headroom_total_roster": {p: 2 for p in ("QB", "RB", "WR", "TE", "DST", "K")},
+    }
 
 
 def _mock_native(monkeypatch):
@@ -194,3 +206,87 @@ def test_ir_adapter_shadow_hook_never_promotes_certification(monkeypatch):
     assert not calls
     assert "joint_mc_shadow" not in disabled
     assert disabled["coverage_complete"] is False
+
+
+@pytest.mark.parametrize("change,reason", [
+    ({"status": "BLOCKED"}, "IR_ROSTER_STATE_NOT_PASS"),
+    ({"open_ir_slots": 0}, "CURRENT_IR_CAPACITY_UNAVAILABLE_OR_INCONSISTENT"),
+    ({"ir_capacity": 0}, "CURRENT_IR_CAPACITY_UNAVAILABLE_OR_INCONSISTENT"),
+    ({"current_ir_occupancy": 1}, "CURRENT_IR_CAPACITY_UNAVAILABLE_OR_INCONSISTENT"),
+    ({"direct_open_slot_add_capacity": 0}, "JOINT_TWO_OPENING_CAPACITY_UNPROVEN"),
+    ({"new_acquisitions_blocked_by_ir_state": True}, "IR_ACQUISITIONS_BLOCKED_OR_UNPROVEN"),
+    ({"invalid_current_ir_occupants": [{"espn_id": 99}]},
+     "IR_OCCUPANCY_BLOCKERS_PRESENT_OR_UNPROVEN"),
+    ({"blockers": ["INELIGIBLE_CURRENT_IR_OCCUPANT_BLOCKS_ACQUISITIONS"]},
+     "IR_OCCUPANCY_BLOCKERS_PRESENT_OR_UNPROVEN"),
+    ({"ir_move_candidates": [], "ir_move_candidate_count": 0},
+     "IR_MOVE_NOT_IN_DECISION_TIME_CANDIDATES"),
+    ({"ir_move_candidate_count": 2}, "IR_MOVE_CANDIDATE_SET_UNPROVEN"),
+])
+def test_direct_frontier_bad_ir_state_rejected_before_context(monkeypatch, change, reason):
+    state = _ir_state()
+    state.update(change)
+    monkeypatch.setattr(joint, "_build_context", lambda *a, **k:
+                        (_ for _ in ()).throw(AssertionError("no MC context permitted")))
+    result = joint.evaluate_bounded_joint_shadow({}, {},
+        {"ir_joint_response": {"shadow_enabled": True}}, state, _frontier(), _rows(),
+        values_path="unused", team_name=None, team_id=1)
+    assert result["paired_candidates"][0] == {
+        "status": "BLOCKED_UNSUPPORTED_JOINT_STATE", "reason": reason}
+    assert result["joint_predictive_mc"] == "NOT_EVALUATED"
+    assert result["coverage_complete"] is False and result["action_authority"] == "NONE"
+
+
+@pytest.mark.parametrize("field,value", [
+    ("injury_status", "ACTIVE"), ("lineup_locked", True),
+    ("lineup_slot", "IR"), ("position", "DST"),
+])
+def test_ineligible_candidate_row_blocked_before_context(monkeypatch, field, value):
+    state = _ir_state()
+    state["ir_move_candidates"][0][field] = value
+    monkeypatch.setattr(joint, "_build_context", lambda *a, **k:
+                        (_ for _ in ()).throw(AssertionError("no MC context permitted")))
+    result = joint.evaluate_bounded_joint_shadow({}, {},
+        {"ir_joint_response": {"shadow_enabled": True}}, state, _frontier(), _rows(),
+        values_path="unused", team_name=None, team_id=1)
+    assert result["paired_candidates"][0]["reason"] == "IR_MOVE_CANDIDATE_NOT_CURRENTLY_ELIGIBLE"
+    assert result["action_authority"] == "NONE"
+
+
+@pytest.mark.parametrize("change,reason", [
+    ({"roster": []}, "MOVE_ASSET_NOT_OWNED_EXACTLY_ONCE"),
+    ({"roster": [{"espn_id": 11, "position": "QB", "injury_status": "ACTIVE"}]},
+     "IR_MOVE_INJURY_STATUS_UNSUPPORTED"),
+    ({"roster": [{"espn_id": 11, "position": "QB", "injury_status": "OUT",
+                  "lineup_locked": True}]}, "IR_MOVE_ASSET_ALREADY_LOCKED"),
+    ({"roster": [{"espn_id": 11, "position": "RB", "injury_status": "OUT"}]},
+     "IR_MOVE_CANDIDATE_ROSTER_STATE_MISMATCH"),
+    ({"roster": [{"espn_id": 11, "position": "QB", "injury_status": "OUT",
+                  "lineup_slot": "IR"}]}, "IR_MOVE_ASSET_ALREADY_IN_IR"),
+])
+def test_direct_frontier_mover_ownership_validation_precedes_baseline_mc(
+        monkeypatch, change, reason):
+    ctx, seen_rosters = _mock_native(monkeypatch)
+    ctx.roster = change["roster"]
+    result = joint.evaluate_bounded_joint_shadow({}, {},
+        {"ir_joint_response": {"shadow_enabled": True}}, _ir_state(), _frontier(), _rows(),
+        values_path="unused", team_name=None, team_id=1)
+    assert result["paired_candidates"][0]["reason"] == reason
+    assert result["joint_predictive_mc"] == "NOT_EVALUATED"
+    assert not seen_rosters
+
+
+def test_preflight_preserves_mixed_candidate_order_and_valid_response(monkeypatch):
+    _, seen_rosters = _mock_native(monkeypatch)
+    model = {"ir_joint_response": {"shadow_enabled": True, "max_shadow_pairs": 2}}
+    frontier = {"sample_joint_states": [
+        {"move_to_ir_espn_id": 99, "add_espn_ids": [201, 203]},
+        {"move_to_ir_espn_id": 11, "add_espn_ids": [201, 203]},
+    ]}
+    result = joint.evaluate_bounded_joint_shadow({}, {}, model, _ir_state(), frontier, _rows(),
+        values_path="unused", team_name=None, team_id=1)
+    assert [c["status"] for c in result["paired_candidates"]] == [
+        "BLOCKED_UNSUPPORTED_JOINT_STATE", "SCOPED_PAIRED_MC_EVALUATED_NOT_CERTIFIED"]
+    assert result["paired_candidates"][0]["reason"] == "IR_MOVE_NOT_IN_DECISION_TIME_CANDIDATES"
+    assert len(seen_rosters) == 5  # one baseline and four paired response branches
+    assert result["action_authority"] == "NONE" and result["coverage_complete"] is False
